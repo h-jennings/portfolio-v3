@@ -180,5 +180,90 @@
         "12": "hsla(137, 72.0%, 94.0%, 1)"
       }
     }
+  },
+  "fontSizes": {
+    "1": 16,
+    "2": 32,
+    "3": 48,
+    "4": 64,
+    "5": 80,
+    "6": 96,
+    "7": 112,
+    "8": 128,
+    "9": 144
+  },
+  "lineHeights": {
+    "tight": 1,
+    "paragraph": 1.33,
+    "loose": 2
+  },
+  "fontWeights": {
+    "regular": "Regular",
+    "bold": "Bold"
+  },
+  "fontFamilies": {
+    "primary": "Basier Circle"
+  },
+  "typography": {
+    "1": {
+      "regular": {
+        "paragraph": {
+          "type": "typography",
+          "value": {
+            "fontSize": "$fontSizes.1",
+            "lineHeight": "$fontSizes.1 * $lineHeights.paragraph",
+            "fontWeight": "$fontWeights.regular",
+            "fontFamily": "$fontFamilies.primary"
+          }
+        },
+        "loose": {
+          "type": "typography",
+          "value": {
+            "fontSize": "$fontSizes.1",
+            "lineHeight": "$fontSizes.1 * $lineHeights.loose",
+            "fontWeight": "$fontWeights.regular",
+            "fontFamily": "$fontFamilies.primary"
+          }
+        },
+        "tight": {
+          "type": "typography",
+          "value": {
+            "fontSize": "$fontSizes.1",
+            "lineHeight": "$fontSizes.1 * $lineHeights.tight",
+            "fontWeight": "$fontWeights.regular",
+            "fontFamily": "$fontFamilies.primary"
+          }
+        }
+      },
+      "bold": {
+        "paragraph": {
+          "type": "typography",
+          "value": {
+            "fontSize": "$fontSizes.1",
+            "lineHeight": "$fontSizes.1 * $lineHeights.paragraph",
+            "fontWeight": "$fontWeights.bold",
+            "fontFamily": "$fontFamilies.primary"
+          }
+        },
+        "loose": {
+          "type": "typography",
+          "value": {
+            "fontSize": "$fontSizes.1",
+            "lineHeight": "$fontSizes.1 * $lineHeights.loose",
+            "fontWeight": "$fontWeights.bold",
+            "fontFamily": "$fontFamilies.primary"
+          }
+        },
+        "tight": {
+          "type": "typography",
+          "value": {
+            "fontSize": "$fontSizes.1",
+            "lineHeight": "$fontSizes.1 * $lineHeights.tight",
+            "fontWeight": "$fontWeights.bold",
+            "fontFamily": "$fontFamilies.primary"
+          }
+        }
+      }
+    }
   }
 }
