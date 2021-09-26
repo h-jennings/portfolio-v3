@@ -1,17 +1,17 @@
-import { createStitches } from '@stitches/react';
-import type * as Stitches from '@stitches/react';
 import {
   gold,
   goldDark,
-  slate,
-  slateDark,
   green,
   greenDark,
-  yellow,
-  yellowDark,
+  slate,
+  slateDark,
   tomato,
   tomatoDark,
+  yellow,
+  yellowDark,
 } from '@radix-ui/colors';
+import type * as Stitches from '@stitches/react';
+import { createStitches } from '@stitches/react';
 
 export const { styled, getCssText, theme, createTheme } = createStitches({
   // Default Theme
@@ -29,6 +29,12 @@ export const { styled, getCssText, theme, createTheme } = createStitches({
       text1: '$slate12',
       text2: '$slate10',
       text3: '$gold9',
+    },
+    shadows: {
+      focus: '0 0 0 3px var(--colors-gold6)',
+    },
+    transitions: {
+      default: 'all 225ms cubic-bezier(0.4, 0, 0.2, 1)',
     },
     fontWeights: {
       bold: 700,
@@ -65,6 +71,7 @@ export const { styled, getCssText, theme, createTheme } = createStitches({
       full: '100%',
       screenW: '100vw',
       screenH: '100vh',
+      desktop: '1440px',
     },
     zIndices: {
       under: -1,

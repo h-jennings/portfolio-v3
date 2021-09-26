@@ -1,14 +1,25 @@
-import { darkTheme, styled } from '@/stitches.config';
+import { styled } from '@/stitches.config';
 import { WithChildren } from '@/types/with-children';
 import { Footer } from './Footer';
 import { Navigation } from './Navigation';
 
-const Wrapper = styled('div', {
+const Container = styled('div', {
+  width: '$full',
   backgroundColor: '$uiBg',
   minHeight: '$screenH',
   d: 'flex',
+  alignItems: 'center',
   flexFlow: 'column',
   height: '$full',
+  px: '80px',
+});
+const Wrapper = styled('div', {
+  maxWidth: '$desktop',
+  width: '$full',
+  d: 'flex',
+  flexFlow: 'column',
+  height: '$full',
+  minHeight: '$screenH',
 });
 const Main = styled('main', {
   flex: '1',
@@ -16,10 +27,12 @@ const Main = styled('main', {
 
 export function RootLayout({ children }: WithChildren): JSX.Element {
   return (
-    <Wrapper className={darkTheme}>
-      <Navigation />
-      <Main>{children}</Main>
-      <Footer />
-    </Wrapper>
+    <Container>
+      <Wrapper>
+        <Navigation />
+        <Main>{children}</Main>
+        <Footer />
+      </Wrapper>
+    </Container>
   );
 }

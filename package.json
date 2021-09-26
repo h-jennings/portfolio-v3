@@ -16,9 +16,11 @@
   "dependencies": {
     "@radix-ui/colors": "^0.1.7",
     "@stitches/react": "^1.2.1",
+    "@svgr/webpack": "^5.5.0",
     "next": "11.1.2",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "url-loader": "^4.1.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.14.1",
@@ -33,6 +35,7 @@
     "eslint-config-next": "11.1.2",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.2.0",
+    "next-compose-plugins": "^2.2.1",
     "prettier": "^2.4.1",
     "prettier-plugin-organize-imports": "^2.3.4",
     "react-test-renderer": "^17.0.2",
