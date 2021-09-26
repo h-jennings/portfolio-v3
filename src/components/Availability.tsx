@@ -57,7 +57,7 @@ export function Availability({ status }: AvailabilityProps): JSX.Element {
   return (
     <Container status={status}>
       <Circle status={status} />
-      <Box>{text}</Box>
+      <Box css={{ userSelect: 'none' }}>{text}</Box>
     </Container>
   );
 }
