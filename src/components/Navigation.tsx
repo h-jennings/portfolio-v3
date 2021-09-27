@@ -1,3 +1,4 @@
+import { PATHS } from '@/constants/paths';
 import { styled } from '@/stitches.config';
 import Link from 'next/link';
 import { Availability } from './Availability';
@@ -30,17 +31,17 @@ export function Navigation(): JSX.Element {
     <Container>
       <LinkContainer>
         <li>
-          <Link passHref href='/'>
+          <Link passHref href={PATHS.work}>
             <StyledLink>work</StyledLink>
           </Link>
         </li>
         <li>
-          <Link passHref href='/'>
+          <Link passHref href={PATHS.writing}>
             <StyledLink>writing</StyledLink>
           </Link>
         </li>
         <li>
-          <Link passHref href='/'>
+          <Link passHref href={PATHS.about}>
             <StyledLink>about</StyledLink>
           </Link>
         </li>
@@ -49,7 +50,7 @@ export function Navigation(): JSX.Element {
         </li>
       </LinkContainer>
       <LogotypeContainer>
-        <Link passHref href='/'>
+        <Link passHref href={PATHS.home}>
           <StyledLink
             aria-label='logo link'
             css={{ userSelect: 'none', display: 'inline-block' }}>
@@ -60,7 +61,7 @@ export function Navigation(): JSX.Element {
         </Link>
       </LogotypeContainer>
       <div>
-        <Link passHref href='mailto:jenningsdhunter@gmail.com'>
+        <Link passHref href={PATHS.email}>
           <StyledLink css={{ color: '$text3' }}>
             jenningsdhunter@gmail.com
           </StyledLink>

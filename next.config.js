@@ -3,6 +3,12 @@ const withPlugins = require('next-compose-plugins');
 
 const nextConfig = {
   reactStrictMode: true,
+  env: {
+    WEATHER_API_KEY: process.env.WEATHER_API_KEY,
+  },
+  images: {
+    domains: ['openweathermap.org'],
+  },
   webpack: (config) => {
     config.module.rules.push({
       test: /\.svg$/,
