@@ -12,6 +12,7 @@ const Coord = z.object({
 const Main = z.object({
   temp: z.number(),
   pressure: z.number().optional(),
+  feels_like: z.number().optional(),
   humidity: z.number().optional(),
   temp_min: z.number().optional(),
   temp_max: z.number().optional(),
@@ -36,6 +37,7 @@ const Weather = z.object({
 const Wind = z.object({
   speed: z.number().optional(),
   deg: z.number().optional(),
+  gust: z.number().optional(),
 });
 
 export const OpenWeatherResponseZod = z.object({
@@ -49,6 +51,7 @@ export const OpenWeatherResponseZod = z.object({
   dt: z.number(),
   sys: Sys,
   id: z.number(),
+  timezone: z.number().optional(),
   name: z.string(),
   cod: z.number(),
 });

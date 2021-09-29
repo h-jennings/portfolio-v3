@@ -15,11 +15,11 @@ export interface WeatherData {
   icon: string | undefined;
   description: string | undefined;
 }
-function mapResponseData(data: OpenWeatherResponse): WeatherData {
+export function mapResponseData(data: OpenWeatherResponse): WeatherData {
   return {
-    temp: data.main.temp,
-    description: data.weather[0].description,
-    icon: data.weather[0].icon,
+    temp: data?.main?.temp,
+    description: data?.weather[0]?.description,
+    icon: data?.weather[0]?.icon,
   };
 }
 

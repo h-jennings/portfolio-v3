@@ -56,8 +56,7 @@ export function Footer(): JSX.Element {
   const current = useWeatherInfo();
 
   const weatherUI = React.useMemo(() => {
-    const { data, errorMessage } = current.context;
-    console.log(current.value);
+    const { data } = current.context;
     switch (true) {
       case current.matches('idle.noError.noData'): {
         return null;
