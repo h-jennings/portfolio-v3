@@ -15,7 +15,7 @@ const Container = styled('div', {
   d: 'grid',
   gridTemplateColumns: 'repeat(2, auto)',
   gap: '$1',
-  alignItems: 'center',
+  ai: 'center',
   variants: {
     status: {
       available: {

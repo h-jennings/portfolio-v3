@@ -8,7 +8,7 @@ const Container = styled('div', {
   backgroundColor: '$uiBg',
   minHeight: '$screenH',
   d: 'flex',
-  alignItems: 'center',
+  ai: 'center',
   flexFlow: 'column',
   height: '$full',
   px: '80px',

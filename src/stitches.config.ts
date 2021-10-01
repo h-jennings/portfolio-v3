@@ -168,6 +168,9 @@ export const { config, styled, getCssText, theme, createTheme } =
       fb: (value: Stitches.PropertyValue<'flexBasis'>) => ({
         flexBasis: value,
       }),
+      gtc: (value: Stitches.PropertyValue<'gridTemplateColumns'>) => ({
+        gridTemplateColumns: value,
+      }),
 
       bc: (value: Stitches.ScaleValue<'colors'>) => ({
         backgroundColor: value,
@@ -193,7 +196,7 @@ export const darkTheme = createTheme({
     ...tomatoDark,
     uiBg: '$slate1',
     text1: '$slate12',
-    text2: '$slate11',
+    text2: '$slate12',
     text3: '$gold9',
   },
 });

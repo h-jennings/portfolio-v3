@@ -58,9 +58,6 @@ export function Footer(): JSX.Element {
   const weatherUI = React.useMemo(() => {
     const { data } = current.context;
     switch (true) {
-      case current.matches('idle.noError.noData'): {
-        return null;
-      }
       case current.matches('idle.noError.hasData'): {
         const { description, icon, temp } = data!;
         return (
@@ -81,7 +78,7 @@ export function Footer(): JSX.Element {
         return <FooterText>loading...</FooterText>;
       }
       default: {
-        return <div>default case</div>;
+        return null;
       }
     }
   }, [current]);
@@ -97,9 +94,7 @@ export function Footer(): JSX.Element {
           <FooterText as='time'>{currentTime}</FooterText>
           <FooterText>Washington D.C.</FooterText>
         </Stack>
-        <Flex css={{ flexDirection: 'row', alignItems: 'center' }}>
-          {weatherUI}
-        </Flex>
+        <Flex css={{ flexDirection: 'row', ai: 'center' }}>{weatherUI}</Flex>
       </Stack>
       <Stack direction='row' gap='2' as='ul'>
         <li>
