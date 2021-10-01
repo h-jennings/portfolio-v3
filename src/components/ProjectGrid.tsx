@@ -1,5 +1,6 @@
 import { PATHS } from '@/constants/paths';
 import { HomepageProject, homepageProjects } from '@/data/homepage-projects';
+import { parseTagsToString } from '@/helpers/string-helpers';
 import { styled } from '@/stitches.config';
 import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio';
 import Link from 'next/link';
@@ -37,17 +38,6 @@ function TitleBar({ projectCount }: TitleBarProps): JSX.Element {
       </Link>
     </Flex>
   );
-}
-function parseTagsToString(tags: string[]): string {
-  return tags.reduce((acc, curr, idx) => {
-    if (tags.length === 1) {
-      return `${curr}`;
-    }
-    if (idx === tags.length - 1) {
-      return `${acc} ${curr}`;
-    }
-    return `${curr} / ${acc}`;
-  }, '');
 }
 interface CardProps {
   project: HomepageProject;
