@@ -11,7 +11,10 @@ const Container = styled('div', {
   ai: 'center',
   flexFlow: 'column',
   height: '$full',
-  px: '80px',
+  px: '$3',
+  '@bp3': {
+    px: '$6',
+  },
 });
 const Wrapper = styled('div', {
   maxWidth: '$desktop',
@@ -32,7 +35,7 @@ export function RootLayout({ children }: WithChildren): JSX.Element {
     <Container>
       <Wrapper>
         <Navigation />
-        <Main>{children}</Main>
+        <Main></Main>
         <Footer />
       </Wrapper>
     </Container>

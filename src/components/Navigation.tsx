@@ -19,8 +19,11 @@ const Container = styled('div', {
 const LinkContainer = styled('ul', {
   d: 'grid',
   gridTemplateColumns: 'repeat(4, auto)',
-  gap: '$3',
+  gap: '$2',
   ai: 'center',
+  '@bp3': {
+    gap: '$3',
+  },
 });
 
 const LogotypeContainer = styled('div', {

@@ -12,13 +12,12 @@ import { StyledLink } from '../primitives/StyledLink';
 import { Text } from '../primitives/Text';
 import { useWeatherInfo } from './weather-info';
 
+function tempText(temp: number | undefined): string {
+  return isUndefined(temp) ? 'XX' : Math.round(temp).toString();
+}
+
 const FooterText = styled(Text, {
   fontSize: '$1',
-});
-const FooterLink = styled(StyledLink, { fontSize: '$1' });
-const Container = styled(Flex, {
-  jc: 'space-between',
-  pb: '$6',
 });
 
 function WeatherIcon({
@@ -46,9 +45,23 @@ function WeatherIcon({
   );
 }
 
-function tempText(temp: number | undefined): string {
-  return isUndefined(temp) ? 'XX' : Math.round(temp).toString();
-}
+const Grid = styled('footer', {
+  d: 'grid',
+  gridTemplateAreas: ` 'a b'
+                       'c d'
+                     `,
+  gtc: 'repeat(2, 1fr)',
+  columnGap: '$2',
+  rowGap: '$3',
+  pb: '$3',
+  ai: 'end',
+  '@bp3': {
+    gridTemplateAreas: `'a b c d'`,
+    pb: '$6',
+    columnGap: '$6',
+    gtc: 'repeat(3, auto) 1fr',
+  },
+});
 
 export function Footer(): JSX.Element {
   const currentTime = useCurrentTimeInDC();
@@ -84,29 +97,57 @@ export function Footer(): JSX.Element {
   }, [current]);
 
   return (
-    <Container as='footer'>
-      <Stack direction='row' gap='6'>
-        <Stack gap='1'>
-          <FooterText>design and development</FooterText>
-          <FooterText>&copy; Hunter Jennings 2021</FooterText>
-        </Stack>
-        <Stack gap='1'>
-          <FooterText as='time'>{currentTime}</FooterText>
-          <FooterText>Washington D.C.</FooterText>
-        </Stack>
-        <Flex css={{ flexDirection: 'row', ai: 'center' }}>{weatherUI}</Flex>
+    <Grid>
+      <Stack
+        gap='1'
+        css={{
+          gridArea: 'c',
+          '@bp3': {
+            gridArea: 'a',
+          },
+        }}>
+        <FooterText>design and development</FooterText>
+        <FooterText>&copy; Hunter Jennings 2021</FooterText>
       </Stack>
-      <Stack direction='row' gap='2' as='ul'>
+      <Stack
+        gap='1'
+        css={{
+          ta: 'right',
+          gridArea: 'b',
+          '@bp3': {
+            ta: 'left',
+          },
+          justifySelf: 'end',
+        }}>
+        <FooterText as='time'>{currentTime}</FooterText>
+        <FooterText>Washington D.C.</FooterText>
+      </Stack>
+      <Flex
+        css={{
+          flexDirection: 'row',
+          ai: 'center',
+          gridArea: 'a',
+          '@bp3': { gridArea: 'c' },
+        }}>
+        {weatherUI}
+      </Flex>
+      <Stack css={{ justifySelf: 'end' }} direction='row' gap='2' as='ul'>
         <li>
-          <FooterLink href={PATHS.github}>Gh</FooterLink>
+          <StyledLink css={{ fontSize: '$1' }} href={PATHS.github}>
+            Gh
+          </StyledLink>
         </li>
         <li>
-          <FooterLink href={PATHS.linkedin}>Li</FooterLink>
+          <StyledLink css={{ fontSize: '$1' }} href={PATHS.linkedin}>
+            Li
+          </StyledLink>
         </li>
         <li>
-          <FooterLink href={PATHS.twitter}>Tw</FooterLink>
+          <StyledLink css={{ fontSize: '$1' }} href={PATHS.twitter}>
+            Tw
+          </StyledLink>
         </li>
       </Stack>
-    </Container>
+    </Grid>
   );
 }

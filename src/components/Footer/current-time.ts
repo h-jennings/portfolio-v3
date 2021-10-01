@@ -6,7 +6,7 @@ const formatter = new Intl.DateTimeFormat('en', {
 });
 
 export function useCurrentTimeInDC(): string {
-  const [currentTime, setTime] = React.useState<string>(' 00:00XX');
+  const [currentTime, setTime] = React.useState<string>('00:00XX');
 
   React.useEffect(() => {
     const tick = setInterval(() => {
