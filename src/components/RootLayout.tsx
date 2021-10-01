@@ -11,7 +11,10 @@ const Container = styled('div', {
   ai: 'center',
   flexFlow: 'column',
   height: '$full',
-  px: '$3',
+  px: '$2',
+  '@bp2': {
+    px: '$3',
+  },
   '@bp3': {
     px: '$6',
   },
@@ -27,7 +30,10 @@ const Wrapper = styled('div', {
 const Main = styled('main', {
   flex: '1',
   paddingTop: '$7',
-  paddingBottom: '$10',
+  paddingBottom: '$8',
+  '@bp2': {
+    paddingBottom: '$10',
+  },
 });
 
 export function RootLayout({ children }: WithChildren): JSX.Element {
@@ -35,7 +41,7 @@ export function RootLayout({ children }: WithChildren): JSX.Element {
     <Container>
       <Wrapper>
         <Navigation />
-        <Main></Main>
+        <Main>{children}</Main>
         <Footer />
       </Wrapper>
     </Container>

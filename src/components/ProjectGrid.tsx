@@ -12,8 +12,19 @@ import { Stack } from './primitives/Stack';
 import { StyledLink } from './primitives/StyledLink';
 import { Text } from './primitives/Text';
 
-const GreyText = styled(Text, {
+const greyTextStyles = {
   color: '$text2',
+  fontSize: '$1',
+  '@bp2': {
+    fontSize: '$2',
+  },
+};
+
+const GreyText = styled(Text, {
+  ...greyTextStyles,
+});
+const GreyLink = styled(StyledLink, {
+  ...greyTextStyles,
 });
 
 const CenteredText = styled(GreyText, {
@@ -34,7 +45,7 @@ function TitleBar({ projectCount }: TitleBarProps): JSX.Element {
         {projectCount ?? 'X'}&mdash;PROJECTS
       </CenteredText>
       <Link passHref href={PATHS.work}>
-        <StyledLink css={{ color: '$text2' }}>VIEW ALL</StyledLink>
+        <GreyLink>VIEW ALL</GreyLink>
       </Link>
     </Flex>
   );
@@ -59,7 +70,9 @@ function Card({ project: { body, tags, title } }: CardProps): JSX.Element {
           <Text as='h2' css={{ fontSize: '$1', color: '$text3' }}>
             {tagsString}
           </Text>
-          <Text as='h1'>{title}</Text>
+          <Text as='h1' css={{ lineHeight: '$body' }}>
+            {title}
+          </Text>
         </Stack>
         <Box css={{ maxWidth: '370px' }}>
           <Text
@@ -75,15 +88,18 @@ function Card({ project: { body, tags, title } }: CardProps): JSX.Element {
 
 const Grid = styled('div', {
   d: 'grid',
-  gtc: 'repeat(2, 1fr)',
+  gtc: '1fr',
   columnGap: '$2',
   rowGap: '$5',
+  '@bp2': {
+    gtc: 'repeat(2, 1fr)',
+  },
 });
 
 export function ProjectGrid(): JSX.Element {
   return (
-    <Stack gap='5'>
-      <TitleBar projectCount={3} />
+    <Stack gap={{ '@initial': '3', '@bp2': '5' }}>
+      <TitleBar projectCount={homepageProjects.length} />
       <Grid>
         {homepageProjects.map((project, idx) => (
           <Card key={idx} project={project} />

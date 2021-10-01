@@ -42,7 +42,7 @@ export const { config, styled, getCssText, theme, createTheme } =
         regular: 400,
       },
       fontSizes: {
-        1: '12px',
+        1: '14px',
         2: '16px',
         3: '28px',
         4: '48px',
@@ -89,7 +89,7 @@ export const { config, styled, getCssText, theme, createTheme } =
     // Media
     media: {
       bp1: '(min-width: 520px)',
-      bp2: '(min-width: 900px)',
+      bp2: '(min-width: 768px)',
       bp3: '(min-width: 1040px)',
       bp4: '(min-width: 1800px)',
       motion: '(prefers-reduced-motion)',
