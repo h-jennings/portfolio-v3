@@ -8,6 +8,7 @@ import React from 'react';
 import useMeasure from 'react-use-measure';
 import { Box } from './primitives/Box';
 import { Flex } from './primitives/Flex';
+import { LinkBox, LinkOverlay } from './primitives/LinkBox';
 import { Stack } from './primitives/Stack';
 import { StyledLink } from './primitives/StyledLink';
 import { Text } from './primitives/Text';
@@ -59,7 +60,7 @@ function Card({ project: { body, tags, title } }: CardProps): JSX.Element {
   }, [tags]);
 
   return (
-    <Box as='article'>
+    <LinkBox>
       <Box css={{ pb: '$2' }}>
         <AspectRatioPrimitive.Root ratio={16 / 9}>
           <Box css={{ height: '100%', backgroundColor: '$slate7' }}></Box>
@@ -70,9 +71,13 @@ function Card({ project: { body, tags, title } }: CardProps): JSX.Element {
           <Text as='h2' css={{ fontSize: '$1', color: '$text3' }}>
             {tagsString}
           </Text>
-          <Text as='h1' css={{ lineHeight: '$body' }}>
-            {title}
-          </Text>
+          <Link passHref href='/'>
+            <LinkOverlay>
+              <Text as='h1' css={{ lineHeight: '$body' }}>
+                {title}
+              </Text>
+            </LinkOverlay>
+          </Link>
         </Stack>
         <Box css={{ maxWidth: '370px' }}>
           <Text
@@ -82,7 +87,7 @@ function Card({ project: { body, tags, title } }: CardProps): JSX.Element {
           </Text>
         </Box>
       </Stack>
-    </Box>
+    </LinkBox>
   );
 }
 
