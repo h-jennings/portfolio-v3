@@ -7,4 +7,7 @@ export const PATHS = {
   about: '/about',
   writing: '/writing',
   work: '/work',
+  dwr: '/work/dwr',
+  nfip: '/work/nfip',
+  portfolioV2: '/work/portfolio-v2',
 } as const;

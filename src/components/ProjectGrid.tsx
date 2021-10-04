@@ -54,7 +54,9 @@ function TitleBar({ projectCount }: TitleBarProps): JSX.Element {
 interface CardProps {
   project: HomepageProject;
 }
-function Card({ project: { body, tags, title } }: CardProps): JSX.Element {
+function Card({
+  project: { body, tags, title, path },
+}: CardProps): JSX.Element {
   const tagsString: string = React.useMemo(() => {
     return parseTagsToString(tags);
   }, [tags]);
@@ -71,7 +73,7 @@ function Card({ project: { body, tags, title } }: CardProps): JSX.Element {
           <Text as='h2' css={{ fontSize: '$1', color: '$text3' }}>
             {tagsString}
           </Text>
-          <Link passHref href='/'>
+          <Link passHref href={`${PATHS.work}/[project]`} as={path}>
             <LinkOverlay>
               <Text as='h1' css={{ lineHeight: '$body' }}>
                 {title}
