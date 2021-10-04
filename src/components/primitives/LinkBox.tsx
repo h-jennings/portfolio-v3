@@ -1,10 +1,10 @@
-import { styled } from '@/stitches.config';
+import { css } from '@/stitches.config';
 import React from 'react';
 
 type LinkBoxProps = React.HtmlHTMLAttributes<HTMLDivElement>;
 export type LinkBoxRef = HTMLDivElement;
 
-const StyledLinkBox = styled('div', {
+const linkBox = css({
   position: 'relative',
   'a[href]:not(.linkbox__overlay), abbr[title]': {
     position: 'relative',
@@ -16,7 +16,9 @@ export const LinkBox = React.forwardRef<LinkBoxRef, LinkBoxProps>(
   (props, forwardedRef) => {
     const { className, ...rest } = props;
 
-    return <StyledLinkBox {...rest} className='linkbox' ref={forwardedRef} />;
+    return (
+      <div {...rest} className={`linkbox ${linkBox()}`} ref={forwardedRef} />
+    );
   },
 );
 
@@ -29,7 +31,7 @@ interface LinkOverlayProps extends React.HtmlHTMLAttributes<HTMLAnchorElement> {
 }
 export type LinkOverlayRef = HTMLAnchorElement;
 
-const StyledLinkOverlay = styled('a', {
+const linkOverlay = css({
   position: 'static',
   '&::before': {
     content: "''",
@@ -48,9 +50,9 @@ export const LinkOverlay = React.forwardRef<LinkOverlayRef, LinkOverlayProps>(
   (props, forwardedRef) => {
     const { isExternal, target, rel, className, ...rest } = props;
     return (
-      <StyledLinkOverlay
+      <a
         {...rest}
-        className='linkbox__overlay'
+        className={`linkbox__overlay ${linkOverlay()}`}
         rel={isExternal ? 'noopener norefferer' : rel}
         target={isExternal ? '_blank' : target}
         ref={forwardedRef}

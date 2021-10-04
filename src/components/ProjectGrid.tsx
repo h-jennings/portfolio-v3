@@ -1,5 +1,5 @@
 import { PATHS } from '@/constants/paths';
-import { HomepageProject, homepageProjects } from '@/data/homepage-projects';
+import { Project, projectMetaData } from '@/data/projects';
 import { parseTagsToString } from '@/helpers/string-helpers';
 import { styled } from '@/stitches.config';
 import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio';
@@ -52,10 +52,10 @@ function TitleBar({ projectCount }: TitleBarProps): JSX.Element {
   );
 }
 interface CardProps {
-  project: HomepageProject;
+  project: Project;
 }
 function Card({
-  project: { body, tags, title, path },
+  project: { description, tags, project, client, path },
 }: CardProps): JSX.Element {
   const tagsString: string = React.useMemo(() => {
     return parseTagsToString(tags);
@@ -76,7 +76,7 @@ function Card({
           <Link passHref href={`${PATHS.work}/[project]`} as={path}>
             <LinkOverlay>
               <Text as='h1' css={{ lineHeight: '$body' }}>
-                {title}
+                {`${project} — ${client}`}
               </Text>
             </LinkOverlay>
           </Link>
@@ -85,7 +85,7 @@ function Card({
           <Text
             as='p'
             css={{ color: '$text2', lineHeight: '$body', fontSize: '$1' }}>
-            {body}
+            {description}
           </Text>
         </Box>
       </Stack>
@@ -104,11 +104,12 @@ const Grid = styled('div', {
 });
 
 export function ProjectGrid(): JSX.Element {
+  const projectEntries = Object.entries(projectMetaData);
   return (
     <Stack gap={{ '@initial': '3', '@bp2': '5' }}>
-      <TitleBar projectCount={homepageProjects.length} />
+      <TitleBar projectCount={projectEntries.length} />
       <Grid>
-        {homepageProjects.map((project, idx) => (
+        {projectEntries.map(([, project], idx) => (
           <Card key={idx} project={project} />
         ))}
       </Grid>

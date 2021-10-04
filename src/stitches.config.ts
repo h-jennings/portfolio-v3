@@ -13,7 +13,7 @@ import {
 import type * as Stitches from '@stitches/react';
 import { createStitches } from '@stitches/react';
 
-export const { config, styled, getCssText, theme, createTheme } =
+export const { config, styled, getCssText, theme, createTheme, css } =
   createStitches({
     // Default Theme
     theme: {
