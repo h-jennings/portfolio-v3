@@ -32,6 +32,10 @@ const CenteredText = styled(GreyText, {
   position: 'absolute',
   top: '0',
   left: '50%',
+  d: 'none',
+  '@bp1': {
+    d: 'block',
+  },
 });
 
 interface TitleBarProps {

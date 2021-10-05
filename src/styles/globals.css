@@ -72,6 +72,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: var(--fonts-primary);
+  background-color: var(--colors-uiBg);
 }
 
 a {
@@ -81,4 +82,24 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+/* Fonts */
+
+@font-face {
+  font-family: 'Basier Circle';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/basiercircle-regular-webfont.woff2') format('woff2'),
+    url('/fonts/basiercircle-regular-webfont.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Basier Circle';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/basiercircle-bold-webfont.woff2') format('woff2'),
+    url('/fonts/basiercircle-bold-webfont.woff') format('woff');
 }

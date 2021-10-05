@@ -8,5 +8,5 @@
   "tabWidth": 2,
   "arrowParens": "always",
   "quoteProps": "as-needed",
-  "bracketSameLine": true
+  "bracketSameLine": false
 }

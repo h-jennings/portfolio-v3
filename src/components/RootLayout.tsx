@@ -1,6 +1,7 @@
 import { styled } from '@/stitches.config';
 import { WithChildren } from '@/types/with-children';
 import { Footer } from './Footer/Footer';
+import { Navigation } from './Navigation';
 
 const Container = styled('div', {
   width: '$full',
@@ -39,7 +40,7 @@ export function RootLayout({ children }: WithChildren): JSX.Element {
   return (
     <Container>
       <Wrapper>
-        {/* <Navigation /> */}
+        <Navigation />
         <Main>{children}</Main>
         <Footer />
       </Wrapper>

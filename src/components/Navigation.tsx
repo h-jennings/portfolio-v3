@@ -1,4 +1,5 @@
 import { PATHS } from '@/constants/paths';
+import { navigationData } from '@/data/navigation';
 import { styled } from '@/stitches.config';
 import Link from 'next/link';
 import useMeasure from 'react-use-measure';
@@ -42,32 +43,26 @@ export function Navigation(): JSX.Element {
     <Wrapper>
       <Container>
         <LinkContainer>
-          <li>
-            <Link passHref href={PATHS.work}>
-              <StyledLink>work</StyledLink>
-            </Link>
-          </li>
-          <li>
-            <Link passHref href={PATHS.writing}>
-              <StyledLink>writing</StyledLink>
-            </Link>
-          </li>
-          <li>
-            <Link passHref href={PATHS.about}>
-              <StyledLink>about</StyledLink>
-            </Link>
-          </li>
+          {navigationData.map(({ path, label }) => (
+            <li key={label}>
+              <Link passHref href={path}>
+                <StyledLink>{label}</StyledLink>
+              </Link>
+            </li>
+          ))}
           <li>
             <Availability status='available' />
           </li>
         </LinkContainer>
         <LogotypeContainer
           ref={ref}
-          css={{ marginLeft: `-${bounds.width / 2}px` }}>
+          css={{ marginLeft: `-${bounds.width / 2}px` }}
+        >
           <Link passHref href={PATHS.home}>
             <StyledLink
               aria-label='logo link'
-              css={{ userSelect: 'none', display: 'inline-block' }}>
+              css={{ userSelect: 'none', display: 'inline-block' }}
+            >
               <Box css={{ lineHeight: '$tight' }} role='presentation'>
                 H—J
               </Box>

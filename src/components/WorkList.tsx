@@ -32,7 +32,6 @@ const ListItemContainer = styled('div', {
   },
   '@bp3': {
     gtc: '1fr 240px',
-    gridTemplateAreas: `'a b'`,
   },
 });
 
@@ -48,6 +47,7 @@ const TextContentContainer = styled('div', {
     gtc: '1fr',
   },
   '@bp3': {
+    py: '$2',
     gtc: '354px 1fr',
     gap: '$2',
     gridArea: 'a',
@@ -78,11 +78,14 @@ function ListItem({
         <ListItemContainer>
           <TextContentContainer>
             <ProjectContainer>
-              <Stack gap='1'>
+              <Stack gap={{ '@initial': '1', '@bp3': '2' }}>
                 <EyebrowText size='1'>PROJECT</EyebrowText>
                 <Link passHref href={`${PATHS.work}/[project]`} as={path}>
                   <LinkOverlay>
-                    <Text size={{ '@initial': '2', '@bp2': '3' }}>
+                    <Text
+                      size={{ '@initial': '2', '@bp3': '3' }}
+                      css={{ lineHeight: '$body' }}
+                    >
                       {project}
                     </Text>
                   </LinkOverlay>
@@ -90,9 +93,14 @@ function ListItem({
               </Stack>
             </ProjectContainer>
             <ClientContainer>
-              <Stack gap='1'>
+              <Stack gap={{ '@initial': '1', '@bp3': '2' }}>
                 <EyebrowText size='1'>CLIENT</EyebrowText>
-                <Text size={{ '@initial': '2', '@bp2': '3' }}>{client}</Text>
+                <Text
+                  size={{ '@initial': '2', '@bp3': '3' }}
+                  css={{ lineHeight: '$body' }}
+                >
+                  {client}
+                </Text>
               </Stack>
             </ClientContainer>
           </TextContentContainer>

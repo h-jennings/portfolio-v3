@@ -7,7 +7,13 @@ const Work: NextPage<{ project: string }> = (props) => {
   const router = useRouter();
   const { project } = router.query;
   const data = projectMetaData[project as ProjectIdentifiers];
-  return <pre>{JSON.stringify(data)}</pre>;
+  return (
+    <div style={{ width: '100%' }}>
+      <pre style={{ wordWrap: 'break-word' }}>
+        {JSON.stringify(data, null, 2)}
+      </pre>
+    </div>
+  );
 };
 
 export default Work;
