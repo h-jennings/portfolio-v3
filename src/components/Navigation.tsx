@@ -1,23 +1,22 @@
 import { PATHS } from '@/constants/paths';
 import { navigationData } from '@/data/navigation';
-import { styled } from '@/stitches.config';
-import Link from 'next/link';
+import { css } from '@/stitches.config';
+import NextLink from 'next/link';
 import useMeasure from 'react-use-measure';
 import { Availability } from './Availability';
-import { Box } from './primitives/Box';
-import { StyledLink } from './primitives/StyledLink';
+import { link } from './primitives/link';
 
-const Wrapper = styled('nav', {
+const wrapper = css({
   py: '$4',
 });
-const Container = styled('div', {
+const container = css({
   d: 'flex',
   jc: 'space-between',
   ai: 'center',
   position: 'relative',
 });
 
-const LinkContainer = styled('ul', {
+const linkContainer = css({
   d: 'grid',
   gridTemplateColumns: 'repeat(4, auto)',
   gap: '$2',
@@ -27,7 +26,7 @@ const LinkContainer = styled('ul', {
   },
 });
 
-const LogotypeContainer = styled('div', {
+const logotypeContainer = css({
   position: 'absolute',
   top: '0',
   left: '50%',
@@ -40,43 +39,53 @@ export function Navigation(): JSX.Element {
   const [ref, bounds] = useMeasure();
 
   return (
-    <Wrapper>
-      <Container>
-        <LinkContainer>
+    <nav className={wrapper()}>
+      <div className={container()}>
+        <ul className={linkContainer()}>
           {navigationData.map(({ path, label }) => (
             <li key={label}>
-              <Link passHref href={path}>
-                <StyledLink>{label}</StyledLink>
-              </Link>
+              <NextLink passHref href={path}>
+                <a className={link()}>{label}</a>
+              </NextLink>
             </li>
           ))}
           <li>
             <Availability status='available' />
           </li>
-        </LinkContainer>
-        <LogotypeContainer
+        </ul>
+        <div
           ref={ref}
-          css={{ marginLeft: `-${bounds.width / 2}px` }}
+          className={logotypeContainer({
+            css: {
+              marginLeft: `-${bounds.width / 2}px`,
+            },
+          })}
         >
-          <Link passHref href={PATHS.home}>
-            <StyledLink
+          <NextLink passHref href={PATHS.home}>
+            <a
               aria-label='logo link'
-              css={{ userSelect: 'none', display: 'inline-block' }}
+              className={link({
+                css: {
+                  userSelect: 'none',
+                  display: 'inline-block',
+                },
+              })}
             >
-              <Box css={{ lineHeight: '$tight' }} role='presentation'>
+              <div
+                className={css({ lineHeight: '$tight' })()}
+                role='presentation'
+              >
                 H—J
-              </Box>
-            </StyledLink>
-          </Link>
-        </LogotypeContainer>
-        <div>
-          <Link passHref href={PATHS.email}>
-            <StyledLink css={{ color: '$text3' }}>
-              jenningsdhunter@gmail.com
-            </StyledLink>
-          </Link>
+              </div>
+            </a>
+          </NextLink>
         </div>
-      </Container>
-    </Wrapper>
+        <div>
+          <a href={PATHS.email} className={link({ css: { color: '$text3' } })}>
+            jenningsdhunter@gmail.com
+          </a>
+        </div>
+      </div>
+    </nav>
   );
 }

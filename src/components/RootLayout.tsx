@@ -1,9 +1,11 @@
-import { styled } from '@/stitches.config';
+import { config, css } from '@/stitches.config';
 import { WithChildren } from '@/types/with-children';
+import Media from 'react-media';
 import { Footer } from './Footer/Footer';
+import { MobileNavigation } from './MobileNavigation/MobileNavigation';
 import { Navigation } from './Navigation';
 
-const Container = styled('div', {
+const container = css({
   width: '$full',
   backgroundColor: '$uiBg',
   minHeight: '$screenH',
@@ -12,38 +14,46 @@ const Container = styled('div', {
   flexFlow: 'column',
   height: '$full',
   px: '$2',
-  '@bp2': {
-    px: '$3',
-  },
   '@bp3': {
     px: '$6',
   },
 });
-const Wrapper = styled('div', {
+const wrapper = css({
   maxWidth: '$desktop',
   width: '$full',
   d: 'flex',
   flexFlow: 'column',
   height: '$full',
   minHeight: '$screenH',
+  position: 'relative',
+  zIndex: '$init',
 });
-const Main = styled('main', {
+const main = css({
   flex: '1',
-  paddingTop: '$7',
+  paddingTop: '$5',
   paddingBottom: '$8',
+  zIndex: 1,
   '@bp2': {
+    paddingTop: '$7',
     paddingBottom: '$10',
   },
 });
 
 export function RootLayout({ children }: WithChildren): JSX.Element {
+  // Breakpoint for the navigation options
+  const breakpoint = config.media.bp2;
+
   return (
-    <Container>
-      <Wrapper>
-        <Navigation />
-        <Main>{children}</Main>
+    <div className={container()}>
+      <div className={wrapper()}>
+        <Media query={breakpoint} defaultMatches>
+          {(matches: boolean) => {
+            return matches ? <Navigation /> : <MobileNavigation />;
+          }}
+        </Media>
+        <main className={main()}>{children}</main>
         <Footer />
-      </Wrapper>
-    </Container>
+      </div>
+    </div>
   );
 }

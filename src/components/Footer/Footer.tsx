@@ -7,8 +7,8 @@ import Image from 'next/image';
 import React from 'react';
 import { Box } from '../primitives/Box';
 import { Flex } from '../primitives/Flex';
+import { StyledLink } from '../primitives/link';
 import { Stack } from '../primitives/Stack';
-import { StyledLink } from '../primitives/StyledLink';
 import { Text } from '../primitives/Text';
 import { useWeatherInfo } from './weather-info';
 
@@ -54,6 +54,7 @@ const Grid = styled('footer', {
   columnGap: '$2',
   rowGap: '$3',
   pb: '$3',
+  zIndex: 1,
   ai: 'end',
   '@bp3': {
     gridTemplateAreas: `'a b c d'`,
@@ -105,7 +106,8 @@ export function Footer(): JSX.Element {
           '@bp3': {
             gridArea: 'a',
           },
-        }}>
+        }}
+      >
         <FooterText>design and development</FooterText>
         <FooterText>&copy; Hunter Jennings 2021</FooterText>
       </Stack>
@@ -118,7 +120,8 @@ export function Footer(): JSX.Element {
             ta: 'left',
           },
           justifySelf: 'end',
-        }}>
+        }}
+      >
         <FooterText as='time'>{currentTime}</FooterText>
         <FooterText>Washington D.C.</FooterText>
       </Stack>
@@ -128,7 +131,8 @@ export function Footer(): JSX.Element {
           ai: 'center',
           gridArea: 'a',
           '@bp3': { gridArea: 'c' },
-        }}>
+        }}
+      >
         {weatherUI}
       </Flex>
       <Stack css={{ justifySelf: 'end' }} direction='row' gap='2' as='ul'>

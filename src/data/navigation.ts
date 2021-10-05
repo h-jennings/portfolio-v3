@@ -5,10 +5,10 @@ export const navigationData = [
     label: 'work',
     path: PATHS.work,
   },
-  {
-    label: 'writing',
-    path: PATHS.writing,
-  },
+  // {
+  //   label: 'writing',
+  //   path: PATHS.writing,
+  // },
   {
     label: 'about',
     path: PATHS.about,

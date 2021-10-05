@@ -2,7 +2,7 @@ import { PATHS } from '@/constants/paths';
 import { Project, projectMetaData } from '@/data/projects';
 import { styled } from '@/stitches.config';
 import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio';
-import Link from 'next/link';
+import NextLink from 'next/link';
 import { Box } from './primitives/Box';
 import { LinkBox, LinkOverlay } from './primitives/LinkBox';
 import { Stack } from './primitives/Stack';
@@ -80,7 +80,7 @@ function ListItem({
             <ProjectContainer>
               <Stack gap={{ '@initial': '1', '@bp3': '2' }}>
                 <EyebrowText size='1'>PROJECT</EyebrowText>
-                <Link passHref href={`${PATHS.work}/[project]`} as={path}>
+                <NextLink passHref href={`${PATHS.work}/[project]`} as={path}>
                   <LinkOverlay>
                     <Text
                       size={{ '@initial': '2', '@bp3': '3' }}
@@ -89,7 +89,7 @@ function ListItem({
                       {project}
                     </Text>
                   </LinkOverlay>
-                </Link>
+                </NextLink>
               </Stack>
             </ProjectContainer>
             <ClientContainer>

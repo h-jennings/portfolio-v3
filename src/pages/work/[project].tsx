@@ -9,9 +9,7 @@ const Work: NextPage<{ project: string }> = (props) => {
   const data = projectMetaData[project as ProjectIdentifiers];
   return (
     <div style={{ width: '100%' }}>
-      <pre style={{ wordWrap: 'break-word' }}>
-        {JSON.stringify(data, null, 2)}
-      </pre>
+      <pre style={{ wordWrap: 'break-word' }}>{data?.project}</pre>
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import { css } from '@/stitches.config';
 import React from 'react';
+import { linkFocus } from './link';
 
 type LinkBoxProps = React.HtmlHTMLAttributes<HTMLDivElement>;
 export type LinkBoxRef = HTMLDivElement;
@@ -31,7 +32,7 @@ interface LinkOverlayProps extends React.HtmlHTMLAttributes<HTMLAnchorElement> {
 }
 export type LinkOverlayRef = HTMLAnchorElement;
 
-const linkOverlay = css({
+const linkOverlay = css(linkFocus, {
   position: 'static',
   '&::before': {
     content: "''",
@@ -40,7 +41,7 @@ const linkOverlay = css({
     position: 'absolute',
     top: 0,
     left: 0,
-    zIndex: 0,
+    zIndex: 1,
     width: '$full',
     height: '$full',
   },
