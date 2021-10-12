@@ -1,5 +1,5 @@
+import { navigationData } from '@/constants/navigation';
 import { PATHS } from '@/constants/paths';
-import { navigationData } from '@/data/navigation';
 import { css } from '@/stitches.config';
 import NextLink from 'next/link';
 import useMeasure from 'react-use-measure';

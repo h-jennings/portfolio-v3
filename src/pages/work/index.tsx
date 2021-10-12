@@ -1,10 +1,10 @@
 import { Stack } from '@/components/primitives/Stack';
-import { Text } from '@/components/primitives/Text';
+import { text } from '@/components/primitives/Text';
 import { WorkList } from '@/components/WorkList';
-import { styled } from '@/stitches.config';
+import { css } from '@/stitches.config';
 import { NextPage } from 'next';
 
-const PageHeader = styled(Text, {
+const pageHeader = css(text, {
   lineHeight: '$body',
   fontSize: '$4',
 });
@@ -12,10 +12,8 @@ const Work: NextPage = () => {
   return (
     <Stack gap='6'>
       <Stack gap='3'>
-        <PageHeader as='h1'>Work</PageHeader>
-        <Text as='h2' size='1'>
-          3&mdash;PROJECTS
-        </Text>
+        <h1 className={pageHeader()}>Work</h1>
+        <h2 className={text({ size: '2' })}>3&mdash;PROJECTS</h2>
       </Stack>
       <WorkList />
     </Stack>

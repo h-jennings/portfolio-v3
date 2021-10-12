@@ -1,5 +1,5 @@
 import { PATHS } from '@/constants/paths';
-import { Project, projectMetaData } from '@/data/projects';
+import { ProjectMeta, projectMetaData } from '@/constants/projects';
 import { parseTagsToString } from '@/helpers/string-helpers';
 import { styled } from '@/stitches.config';
 import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio';
@@ -56,7 +56,7 @@ function TitleBar({ projectCount }: TitleBarProps): JSX.Element {
   );
 }
 interface CardProps {
-  project: Project;
+  project: ProjectMeta;
 }
 function Card({
   project: { description, tags, project, client, path },

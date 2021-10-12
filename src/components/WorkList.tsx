@@ -1,5 +1,5 @@
 import { PATHS } from '@/constants/paths';
-import { Project, projectMetaData } from '@/data/projects';
+import { ProjectMeta, projectMetaData } from '@/constants/projects';
 import { styled } from '@/stitches.config';
 import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio';
 import NextLink from 'next/link';
@@ -67,7 +67,7 @@ const EyebrowText = styled(Text, {
 });
 
 interface ListItemProps {
-  project: Project;
+  project: ProjectMeta;
 }
 function ListItem({
   project: { project, client, path },

@@ -1,6 +1,6 @@
 import { defaultSpringAnimation } from '@/constants/animation';
+import { navigationData } from '@/constants/navigation';
 import { PATHS } from '@/constants/paths';
-import { navigationData } from '@/data/navigation';
 import { css } from '@/stitches.config';
 import { ReactComponent as CloseIcon } from '@assets/svg/close-icon.svg';
 import { motion } from 'framer-motion';
