@@ -1,15 +1,12 @@
-import { LinkBox, LinkOverlay } from '@/components/primitives/LinkBox';
 import { Stack } from '@/components/primitives/Stack';
-import { pageHeader, text, Text } from '@/components/primitives/Text';
-import { PATHS } from '@/constants/paths';
+import { pageHeader, text } from '@/components/primitives/Text';
+import { ProjectLinks } from '@/components/ProjectLinks';
 import { ProjectPageData, projectPageData } from '@/constants/projects';
-import { prevNextProjectData } from '@/helpers/prev-next-project-data';
 import { commaSeparated } from '@/helpers/string-helpers';
 import { css } from '@/stitches.config';
 import { ProjectIdentifiers } from '@/types/projects';
 import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio';
 import { NextPage } from 'next';
-import NextLink from 'next/link';
 import React from 'react';
 import { CustomError } from '../_error';
 
@@ -39,75 +36,6 @@ function ImageGrid({ images }: { images: string[] }): JSX.Element {
           </AspectRatioPrimitive.Root>
         </div>
       ))}
-    </div>
-  );
-}
-
-const container = css({
-  d: 'flex',
-  '> div': {
-    flex: 1,
-    d: 'flex',
-    jc: 'center',
-    py: '$5',
-  },
-  position: 'relative',
-  borderTop: '1px solid $slate8',
-  borderBottom: '1px solid $slate8',
-  '> :nth-child(2n)': {
-    position: 'relative',
-  },
-  '> :nth-child(2n):before': {
-    content: "''",
-    position: 'absolute',
-    left: 0,
-    top: 0,
-    height: '$full',
-    width: '1px',
-    backgroundColor: '$slate8',
-  },
-});
-function NextPrevProjects({
-  projectIndex,
-}: {
-  projectIndex: number;
-}): JSX.Element {
-  const [previous, next] = prevNextProjectData(projectIndex);
-
-  return (
-    <div className={container()}>
-      {previous ? (
-        <LinkBox>
-          <NextLink
-            passHref
-            href={`${PATHS.work}/[project]`}
-            as={previous.path}
-          >
-            <LinkOverlay>
-              <Text
-                size={{ '@initial': '2', '@bp3': '3' }}
-                css={{ lineHeight: '$body' }}
-              >
-                {previous.project}
-              </Text>
-            </LinkOverlay>
-          </NextLink>
-        </LinkBox>
-      ) : null}
-      {next ? (
-        <LinkBox>
-          <NextLink passHref href={`${PATHS.work}/[project]`} as={next.path}>
-            <LinkOverlay>
-              <Text
-                size={{ '@initial': '2', '@bp3': '3' }}
-                css={{ lineHeight: '$body' }}
-              >
-                {next.project}
-              </Text>
-            </LinkOverlay>
-          </NextLink>
-        </LinkBox>
-      ) : null}
     </div>
   );
 }
@@ -197,7 +125,7 @@ const Work: NextPage<{
           ) : null}
         </div>
       </div>
-      <NextPrevProjects projectIndex={projectIndex} />
+      <ProjectLinks projectIndex={projectIndex} />
     </Stack>
   );
 };
