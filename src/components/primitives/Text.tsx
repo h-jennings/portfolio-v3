@@ -20,6 +20,9 @@ export const text = css({
 export const pageHeader = css(text, {
   lineHeight: '$body',
   fontSize: 'clamp(1.75rem, 8.1vw - 0.9rem, 3rem);',
+  '@bp1': {
+    lineHeight: '$tight',
+  },
   '@bp2': {
     fontSize: '$4',
   },

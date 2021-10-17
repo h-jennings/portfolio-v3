@@ -63,7 +63,7 @@ export type ProjectPageData = Pick<
 export const projectPageData: Record<ProjectIdentifiers, ProjectPageData> = {
   dwr: {
     ...sharedProjectData.dwr,
-    images: [''],
+    images: ['1', '2', '3'],
     contribution: [
       'Frontend Development',
       'Design Systems',
@@ -86,7 +86,7 @@ export const projectPageData: Record<ProjectIdentifiers, ProjectPageData> = {
   },
   nfip: {
     ...sharedProjectData.nfip,
-    images: [''],
+    images: ['1', '2', '3'],
     contribution: [
       'Frontend Development',
       'Design Systems',
@@ -106,7 +106,7 @@ export const projectPageData: Record<ProjectIdentifiers, ProjectPageData> = {
   },
   'portfolio-v2': {
     ...sharedProjectData['portfolio-v2'],
-    images: [''],
+    images: ['1', '2', '3'],
     contribution: ['Frontend Development', 'UI Design'],
     details: `This was the second version of my portfolio built on Next.js with React, and TypeScript. When starting a fresh project, I always search for a challenge—an excuse to learn something new and feel uncomfortable. For this project it was motion design. Using the amazing library framer-motion, I created a suite of declarative, reusable animations in React. Everything from page transitions to revealing text and images on scroll—all orchestrated to enhance the overall design aesthetic of the site.
 `,
