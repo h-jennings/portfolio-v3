@@ -17,6 +17,13 @@ export const text = css({
     },
   },
 });
+export const pageHeader = css(text, {
+  lineHeight: '$body',
+  fontSize: 'clamp(1.75rem, 8.1vw - 0.9rem, 3rem);',
+  '@bp2': {
+    fontSize: '$4',
+  },
+});
 export const Text = styled('span', {
   color: '$text1',
   lineHeight: '$tight',
