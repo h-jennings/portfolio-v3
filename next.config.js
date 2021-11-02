@@ -2,6 +2,7 @@
 const withPlugins = require('next-compose-plugins');
 
 const nextConfig = {
+  swcMinify: true,
   reactStrictMode: true,
   env: {
     WEATHER_API_KEY: process.env.WEATHER_API_KEY,
