@@ -3,11 +3,18 @@ import { ProjectMeta } from '@/constants/projects';
 import { prevNextProjectData } from '@/helpers/prev-next-project-data';
 import { css } from '@/stitches.config';
 import { ReactComponent as ArrowIcon } from '@assets/svg/arrow-icon.svg';
+import { isNull } from 'lodash';
 import NextLink from 'next/link';
 import React from 'react';
 import { LinkBox, LinkOverlay } from './primitives/LinkBox';
 import { Stack } from './primitives/Stack';
 import { Text } from './primitives/Text';
+
+const alignmentLookup = {
+  left: 'flex-start',
+  right: 'flex-end',
+  center: 'center',
+};
 
 interface LinkProps {
   meta: ProjectMeta;
@@ -22,17 +29,7 @@ export function Link({
   alignment,
 }: LinkProps): JSX.Element {
   const justify = React.useMemo(() => {
-    switch (alignment) {
-      case 'left': {
-        return 'flex-start';
-      }
-      case 'right': {
-        return 'flex-end';
-      }
-      case 'center': {
-        return 'center';
-      }
-    }
+    return alignmentLookup[alignment];
   }, [alignment]);
 
   const headerUi = React.useMemo(() => {
@@ -113,13 +110,16 @@ export function ProjectLinks({
   projectIndex: number;
 }): JSX.Element {
   const [previous, next] = prevNextProjectData(projectIndex);
+  const shouldCenter = React.useMemo(() => {
+    return isNull(previous) || isNull(next);
+  }, [previous, next]);
 
   return (
     <div className={container()}>
       {previous ? (
         <Link
           arrowDirection='left'
-          alignment='left'
+          alignment={shouldCenter ? 'center' : 'left'}
           meta={previous}
           subTitle='Previous'
         />
@@ -127,7 +127,7 @@ export function ProjectLinks({
       {next ? (
         <Link
           arrowDirection='right'
-          alignment='right'
+          alignment={shouldCenter ? 'center' : 'right'}
           meta={next}
           subTitle='Next'
         />
