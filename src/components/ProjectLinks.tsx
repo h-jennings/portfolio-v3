@@ -37,7 +37,7 @@ export function Link({
       case 'left': {
         return (
           <Stack direction='row' gap='1' css={{ jc: justify }}>
-            <ArrowIcon style={{ rotate: '90deg' }} width='24px' />
+            <ArrowIcon style={{ transform: 'rotate(90deg)' }} width='24px' />
             <Text>{subTitle}</Text>
           </Stack>
         );
@@ -46,7 +46,7 @@ export function Link({
         return (
           <Stack direction='row' gap='1' css={{ jc: justify }}>
             <Text>{subTitle}</Text>
-            <ArrowIcon style={{ rotate: '-90deg' }} width='24px' />
+            <ArrowIcon style={{ transform: 'rotate(-90deg)' }} width='24px' />
           </Stack>
         );
       }
