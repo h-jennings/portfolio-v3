@@ -50,7 +50,7 @@ export function Navigation(): JSX.Element {
             </li>
           ))}
           <li>
-            <Availability status='available' />
+            <Availability status='inactive' />
           </li>
         </ul>
         <div

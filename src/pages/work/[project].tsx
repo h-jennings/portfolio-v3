@@ -1,12 +1,19 @@
 import { Stack } from '@/components/primitives/Stack';
 import { pageHeader, text } from '@/components/primitives/Text';
 import { ProjectLinks } from '@/components/ProjectLinks';
-import { ProjectPageData, projectPageData } from '@/constants/projects';
+import { PATHS } from '@/constants/paths';
+import {
+  ProjectMeta,
+  projectMetaData,
+  ProjectPageData,
+  projectPageData,
+} from '@/constants/projects';
 import { commaSeparated } from '@/helpers/string-helpers';
 import { css } from '@/stitches.config';
 import { ProjectIdentifiers } from '@/types/projects';
 import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio';
 import { NextPage } from 'next';
+import { NextSeo, NextSeoProps } from 'next-seo';
 import React from 'react';
 import { CustomError } from '../_error';
 
@@ -82,51 +89,82 @@ const Work: NextPage<{
   projectData: ProjectPageData | undefined;
   projectIndex: number;
   statusCode: number;
-}> = ({ projectData, projectIndex, statusCode }) => {
+  description: string | undefined;
+}> = ({ projectData, projectIndex, statusCode, description }) => {
+  const SEO: NextSeoProps = React.useMemo(() => {
+    const title = `${projectData?.project} | Hunter Jennings`;
+    const url = `${PATHS.base}${projectData?.path}`;
+    return {
+      title,
+      canonical: url,
+      description,
+      openGraph: {
+        title,
+        url,
+        description,
+      },
+    };
+  }, [projectData, description]);
+
   if (statusCode !== 200) {
-    return <CustomError statusCode={statusCode} />;
+    const title = 'Page Not Found | Hunter Jennings';
+    const SEO: NextSeoProps = {
+      title,
+      openGraph: {
+        title,
+      },
+    };
+    return (
+      <>
+        <NextSeo {...SEO} nofollow noindex />
+        <CustomError statusCode={statusCode} />
+      </>
+    );
   }
 
   return (
-    <Stack gap={{ '@initial': '7', '@bp3': '9' }}>
-      <div className={splitGrid()}>
-        <Stack gap='4'>
-          <h1 className={pageHeader()}>{projectData?.project}</h1>
-          <Stack gap='2'>
-            <h2 className={text({ size: '1', css: { color: '$text3' } })}>
-              DESCRIPTION
-            </h2>
-            <p className={detailsText()}>{projectData?.details}</p>
+    <>
+      <NextSeo {...SEO} />
+      <Stack gap={{ '@initial': '7', '@bp3': '9' }}>
+        <div className={splitGrid()}>
+          <Stack gap='4'>
+            <h1 className={pageHeader()}>{projectData?.project}</h1>
+            <Stack gap='2'>
+              <h2 className={text({ size: '1', css: { color: '$text3' } })}>
+                DESCRIPTION
+              </h2>
+              <p className={detailsText()}>{projectData?.details}</p>
+            </Stack>
+            <div className={infoGrid()}>
+              <Stack gap='2'>
+                <h2 className={text({ size: '1', css: { color: '$text3' } })}>
+                  TECH
+                </h2>
+                <p className={infoText()}>
+                  {projectData?.tech ? commaSeparated(projectData.tech) : null}
+                </p>
+              </Stack>
+              <Stack gap='2'>
+                <h2 className={text({ size: '1', css: { color: '$text3' } })}>
+                  CONTRIBUTIONS
+                </h2>
+                <p className={infoText()}>
+                  {projectData?.contribution
+                    ? commaSeparated(projectData.contribution)
+                    : null}
+                </p>
+              </Stack>
+            </div>
           </Stack>
-          <div className={infoGrid()}>
-            <Stack gap='2'>
-              <h2 className={text({ size: '1', css: { color: '$text3' } })}>
-                TECH
-              </h2>
-              <p className={infoText()}>
-                {projectData?.tech ? commaSeparated(projectData.tech) : null}
-              </p>
-            </Stack>
-            <Stack gap='2'>
-              <h2 className={text({ size: '1', css: { color: '$text3' } })}>
-                CONTRIBUTIONS
-              </h2>
-              <p className={infoText()}>
-                {projectData?.contribution
-                  ? commaSeparated(projectData.contribution)
-                  : null}
-              </p>
-            </Stack>
+          <div>
+            {projectData?.images ? (
+              <ImageGrid images={projectData.images} />
+            ) : null}
           </div>
-        </Stack>
-        <div>
-          {projectData?.images ? (
-            <ImageGrid images={projectData.images} />
-          ) : null}
         </div>
-      </div>
-      <ProjectLinks projectIndex={projectIndex} />
-    </Stack>
+        <ProjectLinks projectIndex={projectIndex} />
+      </Stack>
+    </>
   );
 };
 
@@ -137,7 +175,8 @@ Work.getInitialProps = (context) => {
 
   const projectData: ProjectPageData | undefined =
     projectPageData[project as ProjectIdentifiers];
-
+  const projectMeta: ProjectMeta | undefined =
+    projectMetaData[project as ProjectIdentifiers];
   const projectIndex = Object.keys(projectPageData)
     .map((key) => key)
     .indexOf(project as string);
@@ -145,6 +184,7 @@ Work.getInitialProps = (context) => {
   return {
     projectData,
     projectIndex,
+    description: projectMeta?.description,
     statusCode: projectData ? 200 : 404,
   };
 };

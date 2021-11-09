@@ -1,5 +1,7 @@
 import { config, css } from '@/stitches.config';
 import { WithChildren } from '@/types/with-children';
+import { DefaultSeo } from 'next-seo';
+import SEO from 'next-seo.config';
 import Media from 'react-media';
 import { Footer } from './Footer/Footer';
 import { MobileNavigation } from './MobileNavigation/MobileNavigation';
@@ -44,16 +46,19 @@ export function RootLayout({ children }: WithChildren): JSX.Element {
   const breakpoint = config.media.bp2;
 
   return (
-    <div className={container()}>
-      <div className={wrapper()}>
-        <Media query={breakpoint} defaultMatches>
-          {(matches: boolean) => {
-            return matches ? <Navigation /> : <MobileNavigation />;
-          }}
-        </Media>
-        <main className={main()}>{children}</main>
-        <Footer />
+    <>
+      <DefaultSeo {...SEO} />
+      <div className={container()}>
+        <div className={wrapper()}>
+          <Media query={breakpoint} defaultMatches>
+            {(matches: boolean) => {
+              return matches ? <Navigation /> : <MobileNavigation />;
+            }}
+          </Media>
+          <main className={main()}>{children}</main>
+          <Footer />
+        </div>
       </div>
-    </div>
+    </>
   );
 }

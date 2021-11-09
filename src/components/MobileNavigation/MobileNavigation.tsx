@@ -29,7 +29,7 @@ export function MobileNavigation(): JSX.Element {
   return (
     <div className={wrapper()}>
       <nav className={navigation()}>
-        <Availability status='available' />
+        <Availability status='inactive' />
         <button onClick={() => send('OPEN')} className={buttonReset()}>
           <div className={menuWrapper()}>
             <MenuIcon width='48px' height='8px' />
