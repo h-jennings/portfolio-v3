@@ -3,7 +3,7 @@ import { ProjectMeta } from '@/constants/projects';
 import { prevNextProjectData } from '@/helpers/prev-next-project-data';
 import { css } from '@/stitches.config';
 import { ReactComponent as ArrowIcon } from '@assets/svg/arrow-icon.svg';
-import { isNull } from 'lodash';
+import isNull from 'lodash/fp/isNull';
 import NextLink from 'next/link';
 import React from 'react';
 import { LinkBox, LinkOverlay } from './primitives/LinkBox';
@@ -37,16 +37,16 @@ export function Link({
       case 'left': {
         return (
           <Stack direction='row' gap='1' css={{ jc: justify }}>
-            <ArrowIcon style={{ transform: 'rotate(90deg)' }} width='24px' />
-            <Text>{subTitle}</Text>
+            <ArrowIcon style={{ transform: 'rotate(90deg)' }} width='20px' />
+            <Text size={{ '@initial': '1', '@bp3': '2' }}>{subTitle}</Text>
           </Stack>
         );
       }
       case 'right': {
         return (
           <Stack direction='row' gap='1' css={{ jc: justify }}>
-            <Text>{subTitle}</Text>
-            <ArrowIcon style={{ transform: 'rotate(-90deg)' }} width='24px' />
+            <Text size={{ '@initial': '1', '@bp3': '2' }}>{subTitle}</Text>
+            <ArrowIcon style={{ transform: 'rotate(-90deg)' }} width='20px' />
           </Stack>
         );
       }
@@ -63,7 +63,7 @@ export function Link({
       }}
     >
       <LinkBox>
-        <Stack gap='1' css={{ jc: justify, py: '$5' }}>
+        <Stack gap='1' css={{ jc: justify, py: '$3', '@bp3': { py: '$5' } }}>
           {headerUi}
           <NextLink passHref href={`${PATHS.work}/[project]`} as={meta.path}>
             <LinkOverlay>

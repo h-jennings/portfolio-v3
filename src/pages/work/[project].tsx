@@ -43,7 +43,7 @@ function ImageGrid({ images }: { images: string[] }): JSX.Element {
 const splitGrid = css({
   d: 'grid',
   columnGap: '$3',
-  rowGap: '$5',
+  rowGap: '$7',
   gtc: '1fr',
   '@bp2': {
     gtc: 'repeat(2, 1fr)',
@@ -83,12 +83,12 @@ const Work: NextPage<{
   projectIndex: number;
   statusCode: number;
 }> = ({ projectData, projectIndex, statusCode }) => {
-  if (statusCode === 404) {
+  if (statusCode !== 200) {
     return <CustomError statusCode={statusCode} />;
   }
 
   return (
-    <Stack gap='9'>
+    <Stack gap={{ '@initial': '7', '@bp3': '9' }}>
       <div className={splitGrid()}>
         <Stack gap='4'>
           <h1 className={pageHeader()}>{projectData?.project}</h1>

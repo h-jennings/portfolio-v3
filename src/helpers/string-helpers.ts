@@ -1,4 +1,4 @@
-import { isUndefined } from 'lodash';
+import isUndefined from 'lodash/fp/isUndefined';
 
 export function parseTagsToString(tags: string[]): string {
   return tags.reduce((acc, curr, idx) => {
