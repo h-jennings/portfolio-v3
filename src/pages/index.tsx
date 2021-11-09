@@ -51,12 +51,12 @@ const Index: NextPage = () => {
         <Intro gap={{ '@initial': '2', '@bp2': '3' }}>
           <h1 className={pageHeader()}>
             Hunter Jennings is a frontend ui engineer interested in design
-            systems and component architecture.
+            systems, component architectures, and React.
           </h1>
-          <Stack gap='1'>
+          <Stack gap='2'>
             <p className={paragraph()}>
-              Hunter currently works as a Frontend Developer for the
-              award-winning creative studio{' '}
+              Hunter currently works as a Frontend Developer for an
+              award-winning digital creative agency{' '}
               <a
                 target='_blank'
                 href={PATHS.seagulls}

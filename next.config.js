@@ -17,12 +17,21 @@ const nextConfig = {
         {
           loader: '@svgr/webpack',
           options: {
+            prettier: false,
             svgo: false,
             titleProp: true,
           },
         },
-        'url-loader',
+        {
+          loader: 'file-loader',
+          options: {
+            name: 'static/media/[name].[hash].[ext]',
+          },
+        },
       ],
+      issuer: {
+        and: [/\.(ts|tsx|js|jsx|md|mdx)$/],
+      },
     });
     return config;
   },
