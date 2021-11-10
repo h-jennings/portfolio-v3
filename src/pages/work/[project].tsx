@@ -15,7 +15,6 @@ import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio';
 import { NextPage } from 'next';
 import { NextSeo, NextSeoProps } from 'next-seo';
 import React from 'react';
-import { CustomError } from '../_error';
 
 const imageGrid = css({
   d: 'grid',
@@ -106,21 +105,21 @@ const Work: NextPage<{
     };
   }, [projectData, description]);
 
-  if (statusCode !== 200) {
-    const title = 'Page Not Found | Hunter Jennings';
-    const SEO: NextSeoProps = {
-      title,
-      openGraph: {
-        title,
-      },
-    };
-    return (
-      <>
-        <NextSeo {...SEO} nofollow noindex />
-        <CustomError statusCode={statusCode} />
-      </>
-    );
-  }
+  // if (statusCode !== 200) {
+  //   const title = 'Page Not Found | Hunter Jennings';
+  //   const SEO: NextSeoProps = {
+  //     title,
+  //     openGraph: {
+  //       title,
+  //     },
+  //   };
+  //   return (
+  //     <>
+  //       <NextSeo {...SEO} nofollow noindex />
+  //       <Error statusCode={statusCode} />
+  //     </>
+  //   );
+  // }
 
   return (
     <>
