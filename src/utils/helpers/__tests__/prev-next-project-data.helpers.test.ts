@@ -1,4 +1,4 @@
-import * as prev_next_project_data from '@/helpers/prev-next-project-data';
+import * as prev_next_project_data from '@utils/helpers/prev-next-project-data.helpers';
 // @ponicode
 describe('prev_next_project_data.prevNextProjectData', () => {
   test('0', () => {

@@ -1,26 +1,26 @@
-import { defaultSpringAnimation } from '@/constants/animation';
-import { navigationData } from '@/constants/navigation';
-import { PATHS } from '@/constants/paths';
 import { css } from '@/stitches.config';
 import { ReactComponent as CloseIcon } from '@assets/svg/close-icon.svg';
+import { buttonReset } from '@components/primitives/Button';
+import { focus } from '@components/primitives/link';
+import { Stack } from '@components/primitives/Stack';
+import { text } from '@components/primitives/text';
+import { DEFAULT_SPRING_ANIMATION } from '@utils/constants/animation.constants';
+import { NAVIGATION_DATA } from '@utils/constants/navigation.constants';
+import { PATHS } from '@utils/constants/paths.constants';
 import { motion } from 'framer-motion';
 import NextLink from 'next/link';
-import { buttonReset } from '../../../primitives/Button';
-import { linkFocus } from '../../../primitives/link';
-import { Stack } from '../../../primitives/Stack';
-import { text } from '../../../primitives/text';
 
 const drawerContainerVariants = {
   open: {
     x: '0%',
     transition: {
-      ...defaultSpringAnimation,
+      ...DEFAULT_SPRING_ANIMATION,
     },
   },
   closed: {
     x: '100%',
     transition: {
-      ...defaultSpringAnimation,
+      ...DEFAULT_SPRING_ANIMATION,
     },
   },
 };
@@ -43,7 +43,7 @@ const wrapper = css({
   d: 'flex',
   flexDirection: 'column',
 });
-const closeButton = css(buttonReset, linkFocus, {
+const closeButton = css(buttonReset, focus, {
   height: 24,
   justifySelf: 'end',
   '> svg > *': {
@@ -114,7 +114,7 @@ export function Drawer({ isOpen, closeFn }: DrawerProps): JSX.Element {
                 </a>
               </NextLink>
             </li>
-            {navigationData.map(({ label, path }) => (
+            {NAVIGATION_DATA.map(({ label, path }) => (
               <li key={label} className={listItem({ size: '3' })}>
                 <NextLink passHref href={path}>
                   <a

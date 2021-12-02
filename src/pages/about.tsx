@@ -1,4 +1,4 @@
-import { PATHS } from '@/constants/paths';
+import { PATHS } from '@utils/constants/paths.constants';
 import { NextPage } from 'next';
 import { NextSeo, NextSeoProps } from 'next-seo';
 

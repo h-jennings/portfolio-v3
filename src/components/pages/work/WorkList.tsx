@@ -1,12 +1,15 @@
-import { PATHS } from '@/constants/paths';
-import { ProjectMeta, projectMetaData } from '@/constants/projects';
 import { styled } from '@/stitches.config';
+import { Box } from '@components/primitives/Box';
+import { LinkBox, LinkOverlay } from '@components/primitives/LinkBox';
+import { Stack } from '@components/primitives/Stack';
+import { Text } from '@components/primitives/text';
 import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio';
+import { PATHS } from '@utils/constants/paths.constants';
+import {
+  ProjectMeta,
+  PROJECT_METADATA,
+} from '@utils/constants/projects.constants';
 import NextLink from 'next/link';
-import { Box } from '../../primitives/Box';
-import { LinkBox, LinkOverlay } from '../../primitives/LinkBox';
-import { Stack } from '../../primitives/Stack';
-import { Text } from '../../primitives/text';
 
 const List = styled(Box, {
   '> :first-child': {
@@ -53,17 +56,11 @@ const TextContentContainer = styled('div', {
     gridArea: 'a',
   },
 });
-const ProjectContainer = styled('div', {});
-const ClientContainer = styled('div', {});
 const ThumbnailContainer = styled('div', {
   maxWidth: '$full',
   '@bp2': {
     maxWidth: 300,
   },
-});
-
-const EyebrowText = styled(Text, {
-  color: '$text2',
 });
 
 interface ListItemProps {
@@ -77,32 +74,33 @@ function ListItem({
       <LinkBox>
         <ListItemContainer>
           <TextContentContainer>
-            <ProjectContainer>
+            <div>
               <Stack gap={{ '@initial': '1', '@bp3': '2' }}>
-                <EyebrowText size='1'>PROJECT</EyebrowText>
+                <Text color='2' size='1'>
+                  PROJECT
+                </Text>
                 <NextLink passHref href={`${PATHS.work}/[project]`} as={path}>
                   <LinkOverlay>
                     <Text
                       size={{ '@initial': '2', '@bp3': '3' }}
-                      css={{ lineHeight: '$body' }}
+                      leading='body'
                     >
                       {project}
                     </Text>
                   </LinkOverlay>
                 </NextLink>
               </Stack>
-            </ProjectContainer>
-            <ClientContainer>
+            </div>
+            <div>
               <Stack gap={{ '@initial': '1', '@bp3': '2' }}>
-                <EyebrowText size='1'>CLIENT</EyebrowText>
-                <Text
-                  size={{ '@initial': '2', '@bp3': '3' }}
-                  css={{ lineHeight: '$body' }}
-                >
+                <Text color='2' size='1'>
+                  CLIENT
+                </Text>
+                <Text leading='body' size={{ '@initial': '2', '@bp3': '3' }}>
                   {client}
                 </Text>
               </Stack>
-            </ClientContainer>
+            </div>
           </TextContentContainer>
           <ThumbnailContainer>
             <AspectRatioPrimitive.Root ratio={16 / 9}>
@@ -115,7 +113,7 @@ function ListItem({
   );
 }
 export function WorkList(): JSX.Element {
-  const projectEntries = Object.entries(projectMetaData);
+  const projectEntries = Object.entries(PROJECT_METADATA);
   return (
     <List as='ul'>
       {projectEntries.map(([, project], idx) => (

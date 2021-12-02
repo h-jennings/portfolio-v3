@@ -1,6 +1,6 @@
-import { PATHS } from '@/constants/paths';
+import { PATHS } from '@utils/constants/paths.constants';
 
-export const navigationData = [
+export const NAVIGATION_DATA = [
   {
     label: 'work',
     path: PATHS.work,

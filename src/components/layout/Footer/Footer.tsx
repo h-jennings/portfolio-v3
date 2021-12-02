@@ -1,24 +1,20 @@
-import { useCurrentTimeInDC } from '@/components/layout/Footer/use-current-time';
-import { PATHS } from '@/constants/paths';
 import { WeatherData } from '@/machines/weather-data-machine';
 import { styled } from '@/stitches.config';
+import { useCurrentTimeInDC } from '@components/layout/Footer/use-current-time';
+import { Box } from '@components/primitives/Box';
+import { Flex } from '@components/primitives/Flex';
+import { Link } from '@components/primitives/link';
+import { Stack } from '@components/primitives/Stack';
+import { Text } from '@components/primitives/text';
+import { PATHS } from '@utils/constants/paths.constants';
 import isUndefined from 'lodash/fp/isUndefined';
 import Image from 'next/image';
 import React from 'react';
-import { Box } from '../../primitives/Box';
-import { Flex } from '../../primitives/Flex';
-import { Link } from '../../primitives/link';
-import { Stack } from '../../primitives/Stack';
-import { Text } from '../../primitives/text';
 import { useWeatherInfo } from './use-weather-info';
 
 function tempText(temp: number | undefined): string {
   return isUndefined(temp) ? 'XX' : Math.round(temp).toString();
 }
-
-const FooterText = styled(Text, {
-  fontSize: '$1',
-});
 
 function WeatherIcon({
   description,
@@ -45,6 +41,48 @@ function WeatherIcon({
   );
 }
 
+function Time(): JSX.Element {
+  const currentTime = useCurrentTimeInDC();
+  return (
+    <Text size='1' as='time'>
+      {currentTime}
+    </Text>
+  );
+}
+
+function Weather(): JSX.Element | null {
+  const current = useWeatherInfo();
+  const weatherUI = React.useMemo(() => {
+    const { data } = current.context;
+    switch (true) {
+      case current.matches('idle.noError.hasData'): {
+        const { description, icon, temp } = data!;
+        return (
+          <>
+            <WeatherIcon description={description} icon={icon} />
+            <Text size='1'>{tempText(temp)}&deg;F</Text>
+          </>
+        );
+      }
+      case current.matches('idle.errored'): {
+        return (
+          <Text size='1' css={{ color: '$tomato9' }}>
+            weather data errored
+          </Text>
+        );
+      }
+      case current.matches('fetching'): {
+        return <Text size='1'>loading...</Text>;
+      }
+      default: {
+        return null;
+      }
+    }
+  }, [current]);
+
+  return weatherUI;
+}
+
 const Grid = styled('footer', {
   d: 'grid',
   gridTemplateAreas: ` 'a b'
@@ -65,38 +103,6 @@ const Grid = styled('footer', {
 });
 
 export function Footer(): JSX.Element {
-  const currentTime = useCurrentTimeInDC();
-
-  const current = useWeatherInfo();
-
-  const weatherUI = React.useMemo(() => {
-    const { data } = current.context;
-    switch (true) {
-      case current.matches('idle.noError.hasData'): {
-        const { description, icon, temp } = data!;
-        return (
-          <>
-            <WeatherIcon description={description} icon={icon} />
-            <FooterText>{tempText(temp)}&deg;F</FooterText>
-          </>
-        );
-      }
-      case current.matches('idle.errored'): {
-        return (
-          <FooterText css={{ color: '$tomato9' }}>
-            weather data errored
-          </FooterText>
-        );
-      }
-      case current.matches('fetching'): {
-        return <FooterText>loading...</FooterText>;
-      }
-      default: {
-        return null;
-      }
-    }
-  }, [current]);
-
   return (
     <Grid>
       <Stack
@@ -108,8 +114,8 @@ export function Footer(): JSX.Element {
           },
         }}
       >
-        <FooterText>design and development</FooterText>
-        <FooterText>&copy; Hunter Jennings 2021</FooterText>
+        <Text size='1'>design and development</Text>
+        <Text size='1'>&copy; Hunter Jennings 2021</Text>
       </Stack>
       <Stack
         gap='1'
@@ -122,8 +128,8 @@ export function Footer(): JSX.Element {
           justifySelf: 'end',
         }}
       >
-        <FooterText as='time'>{currentTime}</FooterText>
-        <FooterText>Washington D.C.</FooterText>
+        <Time />
+        <Text size='1'>Washington D.C.</Text>
       </Stack>
       <Flex
         css={{
@@ -133,7 +139,7 @@ export function Footer(): JSX.Element {
           '@bp3': { gridArea: 'c' },
         }}
       >
-        {weatherUI}
+        <Weather />
       </Flex>
       <Stack css={{ justifySelf: 'end' }} direction='row' gap='2' as='ul'>
         <li>

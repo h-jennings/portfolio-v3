@@ -1,5 +1,5 @@
-import { PATHS } from '@/constants/paths';
-import { ProjectIdentifiers } from '@/types/projects';
+import { PATHS } from '@utils/constants/paths.constants';
+import { ProjectIdentifiers } from '@utils/types/projects';
 
 export interface ProjectMeta {
   tags: string[];
@@ -30,7 +30,7 @@ const sharedProjectData: Record<
   },
 };
 
-export const projectMetaData: Record<ProjectIdentifiers, ProjectMeta> = {
+export const PROJECT_METADATA: Record<ProjectIdentifiers, ProjectMeta> = {
   dwr: {
     ...sharedProjectData.dwr,
     description:
@@ -60,7 +60,7 @@ export type ProjectPageData = Pick<
   contribution: string[];
   images: string[];
 };
-export const projectPageData: Record<ProjectIdentifiers, ProjectPageData> = {
+export const PROJECT_PAGE_DATA: Record<ProjectIdentifiers, ProjectPageData> = {
   dwr: {
     ...sharedProjectData.dwr,
     images: ['1', '2', '3'],

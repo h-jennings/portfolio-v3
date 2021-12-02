@@ -1,6 +1,3 @@
-import { PATHS } from '@/constants/paths';
-import { ProjectMeta, projectMetaData } from '@/constants/projects';
-import { parseTagsToString } from '@/helpers/string-helpers';
 import { styled } from '@/stitches.config';
 import { Box } from '@components/primitives/Box';
 import { Flex } from '@components/primitives/Flex';
@@ -9,6 +6,12 @@ import { LinkBox, LinkOverlay } from '@components/primitives/LinkBox';
 import { Stack } from '@components/primitives/Stack';
 import { BodyText, H1, H2, Text } from '@components/primitives/text';
 import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio';
+import { PATHS } from '@utils/constants/paths.constants';
+import {
+  ProjectMeta,
+  PROJECT_METADATA,
+} from '@utils/constants/projects.constants';
+import { parseTagsToString } from '@utils/helpers/string.helpers';
 import NextLink from 'next/link';
 import React from 'react';
 import useMeasure from 'react-use-measure';
@@ -96,7 +99,7 @@ const Grid = styled('div', {
 });
 
 export function ProjectGrid(): JSX.Element {
-  const projectEntries = Object.entries(projectMetaData);
+  const projectEntries = Object.entries(PROJECT_METADATA);
   return (
     <Stack gap={{ '@initial': '3', '@bp2': '5' }}>
       <TitleBar projectCount={projectEntries.length} />

@@ -1,7 +1,7 @@
-import { WorkList } from '@/components/pages/work/WorkList';
-import { Stack } from '@/components/primitives/Stack';
-import { PageHeader, text } from '@/components/primitives/text';
-import { PATHS } from '@/constants/paths';
+import { WorkList } from '@components/pages/work/WorkList';
+import { Stack } from '@components/primitives/Stack';
+import { H2, PageHeader } from '@components/primitives/text';
+import { PATHS } from '@utils/constants/paths.constants';
 import { NextPage } from 'next';
 import { NextSeo, NextSeoProps } from 'next-seo';
 
@@ -26,9 +26,7 @@ const Work: NextPage = () => {
       <Stack gap={{ '@initial': '4', '@bp2': '6' }}>
         <Stack gap={{ '@initial': '2', '@bp2': '3' }}>
           <PageHeader>Selected Work</PageHeader>
-          <h2 className={text({ size: { '@initial': '1', '@bp2': '2' } })}>
-            3&mdash;PROJECTS
-          </h2>
+          <H2 size={{ '@initial': '1', '@bp2': '2' }}>3&mdash;PROJECTS</H2>
         </Stack>
         <WorkList />
       </Stack>

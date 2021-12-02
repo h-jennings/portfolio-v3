@@ -5,7 +5,7 @@ import { ZodError } from 'zod';
 import {
   OpenWeatherResponse,
   OpenWeatherResponseZod,
-} from '../types/open-weather';
+} from '../utils/types/open-weather';
 import { dataMachine } from './data-machine';
 
 const apiUrl = `https://api.openweathermap.org/data/2.5/weather?id=4140963&units=imperial&appid=${process.env.WEATHER_API_KEY}`;

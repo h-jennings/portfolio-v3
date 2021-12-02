@@ -1,6 +1,6 @@
 import { css, styled } from '@/stitches.config';
 
-export const linkFocus = css({
+export const focus = css({
   transition: '$default',
   '&:focus': {
     outline: 'none',
@@ -8,13 +8,11 @@ export const linkFocus = css({
   },
 });
 
-const linkStyles = {
+export const link = css(focus, {
   d: 'inline',
   color: '$text1',
   fontSize: '$2',
-};
-
-export const link = css(linkFocus, { ...linkStyles });
+});
 export const Link = styled('a', {
   d: 'inline',
   color: '$text1',

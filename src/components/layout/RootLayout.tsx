@@ -1,5 +1,5 @@
 import { config, css } from '@/stitches.config';
-import { WithChildren } from '@/types/with-children';
+import { WithChildren } from '@utils/types/with-children';
 import { DefaultSeo } from 'next-seo';
 import SEO from 'next-seo.config';
 import Media from 'react-media';

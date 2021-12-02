@@ -1,4 +1,4 @@
-import * as string_helpers from '@/helpers/string-helpers';
+import * as string_helpers from '@utils/helpers/string.helpers';
 // @ponicode
 describe('string_helpers.parseTagsToString', () => {
   test('0', () => {

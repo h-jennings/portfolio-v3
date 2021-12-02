@@ -1,8 +1,8 @@
-import { PATHS } from '@/constants/paths';
-import { ProjectMeta } from '@/constants/projects';
-import { prevNextProjectData } from '@/helpers/prev-next-project-data';
-import { css } from '@/stitches.config';
+import { styled } from '@/stitches.config';
 import { ReactComponent as ArrowIcon } from '@assets/svg/arrow-icon.svg';
+import { PATHS } from '@utils/constants/paths.constants';
+import { ProjectMeta } from '@utils/constants/projects.constants';
+import { prevNextProjectData } from '@utils/helpers/prev-next-project-data.helpers';
 import isNull from 'lodash/fp/isNull';
 import NextLink from 'next/link';
 import React from 'react';
@@ -10,33 +10,37 @@ import { LinkBox, LinkOverlay } from '../../primitives/LinkBox';
 import { Stack } from '../../primitives/Stack';
 import { Text } from '../../primitives/text';
 
-const alignmentLookup = {
+const ALIGNMENT_LOOKUP = {
   left: 'flex-start',
   right: 'flex-end',
   center: 'center',
 };
-
+const LinkContainer = styled('div', {
+  d: 'flex',
+  height: '100%',
+  width: '100%',
+});
 interface LinkProps {
   meta: ProjectMeta;
   subTitle: string;
   arrowDirection: 'left' | 'right';
   alignment: 'left' | 'right' | 'center';
 }
-export function Link({
+export function ProjectLink({
   meta,
   subTitle,
   arrowDirection,
   alignment,
 }: LinkProps): JSX.Element {
   const justify = React.useMemo(() => {
-    return alignmentLookup[alignment];
+    return ALIGNMENT_LOOKUP[alignment];
   }, [alignment]);
 
   const headerUi = React.useMemo(() => {
     switch (arrowDirection) {
       case 'left': {
         return (
-          <Stack direction='row' gap='1' css={{ jc: justify }}>
+          <Stack direction='row' gap='1' style={{ justifyContent: justify }}>
             <ArrowIcon style={{ transform: 'rotate(90deg)' }} width='20px' />
             <Text size={{ '@initial': '1', '@bp3': '2' }}>{subTitle}</Text>
           </Stack>
@@ -44,7 +48,7 @@ export function Link({
       }
       case 'right': {
         return (
-          <Stack direction='row' gap='1' css={{ jc: justify }}>
+          <Stack direction='row' gap='1' style={{ justifyContent: justify }}>
             <Text size={{ '@initial': '1', '@bp3': '2' }}>{subTitle}</Text>
             <ArrowIcon style={{ transform: 'rotate(-90deg)' }} width='20px' />
           </Stack>
@@ -54,11 +58,8 @@ export function Link({
   }, [subTitle, arrowDirection, justify]);
 
   return (
-    <div
+    <LinkContainer
       style={{
-        display: 'flex',
-        height: '100%',
-        width: '100%',
         justifyContent: justify,
       }}
     >
@@ -67,23 +68,20 @@ export function Link({
           {headerUi}
           <NextLink passHref href={`${PATHS.work}/[project]`} as={meta.path}>
             <LinkOverlay>
-              <Text
-                size={{ '@initial': '2', '@bp3': '3' }}
-                css={{ lineHeight: '$body' }}
-              >
+              <Text leading='body' size={{ '@initial': '2', '@bp3': '3' }}>
                 {meta.project}
               </Text>
             </LinkOverlay>
           </NextLink>
         </Stack>
       </LinkBox>
-    </div>
+    </LinkContainer>
   );
 }
 
-const container = css({
+const LinksContainer = styled('div', {
   d: 'flex',
-  '> div': {
+  [`> ${LinkContainer}`]: {
     flex: 1,
     d: 'flex',
     jc: 'center',
@@ -115,9 +113,9 @@ export function ProjectLinks({
   }, [previous, next]);
 
   return (
-    <div className={container()}>
+    <LinksContainer>
       {previous ? (
-        <Link
+        <ProjectLink
           arrowDirection='left'
           alignment={shouldCenter ? 'center' : 'left'}
           meta={previous}
@@ -125,13 +123,13 @@ export function ProjectLinks({
         />
       ) : null}
       {next ? (
-        <Link
+        <ProjectLink
           arrowDirection='right'
           alignment={shouldCenter ? 'center' : 'right'}
           meta={next}
           subTitle='Next'
         />
       ) : null}
-    </div>
+    </LinksContainer>
   );
 }

@@ -1,17 +1,17 @@
-import { ProjectLinks } from '@/components/pages/work/ProjectLinks';
-import { Stack } from '@/components/primitives/Stack';
-import { PageHeader, text } from '@/components/primitives/text';
-import { PATHS } from '@/constants/paths';
+import { css } from '@/stitches.config';
+import { ProjectLinks } from '@components/pages/work/ProjectLinks';
+import { Stack } from '@components/primitives/Stack';
+import { PageHeader, text } from '@components/primitives/text';
+import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio';
+import { PATHS } from '@utils/constants/paths.constants';
 import {
   ProjectMeta,
-  projectMetaData,
   ProjectPageData,
-  projectPageData,
-} from '@/constants/projects';
-import { commaSeparated } from '@/helpers/string-helpers';
-import { css } from '@/stitches.config';
-import { ProjectIdentifiers } from '@/types/projects';
-import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio';
+  PROJECT_METADATA,
+  PROJECT_PAGE_DATA,
+} from '@utils/constants/projects.constants';
+import { commaSeparated } from '@utils/helpers/string.helpers';
+import { ProjectIdentifiers } from '@utils/types/projects';
 import { NextPage } from 'next';
 import { NextSeo, NextSeoProps } from 'next-seo';
 import React from 'react';
@@ -173,10 +173,10 @@ Work.getInitialProps = (context) => {
   } = context;
 
   const projectData: ProjectPageData | undefined =
-    projectPageData[project as ProjectIdentifiers];
+    PROJECT_PAGE_DATA[project as ProjectIdentifiers];
   const projectMeta: ProjectMeta | undefined =
-    projectMetaData[project as ProjectIdentifiers];
-  const projectIndex = Object.keys(projectPageData)
+    PROJECT_METADATA[project as ProjectIdentifiers];
+  const projectIndex = Object.keys(PROJECT_PAGE_DATA)
     .map((key) => key)
     .indexOf(project as string);
 

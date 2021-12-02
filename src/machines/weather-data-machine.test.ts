@@ -1,4 +1,4 @@
-import { OpenWeatherResponse } from '@/types/open-weather';
+import { OpenWeatherResponse } from '@utils/types/open-weather';
 import { mapResponseData, WeatherData } from './weather-data-machine';
 
 const defaultData: OpenWeatherResponse = {

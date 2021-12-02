@@ -1,22 +1,21 @@
-import { navigationData } from '@/constants/navigation';
-import { PATHS } from '@/constants/paths';
-import { css } from '@/stitches.config';
+import { styled } from '@/stitches.config';
+import { Box } from '@components/primitives/Box';
+import { Link } from '@components/primitives/link';
+import { Text } from '@components/primitives/text';
+import { NAVIGATION_DATA } from '@utils/constants/navigation.constants';
+import { PATHS } from '@utils/constants/paths.constants';
 import NextLink from 'next/link';
 import useMeasure from 'react-use-measure';
-import { link } from '../primitives/link';
 import { Availability } from './Availability';
 
-const wrapper = css({
-  py: '$4',
-});
-const container = css({
+const Container = styled('div', {
   d: 'flex',
   jc: 'space-between',
   ai: 'center',
   position: 'relative',
 });
 
-const linkContainer = css({
+const LinkList = styled('ul', {
   d: 'grid',
   gridTemplateColumns: 'repeat(4, auto)',
   gap: '$2',
@@ -26,7 +25,7 @@ const linkContainer = css({
   },
 });
 
-const logotypeContainer = css({
+const LogotypeContainer = styled('div', {
   position: 'absolute',
   top: '0',
   left: '50%',
@@ -39,53 +38,43 @@ export function Navigation(): JSX.Element {
   const [ref, bounds] = useMeasure();
 
   return (
-    <nav className={wrapper()}>
-      <div className={container()}>
-        <ul className={linkContainer()}>
-          {navigationData.map(({ path, label }) => (
+    <Box as='nav' css={{ py: '$4' }}>
+      <Container>
+        <LinkList>
+          {NAVIGATION_DATA.map(({ path, label }) => (
             <li key={label}>
               <NextLink passHref href={path}>
-                <a className={link()}>{label}</a>
+                <Link>{label}</Link>
               </NextLink>
             </li>
           ))}
           <li>
             <Availability status='inactive' />
           </li>
-        </ul>
-        <div
+        </LinkList>
+        <LogotypeContainer
           ref={ref}
-          className={logotypeContainer({
-            css: {
-              marginLeft: `-${bounds.width / 2}px`,
-            },
-          })}
+          style={{
+            marginLeft: `-${bounds.width / 2}px`,
+          }}
         >
           <NextLink passHref href={PATHS.home}>
-            <a
+            <Link
               aria-label='logo link'
-              className={link({
-                css: {
-                  userSelect: 'none',
-                  display: 'inline-block',
-                },
-              })}
+              css={{ d: 'inline-block', userSelect: 'none' }}
             >
-              <div
-                className={css({ lineHeight: '$tight' })()}
-                role='presentation'
-              >
+              <Text leading='tight' role='presentation'>
                 H—J
-              </div>
-            </a>
+              </Text>
+            </Link>
           </NextLink>
-        </div>
+        </LogotypeContainer>
         <div>
-          <a href={PATHS.email} className={link({ css: { color: '$text3' } })}>
+          <Link color='3' href={PATHS.email}>
             jenningsdhunter@gmail.com
-          </a>
+          </Link>
         </div>
-      </div>
-    </nav>
+      </Container>
+    </Box>
   );
 }
