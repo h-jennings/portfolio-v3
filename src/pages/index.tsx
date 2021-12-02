@@ -1,6 +1,6 @@
+import { Link } from '@/components/primitives/text';
 import { styled } from '@/stitches.config';
 import { ProjectGrid } from '@components/pages/home/ProjectGrid';
-import { Link } from '@components/primitives/link';
 import { Stack } from '@components/primitives/Stack';
 import { BodyText, H1 } from '@components/primitives/text';
 import { PATHS } from '@utils/constants/paths.constants';

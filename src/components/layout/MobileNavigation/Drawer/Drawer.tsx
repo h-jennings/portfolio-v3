@@ -1,7 +1,7 @@
+import { focus } from '@/components/primitives/text';
 import { css } from '@/stitches.config';
 import { ReactComponent as CloseIcon } from '@assets/svg/close-icon.svg';
 import { buttonReset } from '@components/primitives/Button';
-import { focus } from '@components/primitives/link';
 import { Stack } from '@components/primitives/Stack';
 import { text } from '@components/primitives/text';
 import { DEFAULT_SPRING_ANIMATION } from '@utils/constants/animation.constants';

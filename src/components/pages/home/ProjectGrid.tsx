@@ -1,7 +1,7 @@
+import { Link } from '@/components/primitives/text';
 import { styled } from '@/stitches.config';
 import { Box } from '@components/primitives/Box';
 import { Flex } from '@components/primitives/Flex';
-import { Link } from '@components/primitives/link';
 import { LinkBox, LinkOverlay } from '@components/primitives/LinkBox';
 import { Stack } from '@components/primitives/Stack';
 import { BodyText, H1, H2, Text } from '@components/primitives/text';

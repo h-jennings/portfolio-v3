@@ -1,9 +1,9 @@
+import { Link } from '@/components/primitives/text';
 import { WeatherData } from '@/machines/weather-data-machine';
 import { styled } from '@/stitches.config';
 import { useCurrentTimeInDC } from '@components/layout/Footer/use-current-time';
 import { Box } from '@components/primitives/Box';
 import { Flex } from '@components/primitives/Flex';
-import { Link } from '@components/primitives/link';
 import { Stack } from '@components/primitives/Stack';
 import { Text } from '@components/primitives/text';
 import { PATHS } from '@utils/constants/paths.constants';
