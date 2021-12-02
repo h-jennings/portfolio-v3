@@ -3,10 +3,10 @@ import { ProjectMeta, projectMetaData } from '@/constants/projects';
 import { styled } from '@/stitches.config';
 import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio';
 import NextLink from 'next/link';
-import { Box } from './primitives/Box';
-import { LinkBox, LinkOverlay } from './primitives/LinkBox';
-import { Stack } from './primitives/Stack';
-import { Text } from './primitives/Text';
+import { Box } from '../../primitives/Box';
+import { LinkBox, LinkOverlay } from '../../primitives/LinkBox';
+import { Stack } from '../../primitives/Stack';
+import { Text } from '../../primitives/text';
 
 const List = styled(Box, {
   '> :first-child': {

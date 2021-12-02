@@ -1,9 +1,9 @@
+import { ProjectGrid } from '@/components/pages/home/ProjectGrid';
 import { link } from '@/components/primitives/link';
 import { Stack } from '@/components/primitives/Stack';
-import { ProjectGrid } from '@/components/ProjectGrid';
+import { BodyText, text } from '@/components/primitives/text';
 import { PATHS } from '@/constants/paths';
 import { css, styled } from '@/stitches.config';
-import { text } from '@components/primitives/Text';
 import type { NextPage } from 'next';
 import { NextSeo, NextSeoProps } from 'next-seo';
 import NextLink from 'next/link';
@@ -17,15 +17,6 @@ const pageHeader = css(text, {
   lineHeight: '$body',
   '@bp2': {
     fontSize: '$3',
-  },
-});
-const paragraph = css(text, {
-  maxWidth: '520px',
-  color: '$text2',
-  lineHeight: '$body',
-  fontSize: '$1',
-  '@bp2': {
-    fontSize: '$2',
   },
 });
 const readMoreLink = css(link, {
@@ -54,7 +45,7 @@ const Index: NextPage = () => {
             systems, component architectures, and React.
           </h1>
           <Stack gap='2'>
-            <p className={paragraph()}>
+            <BodyText css={{ maxWidth: '520px' }}>
               Hunter currently works as a Frontend Developer for an
               award-winning digital creative agency{' '}
               <a
@@ -66,7 +57,7 @@ const Index: NextPage = () => {
                 Elegant Seagulls
               </a>
               .
-            </p>
+            </BodyText>
             {/* <p className={paragraph()}>
               If you&apos;re a remote-friendly product company that wants to
               scale your ui with elegant, modern, web-based tools&mdash;I

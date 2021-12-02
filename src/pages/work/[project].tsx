@@ -1,6 +1,6 @@
+import { ProjectLinks } from '@/components/pages/work/ProjectLinks';
 import { Stack } from '@/components/primitives/Stack';
-import { pageHeader, text } from '@/components/primitives/Text';
-import { ProjectLinks } from '@/components/ProjectLinks';
+import { PageHeader, text } from '@/components/primitives/text';
 import { PATHS } from '@/constants/paths';
 import {
   ProjectMeta,
@@ -127,7 +127,7 @@ const Work: NextPage<{
       <Stack gap={{ '@initial': '7', '@bp3': '9' }}>
         <div className={splitGrid()}>
           <Stack gap='4'>
-            <h1 className={pageHeader()}>{projectData?.project}</h1>
+            <PageHeader>{projectData?.project}</PageHeader>
             <Stack gap='2'>
               <h2 className={text({ size: '1', css: { color: '$text3' } })}>
                 DESCRIPTION

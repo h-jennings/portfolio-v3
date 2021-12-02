@@ -6,9 +6,9 @@ import { ReactComponent as ArrowIcon } from '@assets/svg/arrow-icon.svg';
 import isNull from 'lodash/fp/isNull';
 import NextLink from 'next/link';
 import React from 'react';
-import { LinkBox, LinkOverlay } from './primitives/LinkBox';
-import { Stack } from './primitives/Stack';
-import { Text } from './primitives/Text';
+import { LinkBox, LinkOverlay } from '../../primitives/LinkBox';
+import { Stack } from '../../primitives/Stack';
+import { Text } from '../../primitives/text';
 
 const alignmentLookup = {
   left: 'flex-start',

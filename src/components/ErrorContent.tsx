@@ -3,7 +3,7 @@ import { ErrorProps } from 'next/error';
 import NextLink from 'next/link';
 import { link } from './primitives/link';
 import { Stack } from './primitives/Stack';
-import { pageHeader } from './primitives/Text';
+import { PageHeader } from './primitives/text';
 
 const homepageLink = css(link, {
   fontSize: '$1',
@@ -15,7 +15,7 @@ const homepageLink = css(link, {
 export function ErrorContent({ statusCode, title }: ErrorProps): JSX.Element {
   return (
     <Stack gap='3'>
-      <h1 className={pageHeader()}>{statusCode} - Page Not Found</h1>
+      <PageHeader>{statusCode} - Page Not Found</PageHeader>
       <div>
         <NextLink passHref href='/'>
           <a className={homepageLink()}>Back to homepage</a>

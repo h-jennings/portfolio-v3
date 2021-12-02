@@ -1,4 +1,4 @@
-import { RootLayout } from '@/components/RootLayout';
+import { RootLayout } from '@/components/layout/RootLayout';
 import { useVisualViewportHeight } from '@/hooks/use-visual-viewport-height';
 import type { AppProps } from 'next/app';
 import '../styles/globals.css';

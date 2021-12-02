@@ -3,8 +3,8 @@ import { PATHS } from '@/constants/paths';
 import { css } from '@/stitches.config';
 import NextLink from 'next/link';
 import useMeasure from 'react-use-measure';
+import { link } from '../primitives/link';
 import { Availability } from './Availability';
-import { link } from './primitives/link';
 
 const wrapper = css({
   py: '$4',

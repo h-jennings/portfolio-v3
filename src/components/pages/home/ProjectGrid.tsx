@@ -2,33 +2,18 @@ import { PATHS } from '@/constants/paths';
 import { ProjectMeta, projectMetaData } from '@/constants/projects';
 import { parseTagsToString } from '@/helpers/string-helpers';
 import { styled } from '@/stitches.config';
+import { Box } from '@components/primitives/Box';
+import { Flex } from '@components/primitives/Flex';
+import { Link } from '@components/primitives/link';
+import { LinkBox, LinkOverlay } from '@components/primitives/LinkBox';
+import { Stack } from '@components/primitives/Stack';
+import { Text } from '@components/primitives/text';
 import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio';
 import NextLink from 'next/link';
 import React from 'react';
 import useMeasure from 'react-use-measure';
-import { Box } from './primitives/Box';
-import { Flex } from './primitives/Flex';
-import { StyledLink } from './primitives/link';
-import { LinkBox, LinkOverlay } from './primitives/LinkBox';
-import { Stack } from './primitives/Stack';
-import { Text } from './primitives/Text';
 
-const greyTextStyles = {
-  color: '$text2',
-  fontSize: '$1',
-  '@bp2': {
-    fontSize: '$2',
-  },
-};
-
-const GreyText = styled(Text, {
-  ...greyTextStyles,
-});
-const GreyLink = styled(StyledLink, {
-  ...greyTextStyles,
-});
-
-const CenteredText = styled(GreyText, {
+const CenteredText = styled(Text, {
   position: 'absolute',
   top: '0',
   left: '50%',
@@ -45,12 +30,21 @@ function TitleBar({ projectCount }: TitleBarProps): JSX.Element {
   const [ref, bounds] = useMeasure();
   return (
     <Flex css={{ jc: 'space-between', position: 'relative' }}>
-      <GreyText>SELECTED WORK</GreyText>
-      <CenteredText ref={ref} css={{ marginLeft: `-${bounds.width / 2}px` }}>
+      <Text color='2' size={{ '@initial': '1', '@bp2': '2' }}>
+        SELECTED WORK
+      </Text>
+      <CenteredText
+        color='2'
+        size={{ '@initial': '1', '@bp2': '2' }}
+        ref={ref}
+        style={{ marginLeft: `-${bounds.width / 2}px` }}
+      >
         {projectCount ?? 'X'}&mdash;PROJECTS
       </CenteredText>
       <NextLink passHref href={PATHS.work}>
-        <GreyLink css={{ color: '$text2' }}>VIEW ALL</GreyLink>
+        <Link color='2' size={{ '@initial': '1', '@bp2': '2' }}>
+          VIEW ALL
+        </Link>
       </NextLink>
     </Flex>
   );

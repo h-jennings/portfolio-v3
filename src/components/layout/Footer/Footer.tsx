@@ -1,16 +1,16 @@
-import { useCurrentTimeInDC } from '@/components/Footer/current-time';
+import { useCurrentTimeInDC } from '@/components/layout/Footer/use-current-time';
 import { PATHS } from '@/constants/paths';
 import { WeatherData } from '@/machines/weather-data-machine';
 import { styled } from '@/stitches.config';
 import isUndefined from 'lodash/fp/isUndefined';
 import Image from 'next/image';
 import React from 'react';
-import { Box } from '../primitives/Box';
-import { Flex } from '../primitives/Flex';
-import { StyledLink } from '../primitives/link';
-import { Stack } from '../primitives/Stack';
-import { Text } from '../primitives/Text';
-import { useWeatherInfo } from './weather-info';
+import { Box } from '../../primitives/Box';
+import { Flex } from '../../primitives/Flex';
+import { Link } from '../../primitives/link';
+import { Stack } from '../../primitives/Stack';
+import { Text } from '../../primitives/text';
+import { useWeatherInfo } from './use-weather-info';
 
 function tempText(temp: number | undefined): string {
   return isUndefined(temp) ? 'XX' : Math.round(temp).toString();
@@ -137,19 +137,19 @@ export function Footer(): JSX.Element {
       </Flex>
       <Stack css={{ justifySelf: 'end' }} direction='row' gap='2' as='ul'>
         <li>
-          <StyledLink css={{ fontSize: '$1' }} href={PATHS.github}>
+          <Link size='1' href={PATHS.github}>
             Gh
-          </StyledLink>
+          </Link>
         </li>
         <li>
-          <StyledLink css={{ fontSize: '$1' }} href={PATHS.linkedin}>
+          <Link size='1' href={PATHS.linkedin}>
             Li
-          </StyledLink>
+          </Link>
         </li>
         <li>
-          <StyledLink css={{ fontSize: '$1' }} href={PATHS.twitter}>
+          <Link size='1' href={PATHS.twitter}>
             Tw
-          </StyledLink>
+          </Link>
         </li>
       </Stack>
     </Grid>

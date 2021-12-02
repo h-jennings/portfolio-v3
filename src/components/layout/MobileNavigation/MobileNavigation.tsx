@@ -1,10 +1,10 @@
 import { css } from '@/stitches.config';
 import { ReactComponent as MenuIcon } from '@assets/svg/mobile-menu.svg';
 import { useMachine } from '@xstate/react';
+import { buttonReset } from '../../primitives/Button';
 import { Availability } from '../Availability';
-import { buttonReset } from '../primitives/button';
-import { Drawer } from './Drawer';
-import { drawerMachine } from './drawer-machine';
+import { Drawer } from './Drawer/Drawer';
+import { drawerMachine } from './Drawer/drawer-machine';
 
 const navigation = css({
   py: '$3',

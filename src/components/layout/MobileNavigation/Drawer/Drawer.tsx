@@ -5,10 +5,10 @@ import { css } from '@/stitches.config';
 import { ReactComponent as CloseIcon } from '@assets/svg/close-icon.svg';
 import { motion } from 'framer-motion';
 import NextLink from 'next/link';
-import { buttonReset } from '../primitives/button';
-import { linkFocus } from '../primitives/link';
-import { Stack } from '../primitives/Stack';
-import { text } from '../primitives/Text';
+import { buttonReset } from '../../../primitives/Button';
+import { linkFocus } from '../../../primitives/link';
+import { Stack } from '../../../primitives/Stack';
+import { text } from '../../../primitives/text';
 
 const drawerContainerVariants = {
   open: {
