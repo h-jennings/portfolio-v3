@@ -7,7 +7,7 @@ import { Flex } from '@components/primitives/Flex';
 import { Link } from '@components/primitives/link';
 import { LinkBox, LinkOverlay } from '@components/primitives/LinkBox';
 import { Stack } from '@components/primitives/Stack';
-import { Text } from '@components/primitives/text';
+import { BodyText, H1, H2, Text } from '@components/primitives/text';
 import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio';
 import NextLink from 'next/link';
 import React from 'react';
@@ -68,24 +68,17 @@ function Card({
       </Box>
       <Stack gap='2'>
         <Stack gap='1'>
-          <Text as='h2' css={{ fontSize: '$1', color: '$text3' }}>
+          <H2 size='1' color='3'>
             {tagsString}
-          </Text>
+          </H2>
           <NextLink passHref href={`${PATHS.work}/[project]`} as={path}>
             <LinkOverlay>
-              <Text as='h1' css={{ lineHeight: '$body' }}>
-                {`${project} — ${client}`}
-              </Text>
+              <H1 leading='body'>{`${project} — ${client}`}</H1>
             </LinkOverlay>
           </NextLink>
         </Stack>
-        <Box css={{ maxWidth: '370px' }}>
-          <Text
-            as='p'
-            css={{ color: '$text2', lineHeight: '$body', fontSize: '$1' }}
-          >
-            {description}
-          </Text>
+        <Box style={{ maxWidth: '370px' }}>
+          <BodyText css={{ fontSize: '$1' }}>{description}</BodyText>
         </Box>
       </Stack>
     </LinkBox>

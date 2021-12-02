@@ -1,29 +1,17 @@
 import { ProjectGrid } from '@/components/pages/home/ProjectGrid';
-import { link } from '@/components/primitives/link';
 import { Stack } from '@/components/primitives/Stack';
-import { BodyText, text } from '@/components/primitives/text';
+import { BodyText, H1 } from '@/components/primitives/text';
 import { PATHS } from '@/constants/paths';
-import { css, styled } from '@/stitches.config';
+import { styled } from '@/stitches.config';
+import { Link } from '@components/primitives/link';
 import type { NextPage } from 'next';
 import { NextSeo, NextSeoProps } from 'next-seo';
 import NextLink from 'next/link';
 
-const Intro = styled(Stack, {
-  maxWidth: '640px',
-});
-
-const pageHeader = css(text, {
+const PageHeader = styled(H1, {
   fontSize: 'clamp(1.5rem, 4vw - 0.2rem, 1.75rem);',
-  lineHeight: '$body',
   '@bp2': {
     fontSize: '$3',
-  },
-});
-const readMoreLink = css(link, {
-  fontSize: '$1',
-  color: '$text3',
-  '@bp2': {
-    fontSize: '$2',
   },
 });
 
@@ -39,37 +27,48 @@ const Index: NextPage = () => {
     <>
       <NextSeo {...SEO} />
       <Stack gap={{ '@initial': '7', '@bp2': '9' }}>
-        <Intro gap={{ '@initial': '2', '@bp2': '3' }}>
-          <h1 className={pageHeader()}>
+        <Stack
+          style={{ maxWidth: '640px' }}
+          gap={{ '@initial': '2', '@bp2': '3' }}
+        >
+          <PageHeader leading='body'>
             Hunter Jennings is a frontend ui engineer interested in design
             systems, component architectures, and React.
-          </h1>
+          </PageHeader>
           <Stack gap='2'>
             <BodyText css={{ maxWidth: '520px' }}>
               Hunter currently works as a Frontend Developer for an
               award-winning digital creative agency{' '}
-              <a
+              <Link
                 target='_blank'
                 href={PATHS.seagulls}
                 rel='noreferrer'
                 style={{ textDecoration: 'underline' }}
+                color='2'
               >
                 Elegant Seagulls
-              </a>
+              </Link>
               .
             </BodyText>
-            {/* <p className={paragraph()}>
+            {/* <BodyText>
               If you&apos;re a remote-friendly product company that wants to
               scale your ui with elegant, modern, web-based tools&mdash;I
               can&apos;t wait to meet you.
-            </p> */}
-            <div>
-              <NextLink passHref href='/about'>
-                <a className={readMoreLink()}>Read More</a>
-              </NextLink>
-            </div>
+            </BodyText> */}
+            <NextLink passHref href='/about'>
+              <Link
+                color='3'
+                css={{ d: 'block' }}
+                size={{
+                  '@initial': '1',
+                  '@bp2': '2',
+                }}
+              >
+                Read More
+              </Link>
+            </NextLink>
           </Stack>
-        </Intro>
+        </Stack>
         <ProjectGrid />
       </Stack>
     </>
