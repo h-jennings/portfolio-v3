@@ -1,5 +1,5 @@
 import { OpenWeatherResponse } from '@utils/types/open-weather';
-import { mapResponseData, WeatherData } from './weather-data-machine';
+import { mapResponseData, WeatherData } from '../weather-data-machine';
 
 const defaultData: OpenWeatherResponse = {
   coord: {

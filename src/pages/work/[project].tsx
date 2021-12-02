@@ -1,7 +1,8 @@
-import { css } from '@/stitches.config';
+import { styled } from '@/stitches.config';
 import { ProjectLinks } from '@components/pages/work/ProjectLinks';
+import { Box } from '@components/primitives/Box';
 import { Stack } from '@components/primitives/Stack';
-import { PageHeader, text } from '@components/primitives/text';
+import { BodyText, H2, PageHeader } from '@components/primitives/text';
 import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio';
 import { PATHS } from '@utils/constants/paths.constants';
 import {
@@ -16,7 +17,7 @@ import { NextPage } from 'next';
 import { NextSeo, NextSeoProps } from 'next-seo';
 import React from 'react';
 
-const imageGrid = css({
+const ImageGridContainer = styled('div', {
   d: 'grid',
   gap: '$2',
   gtc: '1fr',
@@ -29,24 +30,24 @@ const imageGrid = css({
 });
 function ImageGrid({ images }: { images: string[] }): JSX.Element {
   return (
-    <div className={imageGrid()}>
+    <ImageGridContainer>
       {images.map((image) => (
         <div key={image}>
           <AspectRatioPrimitive.Root ratio={16 / 9}>
-            <div
-              className={css({
+            <Box
+              css={{
                 height: '$full',
                 backgroundColor: '$slate8',
-              })()}
-            ></div>
+              }}
+            ></Box>
           </AspectRatioPrimitive.Root>
         </div>
       ))}
-    </div>
+    </ImageGridContainer>
   );
 }
 
-const splitGrid = css({
+const SplitGrid = styled('div', {
   d: 'grid',
   columnGap: '$3',
   rowGap: '$7',
@@ -58,15 +59,8 @@ const splitGrid = css({
     gtc: '1fr 60%',
   },
 });
-const bodyText = css(text, {
-  color: '$text2',
-  lineHeight: '$body',
-  fontSize: '$1',
-  '@bp2': {
-    fontSize: '$2',
-  },
-});
-const infoGrid = css({
+
+const InfoGrid = styled('div', {
   d: 'grid',
   gtc: 'repeat(2, 1fr)',
   columnGap: '$2',
@@ -77,12 +71,6 @@ const infoGrid = css({
   '@bp2': {
     gtc: '1fr',
   },
-});
-const detailsText = css(bodyText, {
-  maxWidth: 390,
-});
-const infoText = css(bodyText, {
-  maxWidth: 290,
 });
 const Work: NextPage<{
   projectData: ProjectPageData | undefined;
@@ -125,42 +113,56 @@ const Work: NextPage<{
     <>
       <NextSeo {...SEO} />
       <Stack gap={{ '@initial': '7', '@bp3': '9' }}>
-        <div className={splitGrid()}>
+        <SplitGrid>
           <Stack gap='4'>
             <PageHeader>{projectData?.project}</PageHeader>
             <Stack gap='2'>
-              <h2 className={text({ size: '1', css: { color: '$text3' } })}>
+              <H2 size='1' color='3'>
                 DESCRIPTION
-              </h2>
-              <p className={detailsText()}>{projectData?.details}</p>
+              </H2>
+              <BodyText
+                style={{
+                  maxWidth: 390,
+                }}
+              >
+                {projectData?.details}
+              </BodyText>
             </Stack>
-            <div className={infoGrid()}>
+            <InfoGrid>
               <Stack gap='2'>
-                <h2 className={text({ size: '1', css: { color: '$text3' } })}>
+                <H2 size='1' color='3'>
                   TECH
-                </h2>
-                <p className={infoText()}>
+                </H2>
+                <BodyText
+                  style={{
+                    maxWidth: 290,
+                  }}
+                >
                   {projectData?.tech ? commaSeparated(projectData.tech) : null}
-                </p>
+                </BodyText>
               </Stack>
               <Stack gap='2'>
-                <h2 className={text({ size: '1', css: { color: '$text3' } })}>
+                <H2 size='1' color='3'>
                   CONTRIBUTIONS
-                </h2>
-                <p className={infoText()}>
+                </H2>
+                <BodyText
+                  style={{
+                    maxWidth: 290,
+                  }}
+                >
                   {projectData?.contribution
                     ? commaSeparated(projectData.contribution)
                     : null}
-                </p>
+                </BodyText>
               </Stack>
-            </div>
+            </InfoGrid>
           </Stack>
           <div>
             {projectData?.images ? (
               <ImageGrid images={projectData.images} />
             ) : null}
           </div>
-        </div>
+        </SplitGrid>
         <ProjectLinks projectIndex={projectIndex} />
       </Stack>
     </>
