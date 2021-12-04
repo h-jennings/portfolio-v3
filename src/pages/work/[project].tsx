@@ -13,7 +13,7 @@ import {
 } from '@utils/constants/projects.constants';
 import { commaSeparated } from '@utils/helpers/string.helpers';
 import { ProjectIdentifiers } from '@utils/types/projects';
-import { NextPage } from 'next';
+import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import { NextSeo, NextSeoProps } from 'next-seo';
 import React from 'react';
 
@@ -72,12 +72,46 @@ const InfoGrid = styled('div', {
     gtc: '1fr',
   },
 });
-const Work: NextPage<{
-  projectData: ProjectPageData | undefined;
+
+export const getStaticPaths: GetStaticPaths = () => {
+  const paths = Object.keys(PROJECT_PAGE_DATA).map((pageId) => ({
+    params: {
+      project: pageId,
+    },
+  }));
+  return {
+    paths,
+    fallback: false,
+  };
+};
+export const getStaticProps: GetStaticProps<{
+  projectData: ProjectPageData;
   projectIndex: number;
-  statusCode: number;
-  description: string | undefined;
-}> = ({ projectData, projectIndex, statusCode, description }) => {
+  description: string;
+}> = ({ params }) => {
+  const project = params?.project;
+
+  const projectData: ProjectPageData | undefined =
+    PROJECT_PAGE_DATA[project as ProjectIdentifiers];
+  const projectMeta: ProjectMeta | undefined =
+    PROJECT_METADATA[project as ProjectIdentifiers];
+  const projectIndex = Object.keys(PROJECT_PAGE_DATA)
+    .map((key) => key)
+    .indexOf(project as string);
+
+  return {
+    props: {
+      projectData,
+      projectIndex,
+      description: projectMeta?.description,
+    },
+  };
+};
+function Project({
+  projectData,
+  projectIndex,
+  description,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   const SEO: NextSeoProps = React.useMemo(() => {
     const title = `${projectData?.project} | Hunter Jennings`;
     const url = `${PATHS.base}${projectData?.path}`;
@@ -93,6 +127,7 @@ const Work: NextPage<{
     };
   }, [projectData, description]);
 
+  // TODO: Figure out what to do if status code is not 200
   // if (statusCode !== 200) {
   //   const title = 'Page Not Found | Hunter Jennings';
   //   const SEO: NextSeoProps = {
@@ -167,27 +202,6 @@ const Work: NextPage<{
       </Stack>
     </>
   );
-};
+}
 
-Work.getInitialProps = (context) => {
-  const {
-    query: { project },
-  } = context;
-
-  const projectData: ProjectPageData | undefined =
-    PROJECT_PAGE_DATA[project as ProjectIdentifiers];
-  const projectMeta: ProjectMeta | undefined =
-    PROJECT_METADATA[project as ProjectIdentifiers];
-  const projectIndex = Object.keys(PROJECT_PAGE_DATA)
-    .map((key) => key)
-    .indexOf(project as string);
-
-  return {
-    projectData,
-    projectIndex,
-    description: projectMeta?.description,
-    statusCode: projectData ? 200 : 404,
-  };
-};
-
-export default Work;
+export default Project;
