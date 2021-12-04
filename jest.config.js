@@ -22,6 +22,8 @@ module.exports = {
     // Path Aliases
     '^@/(.*)$': '<rootDir>/src/$1',
     '^@components/(.*)$': '<rootDir>/src/components/$1',
+    '^@assets/(.*)$': '<rootDir>/src/assets/$1',
+    '^@utils/(.*)$': '<rootDir>/src/utils/$1',
   },
   testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.next/'],
   testEnvironment: 'jsdom',
