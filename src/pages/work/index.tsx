@@ -1,6 +1,6 @@
+import { Stack } from '@/components/Stack';
+import { H2, PageHeader } from '@/components/Text';
 import { WorkList } from '@components/pages/work/WorkList';
-import { Stack } from '@components/primitives/Stack';
-import { H2, PageHeader } from '@components/primitives/text';
 import { PATHS } from '@utils/constants/paths.constants';
 import { NextPage } from 'next';
 import { NextSeo, NextSeoProps } from 'next-seo';

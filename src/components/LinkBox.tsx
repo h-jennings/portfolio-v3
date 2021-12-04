@@ -1,6 +1,6 @@
 import { css } from '@/stitches.config';
 import React from 'react';
-import { focus } from './text';
+import { focus } from './Text';
 
 type LinkBoxProps = React.HtmlHTMLAttributes<HTMLDivElement>;
 export type LinkBoxRef = HTMLDivElement;

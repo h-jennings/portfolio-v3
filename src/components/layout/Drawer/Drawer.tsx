@@ -1,9 +1,8 @@
-import { focus } from '@/components/primitives/text';
+import { buttonReset } from '@/components/Button';
+import { Stack } from '@/components/Stack';
+import { focus, text } from '@/components/Text';
 import { css } from '@/stitches.config';
 import { ReactComponent as CloseIcon } from '@assets/svg/close-icon.svg';
-import { buttonReset } from '@components/primitives/Button';
-import { Stack } from '@components/primitives/Stack';
-import { text } from '@components/primitives/text';
 import { DEFAULT_SPRING_ANIMATION } from '@utils/constants/animation.constants';
 import { NAVIGATION_DATA } from '@utils/constants/navigation.constants';
 import { PATHS } from '@utils/constants/paths.constants';

@@ -1,7 +1,7 @@
 import { ErrorProps } from 'next/error';
 import NextLink from 'next/link';
-import { Stack } from './primitives/Stack';
-import { Link, PageHeader } from './primitives/text';
+import { Stack } from './Stack';
+import { Link, PageHeader } from './Text';
 
 export function ErrorContent({ statusCode }: ErrorProps): JSX.Element {
   return (

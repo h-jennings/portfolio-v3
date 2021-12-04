@@ -1,8 +1,8 @@
 import { css } from '@/stitches.config';
 import { ReactComponent as MenuIcon } from '@assets/svg/mobile-menu.svg';
 import { useMachine } from '@xstate/react';
-import { buttonReset } from '../../primitives/Button';
-import { Availability } from '../Availability';
+import { buttonReset } from '../Button';
+import { Availability } from './Availability';
 import { Drawer } from './Drawer/Drawer';
 import { drawerMachine } from './Drawer/drawer-machine';
 

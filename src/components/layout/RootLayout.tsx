@@ -3,8 +3,8 @@ import { WithChildren } from '@utils/types/with-children';
 import { DefaultSeo } from 'next-seo';
 import SEO from 'next-seo.config';
 import Media from 'react-media';
-import { Footer } from './Footer/Footer';
-import { MobileNavigation } from './MobileNavigation/MobileNavigation';
+import { Footer } from './Footer';
+import { MobileNavigation } from './MobileNavigation';
 import { Navigation } from './Navigation';
 
 const container = css({

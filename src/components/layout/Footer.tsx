@@ -1,16 +1,18 @@
-import { Link } from '@/components/primitives/text';
-import { WeatherData } from '@/machines/weather-data-machine';
+import { Box } from '@/components/Box';
+import { Flex } from '@/components/Flex';
+import { Stack } from '@/components/Stack';
+import { Link, Text } from '@/components/Text';
+import {
+  WeatherData,
+  weatherDataMachine,
+  WeatherDataService,
+} from '@/machines/weather-data-machine';
 import { styled } from '@/stitches.config';
-import { useCurrentTimeInDC } from '@components/layout/Footer/use-current-time';
-import { Box } from '@components/primitives/Box';
-import { Flex } from '@components/primitives/Flex';
-import { Stack } from '@components/primitives/Stack';
-import { Text } from '@components/primitives/text';
 import { PATHS } from '@utils/constants/paths.constants';
+import { useActor, useInterpret } from '@xstate/react';
 import isUndefined from 'lodash/fp/isUndefined';
 import Image from 'next/image';
 import React from 'react';
-import { useWeatherInfo } from './use-weather-info';
 
 function tempText(temp: number | undefined): string {
   return isUndefined(temp) ? 'XX' : Math.round(temp).toString();
@@ -41,8 +43,22 @@ function WeatherIcon({
   );
 }
 
+const formatter = new Intl.DateTimeFormat('en', {
+  timeZone: 'America/New_York',
+  timeStyle: 'short',
+});
 function Time(): JSX.Element {
-  const currentTime = useCurrentTimeInDC();
+  const [currentTime, setTime] = React.useState<string>('00:00XX');
+
+  React.useEffect(() => {
+    const tick = setInterval(() => {
+      const now = new Date().getTime();
+      const dcTime = formatter.format(now);
+      setTime(dcTime);
+    }, 1000);
+
+    return () => clearInterval(tick);
+  }, []);
   return (
     <Text size='1' as='time'>
       {currentTime}
@@ -51,7 +67,15 @@ function Time(): JSX.Element {
 }
 
 function Weather(): JSX.Element | null {
-  const current = useWeatherInfo();
+  const weatherDataService: WeatherDataService =
+    useInterpret(weatherDataMachine);
+  const [current, send] = useActor(weatherDataService);
+
+  // Fetch weather data on mount
+  React.useEffect(() => {
+    send('FETCH');
+  }, [send]);
+
   const weatherUI = React.useMemo(() => {
     const { data } = current.context;
     switch (true) {

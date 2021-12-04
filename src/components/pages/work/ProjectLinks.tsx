@@ -6,9 +6,9 @@ import { prevNextProjectData } from '@utils/helpers/prev-next-project-data.helpe
 import isNull from 'lodash/fp/isNull';
 import NextLink from 'next/link';
 import React from 'react';
-import { LinkBox, LinkOverlay } from '../../primitives/LinkBox';
-import { Stack } from '../../primitives/Stack';
-import { Text } from '../../primitives/text';
+import { LinkBox, LinkOverlay } from '../../LinkBox';
+import { Stack } from '../../Stack';
+import { Text } from '../../Text';
 
 const ALIGNMENT_LOOKUP = {
   left: 'flex-start',

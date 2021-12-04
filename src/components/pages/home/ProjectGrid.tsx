@@ -1,10 +1,9 @@
-import { Link } from '@/components/primitives/text';
+import { Box } from '@/components/Box';
+import { Flex } from '@/components/Flex';
+import { LinkBox, LinkOverlay } from '@/components/LinkBox';
+import { Stack } from '@/components/Stack';
+import { BodyText, H1, H2, Link, Text } from '@/components/Text';
 import { styled } from '@/stitches.config';
-import { Box } from '@components/primitives/Box';
-import { Flex } from '@components/primitives/Flex';
-import { LinkBox, LinkOverlay } from '@components/primitives/LinkBox';
-import { Stack } from '@components/primitives/Stack';
-import { BodyText, H1, H2, Text } from '@components/primitives/text';
 import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio';
 import { PATHS } from '@utils/constants/paths.constants';
 import {

@@ -1,6 +1,6 @@
+import { Box } from '@/components/Box';
+import { Link, Text } from '@/components/Text';
 import { styled } from '@/stitches.config';
-import { Box } from '@components/primitives/Box';
-import { Link, Text } from '@components/primitives/text';
 import { NAVIGATION_DATA } from '@utils/constants/navigation.constants';
 import { PATHS } from '@utils/constants/paths.constants';
 import NextLink from 'next/link';
