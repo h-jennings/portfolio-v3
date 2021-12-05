@@ -1,12 +1,13 @@
-import { css } from '@/stitches.config';
+import { styled } from '@/stitches.config';
 import { ReactComponent as MenuIcon } from '@assets/svg/mobile-menu.svg';
 import { useMachine } from '@xstate/react';
+import { Box } from '../Box';
 import { buttonReset } from '../Button';
 import { Availability } from './Availability';
 import { Drawer } from './Drawer/Drawer';
 import { drawerMachine } from './Drawer/drawer-machine';
 
-const navigation = css({
+const Navigation = styled('nav', {
   py: '$3',
   display: 'flex',
   alignItems: 'center',
@@ -14,12 +15,7 @@ const navigation = css({
   zIndex: 1,
 });
 
-const wrapper = css({
-  position: 'relative',
-  zIndex: 2,
-});
-
-const menuWrapper = css({
+const MenuWrapper = styled('div', {
   '> svg > *': {
     fill: '$text1',
   },
@@ -27,16 +23,16 @@ const menuWrapper = css({
 export function MobileNavigation(): JSX.Element {
   const [state, send] = useMachine(drawerMachine);
   return (
-    <div className={wrapper()}>
-      <nav className={navigation()}>
+    <Box css={{ position: 'relative', zIndex: 2 }}>
+      <Navigation>
         <Availability status='inactive' />
         <button onClick={() => send('OPEN')} className={buttonReset()}>
-          <div className={menuWrapper()}>
+          <MenuWrapper>
             <MenuIcon width='48px' height='8px' />
-          </div>
+          </MenuWrapper>
         </button>
-      </nav>
+      </Navigation>
       <Drawer isOpen={state.matches('opened')} closeFn={() => send('CLOSE')} />
-    </div>
+    </Box>
   );
 }

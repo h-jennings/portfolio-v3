@@ -1,8 +1,7 @@
-import { css } from '@/stitches.config';
-// import { motion } from 'framer-motion';
+import { styled } from '@/stitches.config';
 import React from 'react';
 
-const container = css({
+const Container = styled('div', {
   border: '1px solid',
   overflow: 'hidden',
   px: '$1',
@@ -30,7 +29,7 @@ const container = css({
   },
 });
 
-const circle = css({
+const Circle = styled('div', {
   width: '6px',
   height: '6px',
   borderRadius: '$round',
@@ -57,9 +56,9 @@ const copy: Record<AvailabilityProps['status'], string> = {
 
 export function Availability({ status }: AvailabilityProps): JSX.Element {
   return (
-    <div className={container({ status })}>
-      <div className={circle({ status })} />
+    <Container status={status}>
+      <Circle status={status} />
       <div style={{ userSelect: 'none' }}>{copy[status]}</div>
-    </div>
+    </Container>
   );
 }

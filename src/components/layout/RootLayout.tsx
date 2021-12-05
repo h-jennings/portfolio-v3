@@ -1,4 +1,4 @@
-import { config, css } from '@/stitches.config';
+import { config, styled } from '@/stitches.config';
 import { WithChildren } from '@utils/types/with-children';
 import { DefaultSeo } from 'next-seo';
 import SEO from 'next-seo.config';
@@ -7,7 +7,7 @@ import { Footer } from './Footer';
 import { MobileNavigation } from './MobileNavigation';
 import { Navigation } from './Navigation';
 
-const container = css({
+const Container = styled('div', {
   width: '$full',
   backgroundColor: '$uiBg',
   minHeight: '$screenH',
@@ -20,7 +20,7 @@ const container = css({
     px: '$6',
   },
 });
-const wrapper = css({
+const Wrapper = styled('div', {
   maxWidth: '$desktop',
   width: '$full',
   d: 'flex',
@@ -30,7 +30,7 @@ const wrapper = css({
   position: 'relative',
   zIndex: '$init',
 });
-const main = css({
+const Main = styled('main', {
   flex: '1',
   paddingTop: '$5',
   paddingBottom: '$8',
@@ -48,17 +48,17 @@ export function RootLayout({ children }: WithChildren): JSX.Element {
   return (
     <>
       <DefaultSeo {...SEO} />
-      <div className={container()}>
-        <div className={wrapper()}>
+      <Container>
+        <Wrapper>
           <Media query={breakpoint} defaultMatches>
             {(matches: boolean) => {
               return matches ? <Navigation /> : <MobileNavigation />;
             }}
           </Media>
-          <main className={main()}>{children}</main>
+          <Main>{children}</Main>
           <Footer />
-        </div>
-      </div>
+        </Wrapper>
+      </Container>
     </>
   );
 }

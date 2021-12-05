@@ -1,8 +1,11 @@
 import { buttonReset } from '@/components/Button';
 import { Stack } from '@/components/Stack';
-import { focus, text } from '@/components/Text';
-import { css } from '@/stitches.config';
+import { focus } from '@/components/Text';
+import { styled } from '@/stitches.config';
 import { ReactComponent as CloseIcon } from '@assets/svg/close-icon.svg';
+import { Box } from '@components/Box';
+import { Flex } from '@components/Flex';
+import { H1, Link, ListItem } from '@components/Text';
 import { DEFAULT_SPRING_ANIMATION } from '@utils/constants/animation.constants';
 import { NAVIGATION_DATA } from '@utils/constants/navigation.constants';
 import { PATHS } from '@utils/constants/paths.constants';
@@ -24,7 +27,7 @@ const drawerContainerVariants = {
   },
 };
 
-const container = css({
+const Container = styled(motion.div, {
   minHeight: '$screenH',
   zIndex: 2,
   left: 0,
@@ -34,15 +37,14 @@ const container = css({
     outline: 'none',
   },
 });
-const wrapper = css({
+const Wrapper = styled(Flex, {
   width: '$screenW',
   height: 'var(--vh)',
   backgroundColor: '$surface2',
   position: 'relative',
-  d: 'flex',
   flexDirection: 'column',
 });
-const closeButton = css(buttonReset, focus, {
+const CloseButton = styled('button', buttonReset, focus, {
   height: 24,
   justifySelf: 'end',
   '> svg > *': {
@@ -50,7 +52,8 @@ const closeButton = css(buttonReset, focus, {
   },
 });
 
-const controls = css({
+const Controls = styled('div', {
+  $$gutter: '$space$2',
   d: 'grid',
   py: '$3',
   px: '$2',
@@ -60,17 +63,30 @@ const controls = css({
   position: 'relative',
   '&:after': {
     position: 'absolute',
-    right: 'var(--space-2)',
+    right: '$$gutter',
     bottom: 0,
     content: "''",
-    width: 'calc($full - (var(--space-2) * 2))',
+    width: 'calc($full - $$gutter * 2)',
     height: 1,
     backgroundColor: '$surface1',
   },
 });
-
-const listItem = css(text, {
-  ta: 'right',
+const ContactContainer = styled(Flex, {
+  $$gutter: '$space$2',
+  jc: 'center',
+  ai: 'center',
+  flexDirection: 'column',
+  position: 'relative',
+  py: '$3',
+  '&:before': {
+    position: 'absolute',
+    right: '$$gutter',
+    top: 0,
+    content: "''",
+    width: 'calc($full - $$gutter * 2)',
+    height: 1,
+    backgroundColor: '$text3',
+  },
 });
 
 interface DrawerProps {
@@ -79,100 +95,56 @@ interface DrawerProps {
 }
 export function Drawer({ isOpen, closeFn }: DrawerProps): JSX.Element {
   return (
-    <motion.div
+    <Container
       data-drawer
-      className={container()}
       tabIndex={-1}
       variants={drawerContainerVariants}
       animate={isOpen ? 'open' : 'closed'}
       initial='closed'
     >
-      <div className={wrapper()}>
-        <div className={controls()}>
-          <button className={closeButton()} onClick={closeFn}>
+      <Wrapper>
+        <Controls>
+          <CloseButton onClick={closeFn}>
             <CloseIcon width='24px' />
-          </button>
-        </div>
-        <div
-          className={css({
-            d: 'flex',
+          </CloseButton>
+        </Controls>
+        <Flex
+          css={{
             ai: 'center',
             height: '$full',
             jc: 'flex-end',
             flex: 1,
-          })()}
+          }}
         >
           <Stack gap='2' as='ul' css={{ px: '$2' }}>
-            <li className={listItem({ size: '3' })}>
+            <ListItem css={{ ta: 'right' }}>
               <NextLink passHref href={PATHS.home}>
-                <a
-                  onClick={closeFn}
-                  className={text({ css: { color: '$text4' } })}
-                >
+                <Link size='3' color='4' onClick={closeFn}>
                   home
-                </a>
+                </Link>
               </NextLink>
-            </li>
+            </ListItem>
             {NAVIGATION_DATA.map(({ label, path }) => (
-              <li key={label} className={listItem({ size: '3' })}>
+              <ListItem css={{ ta: 'right' }} key={label}>
                 <NextLink passHref href={path}>
-                  <a
-                    onClick={closeFn}
-                    className={text({ css: { color: '$text4' } })}
-                  >
+                  <Link size='3' color='4' onClick={closeFn}>
                     {label}
-                  </a>
+                  </Link>
                 </NextLink>
-              </li>
+              </ListItem>
             ))}
           </Stack>
-        </div>
-        <div
-          className={css({
-            d: 'flex',
-            jc: 'center',
-            ai: 'center',
-            flexDirection: 'column',
-            position: 'relative',
-            py: '$3',
-            '&:before': {
-              position: 'absolute',
-              right: 'var(--space-2)',
-              top: 0,
-              content: "''",
-              width: 'calc($full - (var(--space-2) * 2))',
-              height: 1,
-              backgroundColor: '$text3',
-            },
-          })()}
-        >
-          <h1
-            className={text({
-              size: '1',
-              css: { color: '$text3', ta: 'center' },
-            })}
-          >
+        </Flex>
+        <ContactContainer>
+          <H1 size='1' color='3' css={{ ta: 'center' }}>
             CONTACT
-          </h1>
-          <div
-            className={css({
-              height: '16px',
-              width: '1px',
-              backgroundColor: '$text3',
-              my: '$1',
-            })()}
-          />
-          <a
-            href={PATHS.email}
-            className={text({
-              size: '1',
-              css: { color: '$text3', ta: 'center' },
-            })}
-          >
+          </H1>
+          <Box css={{ height: 16, width: 1, bc: '$text3', my: '$1' }} />
+          <Link href={PATHS.email} size='1' color='3' css={{ ta: 'center' }}>
             jenningsdhunter@gmail.com
-          </a>
-        </div>
-      </div>
-    </motion.div>
+          </Link>
+        </ContactContainer>
+      </Wrapper>
+    </Container>
   );
 }
