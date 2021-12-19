@@ -1,5 +1,6 @@
 import { styled } from '@/stitches.config';
 import { Box } from '@components/Box';
+import { SplitGrid } from '@components/layout/SplitGrid';
 import { ProjectLinks } from '@components/pages/work/ProjectLinks';
 import { Stack } from '@components/Stack';
 import { BodyText, H2, PageHeader } from '@components/Text';
@@ -46,19 +47,6 @@ function ImageGrid({ images }: { images: string[] }): JSX.Element {
     </ImageGridContainer>
   );
 }
-
-const SplitGrid = styled('div', {
-  d: 'grid',
-  columnGap: '$3',
-  rowGap: '$7',
-  gtc: '1fr',
-  '@bp2': {
-    gtc: 'repeat(2, 1fr)',
-  },
-  '@bp3': {
-    gtc: '1fr 60%',
-  },
-});
 
 const InfoGrid = styled('div', {
   d: 'grid',
