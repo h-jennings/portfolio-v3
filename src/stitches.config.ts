@@ -91,10 +91,10 @@ export const { config, styled, getCssText, theme, createTheme, css } =
 
     // Media
     media: {
-      bp1: '(min-width: 520px)',
-      bp2: '(min-width: 768px)',
-      bp3: '(min-width: 1040px)',
-      bp4: '(min-width: 1800px)',
+      bp1: '(width >= 520px)',
+      bp2: '(width >= 768px)',
+      bp3: '(width >= 1040px)',
+      bp4: '(width >= 1800px)',
       motion: '(prefers-reduced-motion)',
       hover: '(any-hover: hover)',
       dark: '(prefers-color-scheme: dark)',

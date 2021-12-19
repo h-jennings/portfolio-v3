@@ -1,4 +1,4 @@
-import { config, styled } from '@/stitches.config';
+import { styled } from '@/stitches.config';
 import { WithChildren } from '@utils/types/with-children';
 import { DefaultSeo } from 'next-seo';
 import SEO from 'next-seo.config';
@@ -42,15 +42,12 @@ const Main = styled('main', {
 });
 
 export function RootLayout({ children }: WithChildren): JSX.Element {
-  // Breakpoint for the navigation options
-  const breakpoint = config.media.bp2;
-
   return (
     <>
       <DefaultSeo {...SEO} />
       <Container>
         <Wrapper>
-          <Media query={breakpoint} defaultMatches>
+          <Media query='(min-width: 768px)' defaultMatches>
             {(matches: boolean) => {
               return matches ? <Navigation /> : <MobileNavigation />;
             }}
