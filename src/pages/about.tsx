@@ -1,3 +1,4 @@
+import { Experience } from '@/components/pages/about/Experience';
 import { Box } from '@components/Box';
 import { SplitGrid } from '@components/layout/SplitGrid';
 import { Stack } from '@components/Stack';
@@ -41,6 +42,7 @@ const About: NextPage = () => {
         </Stack>
         <Box></Box>
       </SplitGrid>
+      <Experience />
     </>
   );
 };
