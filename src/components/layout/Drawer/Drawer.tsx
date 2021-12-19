@@ -36,7 +36,8 @@ const Container = styled(motion.div, {
     outline: 'none',
   },
 });
-const Wrapper = styled(Flex, {
+const Wrapper = styled('div', {
+  display: 'flex',
   width: '$screenW',
   height: 'var(--vh)',
   backgroundColor: '$surface2',
@@ -70,7 +71,8 @@ const Controls = styled('div', {
     backgroundColor: '$surface1',
   },
 });
-const ContactContainer = styled(Flex, {
+const ContactContainer = styled('div', {
+  display: 'flex',
   $$gutter: '$space$2',
   jc: 'center',
   ai: 'center',
@@ -108,10 +110,11 @@ export function Drawer({ isOpen, closeFn }: DrawerProps): JSX.Element {
           </CloseButton>
         </Controls>
         <Flex
+          align='center'
+          direction='row'
+          justify='end'
           css={{
-            ai: 'center',
             height: '$full',
-            jc: 'flex-end',
             flex: 1,
           }}
         >
