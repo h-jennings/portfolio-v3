@@ -5,6 +5,11 @@ export const Grid = styled('div', {
   display: 'grid',
 
   variants: {
+    center: {
+      true: {
+        placeItems: 'center',
+      },
+    },
     align: {
       start: {
         alignItems: 'start',

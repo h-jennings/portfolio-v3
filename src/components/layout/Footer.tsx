@@ -1,13 +1,13 @@
-import { Box } from '@/components/Box';
-import { Flex } from '@/components/Flex';
-import { Stack } from '@/components/Stack';
-import { Link, Text } from '@/components/Text';
 import {
   WeatherData,
   weatherDataMachine,
   WeatherDataService,
 } from '@/machines/weather-data-machine';
-import { styled } from '@/stitches.config';
+import { Box } from '@components/Box';
+import { Flex } from '@components/Flex';
+import { Grid } from '@components/Grid';
+import { Stack } from '@components/Stack';
+import { Link, Text } from '@components/Text';
 import { PATHS } from '@utils/constants/paths.constants';
 import { useActor, useInterpret } from '@xstate/react';
 import isUndefined from 'lodash/fp/isUndefined';
@@ -30,7 +30,7 @@ function WeatherIcon({
       alt={description ?? 'weather icon'}
     />
   ) : (
-    <Box css={{ display: 'grid', placeItems: 'center', width: 25 }}>
+    <Grid center style={{ width: 25 }}>
       <Box
         css={{
           borderRadius: '$round',
@@ -39,7 +39,7 @@ function WeatherIcon({
           backgroundColor: '$text1',
         }}
       />
-    </Box>
+    </Grid>
   );
 }
 
@@ -107,28 +107,26 @@ function Weather(): JSX.Element | null {
   return weatherUI;
 }
 
-const Grid = styled('footer', {
-  d: 'grid',
-  gridTemplateAreas: ` 'a b'
-                       'c d'
-                     `,
-  gtc: 'repeat(min-content, 1fr)',
-  columnGap: '$2',
-  rowGap: '$3',
-  pb: '$3',
-  zIndex: 1,
-  ai: 'end',
-  '@bp3': {
-    gridTemplateAreas: `'a b c d'`,
-    pb: '$6',
-    columnGap: '$6',
-    gtc: 'repeat(3, auto) 1fr',
-  },
-});
-
 export function Footer(): JSX.Element {
   return (
-    <Grid>
+    <Grid
+      gapX={{ '@initial': '2', '@bp3': '6' }}
+      gapY='3'
+      align='end'
+      css={{
+        gtc: 'min-content 1fr',
+        zIndex: 1,
+        pb: '$3',
+        gridTemplateAreas: ` 'a b'
+                             'c d'
+                           `,
+        '@bp3': {
+          gridTemplateAreas: `'a b c d'`,
+          gtc: 'repeat(3, auto) 1fr',
+          pb: '$6',
+        },
+      }}
+    >
       <Stack
         gap='1'
         css={{
@@ -138,8 +136,12 @@ export function Footer(): JSX.Element {
           },
         }}
       >
-        <Text size='1'>design and development</Text>
-        <Text size='1'>&copy; Hunter Jennings 2021</Text>
+        <Text size='1' css={{ whiteSpace: 'nowrap' }}>
+          design and development
+        </Text>
+        <Text size='1' css={{ whiteSpace: 'nowrap' }}>
+          &copy; Hunter Jennings 2021
+        </Text>
       </Stack>
       <Stack
         gap='1'
@@ -156,9 +158,9 @@ export function Footer(): JSX.Element {
         <Text size='1'>Washington D.C.</Text>
       </Stack>
       <Flex
+        direction='row'
+        align='center'
         css={{
-          flexDirection: 'row',
-          ai: 'center',
           gridArea: 'a',
           '@bp3': { gridArea: 'c' },
         }}

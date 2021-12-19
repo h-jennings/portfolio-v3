@@ -1,8 +1,8 @@
-import { Box } from '@/components/Box';
-import { LinkBox, LinkOverlay } from '@/components/LinkBox';
-import { Stack } from '@/components/Stack';
-import { Text } from '@/components/Text';
 import { styled } from '@/stitches.config';
+import { Box } from '@components/Box';
+import { LinkBox, LinkOverlay } from '@components/LinkBox';
+import { Stack } from '@components/Stack';
+import { Text } from '@components/Text';
 import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio';
 import { PATHS } from '@utils/constants/paths.constants';
 import {

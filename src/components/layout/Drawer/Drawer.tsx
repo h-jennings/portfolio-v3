@@ -1,11 +1,10 @@
-import { buttonReset } from '@/components/Button';
-import { Stack } from '@/components/Stack';
-import { focus } from '@/components/Text';
 import { styled } from '@/stitches.config';
 import { ReactComponent as CloseIcon } from '@assets/svg/close-icon.svg';
 import { Box } from '@components/Box';
+import { buttonReset } from '@components/Button';
 import { Flex } from '@components/Flex';
-import { H1, Link, ListItem } from '@components/Text';
+import { Stack } from '@components/Stack';
+import { focus, H1, Link, ListItem } from '@components/Text';
 import { DEFAULT_SPRING_ANIMATION } from '@utils/constants/animation.constants';
 import { NAVIGATION_DATA } from '@utils/constants/navigation.constants';
 import { PATHS } from '@utils/constants/paths.constants';

@@ -1,7 +1,7 @@
-import { Stack } from '@/components/Stack';
-import { BodyText, H1, Link } from '@/components/Text';
 import { styled } from '@/stitches.config';
 import { ProjectGrid } from '@components/pages/home/ProjectGrid';
+import { Stack } from '@components/Stack';
+import { BodyText, H1, Link } from '@components/Text';
 import { PATHS } from '@utils/constants/paths.constants';
 import type { NextPage } from 'next';
 import { NextSeo, NextSeoProps } from 'next-seo';

@@ -1,8 +1,8 @@
-import { Box } from '@/components/Box';
-import { Stack } from '@/components/Stack';
-import { BodyText, H2, PageHeader } from '@/components/Text';
 import { styled } from '@/stitches.config';
+import { Box } from '@components/Box';
 import { ProjectLinks } from '@components/pages/work/ProjectLinks';
+import { Stack } from '@components/Stack';
+import { BodyText, H2, PageHeader } from '@components/Text';
 import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio';
 import { PATHS } from '@utils/constants/paths.constants';
 import {
