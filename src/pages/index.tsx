@@ -1,3 +1,4 @@
+import { Box } from '@/components/Box';
 import { styled } from '@/stitches.config';
 import { ProjectGrid } from '@components/pages/home/ProjectGrid';
 import { Stack } from '@components/Stack';
@@ -54,18 +55,20 @@ const Index: NextPage = () => {
               scale your ui with elegant, modern, web-based tools&mdash;I
               can&apos;t wait to meet you.
             </BodyText> */}
-            <NextLink passHref href='/about'>
-              <Link
-                color='3'
-                css={{ d: 'block' }}
-                size={{
-                  '@initial': '1',
-                  '@bp2': '2',
-                }}
-              >
-                Read More
-              </Link>
-            </NextLink>
+            <Box>
+              <NextLink passHref href='/about'>
+                <Link
+                  color='3'
+                  css={{ d: 'inline-block' }}
+                  size={{
+                    '@initial': '1',
+                    '@bp2': '2',
+                  }}
+                >
+                  Read More
+                </Link>
+              </NextLink>
+            </Box>
           </Stack>
         </Stack>
         <ProjectGrid />

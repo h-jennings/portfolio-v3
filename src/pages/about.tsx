@@ -2,7 +2,6 @@ import { Box } from '@components/Box';
 import { SplitGrid } from '@components/layout/SplitGrid';
 import { Stack } from '@components/Stack';
 import { BodyText, PageHeader } from '@components/Text';
-import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio';
 import { PATHS } from '@utils/constants/paths.constants';
 import { NextPage } from 'next';
 import { NextSeo, NextSeoProps } from 'next-seo';
@@ -40,18 +39,7 @@ const About: NextPage = () => {
             </BodyText>
           </Stack>
         </Stack>
-        <Box>
-          <Box style={{ maxWidth: 511 }}>
-            <AspectRatioPrimitive.Root ratio={1}>
-              <Box
-                css={{
-                  height: '$full',
-                  backgroundColor: '$slate8',
-                }}
-              ></Box>
-            </AspectRatioPrimitive.Root>
-          </Box>
-        </Box>
+        <Box></Box>
       </SplitGrid>
     </>
   );
