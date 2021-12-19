@@ -112,7 +112,7 @@ const Grid = styled('footer', {
   gridTemplateAreas: ` 'a b'
                        'c d'
                      `,
-  gtc: 'repeat(2, 1fr)',
+  gtc: 'repeat(min-content, 1fr)',
   columnGap: '$2',
   rowGap: '$3',
   pb: '$3',
