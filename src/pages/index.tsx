@@ -1,5 +1,4 @@
 import { styled } from '@/stitches.config';
-import { Stack } from '@components/Stack';
 import { H1, Text } from '@components/Text';
 import type { NextPage } from 'next';
 import { NextSeo, NextSeoProps } from 'next-seo';
@@ -22,11 +21,9 @@ const Index: NextPage = () => {
   return (
     <>
       <NextSeo {...SEO} />
-      <Stack gap={{ '@initial': '7', '@bp2': '9' }}>
-        <Text family='serif' size='2'>
-          This is a test
-        </Text>
-      </Stack>
+      <Text family='serif' size='2'>
+        This is a test
+      </Text>
     </>
   );
 };
