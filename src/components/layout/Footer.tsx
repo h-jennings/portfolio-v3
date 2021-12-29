@@ -3,16 +3,16 @@ import {
   weatherDataMachine,
   WeatherDataService,
 } from '@/machines/weather-data-machine';
+import { styled } from '@/stitches.config';
 import { Box } from '@components/Box';
-import { Flex } from '@components/Flex';
 import { Grid } from '@components/Grid';
 import { Stack } from '@components/Stack';
-import { Link, Text } from '@components/Text';
-import { PATHS } from '@utils/constants/paths.constants';
+import { Text } from '@components/Text';
 import { useActor, useInterpret } from '@xstate/react';
 import isUndefined from 'lodash/fp/isUndefined';
 import Image from 'next/image';
 import React from 'react';
+import { Flex } from '../Flex';
 
 function tempText(temp: number | undefined): string {
   return isUndefined(temp) ? 'XX' : Math.round(temp).toString();
@@ -60,7 +60,8 @@ function Time(): JSX.Element {
     return () => clearInterval(tick);
   }, []);
   return (
-    <Text size='1' as='time'>
+    // TODO: add correct dateTime
+    <Text leading='tight' size='1' as='time'>
       {currentTime}
     </Text>
   );
@@ -84,13 +85,15 @@ function Weather(): JSX.Element | null {
         return (
           <>
             <WeatherIcon description={description} icon={icon} />
-            <Text size='1'>{tempText(temp)}&deg;F</Text>
+            <Text leading='tight' size='1'>
+              {tempText(temp)}&deg;F
+            </Text>
           </>
         );
       }
       case current.matches('idle.errored'): {
         return (
-          <Text size='1' css={{ color: '$tomato9' }}>
+          <Text size='1' leading='tight' css={{ color: '$tomato9' }}>
             weather data errored
           </Text>
         );
@@ -107,83 +110,67 @@ function Weather(): JSX.Element | null {
   return weatherUI;
 }
 
+const Dot = styled('div', {
+  backgroundColor: '$slate11',
+  width: 2,
+  height: 2,
+  borderRadius: '$round',
+});
+const Wrapper = styled(Grid, {
+  width: '$full',
+  gridTemplateAreas: `'a b'
+                      'c c'`,
+  gridTemplateColumns: 'repeat(2, 1fr)',
+  '@bp1': {
+    gridTemplateAreas: `'a b c'`,
+    gridTemplateColumns: 'repeat(3, 1fr)',
+  },
+});
 export function Footer(): JSX.Element {
   return (
-    <Grid
-      gapX={{ '@initial': '2', '@bp3': '6' }}
-      gapY='3'
-      align='end'
-      css={{
-        gtc: 'min-content 1fr',
-        zIndex: 1,
-        pb: '$3',
-        gridTemplateAreas: ` 'a b'
-                             'c d'
-                           `,
-        '@bp3': {
-          gridTemplateAreas: `'a b c d'`,
-          gtc: 'repeat(3, auto) 1fr',
-          pb: '$6',
-        },
-      }}
-    >
+    <Box as='footer' css={{ pt: '$3xl', pb: '$m', '@bp1': { pb: '$xl' } }}>
       <Stack
-        gap='1'
-        css={{
-          gridArea: 'c',
-          '@bp3': {
-            gridArea: 'a',
-          },
-        }}
-      >
-        <Text size='1' css={{ whiteSpace: 'nowrap' }}>
-          design and development
-        </Text>
-        <Text size='1' css={{ whiteSpace: 'nowrap' }}>
-          &copy; Hunter Jennings 2021
-        </Text>
-      </Stack>
-      <Stack
-        gap='1'
-        css={{
-          ta: 'right',
-          gridArea: 'b',
-          '@bp3': {
-            ta: 'left',
-          },
-          justifySelf: 'end',
-        }}
-      >
-        <Time />
-        <Text size='1'>Washington D.C.</Text>
-      </Stack>
-      <Flex
+        css={{ jc: 'center', pb: '$2xl' }}
         direction='row'
-        align='center'
-        css={{
-          gridArea: 'a',
-          '@bp3': { gridArea: 'c' },
-        }}
+        gap='3xs'
+        role='separator'
       >
-        <Weather />
-      </Flex>
-      <Stack css={{ justifySelf: 'end' }} direction='row' gap='2' as='ul'>
-        <li>
-          <Link size='1' href={PATHS.github}>
-            Gh
-          </Link>
-        </li>
-        <li>
-          <Link size='1' href={PATHS.linkedin}>
-            Li
-          </Link>
-        </li>
-        <li>
-          <Link size='1' href={PATHS.twitter}>
-            Tw
-          </Link>
-        </li>
+        <Dot />
+        <Dot />
+        <Dot />
       </Stack>
-    </Grid>
+      <Wrapper align='end' gap='s' gapY={{ '@initial': 'xl', '@bp1': 's' }}>
+        <Stack
+          gap='2xs'
+          css={{
+            ta: 'left',
+          }}
+        >
+          <Time />
+          <Text leading='tight' css={{ whiteSpace: 'nowrap' }} size='1'>
+            Washington D.C.
+          </Text>
+        </Stack>
+        <Flex
+          direction='row'
+          align='center'
+          css={{ justifySelf: 'end', '@bp1': { justifySelf: 'start' } }}
+        >
+          <Weather />
+        </Flex>
+        <Text
+          size='1'
+          leading='tight'
+          css={{
+            color: '$slate8',
+            ta: 'center',
+            gridArea: 'c',
+            '@bp1': { ta: 'right' },
+          }}
+        >
+          Always pushing.
+        </Text>
+      </Wrapper>
+    </Box>
   );
 }

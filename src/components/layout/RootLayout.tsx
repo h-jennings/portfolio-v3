@@ -2,6 +2,7 @@ import { darkTheme, styled } from '@/stitches.config';
 import { WithChildren } from '@utils/types/with-children';
 import { DefaultSeo } from 'next-seo';
 import SEO from 'next-seo.config';
+import { Footer } from './Footer';
 import { Navigation } from './Navigation';
 
 const Container = styled('div', {
@@ -39,7 +40,7 @@ export function RootLayout({ children }: WithChildren): JSX.Element {
         <Wrapper>
           <Navigation />
           <Main>{children}</Main>
-          {/* <Footer /> */}
+          <Footer />
         </Wrapper>
       </Container>
     </>
