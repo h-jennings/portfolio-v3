@@ -12,6 +12,7 @@ const Container = styled('div', {
   ai: 'center',
   flexFlow: 'column',
   height: '$full',
+  px: '$s',
 });
 const Wrapper = styled('div', {
   maxWidth: '$channel',
