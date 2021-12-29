@@ -1,4 +1,4 @@
-import { darkTheme, styled } from '@/stitches.config';
+import { styled } from '@/stitches.config';
 import { WithChildren } from '@utils/types/with-children';
 import { DefaultSeo } from 'next-seo';
 import SEO from 'next-seo.config';
@@ -36,7 +36,8 @@ export function RootLayout({ children }: WithChildren): JSX.Element {
   return (
     <>
       <DefaultSeo {...SEO} />
-      <Container className={darkTheme}>
+      {/* <Container className={darkTheme}> */}
+      <Container>
         <Wrapper>
           <Navigation />
           <Main>{children}</Main>
