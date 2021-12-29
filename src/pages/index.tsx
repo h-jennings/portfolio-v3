@@ -48,6 +48,7 @@ const Index: NextPage = () => {
         {/* Work */}
         <Stack as='section' gap='s'>
           <H1>Selected work</H1>
+          <Paragraph>This is a test</Paragraph>
         </Stack>
       </Stack>
     </>

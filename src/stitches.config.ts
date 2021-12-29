@@ -46,31 +46,44 @@ export const { config, styled, getCssText, theme, createTheme, css } =
         regular: 400,
       },
       fontSizes: {
-        1: 'clamp(0.80rem, 0.71rem + 0.45vw, 1.00rem)',
-        2: 'clamp(1.00rem, 0.89rem + 0.57vw, 1.25rem)',
-        3: 'clamp(1.25rem, 1.11rem + 0.71vw, 1.56rem)',
-        4: 'clamp(1.56rem, 1.38rem + 0.89vw, 1.95rem)',
-        5: 'clamp(1.95rem, 1.73rem + 1.11vw, 2.44rem)',
-        6: 'clamp(2.44rem, 2.16rem + 1.39vw, 3.05rem)',
-        7: 'clamp(3.05rem, 2.71rem + 1.73vw, 3.82rem)',
-        8: 'clamp(3.82rem, 3.38rem + 2.17vw, 4.77rem)',
+        1: 'clamp(0.80rem, 0.69rem + 0.48vw, 1.00rem)',
+        2: 'clamp(1.00rem, 0.86rem + 0.60vw, 1.25rem)',
+        3: 'clamp(1.25rem, 1.08rem + 0.75vw, 1.56rem)',
+        4: 'clamp(1.56rem, 1.35rem + 0.94vw, 1.95rem)',
+        5: 'clamp(1.95rem, 1.69rem + 1.18vw, 2.44rem)',
+        6: 'clamp(2.44rem, 2.11rem + 1.47vw, 3.05rem)',
+        7: 'clamp(3.05rem, 2.64rem + 1.84vw, 3.82rem)',
+        8: 'clamp(3.82rem, 3.30rem + 2.30vw, 4.77rem)',
       },
       lineHeights: {
         tight: 1,
         body: 1.5,
         loose: 2,
       },
-      // TODO: add derived space values
       space: {
-        '3xs': '5px',
-        '2xs': '10px',
-        xs: '15px',
-        s: '20px',
-        m: '30px',
-        l: '40px',
-        xl: '60px',
-        '2xl': '80px',
-        '3xl': '120px',
+        // 4 - 5
+        '3xs':
+          'calc(((var(--fc-3xs-min) / 16) * 1rem) + (var(--fc-3xs-max) - var(--fc-3xs-min)) * var(--fluid-bp))',
+        // 8 - 10
+        '2xs':
+          'calc(((var(--fc-2xs-min) / 16) * 1rem) + (var(--fc-2xs-max) - var(--fc-2xs-min)) * var(--fluid-bp))',
+        // 12 - 15
+        xs: 'calc(((var(--fc-xs-min) / 16) * 1rem) + (var(--fc-xs-max) - var(--fc-xs-min)) * var(--fluid-bp))',
+        // 16 - 20
+        s: 'calc(((var(--fc-s-min) / 16) * 1rem) + (var(--fc-s-max) - var(--fc-s-min)) * var(--fluid-bp))',
+        // 24 - 30
+        m: 'calc(((var(--fc-m-min) / 16) * 1rem) + (var(--fc-m-max) - var(--fc-m-min)) * var(--fluid-bp))',
+        // 32 - 40
+        l: 'calc(((var(--fc-l-min) / 16) * 1rem) + (var(--fc-l-max) - var(--fc-l-min)) * var(--fluid-bp))',
+        // 48 - 60
+        xl: 'calc(((var(--fc-xl-min) / 16) * 1rem) + (var(--fc-xl-max) - var(--fc-xl-min)) * var(--fluid-bp))',
+        // 64 - 80
+        '2xl':
+          'calc(((var(--fc-2xl-min) / 16) * 1rem) + (var(--fc-2xl-max) - var(--fc-2xl-min)) * var(--fluid-bp))',
+        // 96 - 120
+        '3xl':
+          'calc(((var(--fc-3xl-min) / 16) * 1rem) + (var(--fc-3xl-max) - var(--fc-3xl-min)) * var(--fluid-bp))',
+        // TODO: Potentially add space steps (S-M, ...etc.)
       },
       sizes: {
         full: '100%',
