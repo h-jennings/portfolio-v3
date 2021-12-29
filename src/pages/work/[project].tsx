@@ -135,11 +135,11 @@ function Project({
   return (
     <>
       <NextSeo {...SEO} />
-      <Stack gap={{ '@initial': '7', '@bp3': '9' }}>
+      <Stack gap={{ '@initial': 'm', '@bp3': 'm' }}>
         <SplitGrid>
-          <Stack gap='4'>
+          <Stack gap='m'>
             <PageHeader>{projectData?.project}</PageHeader>
-            <Stack gap='2'>
+            <Stack gap='m'>
               <H2 size='1' color='3'>
                 DESCRIPTION
               </H2>
@@ -152,7 +152,7 @@ function Project({
               </BodyText>
             </Stack>
             <InfoGrid>
-              <Stack gap='2'>
+              <Stack gap='m'>
                 <H2 size='1' color='3'>
                   TECH
                 </H2>
@@ -164,7 +164,7 @@ function Project({
                   {projectData?.tech ? commaSeparated(projectData.tech) : null}
                 </BodyText>
               </Stack>
-              <Stack gap='2'>
+              <Stack gap='m'>
                 <H2 size='1' color='3'>
                   CONTRIBUTIONS
                 </H2>

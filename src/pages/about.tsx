@@ -23,9 +23,9 @@ const About: NextPage = () => {
     <>
       <NextSeo {...SEO} />
       <SplitGrid>
-        <Stack gap='4'>
+        <Stack gap='m'>
           <PageHeader>About</PageHeader>
-          <Stack style={{ maxWidth: 390 }} gap='2'>
+          <Stack style={{ maxWidth: 390 }} gap='m'>
             <BodyText>
               I&apos;ve been wrangling pixels and shapes since &apos;17. I
               create beautiful user interfaces with cutting-edge web
