@@ -97,6 +97,40 @@ export const Link = styled('a', {
       loose: { lineHeight: '$loose' },
     },
   },
+  compoundVariants: [
+    {
+      color: '1',
+      css: {
+        hover: {
+          color: '$slate11',
+        },
+      },
+    },
+    {
+      color: '2',
+      css: {
+        hover: {
+          color: '$slate10',
+        },
+      },
+    },
+    {
+      color: '3',
+      css: {
+        hover: {
+          color: '$gold8',
+        },
+      },
+    },
+    {
+      color: '4',
+      css: {
+        hover: {
+          color: '$slate2',
+        },
+      },
+    },
+  ],
   defaultVariants: {
     color: '1',
     leading: 'tight',

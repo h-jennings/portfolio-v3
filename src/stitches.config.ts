@@ -213,6 +213,12 @@ export const { config, styled, getCssText, theme, createTheme, css } =
       lh: (value: Stitches.PropertyValue<'lineHeight'>) => ({
         lineHeight: value,
       }),
+
+      hover: (val: Stitches.CSSProperties) => ({
+        '@media(hover: hover)': {
+          '&:hover': val,
+        },
+      }),
     },
   });
 
