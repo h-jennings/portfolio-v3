@@ -98,28 +98,34 @@ const Index: NextPage = () => {
           <H1 leading='tight'>Writing</H1>
           <Stack as='ul' gap='m'>
             <StyledListItem as='li'>
-              <NextLink href={PATHS.work} passHref>
-                <Link size='1'>Website Redesign 2021</Link>
-              </NextLink>
+              <div>
+                <NextLink href={PATHS.work} passHref>
+                  <Link size='1'>Website Redesign 2021</Link>
+                </NextLink>
+              </div>
               <Text size='1' family='serif' as='time' dateTime='2021-12-08'>
                 December 2021
               </Text>
             </StyledListItem>
             <StyledListItem as='li'>
-              <NextLink href={PATHS.work} passHref>
-                <Link size='1'>Opting out of algorithms</Link>
-              </NextLink>
+              <div>
+                <NextLink href={PATHS.work} passHref>
+                  <Link size='1'>Opting out of algorithms</Link>
+                </NextLink>
+              </div>
               <Text size='1' family='serif' as='time' dateTime='2021-12-08'>
                 January 2022
               </Text>
             </StyledListItem>
 
             <StyledListItem as='li'>
-              <NextLink href={PATHS.work} passHref>
-                <Link size='1'>
-                  Distraction free development with neovim and vscode
-                </Link>
-              </NextLink>
+              <div>
+                <NextLink href={PATHS.work} passHref>
+                  <Link size='1'>
+                    Distraction free development with neovim and vscode
+                  </Link>
+                </NextLink>
+              </div>
               <Text size='1' family='serif' as='time' dateTime='2021-12-08'>
                 February 2022
               </Text>
@@ -137,20 +143,48 @@ const Index: NextPage = () => {
               reach out if you&apos;d like. I&apos;m always happy to hear from
               folks and talk shop.
             </Paragraph>
-            <Stack as='ul' gap='xs'>
+            <Stack as='ul' gap='s'>
               <Grid as='li' columns='3' gap='s'>
-                <H2 size='1' color='2'>
+                <H2 size='1' leading='tight'>
                   Twitter
                 </H2>
-                <Link
-                  target='_blank'
-                  href={PATHS.twitter}
-                  rel='noreferrer'
-                  size='1'
-                  color='3'
-                >
-                  @jennings_hunter
-                </Link>
+                <div>
+                  <Link
+                    target='_blank'
+                    href={PATHS.twitter}
+                    rel='noreferrer'
+                    size='1'
+                    color='2'
+                  >
+                    @jennings_hunter
+                  </Link>
+                </div>
+              </Grid>
+              <Grid as='li' columns='3' gap='s'>
+                <H2 size='1' leading='tight'>
+                  Email
+                </H2>
+                <div>
+                  <Link href={PATHS.email} size='1' color='2'>
+                    jenningsdhunter@gmail.com
+                  </Link>
+                </div>
+              </Grid>
+              <Grid as='li' columns='3' gap='s'>
+                <H2 size='1' leading='tight'>
+                  Twitter
+                </H2>
+                <div>
+                  <Link
+                    target='_blank'
+                    href={PATHS.github}
+                    rel='noreferrer'
+                    size='1'
+                    color='2'
+                  >
+                    h-jennings
+                  </Link>
+                </div>
               </Grid>
             </Stack>
           </Stack>
