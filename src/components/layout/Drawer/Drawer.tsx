@@ -118,7 +118,7 @@ export function Drawer({ isOpen, closeFn }: DrawerProps): JSX.Element {
             flex: 1,
           }}
         >
-          <Stack gap='2' as='ul' css={{ px: '$2' }}>
+          <Stack gap='m' as='ul' css={{ px: '$2' }}>
             <ListItem css={{ ta: 'right' }}>
               <NextLink passHref href={PATHS.home}>
                 <Link size='3' color='4' onClick={closeFn}>
