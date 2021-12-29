@@ -1,8 +1,14 @@
+import { Flex } from '@/components/Flex';
+import { Grid } from '@/components/Grid';
+import { ProjectGrid } from '@/components/pages/home/ProjectGrid';
 import { Stack } from '@/components/Stack';
 import { styled } from '@/stitches.config';
-import { H1, H2, Paragraph } from '@components/Text';
+import { PATHS } from '@/utils/constants/paths.constants';
+import { H1, H2, Link, Paragraph } from '@components/Text';
+import { ArrowRightIcon } from '@radix-ui/react-icons';
 import type { NextPage } from 'next';
 import { NextSeo, NextSeoProps } from 'next-seo';
+import NextLink from 'next/link';
 
 const PageHeader = styled(H1, {
   fontSize: 'clamp(1.5rem, 4vw - 0.2rem, 1.75rem);',
@@ -47,8 +53,23 @@ const Index: NextPage = () => {
 
         {/* Work */}
         <Stack as='section' gap='s'>
-          <H1>Selected work</H1>
-          <Paragraph>This is a test</Paragraph>
+          <Flex direction='row' justify='between' align='center'>
+            <H1 leading='tight'>Selected work</H1>
+            <Grid
+              gap='2xs'
+              justify='end'
+              align='center'
+              css={{ gridTemplateColumns: 'auto auto' }}
+            >
+              <NextLink href={PATHS.work} passHref>
+                <Link css={{ d: 'block' }} color='2' size='1' leading='tight'>
+                  view all
+                </Link>
+              </NextLink>
+              <ArrowRightIcon color='var(--colors-slate11)' />
+            </Grid>
+          </Flex>
+          <ProjectGrid />
         </Stack>
       </Stack>
     </>

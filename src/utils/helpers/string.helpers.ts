@@ -9,7 +9,7 @@ export function parseTagsToString(tags: string[]): string {
     if (idx === tags.length - 1) {
       return `${acc} ${curr}`;
     }
-    return `${curr} / ${acc}`;
+    return `${curr} + ${acc}`;
   }, '');
 }
 
