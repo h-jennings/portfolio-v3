@@ -3,8 +3,9 @@ import { Box } from '@components/Box';
 import { Flex } from '@components/Flex';
 import { LinkBox, LinkOverlay } from '@components/LinkBox';
 import { Stack } from '@components/Stack';
-import { BodyText, H1, H2, Link, Text } from '@components/Text';
+import { H1, Link, Paragraph, Text } from '@components/Text';
 import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio';
+import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
 import { PATHS } from '@utils/constants/paths.constants';
 import {
   ProjectMeta,
@@ -54,59 +55,116 @@ function TitleBar({ projectCount }: TitleBarProps): JSX.Element {
 interface CardProps {
   project: ProjectMeta;
 }
-function Card({
-  project: { description, tags, project, client, path },
-}: CardProps): JSX.Element {
+function Card({ project: { tags, project, path } }: CardProps): JSX.Element {
   const tagsString: string = React.useMemo(() => {
     return parseTagsToString(tags);
   }, [tags]);
 
   return (
-    <LinkBox>
-      <Box css={{ pb: '$2' }}>
-        <AspectRatioPrimitive.Root ratio={16 / 9}>
-          <Box css={{ height: '100%', backgroundColor: '$slate7' }}></Box>
-        </AspectRatioPrimitive.Root>
-      </Box>
-      <Stack gap='2'>
-        <Stack gap='1'>
-          <H2 size='1' color='3'>
-            {tagsString}
-          </H2>
-          <NextLink passHref href={`${PATHS.work}/[project]`} as={path}>
-            <LinkOverlay>
-              <H1 leading='body'>{`${project} — ${client}`}</H1>
-            </LinkOverlay>
-          </NextLink>
+    <Box
+      css={{
+        minWidth: '90%',
+        '@bp1': {
+          minWidth: '45%',
+        },
+        '@bp2': {
+          minWidth: 220,
+        },
+      }}
+    >
+      <LinkBox>
+        <Stack gap='s'>
+          <Box>
+            <AspectRatioPrimitive.Root ratio={4 / 5}>
+              <Box
+                css={{
+                  height: '100%',
+                  backgroundColor: '$slate7',
+                  borderRadius: 15,
+                }}
+              />
+            </AspectRatioPrimitive.Root>
+          </Box>
+          <Box css={{ px: '$3xs' }}>
+            <NextLink passHref href={`${PATHS.work}/[project]`} as={path}>
+              <LinkOverlay style={{ display: 'inline-block' }}>
+                <H1 leading='tight' size='1' css={{ pb: '$3xs' }}>
+                  {project}
+                </H1>
+              </LinkOverlay>
+            </NextLink>
+            <Paragraph color='2' size='1'>
+              {tagsString}
+            </Paragraph>
+          </Box>
         </Stack>
-        <Box style={{ maxWidth: '370px' }}>
-          <BodyText css={{ fontSize: '$1' }}>{description}</BodyText>
-        </Box>
-      </Stack>
-    </LinkBox>
+      </LinkBox>
+    </Box>
   );
 }
 
-const Grid = styled('div', {
-  d: 'grid',
-  gtc: '1fr',
-  columnGap: '$2',
-  rowGap: '$5',
-  '@bp2': {
-    gtc: 'repeat(2, 1fr)',
+const SCROLLBAR_SIZE = 10;
+
+const StyledScrollArea = styled(ScrollAreaPrimitive.Root, {
+  width: '100%',
+  height: '100%',
+  overflow: 'hidden',
+});
+
+const StyledViewport = styled(ScrollAreaPrimitive.Viewport, {
+  width: '100%',
+  height: '100%',
+  borderRadius: 'inherit',
+});
+
+const StyledScrollbar = styled(ScrollAreaPrimitive.Scrollbar, {
+  display: 'flex',
+  // ensures no selection
+  userSelect: 'none',
+  // disable browser handling of all panning and zooming gestures on touch devices
+  touchAction: 'none',
+  padding: 2,
+  background: '$uiBg',
+  transition: 'background 160ms ease-out',
+  '&:hover': { background: '$slate4' },
+  '&[data-orientation="horizontal"]': {
+    flexDirection: 'column',
+    height: SCROLLBAR_SIZE,
   },
 });
 
+const StyledThumb = styled(ScrollAreaPrimitive.Thumb, {
+  flex: 1,
+  background: '$surface2',
+  borderRadius: SCROLLBAR_SIZE,
+  // increase target size for touch devices https://www.w3.org/WAI/WCAG21/Understanding/target-size.html
+  position: 'relative',
+  '&::before': {
+    content: '""',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '100%',
+    height: '100%',
+    minWidth: 44,
+    minHeight: 44,
+  },
+});
 export function ProjectGrid(): JSX.Element {
   const projectEntries = Object.entries(PROJECT_METADATA);
   return (
-    <Stack gap={{ '@initial': '3', '@bp2': '5' }}>
-      <TitleBar projectCount={projectEntries.length} />
-      <Grid>
-        {projectEntries.map(([, project], idx) => (
-          <Card key={idx} project={project} />
-        ))}
-      </Grid>
-    </Stack>
+    <StyledScrollArea>
+      <StyledScrollbar orientation='horizontal'>
+        <StyledThumb />
+      </StyledScrollbar>
+      <StyledViewport>
+        <Stack gap='s' css={{ mb: '$l' }} direction='row'>
+          {projectEntries.map(([, project], idx) => (
+            <Card key={idx} project={project} />
+          ))}
+        </Stack>
+      </StyledViewport>
+    </StyledScrollArea>
   );
 }

@@ -93,6 +93,11 @@ export const Link = styled('a', {
       3: { color: '$text3' },
       4: { color: '$text4' },
     },
+    leading: {
+      tight: { lineHeight: '$tight' },
+      body: { lineHeight: '$body' },
+      loose: { lineHeight: '$loose' },
+    },
   },
 });
 
