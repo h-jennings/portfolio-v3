@@ -56,8 +56,18 @@ const Index: NextPage = () => {
               Now
             </H2>
             <Paragraph>
-              Currently working as a Frontend Developer for an award-winning
-              digital creative agency Elegant Seagulls.
+              Currently working as a Frontend Developer for the award-winning
+              digital creative agency&mdash;
+              <Link
+                target='_blank'
+                href={PATHS.seagulls}
+                rel='noreferrer'
+                style={{ textDecoration: 'underline' }}
+                color='3'
+              >
+                Elegant Seagulls
+              </Link>
+              .
             </Paragraph>
           </Stack>
         </Stack>
@@ -85,7 +95,6 @@ const Index: NextPage = () => {
 
         {/* Writing */}
         <Stack as='section' gap='m'>
-          {/* TODO: look into whether this is semantically correct to have an h1 for each section  */}
           <H1 leading='tight'>Writing</H1>
           <Stack as='ul' gap='m'>
             <StyledListItem as='li'>
@@ -119,6 +128,33 @@ const Index: NextPage = () => {
         </Stack>
 
         {/* Connect */}
+
+        <Stack as='section' gap='m'>
+          <H1 leading='tight'>Connect</H1>
+          <Stack gap='xl'>
+            <Paragraph>
+              Not currently looking for new opportunities, but feel free to
+              reach out if you&apos;d like. I&apos;m always happy to hear from
+              folks and talk shop.
+            </Paragraph>
+            <Stack as='ul' gap='xs'>
+              <Grid as='li' columns='3' gap='s'>
+                <H2 size='1' color='2'>
+                  Twitter
+                </H2>
+                <Link
+                  target='_blank'
+                  href={PATHS.twitter}
+                  rel='noreferrer'
+                  size='1'
+                  color='3'
+                >
+                  @jennings_hunter
+                </Link>
+              </Grid>
+            </Stack>
+          </Stack>
+        </Stack>
       </Stack>
     </>
   );

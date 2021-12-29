@@ -171,7 +171,7 @@ export function Footer(): JSX.Element {
           size='1'
           leading='tight'
           css={{
-            color: '$slate8',
+            color: '$slate9',
             ta: 'center',
             gridArea: 'c',
             '@bp1': { ta: 'right' },
