@@ -69,8 +69,6 @@ export const focus = css({
 
 export const Link = styled('a', {
   d: 'inline',
-  color: '$text1',
-  fontSize: '$2',
   transition: '$default',
   '&:focus': {
     outline: 'none',
@@ -98,6 +96,11 @@ export const Link = styled('a', {
       body: { lineHeight: '$body' },
       loose: { lineHeight: '$loose' },
     },
+  },
+  defaultVariants: {
+    color: '1',
+    leading: 'tight',
+    size: '2',
   },
 });
 

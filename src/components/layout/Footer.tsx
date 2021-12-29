@@ -26,11 +26,12 @@ function WeatherIcon({
     <Image
       src={`https://openweathermap.org/img/wn/${icon}.png`}
       width='25px'
+      aria-hidden
       height='25px'
       alt={description ?? 'weather icon'}
     />
   ) : (
-    <Grid center style={{ width: 25 }}>
+    <Grid aria-hidden center style={{ width: 25 }}>
       <Box
         css={{
           borderRadius: '$round',
@@ -47,22 +48,30 @@ const formatter = new Intl.DateTimeFormat('en', {
   timeZone: 'America/New_York',
   timeStyle: 'short',
 });
+const formatterTwentyFour = new Intl.DateTimeFormat('en', {
+  timeZone: 'America/New_York',
+  timeStyle: 'short',
+  hour12: false,
+});
 function Time(): JSX.Element {
-  const [currentTime, setTime] = React.useState<string>('00:00XX');
+  const [currentTime, setTime] = React.useState<{
+    pretty: string;
+    twentyFour: string;
+  }>({ pretty: '00:00XX', twentyFour: '00:00' });
 
   React.useEffect(() => {
     const tick = setInterval(() => {
       const now = new Date().getTime();
-      const dcTime = formatter.format(now);
-      setTime(dcTime);
+      const dcTimePretty = formatter.format(now);
+      const dcTimeTwentyFour = formatterTwentyFour.format(now);
+      setTime({ pretty: dcTimePretty, twentyFour: dcTimeTwentyFour });
     }, 1000);
 
     return () => clearInterval(tick);
   }, []);
   return (
-    // TODO: add correct dateTime
-    <Text leading='tight' size='1' as='time'>
-      {currentTime}
+    <Text leading='tight' size='1' dateTime={currentTime.twentyFour} as='time'>
+      {currentTime.pretty}
     </Text>
   );
 }

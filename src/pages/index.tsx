@@ -30,13 +30,8 @@ const StyledListItem = styled(Stack, {
     bottom: '$$bottom',
     left: 0,
   },
-  '&:last-of-type': {
-    '&:after': {
-      display: 'none',
-    },
-  },
   defaultVariants: {
-    gap: '2xs',
+    gap: '3xs',
   },
 });
 
@@ -82,7 +77,7 @@ const Index: NextPage = () => {
                   view all
                 </Link>
               </NextLink>
-              <ArrowRightIcon color='var(--colors-slate11)' />
+              <ArrowRightIcon aria-hidden color='var(--colors-slate11)' />
             </Grid>
           </Flex>
           <ProjectGrid />
