@@ -2,6 +2,7 @@ import { darkTheme, styled } from '@/stitches.config';
 import { WithChildren } from '@utils/types/with-children';
 import { DefaultSeo } from 'next-seo';
 import SEO from 'next-seo.config';
+import { Navigation } from './Navigation';
 
 const Container = styled('div', {
   width: '$full',
@@ -11,13 +12,9 @@ const Container = styled('div', {
   ai: 'center',
   flexFlow: 'column',
   height: '$full',
-  px: '$2',
-  '@bp3': {
-    px: '$6',
-  },
 });
 const Wrapper = styled('div', {
-  maxWidth: '$desktop',
+  maxWidth: '$channel',
   width: '$full',
   d: 'flex',
   flexFlow: 'column',
@@ -31,10 +28,6 @@ const Main = styled('main', {
   paddingTop: '$5',
   paddingBottom: '$8',
   zIndex: 1,
-  '@bp2': {
-    paddingTop: '$7',
-    paddingBottom: '$10',
-  },
 });
 
 export function RootLayout({ children }: WithChildren): JSX.Element {
@@ -43,6 +36,7 @@ export function RootLayout({ children }: WithChildren): JSX.Element {
       <DefaultSeo {...SEO} />
       <Container className={darkTheme}>
         <Wrapper>
+          <Navigation />
           <Main>{children}</Main>
           {/* <Footer /> */}
         </Wrapper>
