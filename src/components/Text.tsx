@@ -1,10 +1,6 @@
 import { css, styled } from '@/stitches.config';
 
 export const text = css({
-  color: '$text1',
-  lineHeight: '$tight',
-  fontWeight: '$regular',
-  fontFamily: '$primary',
   variants: {
     size: {
       1: { fontSize: '$1' },
@@ -31,6 +27,21 @@ export const text = css({
       bold: { fontWeight: '$bold' },
       regular: { fontWeight: '$regular' },
     },
+    family: {
+      primary: {
+        fontFamily: '$primary',
+      },
+      serif: {
+        fontFamily: '$serif',
+      },
+    },
+  },
+  defaultVariants: {
+    color: '1',
+    family: 'primary',
+    leading: 'body',
+    size: '2',
+    weight: 'regular',
   },
 });
 

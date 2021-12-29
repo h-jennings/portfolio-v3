@@ -1,11 +1,7 @@
-import { styled } from '@/stitches.config';
+import { darkTheme, styled } from '@/stitches.config';
 import { WithChildren } from '@utils/types/with-children';
 import { DefaultSeo } from 'next-seo';
 import SEO from 'next-seo.config';
-import Media from 'react-media';
-import { Footer } from './Footer';
-import { MobileNavigation } from './MobileNavigation';
-import { Navigation } from './Navigation';
 
 const Container = styled('div', {
   width: '$full',
@@ -45,15 +41,10 @@ export function RootLayout({ children }: WithChildren): JSX.Element {
   return (
     <>
       <DefaultSeo {...SEO} />
-      <Container>
+      <Container className={darkTheme}>
         <Wrapper>
-          <Media query='(min-width: 768px)' defaultMatches>
-            {(matches: boolean) => {
-              return matches ? <Navigation /> : <MobileNavigation />;
-            }}
-          </Media>
           <Main>{children}</Main>
-          <Footer />
+          {/* <Footer /> */}
         </Wrapper>
       </Container>
     </>

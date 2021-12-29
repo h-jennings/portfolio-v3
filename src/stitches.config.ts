@@ -19,6 +19,7 @@ export const { config, styled, getCssText, theme, createTheme, css } =
     theme: {
       fonts: {
         primary: '"Basier Circle", sans-serif',
+        serif: '"Untitled Serif", Georgia, serif',
       },
       colors: {
         ...gold,
@@ -213,7 +214,7 @@ export const darkTheme = createTheme({
     surface1: '$slate1',
     surface2: '$slate12',
     text1: '$slate12',
-    text2: '$slate12',
+    text2: '$slate11',
     text3: '$gold9',
     text4: '$slate1',
   },
