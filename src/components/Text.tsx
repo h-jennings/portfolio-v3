@@ -110,7 +110,7 @@ export const Link = styled('a', {
       color: '2',
       css: {
         hover: {
-          color: '$slate10',
+          color: '$slate9',
         },
       },
     },
