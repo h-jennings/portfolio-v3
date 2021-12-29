@@ -57,7 +57,7 @@ export const { config, styled, getCssText, theme, createTheme, css } =
       },
       lineHeights: {
         tight: 1,
-        body: 1.33,
+        body: 1.5,
         loose: 2,
       },
       // TODO: add derived space values
