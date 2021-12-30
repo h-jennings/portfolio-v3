@@ -1,3 +1,9 @@
+import {
+  ScrollContainerArea,
+  ScrollContainerScrollbar,
+  ScrollContainerThumb,
+  ScrollContainerViewport,
+} from '@/components/layout/ScrollContainer';
 import { styled } from '@/stitches.config';
 import { Box } from '@components/Box';
 import { Flex } from '@components/Flex';
@@ -5,7 +11,6 @@ import { LinkBox, LinkOverlay } from '@components/LinkBox';
 import { Stack } from '@components/Stack';
 import { H1, Link, Paragraph, Text } from '@components/Text';
 import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio';
-import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
 import { PATHS } from '@utils/constants/paths.constants';
 import {
   ProjectMeta,
@@ -13,7 +18,7 @@ import {
 } from '@utils/constants/projects.constants';
 import { parseTagsToString } from '@utils/helpers/string.helpers';
 import NextLink from 'next/link';
-import React from 'react';
+import * as React from 'react';
 import useMeasure from 'react-use-measure';
 
 const CenteredText = styled(Text, {
@@ -103,68 +108,20 @@ function Card({ project: { tags, project, path } }: CardProps): JSX.Element {
   );
 }
 
-const SCROLLBAR_SIZE = 10;
-
-const StyledScrollArea = styled(ScrollAreaPrimitive.Root, {
-  width: '100%',
-  height: '100%',
-  overflow: 'hidden',
-});
-
-const StyledViewport = styled(ScrollAreaPrimitive.Viewport, {
-  width: '100%',
-  height: '100%',
-  borderRadius: 'inherit',
-});
-
-const StyledScrollbar = styled(ScrollAreaPrimitive.Scrollbar, {
-  display: 'flex',
-  // ensures no selection
-  userSelect: 'none',
-  // disable browser handling of all panning and zooming gestures on touch devices
-  touchAction: 'none',
-  padding: 2,
-  background: '$uiBg',
-  transition: 'background 160ms ease-out',
-  '&:hover': { background: '$slate4' },
-  '&[data-orientation="horizontal"]': {
-    flexDirection: 'column',
-    height: SCROLLBAR_SIZE,
-  },
-});
-
-const StyledThumb = styled(ScrollAreaPrimitive.Thumb, {
-  flex: 1,
-  background: '$surface2',
-  borderRadius: SCROLLBAR_SIZE,
-  // increase target size for touch devices https://www.w3.org/WAI/WCAG21/Understanding/target-size.html
-  position: 'relative',
-  '&::before': {
-    content: '""',
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: '100%',
-    height: '100%',
-    minWidth: 44,
-    minHeight: 44,
-  },
-});
 export function ProjectGrid(): JSX.Element {
   const projectEntries = Object.entries(PROJECT_METADATA);
   return (
-    <StyledScrollArea>
-      <StyledScrollbar orientation='horizontal'>
-        <StyledThumb />
-      </StyledScrollbar>
-      <StyledViewport>
+    <ScrollContainerArea>
+      <ScrollContainerScrollbar orientation='horizontal'>
+        <ScrollContainerThumb />
+      </ScrollContainerScrollbar>
+      <ScrollContainerViewport>
         <Stack gap='s' css={{ mb: '$l' }} direction='row'>
           {projectEntries.map(([, project], idx) => (
             <Card key={idx} project={project} />
           ))}
         </Stack>
-      </StyledViewport>
-    </StyledScrollArea>
+      </ScrollContainerViewport>
+    </ScrollContainerArea>
   );
 }

@@ -11,7 +11,7 @@ import { Text } from '@components/Text';
 import { useActor, useInterpret } from '@xstate/react';
 import isUndefined from 'lodash/fp/isUndefined';
 import Image from 'next/image';
-import React from 'react';
+import * as React from 'react';
 import { Flex } from '../Flex';
 
 function tempText(temp: number | undefined): string {

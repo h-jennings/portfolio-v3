@@ -57,21 +57,19 @@ export type ProjectPageData = Pick<
 > & {
   details: string;
   tech: string[];
-  contribution: string[];
-  images: string[];
+  contributions: string[];
+  images: [string, string];
+  dates: string;
+  url?: string;
 };
 export const PROJECT_PAGE_DATA: Record<ProjectIdentifiers, ProjectPageData> = {
   dwr: {
     ...sharedProjectData.dwr,
-    images: ['1', '2', '3'],
-    contribution: [
-      'Frontend Development',
-      'Design Systems',
-      'Application Architecture',
-      'Build Tooling',
-    ],
+    images: ['1', '2'],
+    contributions: ['Development', 'Design Systems', 'Architecture', 'Tooling'],
     details:
       'The F-35 Joint Strike Fighter Program needed a way to make sense of data disseminated across a massive, multi-decade long project to create the next generation of defense technology. Using interactive visualizations and world class design the application cuts through the noise and provides stakeholders with a single source of truth about the aircraft they need insights on.',
+    dates: '02/2020 - 02/2021',
     tech: [
       'Angular',
       'TypeScript',
@@ -86,14 +84,10 @@ export const PROJECT_PAGE_DATA: Record<ProjectIdentifiers, ProjectPageData> = {
   },
   nfip: {
     ...sharedProjectData.nfip,
-    images: ['1', '2', '3'],
-    contribution: [
-      'Frontend Development',
-      'Design Systems',
-      'Application Architecture',
-      'Build Tooling',
-    ],
+    images: ['1', '2'],
+    contributions: ['Development', 'Design Systems', 'Architecture', 'Tooling'],
     details: `The National Flood Insurance Program's (NFIP) PIVOT is an expansive suite of web-based microservices that, collectively, facilitate how insurance companies work with the federal government and assist flood victims across the country—faced with the disaster of loosing their home.`,
+    dates: '02/2021 - 11/2021',
     tech: [
       'Angular',
       'TypeScript',
@@ -106,10 +100,12 @@ export const PROJECT_PAGE_DATA: Record<ProjectIdentifiers, ProjectPageData> = {
   },
   'portfolio-v2': {
     ...sharedProjectData['portfolio-v2'],
-    images: ['1', '2', '3'],
-    contribution: ['Frontend Development', 'UI Design'],
+    images: ['1', '2'],
+    contributions: ['Development', 'Design', 'Design System'],
+    dates: '2019 - 2021',
     details: `This was the second version of my portfolio built on Next.js with React, and TypeScript. When starting a fresh project, I always search for a challenge—an excuse to learn something new and feel uncomfortable. For this project it was motion design. Using the amazing library framer-motion, I created a suite of declarative, reusable animations in React. Everything from page transitions to revealing text and images on scroll—all orchestrated to enhance the overall design aesthetic of the site.
 `,
+    url: PATHS.portfolioV2Url,
     tech: [
       'React',
       'Next.js',
