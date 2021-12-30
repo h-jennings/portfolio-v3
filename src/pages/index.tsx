@@ -62,7 +62,7 @@ const Index: NextPage = () => {
                 target='_blank'
                 href={PATHS.seagulls}
                 rel='noreferrer'
-                style={{ textDecoration: 'underline' }}
+                underline
                 color='3'
               >
                 Elegant Seagulls

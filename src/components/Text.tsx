@@ -97,6 +97,11 @@ export const Link = styled('a', {
       body: { lineHeight: '$body' },
       loose: { lineHeight: '$loose' },
     },
+    underline: {
+      true: {
+        textDecoration: 'underline',
+      },
+    },
   },
   compoundVariants: [
     {
@@ -143,21 +148,12 @@ export const Link = styled('a', {
 export const PageHeader = styled('h1', {
   lineHeight: '$body',
   color: '$text1',
-  fontSize: 'clamp(1.75rem, 8.1vw - 0.9rem, 3rem);',
+  fontSize: '$4',
   fontWeight: '$regular',
   fontFamily: '$primary',
-  '@bp1': {
-    lineHeight: '$tight',
-  },
-  '@bp2': {
-    fontSize: '$4',
-  },
 });
 export const BodyText = styled('p', {
-  color: '$text2',
+  color: '$text1',
   lineHeight: '$body',
-  fontSize: '$1',
-  '@bp2': {
-    fontSize: '$2',
-  },
+  fontSize: '$2',
 });

@@ -1,5 +1,5 @@
 import { styled } from '@/stitches.config';
-import React from 'react';
+import * as React from 'react';
 
 const Container = styled('div', {
   border: '1px solid',
