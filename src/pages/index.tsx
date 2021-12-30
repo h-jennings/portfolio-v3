@@ -144,43 +144,53 @@ const Index: NextPage = () => {
               folks and talk shop.
             </Paragraph>
             <Stack as='ul' gap='s'>
-              <Grid as='li' columns='3' gap='s'>
+              <Grid align='center' as='li' gap='s' columns='3'>
                 <H2 size='1' leading='tight'>
                   Twitter
                 </H2>
-                <div>
+                <div style={{ gridColumn: '2 / span 2' }}>
                   <Link
                     target='_blank'
                     href={PATHS.twitter}
                     rel='noreferrer'
                     size='1'
                     color='2'
+                    leading='tight'
+                    css={{ d: 'block' }}
                   >
                     @jennings_hunter
                   </Link>
                 </div>
               </Grid>
-              <Grid as='li' columns='3' gap='s'>
+              <Grid align='center' as='li' gap='s' columns='3'>
                 <H2 size='1' leading='tight'>
                   Email
                 </H2>
-                <div>
-                  <Link href={PATHS.email} size='1' color='2'>
+                <div style={{ gridColumn: '2 / span 2' }}>
+                  <Link
+                    href={PATHS.email}
+                    css={{ d: 'block' }}
+                    leading='tight'
+                    size='1'
+                    color='2'
+                  >
                     jenningsdhunter@gmail.com
                   </Link>
                 </div>
               </Grid>
-              <Grid as='li' columns='3' gap='s'>
+              <Grid align='center' as='li' gap='s' columns='3'>
                 <H2 size='1' leading='tight'>
                   Twitter
                 </H2>
-                <div>
+                <div style={{ gridColumn: '2 / span 2' }}>
                   <Link
+                    css={{ d: 'block' }}
                     target='_blank'
                     href={PATHS.github}
                     rel='noreferrer'
                     size='1'
                     color='2'
+                    leading='tight'
                   >
                     h-jennings
                   </Link>
