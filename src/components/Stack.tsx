@@ -67,7 +67,7 @@ export const Stack = styled('div', {
     gap,
   },
   defaultVariants: {
-    gap: 4,
+    gap: 's',
     direction: 'column',
   },
 });

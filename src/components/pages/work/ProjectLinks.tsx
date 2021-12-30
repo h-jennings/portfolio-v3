@@ -40,7 +40,7 @@ export function ProjectLink({
     switch (arrowDirection) {
       case 'left': {
         return (
-          <Stack direction='row' gap='1' style={{ justifyContent: justify }}>
+          <Stack direction='row' gap='m' style={{ justifyContent: justify }}>
             <ArrowIcon style={{ transform: 'rotate(90deg)' }} width='20px' />
             <Text size={{ '@initial': '1', '@bp3': '2' }}>{subTitle}</Text>
           </Stack>
@@ -48,7 +48,7 @@ export function ProjectLink({
       }
       case 'right': {
         return (
-          <Stack direction='row' gap='1' style={{ justifyContent: justify }}>
+          <Stack direction='row' gap='m' style={{ justifyContent: justify }}>
             <Text size={{ '@initial': '1', '@bp3': '2' }}>{subTitle}</Text>
             <ArrowIcon style={{ transform: 'rotate(-90deg)' }} width='20px' />
           </Stack>
@@ -64,7 +64,7 @@ export function ProjectLink({
       }}
     >
       <LinkBox>
-        <Stack gap='1' css={{ jc: justify, py: '$3', '@bp3': { py: '$5' } }}>
+        <Stack gap='m' css={{ jc: justify, py: '$3', '@bp3': { py: '$5' } }}>
           {headerUi}
           <NextLink passHref href={`${PATHS.work}/[project]`} as={meta.path}>
             <LinkOverlay>

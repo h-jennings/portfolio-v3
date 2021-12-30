@@ -1,10 +1,6 @@
 import { css, styled } from '@/stitches.config';
 
 export const text = css({
-  color: '$text1',
-  lineHeight: '$tight',
-  fontWeight: '$regular',
-  fontFamily: '$primary',
   variants: {
     size: {
       1: { fontSize: '$1' },
@@ -31,6 +27,22 @@ export const text = css({
       bold: { fontWeight: '$bold' },
       regular: { fontWeight: '$regular' },
     },
+    family: {
+      primary: {
+        fontFamily: '$primary',
+      },
+      serif: {
+        fontFamily: '$serif',
+        fontStyle: 'italic',
+      },
+    },
+  },
+  defaultVariants: {
+    color: '1',
+    family: 'primary',
+    leading: 'body',
+    size: '2',
+    weight: 'regular',
   },
 });
 
@@ -58,8 +70,6 @@ export const focus = css({
 
 export const Link = styled('a', {
   d: 'inline',
-  color: '$text1',
-  fontSize: '$2',
   transition: '$default',
   '&:focus': {
     outline: 'none',
@@ -82,6 +92,50 @@ export const Link = styled('a', {
       3: { color: '$text3' },
       4: { color: '$text4' },
     },
+    leading: {
+      tight: { lineHeight: '$tight' },
+      body: { lineHeight: '$body' },
+      loose: { lineHeight: '$loose' },
+    },
+  },
+  compoundVariants: [
+    {
+      color: '1',
+      css: {
+        hover: {
+          color: '$slate11',
+        },
+      },
+    },
+    {
+      color: '2',
+      css: {
+        hover: {
+          color: '$slate9',
+        },
+      },
+    },
+    {
+      color: '3',
+      css: {
+        hover: {
+          color: '$gold8',
+        },
+      },
+    },
+    {
+      color: '4',
+      css: {
+        hover: {
+          color: '$slate2',
+        },
+      },
+    },
+  ],
+  defaultVariants: {
+    color: '1',
+    leading: 'tight',
+    size: '2',
   },
 });
 

@@ -5,7 +5,7 @@ import { Link, PageHeader } from './Text';
 
 export function ErrorContent({ statusCode }: ErrorProps): JSX.Element {
   return (
-    <Stack gap='3'>
+    <Stack gap='m'>
       <PageHeader>{statusCode} - Page Not Found</PageHeader>
       <div>
         <NextLink passHref href='/'>

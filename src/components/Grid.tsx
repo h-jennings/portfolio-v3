@@ -73,99 +73,90 @@ export const Grid = styled('div', {
       },
     },
     gap: {
-      1: {
-        gap: '$1',
+      '3xs': {
+        gap: '$3xs',
       },
-      2: {
-        gap: '$2',
+      '2xs': {
+        gap: '$2xs',
       },
-      3: {
-        gap: '$3',
+      xs: {
+        gap: '$xs',
       },
-      4: {
-        gap: '$4',
+      s: {
+        gap: '$s',
       },
-      5: {
-        gap: '$5',
+      m: {
+        gap: '$m',
       },
-      6: {
-        gap: '$6',
+      l: {
+        gap: '$l',
       },
-      7: {
-        gap: '$7',
+      xl: {
+        gap: '$xl',
       },
-      8: {
-        gap: '$8',
+      '2xl': {
+        gap: '$2xl',
       },
-      9: {
-        gap: '$9',
-      },
-      10: {
-        gap: '$10',
+      '3xl': {
+        gap: '$3xl',
       },
     },
     gapX: {
-      1: {
-        columnGap: '$1',
+      '3xs': {
+        columnGap: '$3xs',
       },
-      2: {
-        columnGap: '$2',
+      '2xs': {
+        columnGap: '$2xs',
       },
-      3: {
-        columnGap: '$3',
+      xs: {
+        columnGap: '$xs',
       },
-      4: {
-        columnGap: '$4',
+      s: {
+        columnGap: '$s',
       },
-      5: {
-        columnGap: '$5',
+      m: {
+        columnGap: '$m',
       },
-      6: {
-        columnGap: '$6',
+      l: {
+        columnGap: '$l',
       },
-      7: {
-        columnGap: '$7',
+      xl: {
+        columnGap: '$xl',
       },
-      8: {
-        columnGap: '$8',
+      '2xl': {
+        columnGap: '$2xl',
       },
-      9: {
-        columnGap: '$9',
-      },
-      10: {
-        columnGap: '$10',
+      '3xl': {
+        columnGap: '$xl',
       },
     },
     gapY: {
-      1: {
-        rowGap: '$1',
+      '3xs': {
+        rowGap: '$3xs',
       },
-      2: {
-        rowGap: '$2',
+      '2xs': {
+        rowGap: '$2xs',
       },
-      3: {
-        rowGap: '$3',
+      xs: {
+        rowGap: '$xs',
       },
-      4: {
-        rowGap: '$4',
+      s: {
+        rowGap: '$s',
       },
-      5: {
-        rowGap: '$5',
+      m: {
+        rowGap: '$m',
       },
-      6: {
-        rowGap: '$6',
+      l: {
+        rowGap: '$l',
       },
-      7: {
-        rowGap: '$7',
+      xl: {
+        rowGap: '$xl',
       },
-      8: {
-        rowGap: '$8',
+      '2xl': {
+        rowGap: '$2xl',
       },
-      9: {
-        rowGap: '$9',
-      },
-      10: {
-        rowGap: '$10',
+      '3xl': {
+        rowGap: '$xl',
       },
     },
   },

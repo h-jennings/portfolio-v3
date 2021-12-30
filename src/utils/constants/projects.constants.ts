@@ -24,7 +24,7 @@ const sharedProjectData: Record<
     project: 'Digital War Room',
   },
   nfip: {
-    project: 'National Flood Insurance Program',
+    project: 'NFIP',
     client: 'FEMA',
     path: PATHS.nfip,
   },
@@ -35,19 +35,19 @@ export const PROJECT_METADATA: Record<ProjectIdentifiers, ProjectMeta> = {
     ...sharedProjectData.dwr,
     description:
       'A supply chain management application which provided insights and analysis for the U.S. Department of Defense.',
-    tags: ['DEVELOPMENT', 'DESIGN SYSTEM'],
+    tags: ['Development', 'Design'],
   },
   nfip: {
     ...sharedProjectData.nfip,
     description:
       "An expansive suite of microservices for FEMA's National Flood Insurance Program.",
-    tags: ['DEVELOPMENT'],
+    tags: ['Development'],
   },
   'portfolio-v2': {
     ...sharedProjectData['portfolio-v2'],
     description:
       "Hunter's previous portfolio of work. Built with TypeScript and React on Next.js",
-    tags: ['DEVELOPMENT', 'DESIGN SYSTEM', 'UI DESIGN'],
+    tags: ['Development', 'Design'],
   },
 };
 

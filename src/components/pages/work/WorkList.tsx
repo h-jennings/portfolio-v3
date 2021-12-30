@@ -75,7 +75,7 @@ function ListItem({
         <ListItemContainer>
           <TextContentContainer>
             <div>
-              <Stack gap={{ '@initial': '1', '@bp3': '2' }}>
+              <Stack gap={{ '@initial': 'm', '@bp3': 'm' }}>
                 <Text color='2' size='1'>
                   PROJECT
                 </Text>
@@ -92,7 +92,7 @@ function ListItem({
               </Stack>
             </div>
             <div>
-              <Stack gap={{ '@initial': '1', '@bp3': '2' }}>
+              <Stack gap={{ '@initial': 'm', '@bp3': 'm' }}>
                 <Text color='2' size='1'>
                   CLIENT
                 </Text>

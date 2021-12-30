@@ -23,8 +23,8 @@ const Work: NextPage = () => {
   return (
     <>
       <NextSeo {...SEO} />
-      <Stack gap={{ '@initial': '4', '@bp2': '6' }}>
-        <Stack gap={{ '@initial': '2', '@bp2': '3' }}>
+      <Stack gap={{ '@initial': 'm', '@bp2': 'm' }}>
+        <Stack gap={{ '@initial': 'm', '@bp2': 'm' }}>
           <PageHeader>Selected Work</PageHeader>
           <H2 size={{ '@initial': '1', '@bp2': '2' }}>3&mdash;PROJECTS</H2>
         </Stack>
