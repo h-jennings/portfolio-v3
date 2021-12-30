@@ -33,6 +33,7 @@ export const text = css({
       },
       serif: {
         fontFamily: '$serif',
+        fontStyle: 'italic',
       },
     },
   },
