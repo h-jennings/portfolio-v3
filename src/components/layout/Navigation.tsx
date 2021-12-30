@@ -6,7 +6,7 @@ import { Flex } from '../Flex';
 
 export function Navigation(): JSX.Element {
   return (
-    <Box as='nav' css={{ py: '$xl' }}>
+    <Box as='nav' css={{ pt: '$xl', pb: '$2xl' }}>
       <Flex direction='row' justify='between' align='center'>
         <NextLink passHref href={PATHS.home}>
           <Link

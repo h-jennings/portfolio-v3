@@ -62,35 +62,32 @@ export const Flex = styled('div', {
       },
     },
     gap: {
-      1: {
-        gap: '$1',
+      '3xs': {
+        gap: '$3xs',
       },
-      2: {
-        gap: '$2',
+      '2xs': {
+        gap: '$2xs',
       },
-      3: {
-        gap: '$3',
+      xs: {
+        gap: '$xs',
       },
-      4: {
-        gap: '$4',
+      s: {
+        gap: '$s',
       },
-      5: {
-        gap: '$5',
+      m: {
+        gap: '$m',
       },
-      6: {
-        gap: '$6',
+      l: {
+        gap: '$l',
       },
-      7: {
-        gap: '$7',
+      xl: {
+        gap: '$xl',
       },
-      8: {
-        gap: '$8',
+      '2xl': {
+        gap: '$2xl',
       },
-      9: {
-        gap: '$9',
-      },
-      10: {
-        gap: '$10',
+      '3xl': {
+        gap: '$3xl',
       },
     },
   },

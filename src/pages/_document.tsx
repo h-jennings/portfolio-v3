@@ -1,6 +1,6 @@
 import { getCssText } from '@/stitches.config';
 import NextDocument, { Head, Html, Main, NextScript } from 'next/document';
-import React from 'react';
+import * as React from 'react';
 
 export default class Document extends NextDocument {
   render() {

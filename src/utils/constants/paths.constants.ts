@@ -12,4 +12,5 @@ export const PATHS = {
   dwr: '/work/dwr',
   nfip: '/work/nfip',
   portfolioV2: '/work/portfolio-v2',
+  portfolioV2Url: 'https://v2.hunterjennings.dev',
 } as const;
