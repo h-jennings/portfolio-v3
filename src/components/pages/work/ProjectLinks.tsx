@@ -1,4 +1,4 @@
-import { styled } from '@/stitches.config';
+import { css, styled } from '@/stitches.config';
 import { ArrowLeftIcon, ArrowRightIcon } from '@radix-ui/react-icons';
 import { PATHS } from '@utils/constants/paths.constants';
 import { ProjectMeta } from '@utils/constants/projects.constants';
@@ -39,6 +39,20 @@ export function ProjectLink({
     linkOverlayRef.current?.blur();
   };
 
+  const hoverTextStyles = css({
+    [`& ${Text}`]: {
+      transition: '$default',
+      transitionProperty: 'color',
+    },
+    hover: {
+      [`& ${Text}`]: {
+        color: '$slate11',
+        transition: '$default',
+        transitionProperty: 'color',
+      },
+    },
+  });
+
   return (
     <LinkContainer
       style={{
@@ -55,7 +69,11 @@ export function ProjectLink({
             <ArrowLeftIcon aria-hidden width={15} color='var(--colors-text1)' />
           ) : null}
           <NextLink passHref href={`${PATHS.work}/[project]`} as={meta.path}>
-            <LinkOverlay ref={linkOverlayRef} onClick={() => clearFocus()}>
+            <LinkOverlay
+              ref={linkOverlayRef}
+              className={hoverTextStyles()}
+              onClick={() => clearFocus()}
+            >
               <Text leading='body' size='2'>
                 {meta.project}
               </Text>

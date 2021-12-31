@@ -39,7 +39,7 @@ export const { config, styled, getCssText, theme, createTheme, css } =
         focus: '0 0 0 3px var(--colors-gold6)',
       },
       transitions: {
-        default: 'all 225ms cubic-bezier(0.4, 0, 0.2, 1)',
+        default: '225ms cubic-bezier(0.4, 0, 0.2, 1)',
       },
       fontWeights: {
         bold: 700,
