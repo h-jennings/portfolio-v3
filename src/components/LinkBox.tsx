@@ -53,7 +53,7 @@ export const LinkOverlay = React.forwardRef<LinkOverlayRef, LinkOverlayProps>(
     return (
       <a
         {...rest}
-        className={`linkbox__overlay ${linkOverlay()}`}
+        className={`linkbox__overlay ${linkOverlay()} ${className}`}
         rel={isExternal ? 'noopener norefferer' : rel}
         target={isExternal ? '_blank' : target}
         ref={forwardedRef}

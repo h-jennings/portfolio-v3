@@ -13,6 +13,7 @@ export const buttonReset = css({
   appearance: 'none',
   cursor: 'pointer',
   transition: '$default',
+  transitionProperty: 'box-shadow',
   '&:focus': {
     outline: 'none',
     boxShadow: '$focus',

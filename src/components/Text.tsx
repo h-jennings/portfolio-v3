@@ -62,18 +62,25 @@ export const H6 = styled('h6', text);
 
 export const focus = css({
   transition: '$default',
+  transitionProperty: 'box-shadow',
   '&:focus': {
     outline: 'none',
     boxShadow: '$focus',
   },
 });
 
-export const Link = styled('a', {
+export const link = css({
   d: 'inline',
+  $$hoverColor: 'inherit',
   transition: '$default',
+  cursor: 'pointer',
+  transitionProperty: 'box-shadow, color',
   '&:focus': {
     outline: 'none',
     boxShadow: '$focus',
+  },
+  hover: {
+    color: '$$hoverColor',
   },
   variants: {
     size: {
@@ -87,10 +94,10 @@ export const Link = styled('a', {
       8: { fontSize: '$8' },
     },
     color: {
-      1: { color: '$text1' },
-      2: { color: '$text2' },
-      3: { color: '$text3' },
-      4: { color: '$text4' },
+      1: { color: '$text1', $$hoverColor: '$colors$slate11' },
+      2: { color: '$text2', $$hoverColor: '$colors$slate9' },
+      3: { color: '$text3', $$hoverColor: '$colors$gold8' },
+      4: { color: '$text4', $$hoverColor: '$colors$slate2' },
     },
     leading: {
       tight: { lineHeight: '$tight' },
@@ -98,51 +105,43 @@ export const Link = styled('a', {
       loose: { lineHeight: '$loose' },
     },
     underline: {
+      whileHover: {
+        position: 'relative',
+        hover: {
+          '&:after': {
+            transition: '$default',
+            transitionProperty: 'transform, opacity, color',
+            transform: 'translateY(0%)',
+            opacity: 1,
+          },
+        },
+        '&:after': {
+          content: '',
+          position: 'absolute',
+          opacity: 0,
+          width: '$full',
+          height: 2,
+          backgroundColor: '$$hoverColor',
+          left: 0,
+          bottom: -2,
+          transition: '$default',
+          transitionProperty: 'transform, opacity, color',
+          transform: 'translateY(100%)',
+        },
+      },
       true: {
         textDecoration: 'underline',
       },
     },
   },
-  compoundVariants: [
-    {
-      color: '1',
-      css: {
-        hover: {
-          color: '$slate11',
-        },
-      },
-    },
-    {
-      color: '2',
-      css: {
-        hover: {
-          color: '$slate9',
-        },
-      },
-    },
-    {
-      color: '3',
-      css: {
-        hover: {
-          color: '$gold8',
-        },
-      },
-    },
-    {
-      color: '4',
-      css: {
-        hover: {
-          color: '$slate2',
-        },
-      },
-    },
-  ],
   defaultVariants: {
     color: '1',
     leading: 'tight',
     size: '2',
   },
 });
+
+export const Link = styled('a', link);
 
 // Design Elements
 export const PageHeader = styled('h1', {
