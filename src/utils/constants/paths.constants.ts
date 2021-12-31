@@ -8,9 +8,12 @@ export const PATHS = {
   home: '/',
   about: '/about',
   writing: '/writing',
+  now: '/now',
   work: '/work',
   dwr: '/work/dwr',
   nfip: '/work/nfip',
   portfolioV2: '/work/portfolio-v2',
   portfolioV2Url: 'https://v2.hunterjennings.dev',
+  writings: './src/data/writings',
+  data: './src/data/',
 } as const;

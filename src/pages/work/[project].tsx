@@ -1,4 +1,4 @@
-import { BackToHome } from '@/components/BackToHome';
+import { BackToLink } from '@/components/BackToLink';
 import { Box } from '@/components/Box';
 import { Flex } from '@/components/Flex';
 import { Grid } from '@/components/Grid';
@@ -110,7 +110,7 @@ function Project({
       <Stack gap='3xl'>
         <Stack gap='xl'>
           <Box>
-            <BackToHome />
+            <BackToLink href={PATHS.home}>Back to home</BackToLink>
             <Flex
               wrap='wrap'
               direction={{ '@initial': 'column', '@bp2': 'row' }}
