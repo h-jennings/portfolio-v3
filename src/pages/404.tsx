@@ -3,11 +3,11 @@ import { NextPage } from 'next';
 import { NextSeo } from 'next-seo';
 
 const Custom404: NextPage = () => {
-  const title = 'Page Not Found | Hunter Jennings';
+  const TITLE = 'Page Not Found | Hunter Jennings';
   const SEO = {
-    title,
+    title: TITLE,
     openGraph: {
-      title,
+      title: TITLE,
     },
   };
   return (
@@ -17,4 +17,5 @@ const Custom404: NextPage = () => {
     </>
   );
 };
+
 export default Custom404;
