@@ -30,7 +30,6 @@ export const Stack = styled('div', {
   listStyleType: 'none',
   paddingLeft: 0,
   [child]: {
-    include: 'box',
     margin: 0,
   },
   [childWithGap]: {

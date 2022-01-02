@@ -64,10 +64,39 @@ export const MDX_ELEMENTS: Record<string, React.ReactNode> = {
     />
   ),
   ul: (props: any) => <UnorderedList css={{ mb: '$xs' }} {...props} />,
+  ol: (props: any) => (
+    <UnorderedList
+      as='ol'
+      css={{
+        mb: '$xs',
+        listStyle: 'none',
+        counterReset: 'listCounter',
+        [`& > ${ListItem}`]: {
+          '&:before': {
+            counterIncrement: 'listCounter',
+            display: 'inline-block',
+            content: 'counter(listCounter)"."',
+            width: '1em',
+            ml: '-1em',
+          },
+        },
+      }}
+      {...props}
+    />
+  ),
   li: (props: any) => (
     <ListItem
       leading='body'
       css={{
+        listStyle: 'none',
+        ml: 0,
+        pl: 0,
+        '&:before': {
+          display: 'inline-block',
+          content: '-',
+          width: '1em',
+          ml: '-1em',
+        },
         'ul,ol': {
           li: {
             '&:first-of-type': {

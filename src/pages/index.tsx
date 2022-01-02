@@ -17,43 +17,12 @@ import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { NextSeo, NextSeoProps } from 'next-seo';
 import NextLink from 'next/link';
 
-const title = 'Home | Hunter Jennings';
+const TITLE = 'Home | Hunter Jennings';
 const SEO: NextSeoProps = {
-  title,
+  title: TITLE,
   openGraph: {
-    title,
+    title: TITLE,
   },
-};
-
-const StyledListItem = styled(Stack, {
-  position: 'relative',
-  $$bottom: 'calc((var(--space-m) / 2) * -1)',
-  '&:after': {
-    content: '',
-    width: '$full',
-    height: 0,
-    borderTop: '1px dashed $slate8',
-    position: 'absolute',
-    bottom: '$$bottom',
-    left: 0,
-  },
-  defaultVariants: {
-    gap: '3xs',
-  },
-});
-
-export const getStaticProps: GetStaticProps<{
-  featuredWritings: MdxData[];
-}> = () => {
-  const writingsData = sortMdxDataByDateDesc(getAllWritingsData());
-
-  const featuredWritings: MdxData[] = writingsData.filter(
-    (writing) => writing?.metaData?.featured,
-  );
-
-  return {
-    props: { featuredWritings },
-  };
 };
 
 const Index = ({
@@ -214,7 +183,7 @@ const Index = ({
               </Grid>
               <Grid align='center' as='li' gap='s' columns='3'>
                 <H2 size='1' leading='tight'>
-                  Twitter
+                  Github
                 </H2>
                 <div style={{ gridColumn: '2 / span 2' }}>
                   <div>
@@ -239,5 +208,36 @@ const Index = ({
     </>
   );
 };
+
+export const getStaticProps: GetStaticProps<{
+  featuredWritings: MdxData[];
+}> = () => {
+  const writingsData = sortMdxDataByDateDesc(getAllWritingsData());
+
+  const featuredWritings: MdxData[] = writingsData.filter(
+    (writing) => writing?.metaData?.featured,
+  );
+
+  return {
+    props: { featuredWritings },
+  };
+};
+
+const StyledListItem = styled(Stack, {
+  position: 'relative',
+  $$bottom: 'calc((var(--space-m) / 2) * -1)',
+  '&:after': {
+    content: '',
+    width: '$full',
+    height: 0,
+    borderTop: '1px dashed $slate8',
+    position: 'absolute',
+    bottom: '$$bottom',
+    left: 0,
+  },
+  defaultVariants: {
+    gap: '3xs',
+  },
+});
 
 export default Index;

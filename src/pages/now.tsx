@@ -31,15 +31,15 @@ export const getStaticProps: GetStaticProps<{
   };
 };
 const Now = ({ source }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const title = `Now | Hunter Jennings`;
+  const TITLE = `Now | Hunter Jennings`;
   const url = `${PATHS.base}${PATHS.now}`;
   const description = source.scope?.description;
   const SEO = {
-    title,
+    title: TITLE,
     canonical: url,
     description,
     openGraph: {
-      title,
+      title: TITLE,
       url,
       description,
     },

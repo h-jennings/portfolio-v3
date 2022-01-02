@@ -7,7 +7,7 @@ import {
   ScrollContainerScrollbar,
   ScrollContainerThumb,
   ScrollContainerViewport,
-} from '@/components/layout/ScrollContainer';
+} from '@/components/ScrollContainer';
 import { styled } from '@/stitches.config';
 import { ProjectLinks } from '@components/pages/work/ProjectLinks';
 import { Stack } from '@components/Stack';
@@ -25,70 +25,11 @@ import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import { NextSeo, NextSeoProps } from 'next-seo';
 import * as React from 'react';
 
-export const getStaticPaths: GetStaticPaths = () => {
-  const paths = Object.keys(PROJECT_PAGE_DATA).map((pageId) => ({
-    params: {
-      project: pageId,
-    },
-  }));
-  return {
-    paths,
-    fallback: false,
-  };
-};
-export const getStaticProps: GetStaticProps<{
-  projectData: ProjectPageData;
-  projectIndex: number;
-  description: string;
-}> = ({ params }) => {
-  const project = params?.project;
-
-  const projectData: ProjectPageData | undefined =
-    PROJECT_PAGE_DATA[project as ProjectIdentifiers];
-  const projectMeta: ProjectMeta | undefined =
-    PROJECT_METADATA[project as ProjectIdentifiers];
-  const projectIndex = Object.keys(PROJECT_PAGE_DATA)
-    .map((key) => key)
-    .indexOf(project as string);
-
-  return {
-    props: {
-      projectData,
-      projectIndex,
-      description: projectMeta?.description,
-    },
-  };
-};
-
-const Chip = styled('li', {
-  px: '$2xs',
-  py: '$3xs',
-  whiteSpace: 'nowrap',
-  borderRadius: '$pill',
-  fontSize: 12,
-  lineHeight: '$tight',
-  variants: {
-    variant: {
-      darker: {
-        backgroundColor: '$gold5',
-        color: '$gold10',
-      },
-      default: {
-        backgroundColor: '$gold7',
-        color: '$gold10',
-      },
-    },
-  },
-  defaultVariants: {
-    variant: 'default',
-  },
-});
-
-function Project({
+const Project = ({
   projectData,
   projectIndex,
   description,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
   const SEO: NextSeoProps = React.useMemo(() => {
     const title = `${projectData?.project} | Hunter Jennings`;
     const url = `${PATHS.base}${projectData?.path}`;
@@ -205,6 +146,66 @@ function Project({
       </Stack>
     </>
   );
-}
+};
+
+export const getStaticPaths: GetStaticPaths = () => {
+  const paths = Object.keys(PROJECT_PAGE_DATA).map((pageId) => ({
+    params: {
+      project: pageId,
+    },
+  }));
+  return {
+    paths,
+    fallback: false,
+  };
+};
+
+export const getStaticProps: GetStaticProps<{
+  projectData: ProjectPageData;
+  projectIndex: number;
+  description: string;
+}> = ({ params }) => {
+  const project = params?.project;
+
+  const projectData: ProjectPageData | undefined =
+    PROJECT_PAGE_DATA[project as ProjectIdentifiers];
+  const projectMeta: ProjectMeta | undefined =
+    PROJECT_METADATA[project as ProjectIdentifiers];
+  const projectIndex = Object.keys(PROJECT_PAGE_DATA)
+    .map((key) => key)
+    .indexOf(project as string);
+
+  return {
+    props: {
+      projectData,
+      projectIndex,
+      description: projectMeta?.description,
+    },
+  };
+};
+
+const Chip = styled('li', {
+  px: '$2xs',
+  py: '$3xs',
+  whiteSpace: 'nowrap',
+  borderRadius: '$pill',
+  fontSize: 12,
+  lineHeight: '$tight',
+  variants: {
+    variant: {
+      darker: {
+        backgroundColor: '$gold5',
+        color: '$gold10',
+      },
+      default: {
+        backgroundColor: '$gold7',
+        color: '$gold10',
+      },
+    },
+  },
+  defaultVariants: {
+    variant: 'default',
+  },
+});
 
 export default Project;

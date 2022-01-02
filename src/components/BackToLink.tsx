@@ -9,10 +9,10 @@ interface BackToLinkProps {
   href: string;
 }
 
-export function BackToLink({
+export const BackToLink = ({
   children,
   href,
-}: BackToLinkProps & WithChildren): JSX.Element {
+}: BackToLinkProps & WithChildren): JSX.Element => {
   return (
     <LinkBox>
       <Stack css={{ mb: '$m' }} direction='row' gap='xs'>
@@ -27,4 +27,4 @@ export function BackToLink({
       </Stack>
     </LinkBox>
   );
-}
+};
