@@ -20,7 +20,7 @@ describe('prev_next_project_data.prevNextProjectData', () => {
         project: 'Digital War Room',
         description:
           'A supply chain management application which provided insights and analysis for the U.S. Department of Defense.',
-        tags: ['DEVELOPMENT', 'DESIGN SYSTEM'],
+        tags: ['Development', 'Design'],
       },
       {
         client: 'Personal',
@@ -28,7 +28,7 @@ describe('prev_next_project_data.prevNextProjectData', () => {
         project: 'Portfolio V2',
         description:
           "Hunter's previous portfolio of work. Built with TypeScript and React on Next.js",
-        tags: ['DEVELOPMENT', 'DESIGN SYSTEM', 'UI DESIGN'],
+        tags: ['Development', 'Design'],
       },
     ];
     expect(result).toEqual(object);
@@ -43,7 +43,7 @@ describe('prev_next_project_data.prevNextProjectData', () => {
         project: 'Portfolio V2',
         description:
           "Hunter's previous portfolio of work. Built with TypeScript and React on Next.js",
-        tags: ['DEVELOPMENT', 'DESIGN SYSTEM', 'UI DESIGN'],
+        tags: ['Development', 'Design'],
       },
       null,
     ];
@@ -55,12 +55,12 @@ describe('prev_next_project_data.prevNextProjectData', () => {
     let object: any = [
       null,
       {
-        project: 'National Flood Insurance Program',
+        project: 'NFIP',
         client: 'FEMA',
         path: '/work/nfip',
         description:
           "An expansive suite of microservices for FEMA's National Flood Insurance Program.",
-        tags: ['DEVELOPMENT'],
+        tags: ['Development'],
       },
     ];
     expect(result).toEqual(object);
