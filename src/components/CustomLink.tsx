@@ -5,24 +5,11 @@ import * as React from 'react';
 import { Grid } from './Grid';
 import { link } from './Text';
 
-function isExternalLink(href: string): boolean {
-  const externalLinkRegex = /^https?:\/\//;
-  const mailToRegex = /^mailto\:/;
-  return externalLinkRegex.test(href) || mailToRegex.test(href);
-}
-
 interface CustomLinkProps extends React.HtmlHTMLAttributes<HTMLAnchorElement> {
   href: string;
   css?: Parameters<typeof link>[0];
 }
 export type CustomLinkRef = HTMLAnchorElement;
-
-const externalLink = css(link, {
-  display: 'inline-grid',
-  alignItems: 'center',
-  gridTemplateColumns: 'auto min-content',
-  lineHeight: '$tight',
-});
 
 export const CustomLink = React.forwardRef<CustomLinkRef, CustomLinkProps>(
   (props, forwardedRef) => {
@@ -61,3 +48,16 @@ export const CustomLink = React.forwardRef<CustomLinkRef, CustomLinkProps>(
 );
 
 CustomLink.displayName = 'CustomLink';
+
+const externalLink = css(link, {
+  display: 'inline-grid',
+  alignItems: 'center',
+  gridTemplateColumns: 'auto min-content',
+  lineHeight: '$tight',
+});
+
+function isExternalLink(href: string): boolean {
+  const externalLinkRegex = /^https?:\/\//;
+  const mailToRegex = /^mailto\:/;
+  return externalLinkRegex.test(href) || mailToRegex.test(href);
+}

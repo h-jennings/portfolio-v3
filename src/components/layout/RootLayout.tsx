@@ -5,6 +5,22 @@ import SEO from 'next-seo.config';
 import { Footer } from './Footer';
 import { Navigation } from './Navigation';
 
+export const RootLayout = ({ children }: WithChildren): JSX.Element => {
+  return (
+    <>
+      <DefaultSeo {...SEO} />
+      <Container className={darkTheme}>
+        {/* <Container> */}
+        <Wrapper>
+          <Navigation />
+          <Main>{children}</Main>
+          <Footer />
+        </Wrapper>
+      </Container>
+    </>
+  );
+};
+
 const Container = styled('div', {
   width: '$full',
   backgroundColor: '$uiBg',
@@ -31,19 +47,3 @@ const Main = styled('main', {
   paddingBottom: '$8',
   zIndex: 1,
 });
-
-export function RootLayout({ children }: WithChildren): JSX.Element {
-  return (
-    <>
-      <DefaultSeo {...SEO} />
-      <Container className={darkTheme}>
-        {/* <Container> */}
-        <Wrapper>
-          <Navigation />
-          <Main>{children}</Main>
-          <Footer />
-        </Wrapper>
-      </Container>
-    </>
-  );
-}

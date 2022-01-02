@@ -17,37 +17,7 @@ import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import Image from 'next/image';
 
-export const getStaticPaths: GetStaticPaths<{ slug: string }> = () => {
-  const paths = writingsFilePaths
-    // Remove file extensions for page paths
-    .map((path) => path.replace(/\.mdx?$/, ''))
-    // Map the path into the static paths object required by Next.js
-    .map((slug) => ({ params: { slug } }));
-
-  return {
-    paths,
-    fallback: false,
-  };
-};
-
-export const getStaticProps: GetStaticProps<{
-  source: MDXRemoteSerializeResult<MdxMetaData>;
-}> = async ({ params }) => {
-  const { content, metaData } = getWritingDataFromSlug(params?.slug as string);
-  //@ts-expect-error
-  const mdxSource: MDXRemoteSerializeResult<MdxMetaData> = await serialize(
-    content,
-    {
-      scope: metaData,
-    },
-  );
-
-  return {
-    props: {
-      source: mdxSource,
-    },
-  };
-};
+// TODO: Add SEO
 const Writing = ({
   source,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
@@ -83,6 +53,38 @@ const Writing = ({
       </Stack>
     </>
   );
+};
+
+export const getStaticPaths: GetStaticPaths<{ slug: string }> = () => {
+  const paths = writingsFilePaths
+    // Remove file extensions for page paths
+    .map((path) => path.replace(/\.mdx?$/, ''))
+    // Map the path into the static paths object required by Next.js
+    .map((slug) => ({ params: { slug } }));
+
+  return {
+    paths,
+    fallback: false,
+  };
+};
+
+export const getStaticProps: GetStaticProps<{
+  source: MDXRemoteSerializeResult<MdxMetaData>;
+}> = async ({ params }) => {
+  const { content, metaData } = getWritingDataFromSlug(params?.slug as string);
+  //@ts-expect-error
+  const mdxSource: MDXRemoteSerializeResult<MdxMetaData> = await serialize(
+    content,
+    {
+      scope: metaData,
+    },
+  );
+
+  return {
+    props: {
+      source: mdxSource,
+    },
+  };
 };
 
 export default Writing;

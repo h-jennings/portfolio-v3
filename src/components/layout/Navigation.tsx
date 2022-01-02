@@ -4,7 +4,7 @@ import { PATHS } from '@utils/constants/paths.constants';
 import NextLink from 'next/link';
 import { Flex } from '../Flex';
 
-export function Navigation(): JSX.Element {
+export const Navigation = (): JSX.Element => {
   return (
     <Box as='nav' css={{ pt: '$xl', pb: '$2xl' }}>
       <Flex direction='row' justify='between' align='center'>
@@ -25,4 +25,4 @@ export function Navigation(): JSX.Element {
       </Flex>
     </Box>
   );
-}
+};
