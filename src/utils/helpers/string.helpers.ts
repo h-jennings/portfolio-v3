@@ -7,7 +7,7 @@ export function parseTagsToString(tags: string[]): string {
       return `${curr}`;
     }
     if (idx === tags.length - 1) {
-      return `${acc} ${curr}`;
+      return `${acc}${curr}`;
     }
     return `${curr} + ${acc}`;
   }, '');

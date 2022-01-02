@@ -6,7 +6,7 @@ describe('string_helpers.parseTagsToString', () => {
       'Pierre Edouard',
       'Michael',
     ]);
-    expect(result).toBe('Pierre Edouard /  Michael');
+    expect(result).toBe('Pierre Edouard + Michael');
   });
 
   test('1', () => {
@@ -16,7 +16,7 @@ describe('string_helpers.parseTagsToString', () => {
       'George',
       'Jean-Philippe',
     ]);
-    expect(result).toBe('George / Edmond / George /  Jean-Philippe');
+    expect(result).toBe('George + Edmond + George + Jean-Philippe');
   });
 
   test('2', () => {
@@ -32,7 +32,7 @@ describe('string_helpers.parseTagsToString', () => {
       'Michael',
       'Edmond',
     ]);
-    expect(result).toBe('Michael / Edmond / Michael / Jean-Philippe /  Edmond');
+    expect(result).toBe('Michael + Edmond + Michael + Jean-Philippe + Edmond');
   });
 });
 
