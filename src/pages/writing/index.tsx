@@ -1,17 +1,17 @@
-import { BackToLink } from '@/components/BackToLink';
-import { Box } from '@/components/Box';
-import { Flex } from '@/components/Flex';
-import { LinkBox, LinkOverlay } from '@/components/LinkBox';
-import { Stack } from '@/components/Stack';
-import { H2, H3, PageHeader, Paragraph } from '@/components/Text';
 import { styled } from '@/stitches.config';
-import { PATHS } from '@/utils/constants/paths.constants';
+import { BackToLink } from '@common/components/BackToLink';
+import { Box } from '@common/components/Box';
+import { Flex } from '@common/components/Flex';
+import { LinkBox, LinkOverlay } from '@common/components/LinkBox';
+import { Stack } from '@common/components/Stack';
+import { H2, H3, PageHeader, Paragraph } from '@common/components/Text';
+import { PATHS } from '@common/utils/constants/paths.constants';
 import {
   groupDatesByYear,
   sortMdxDataByDateDesc,
-} from '@/utils/helpers/date.helpers';
-import { getAllWritingsData } from '@/utils/helpers/mdx-data.helpers';
-import { MdxData } from '@/utils/types/mdx-data';
+} from '@common/utils/helpers/date.helpers';
+import { getAllWritingsData } from '@common/utils/helpers/mdx-data.helpers';
+import { MdxData } from '@common/utils/types/mdx-data';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import NextLink from 'next/link';
 import * as React from 'react';

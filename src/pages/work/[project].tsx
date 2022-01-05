@@ -1,26 +1,32 @@
-import { BackToLink } from '@/components/BackToLink';
-import { Box } from '@/components/Box';
-import { Flex } from '@/components/Flex';
-import { Grid } from '@/components/Grid';
+import { styled } from '@/stitches.config';
+import { BackToLink } from '@common/components/BackToLink';
+import { Box } from '@common/components/Box';
+import { Flex } from '@common/components/Flex';
+import { Grid } from '@common/components/Grid';
 import {
   ScrollContainerArea,
   ScrollContainerScrollbar,
   ScrollContainerThumb,
   ScrollContainerViewport,
-} from '@/components/ScrollContainer';
-import { styled } from '@/stitches.config';
-import { ProjectLinks } from '@components/pages/work/ProjectLinks';
-import { Stack } from '@components/Stack';
-import { BodyText, H2, H3, PageHeader, Paragraph } from '@components/Text';
+} from '@common/components/ScrollContainer';
+import { Stack } from '@common/components/Stack';
+import {
+  BodyText,
+  H2,
+  H3,
+  PageHeader,
+  Paragraph,
+} from '@common/components/Text';
+import { PATHS } from '@common/utils/constants/paths.constants';
 import * as AspectRatio from '@radix-ui/react-aspect-ratio';
-import { PATHS } from '@utils/constants/paths.constants';
+import { ProjectLinks } from '@work/components/ProjectLinks';
 import {
   ProjectMeta,
   ProjectPageData,
   PROJECT_METADATA,
   PROJECT_PAGE_DATA,
-} from '@utils/constants/projects.constants';
-import { ProjectIdentifiers } from '@utils/types/projects';
+} from '@work/utils/constants/projects.constants';
+import { ProjectIdentifiers } from '@work/utils/types/projects';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import { NextSeo, NextSeoProps } from 'next-seo';
 import * as React from 'react';

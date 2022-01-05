@@ -1,17 +1,24 @@
-import { CustomLink } from '@/components/CustomLink';
-import { Flex } from '@/components/Flex';
-import { Grid } from '@/components/Grid';
-import { ProjectGrid } from '@/components/pages/home/ProjectGrid';
-import { Stack } from '@/components/Stack';
 import { styled } from '@/stitches.config';
-import { PATHS } from '@/utils/constants/paths.constants';
+import { CustomLink } from '@common/components/CustomLink';
+import { Flex } from '@common/components/Flex';
+import { Grid } from '@common/components/Grid';
+import { Stack } from '@common/components/Stack';
+import {
+  BodyText,
+  H1,
+  H2,
+  Link,
+  Paragraph,
+  Text,
+} from '@common/components/Text';
+import { PATHS } from '@common/utils/constants/paths.constants';
 import {
   parseDateToLongDateString,
   sortMdxDataByDateDesc,
-} from '@/utils/helpers/date.helpers';
-import { getAllWritingsData } from '@/utils/helpers/mdx-data.helpers';
-import { MdxData } from '@/utils/types/mdx-data';
-import { BodyText, H1, H2, Link, Paragraph, Text } from '@components/Text';
+} from '@common/utils/helpers/date.helpers';
+import { getAllWritingsData } from '@common/utils/helpers/mdx-data.helpers';
+import { MdxData } from '@common/utils/types/mdx-data';
+import { ProjectGrid } from '@home/components/ProjectGrid';
 import { ArrowRightIcon } from '@radix-ui/react-icons';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { NextSeo, NextSeoProps } from 'next-seo';
