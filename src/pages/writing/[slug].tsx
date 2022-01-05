@@ -1,13 +1,13 @@
-import { BackToLink } from '@/components/BackToLink';
-import { Box } from '@/components/Box';
-import { Flex } from '@/components/Flex';
-import { Stack } from '@/components/Stack';
-import { PageHeader, Text } from '@/components/Text';
-import { MDX_ELEMENTS } from '@/utils/constants/mdx-elements.contants';
-import { writingsFilePaths } from '@/utils/constants/mdx.constants';
-import { PATHS } from '@/utils/constants/paths.constants';
-import { getWritingDataFromSlug } from '@/utils/helpers/mdx-data.helpers';
-import { MdxMetaData } from '@/utils/types/mdx-data';
+import { BackToLink } from '@common/components/BackToLink';
+import { Box } from '@common/components/Box';
+import { Flex } from '@common/components/Flex';
+import { Stack } from '@common/components/Stack';
+import { PageHeader, Text } from '@common/components/Text';
+import { MDX_ELEMENTS } from '@common/utils/constants/mdx-elements.contants';
+import { writingsFilePaths } from '@common/utils/constants/mdx.constants';
+import { PATHS } from '@common/utils/constants/paths.constants';
+import { getWritingDataFromSlug } from '@common/utils/helpers/mdx-data.helpers';
+import { MdxMetaData } from '@common/utils/types/mdx-data';
 import type {
   GetStaticPaths,
   GetStaticProps,

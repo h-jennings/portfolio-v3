@@ -21,7 +21,8 @@ module.exports = {
 
     // Path Aliases
     '^@/(.*)$': '<rootDir>/src/$1',
-    '^@components/(.*)$': '<rootDir>/src/components/$1',
+    '^@common/components/(.*)$': '<rootDir>/src/components/$1',
+    '^@common/(.*)$': '<rootDir>/src/modules/common/$1',
     '^@assets/(.*)$': '<rootDir>/src/assets/$1',
     '^@utils/(.*)$': '<rootDir>/src/utils/$1',
   },

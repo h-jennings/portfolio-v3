@@ -1,4 +1,4 @@
-import { ErrorContent } from '@components/ErrorContent';
+import { ErrorContent } from '@common/components/ErrorContent';
 import { NextPage } from 'next';
 import { NextSeo } from 'next-seo';
 
