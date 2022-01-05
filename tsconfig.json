@@ -15,11 +15,11 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
       "@common/*": ["./src/modules/common/*"],
       "@home/*": ["./src/modules/home/*"],
       "@work/*": ["./src/modules/work/*"],
-      "@assets/*": ["./src/assets/*"]
+      "@assets/*": ["./src/assets/*"],
+      "@/*": ["./src/*"]
     },
     "incremental": true
   },
