@@ -1,7 +1,7 @@
 import { styled } from '@/stitches.config';
-import { ReactComponent as MoonIcon } from '@assets/svg/moon-icon.svg';
-import { ReactComponent as SunIcon } from '@assets/svg/sun-icon.svg';
-import { ReactComponent as SystemIcon } from '@assets/svg/system-icon.svg';
+import { ReactComponent as MoonIcon } from '@assets/common/moon-icon.svg';
+import { ReactComponent as SunIcon } from '@assets/common/sun-icon.svg';
+import { ReactComponent as SystemIcon } from '@assets/common/system-icon.svg';
 import { useIsMounted } from '@common/hooks/use-is-mounted';
 import { LayoutGroup, motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
