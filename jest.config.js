@@ -21,10 +21,10 @@ module.exports = {
 
     // Path Aliases
     '^@/(.*)$': '<rootDir>/src/$1',
-    '^@common/components/(.*)$': '<rootDir>/src/components/$1',
     '^@common/(.*)$': '<rootDir>/src/modules/common/$1',
+    '^@home/(.*)$': '<rootDir>/src/modules/home/$h1',
+    '^@work/(.*)$': '<rootDir>/src/modules/work/$1',
     '^@assets/(.*)$': '<rootDir>/src/assets/$1',
-    '^@utils/(.*)$': '<rootDir>/src/utils/$1',
   },
   testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/.next/'],
   testEnvironment: 'jsdom',
