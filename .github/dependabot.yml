@@ -1,0 +1,10 @@
+version: 2
+updates:
+  - package-ecosystem: 'yarn'
+    directory: '/'
+    schedule:
+      interval: 'daily'
+    labels:
+      - 'dependencies'
+      # Add default Kodiak `merge.automerge_label`
+      - 'automerge'
