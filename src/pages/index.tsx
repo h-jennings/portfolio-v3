@@ -71,6 +71,7 @@ const Index = ({
             <BodyText>
               Other stuff I&apos;m working on{' '}
               <CustomLink
+                data-cy='now-link'
                 css={{ color: '2', underline: true }}
                 href={PATHS.now}
               >
