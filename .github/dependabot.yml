@@ -3,8 +3,6 @@ updates:
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
-      interval: 'daily'
-    labels:
-      - 'dependencies'
-      # Add default Kodiak `merge.automerge_label`
-      - 'automerge'
+      interval: 'weekly'
+      # Check for npm updates on Sundays
+      day: 'sunday'
