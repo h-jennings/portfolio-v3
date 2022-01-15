@@ -1,13 +1,21 @@
-import { Box } from '@common/components/Box';
+import { styled } from '@/stitches.config';
 import { Link, Text } from '@common/components/Text';
 import { PATHS } from '@common/utils/constants/paths.constants';
 import NextLink from 'next/link';
 import { Flex } from '../Flex';
 import { ThemeToggle } from '../ThemeToggle';
 
+const NavigationWrapper = styled('nav', {
+  pt: '$m',
+  pb: '$2xl',
+  '@bp1': {
+    pt: '$xl',
+  },
+});
+
 export const Navigation = (): JSX.Element => {
   return (
-    <Box as='nav' css={{ pt: '$xl', pb: '$2xl' }}>
+    <NavigationWrapper>
       <Flex direction='row' justify='between' align='center'>
         <NextLink passHref href={PATHS.home}>
           <Link
@@ -21,6 +29,6 @@ export const Navigation = (): JSX.Element => {
         </NextLink>
         <ThemeToggle />
       </Flex>
-    </Box>
+    </NavigationWrapper>
   );
 };

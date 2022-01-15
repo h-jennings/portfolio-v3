@@ -7,7 +7,7 @@ import {
   ScrollContainerViewport,
 } from '@common/components/ScrollContainer';
 import { Stack } from '@common/components/Stack';
-import { H1, Paragraph } from '@common/components/Text';
+import { H3, Paragraph } from '@common/components/Text';
 import { PATHS } from '@common/utils/constants/paths.constants';
 import { parseTagsToString } from '@common/utils/helpers/string.helpers';
 import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio';
@@ -72,9 +72,9 @@ const Card = ({ project: { tags, project, path } }: CardProps): JSX.Element => {
           <Box css={{ px: '$3xs' }}>
             <NextLink passHref href={`${PATHS.work}/[project]`} as={path}>
               <LinkOverlay style={{ display: 'inline-block' }}>
-                <H1 leading='tight' size='1' css={{ pb: '$3xs' }}>
+                <H3 leading='tight' size='1' css={{ pb: '$3xs' }}>
                   {project}
-                </H1>
+                </H3>
               </LinkOverlay>
             </NextLink>
             <Paragraph color='2' size='1'>

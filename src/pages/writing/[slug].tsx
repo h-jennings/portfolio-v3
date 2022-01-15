@@ -1,8 +1,7 @@
 import { BackToLink } from '@common/components/BackToLink';
 import { Box } from '@common/components/Box';
-import { Flex } from '@common/components/Flex';
 import { Stack } from '@common/components/Stack';
-import { PageHeader, Text } from '@common/components/Text';
+import { PageHeader, Paragraph, Text } from '@common/components/Text';
 import { MDX_ELEMENTS } from '@common/utils/constants/mdx-elements.contants';
 import { writingsFilePaths } from '@common/utils/constants/mdx.constants';
 import { PATHS } from '@common/utils/constants/paths.constants';
@@ -24,34 +23,43 @@ const Writing = ({
   const { scope } = source;
 
   return (
-    <>
-      {/* <NextSeo {...SEO} /> */}
-      <Stack gap='xl'>
-        <Box>
-          <BackToLink href={PATHS.writing}>Back to writing</BackToLink>
-          <Stack gap='xs'>
-            <PageHeader>{scope?.title}</PageHeader>
-            <Flex
-              direction={{ '@initial': 'column', '@bp2': 'row' }}
-              gap='3xs'
-              justify='start'
-              align='baseline'
-            >
-              <Text color='2' size='1' leading='tight'>
-                {scope?.publishDate} &middot; {scope?.readingTimeResults?.text}
+    <Stack as='article' gap='xl'>
+      <Box
+        css={{
+          borderBottom: '1px dashed $slate8',
+          pb: '$xl',
+        }}
+      >
+        <BackToLink href={PATHS.writing}>Back to writing</BackToLink>
+        <Stack gap='m'>
+          <PageHeader>{scope?.title}</PageHeader>
+          <Paragraph size='1' leading='body'>
+            {scope?.description}
+          </Paragraph>
+          <Stack gap='xl' direction='row'>
+            <Stack gap='3xs'>
+              <Text size='1' color='2'>
+                Published
               </Text>
-            </Flex>
+              <Text size='1'>{scope?.publishDate}</Text>
+            </Stack>
+            <Stack gap='3xs'>
+              <Text size='1' color='2'>
+                Reading Time
+              </Text>
+              <Text size='1'>{scope?.readingTimeResults?.text}</Text>
+            </Stack>
           </Stack>
-        </Box>
-        <div>
-          <MDXRemote
-            {...source}
-            scope={scope}
-            components={{ Image, Box, ...MDX_ELEMENTS }}
-          />
-        </div>
-      </Stack>
-    </>
+        </Stack>
+      </Box>
+      <div>
+        <MDXRemote
+          {...source}
+          scope={scope}
+          components={{ Image, Box, ...MDX_ELEMENTS }}
+        />
+      </div>
+    </Stack>
   );
 };
 
