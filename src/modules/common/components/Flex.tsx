@@ -1,5 +1,4 @@
 import { styled } from '@/stitches.config';
-import { GAP_SPACE_VARIANTS } from '@common/utils/constants/theme.constants';
 
 export const Flex = styled('div', {
   boxSizing: 'border-box',
@@ -63,7 +62,33 @@ export const Flex = styled('div', {
       },
     },
     gap: {
-      ...GAP_SPACE_VARIANTS,
+      '3xs': {
+        gap: '$3xs',
+      },
+      '2xs': {
+        gap: '$2xs',
+      },
+      xs: {
+        gap: '$xs',
+      },
+      s: {
+        gap: '$s',
+      },
+      m: {
+        gap: '$m',
+      },
+      l: {
+        gap: '$l',
+      },
+      xl: {
+        gap: '$xl',
+      },
+      '2xl': {
+        gap: '$2xl',
+      },
+      '3xl': {
+        gap: '$2xl',
+      },
     },
   },
   defaultVariants: {

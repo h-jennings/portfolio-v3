@@ -1,10 +1,32 @@
 import { css, styled } from '@/stitches.config';
-import { FONT_SIZE_VARIANTS } from '@common/utils/constants/theme.constants';
 
 export const text = css({
   variants: {
     size: {
-      ...FONT_SIZE_VARIANTS,
+      1: {
+        fontSize: '$1',
+      },
+      2: {
+        fontSize: '$2',
+      },
+      3: {
+        fontSize: '$3',
+      },
+      4: {
+        fontSize: '$4',
+      },
+      5: {
+        fontSize: '$5',
+      },
+      6: {
+        fontSize: '$6',
+      },
+      7: {
+        fontSize: '$7',
+      },
+      8: {
+        fontSize: '$8',
+      },
     },
     leading: {
       tight: { lineHeight: '$tight' },
@@ -78,7 +100,30 @@ export const link = css({
   },
   variants: {
     size: {
-      ...FONT_SIZE_VARIANTS,
+      1: {
+        fontSize: '$1',
+      },
+      2: {
+        fontSize: '$2',
+      },
+      3: {
+        fontSize: '$3',
+      },
+      4: {
+        fontSize: '$4',
+      },
+      5: {
+        fontSize: '$5',
+      },
+      6: {
+        fontSize: '$6',
+      },
+      7: {
+        fontSize: '$7',
+      },
+      8: {
+        fontSize: '$8',
+      },
     },
     color: {
       1: { color: '$text1', $$hoverColor: '$colors$slate11' },
