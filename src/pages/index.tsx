@@ -18,6 +18,7 @@ import {
   sortMdxDataByDateDesc,
 } from '@common/utils/helpers/date.helpers';
 import { getAllWritingsData } from '@common/utils/helpers/mdx-data.helpers';
+import { getMetaImage } from '@common/utils/helpers/meta-image.helpers';
 import { MdxData } from '@common/utils/types/mdx-data';
 import { ProjectGrid } from '@home/components/ProjectGrid';
 import { ArrowRightIcon } from '@radix-ui/react-icons';
@@ -26,11 +27,13 @@ import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { NextSeo, NextSeoProps } from 'next-seo';
 import NextLink from 'next/link';
 
-const TITLE = 'Home | Hunter Jennings';
+const title = 'Home | Hunter Jennings';
 const SEO: NextSeoProps = {
-  title: TITLE,
+  title,
   openGraph: {
-    title: TITLE,
+    title,
+    // TODO: Replace with actual image
+    ...getMetaImage('/home/banner.png'),
   },
 };
 

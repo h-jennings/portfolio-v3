@@ -1,11 +1,16 @@
 /** @type {import('next').NextConfig} */
 const withPlugins = require('next-compose-plugins');
 
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
+
 const nextConfig = {
   swcMinify: true,
   reactStrictMode: true,
   env: {
     WEATHER_API_KEY: process.env.WEATHER_API_KEY,
+    NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL,
   },
   images: {
     domains: ['openweathermap.org'],
@@ -36,4 +41,4 @@ const nextConfig = {
     return config;
   },
 };
-module.exports = withPlugins([nextConfig]);
+module.exports = withPlugins([withBundleAnalyzer], nextConfig);

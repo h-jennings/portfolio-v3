@@ -5,11 +5,12 @@ import { PageHeader, Text } from '@common/components/Text';
 import { MDX_ELEMENTS } from '@common/utils/constants/mdx-elements.contants';
 import { PATHS } from '@common/utils/constants/paths.constants';
 import { getNowPageData } from '@common/utils/helpers/mdx-data.helpers';
+import { getMetaImage } from '@common/utils/helpers/meta-image.helpers';
 import { MdxMetaData } from '@common/utils/types/mdx-data';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
-import { NextSeo } from 'next-seo';
+import { NextSeo, NextSeoProps } from 'next-seo';
 import * as React from 'react';
 
 export const getStaticProps: GetStaticProps<{
@@ -31,17 +32,22 @@ export const getStaticProps: GetStaticProps<{
   };
 };
 const Now = ({ source }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const TITLE = `Now | Hunter Jennings`;
+  const title = `Now | Hunter Jennings`;
   const url = `${PATHS.base}${PATHS.now}`;
   const description = source.scope?.description;
-  const SEO = {
-    title: TITLE,
+  const image = source?.scope?.image;
+  const SEO: NextSeoProps = {
+    title,
     canonical: url,
     description,
     openGraph: {
-      title: TITLE,
+      title,
       url,
+      article: {
+        publishedTime: source?.scope?.publishDate,
+      },
       description,
+      ...getMetaImage(image),
     },
   };
 

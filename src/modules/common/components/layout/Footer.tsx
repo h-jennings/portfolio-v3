@@ -10,7 +10,6 @@ import {
   WeatherDataService,
 } from '@common/machines/weather-data-machine';
 import { useActor, useInterpret } from '@xstate/react';
-import isUndefined from 'lodash/fp/isUndefined';
 import Image from 'next/image';
 import * as React from 'react';
 
@@ -159,7 +158,7 @@ const Weather = (): JSX.Element | null => {
 };
 
 function tempText(temp: number | undefined): string {
-  return isUndefined(temp) ? 'XX' : Math.round(temp).toString();
+  return temp === undefined ? 'XX' : Math.round(temp).toString();
 }
 
 const WeatherIcon = ({

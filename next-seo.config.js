@@ -5,11 +5,11 @@ const description =
 const SEO = {
   title,
   description,
-  canonical: 'https://www.hunterjennings.dev',
+  canonical: process.env.NEXT_PUBLIC_URL,
   openGraph: {
     type: 'website',
     locale: 'en_IE',
-    url: 'https://www.hunterjennings.dev',
+    url: process.env.NEXT_PUBLIC_URL,
     title,
     description,
   },

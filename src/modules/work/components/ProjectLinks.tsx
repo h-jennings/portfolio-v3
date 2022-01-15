@@ -6,9 +6,12 @@ import { PATHS } from '@common/utils/constants/paths.constants';
 import { ArrowLeftIcon, ArrowRightIcon } from '@radix-ui/react-icons';
 import { ProjectMeta } from '@work/utils/constants/projects.constants';
 import { prevNextProjectData } from '@work/utils/helpers/prev-next-project-data.helpers';
-import isNull from 'lodash/fp/isNull';
 import NextLink from 'next/link';
 import * as React from 'react';
+
+const isNull = (val: any) => {
+  return val == null;
+};
 
 export const ProjectLinks = ({
   projectIndex,

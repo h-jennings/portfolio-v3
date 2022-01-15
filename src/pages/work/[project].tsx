@@ -18,6 +18,7 @@ import {
   Paragraph,
 } from '@common/components/Text';
 import { PATHS } from '@common/utils/constants/paths.constants';
+import { getMetaImage } from '@common/utils/helpers/meta-image.helpers';
 import * as AspectRatio from '@radix-ui/react-aspect-ratio';
 import { ProjectLinks } from '@work/components/ProjectLinks';
 import {
@@ -36,20 +37,20 @@ const Project = ({
   projectIndex,
   description,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const SEO: NextSeoProps = React.useMemo(() => {
-    const title = `${projectData?.project} | Hunter Jennings`;
-    const url = `${PATHS.base}${projectData?.path}`;
-    return {
+  const title = `${projectData?.project} | Hunter Jennings`;
+  const url = `${PATHS.base}${projectData?.path}`;
+  const image = projectData?.metaImage;
+  const SEO: NextSeoProps = {
+    title,
+    canonical: url,
+    description,
+    openGraph: {
       title,
-      canonical: url,
+      url,
       description,
-      openGraph: {
-        title,
-        url,
-        description,
-      },
-    };
-  }, [projectData, description]);
+      ...getMetaImage(image),
+    },
+  };
 
   return (
     <>
