@@ -93,7 +93,7 @@ const Circle = styled(motion.div, {
 });
 
 const ICON_SVG_COMPONENTS: Record<Theme, JSX.Element> = {
-  dark: <MoonIcon />,
-  system: <SystemIcon />,
-  light: <SunIcon />,
+  dark: <MoonIcon aria-label='dark theme icon' />,
+  system: <SystemIcon aria-label='system theme icon' />,
+  light: <SunIcon aria-label='light theme icon' />,
 };
