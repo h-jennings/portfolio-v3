@@ -26,6 +26,7 @@ const Writing = ({
   const title = `${scope?.title} | Hunter Jennings`;
   const url = `${PATHS.base}${PATHS.writing}/${slug}`;
   const image = source?.scope?.image;
+  const isDraft = scope?.status === 'draft';
   const SEO: NextSeoProps = {
     title,
     canonical: url,
@@ -40,7 +41,7 @@ const Writing = ({
 
   return (
     <>
-      <NextSeo {...SEO} />
+      <NextSeo noindex={isDraft} nofollow={isDraft} {...SEO} />
       <Stack as='article' gap='xl'>
         <Box
           css={{
