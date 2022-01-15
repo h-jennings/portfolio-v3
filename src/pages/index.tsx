@@ -20,6 +20,7 @@ import {
 import { getAllWritingsData } from '@common/utils/helpers/mdx-data.helpers';
 import { getMetaImage } from '@common/utils/helpers/meta-image.helpers';
 import { MdxData } from '@common/utils/types/mdx-data';
+import { WithChildren } from '@common/utils/types/with-children';
 import { ProjectGrid } from '@home/components/ProjectGrid';
 import { ArrowRightIcon } from '@radix-ui/react-icons';
 import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
@@ -165,64 +166,43 @@ const Index = ({
               hear from folks and talk shop.
             </Paragraph>
             <Stack as='ul' gap='s'>
-              <Grid align='center' as='li' gap='s' columns='3'>
-                <H3 size='1' leading='tight'>
-                  Twitter
-                </H3>
-                <div style={{ gridColumn: '2 / span 2' }}>
-                  <div>
-                    <Link
-                      target='_blank'
-                      href={PATHS.twitter}
-                      rel='noreferrer'
-                      size='1'
-                      color='2'
-                      leading='tight'
-                      css={{ d: 'inline-block' }}
-                    >
-                      @jennings_hunter
-                    </Link>
-                  </div>
-                </div>
-              </Grid>
-              <Grid align='center' as='li' gap='s' columns='3'>
-                <H3 size='1' leading='tight'>
-                  Email
-                </H3>
-                <div style={{ gridColumn: '2 / span 2' }}>
-                  <div>
-                    <Link
-                      href={PATHS.email}
-                      css={{ d: 'inline-block' }}
-                      leading='tight'
-                      size='1'
-                      color='2'
-                    >
-                      jenningsdhunter@gmail.com
-                    </Link>
-                  </div>
-                </div>
-              </Grid>
-              <Grid align='center' as='li' gap='s' columns='3'>
-                <H3 size='1' leading='tight'>
-                  Github
-                </H3>
-                <div style={{ gridColumn: '2 / span 2' }}>
-                  <div>
-                    <Link
-                      css={{ d: 'inline-block' }}
-                      target='_blank'
-                      href={PATHS.github}
-                      rel='noreferrer'
-                      size='1'
-                      color='2'
-                      leading='tight'
-                    >
-                      h-jennings
-                    </Link>
-                  </div>
-                </div>
-              </Grid>
+              <ConnectLinkListItem label='Twitter'>
+                <Link
+                  target='_blank'
+                  href={PATHS.twitter}
+                  rel='noreferrer'
+                  size='1'
+                  color='2'
+                  leading='tight'
+                  css={{ d: 'inline-block' }}
+                >
+                  @jennings_hunter
+                </Link>
+              </ConnectLinkListItem>
+              <ConnectLinkListItem label='Email'>
+                <Link
+                  href={PATHS.email}
+                  css={{ d: 'inline-block' }}
+                  leading='tight'
+                  size='1'
+                  color='2'
+                >
+                  jenningsdhunter@gmail.com
+                </Link>
+              </ConnectLinkListItem>
+              <ConnectLinkListItem label='Github'>
+                <Link
+                  css={{ d: 'inline-block' }}
+                  target='_blank'
+                  href={PATHS.github}
+                  rel='noreferrer'
+                  size='1'
+                  color='2'
+                  leading='tight'
+                >
+                  h-jennings
+                </Link>
+              </ConnectLinkListItem>
             </Stack>
           </Stack>
         </Stack>
@@ -261,5 +241,25 @@ const StyledListItem = styled(Stack, {
     gap: '3xs',
   },
 });
+
+interface ConnectLinkListItemProps {
+  label: string;
+}
+
+const ConnectLinkListItem = ({
+  label,
+  children,
+}: ConnectLinkListItemProps & WithChildren) => {
+  return (
+    <Grid align='center' as='li' gap='s' columns='3'>
+      <H3 size='1' leading='tight'>
+        {label}
+      </H3>
+      <div style={{ gridColumn: '2 / span 2' }}>
+        <div>{children}</div>
+      </div>
+    </Grid>
+  );
+};
 
 export default Index;
