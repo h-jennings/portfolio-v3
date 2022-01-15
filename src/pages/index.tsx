@@ -47,8 +47,13 @@ const Index = ({
         {/* Intro */}
         <Stack as='section' gap='xl'>
           <Stack gap='m'>
-            <H2 size='2' family='serif' leading='tight'>
-              <VisuallyHidden.Root>Who Is</VisuallyHidden.Root> Hunter Jennings
+            <H2
+              aria-label='Who is Hunter Jennings'
+              size='2'
+              family='serif'
+              leading='tight'
+            >
+              Hunter Jennings
             </H2>
             <Paragraph style={{ maxWidth: 600 }}>
               Frontend ui engineer interested in design systems, component
@@ -57,7 +62,7 @@ const Index = ({
           </Stack>
           <Stack gap='xs'>
             <H2 color='2' aria-label="What I'm up to now" size='1'>
-              <VisuallyHidden.Root>What I&apos;m Up To</VisuallyHidden.Root> Now
+              Now
             </H2>
             <Paragraph>
               Currently working as a Frontend Developer for the award-winning
