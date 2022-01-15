@@ -20,7 +20,7 @@ export const MDX_ELEMENTS: Record<string, React.ReactNode> = {
     <H1 size='4' leading='body' color='1' css={{ mb: '$s' }} {...props} />
   ),
   h2: (props: any) => (
-    <H2 size='3' leading='body' color='1' css={{ mb: '$xs' }} {...props} />
+    <H2 size='4' leading='body' color='1' css={{ mb: '$s' }} {...props} />
   ),
   h3: (props: any) => (
     <H3 size='2' leading='body' color='2' css={{ mb: '$xs' }} {...props} />

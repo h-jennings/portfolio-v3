@@ -7,6 +7,7 @@ import {
   BodyText,
   H1,
   H2,
+  H3,
   Link,
   Paragraph,
   Text,
@@ -20,6 +21,7 @@ import { getAllWritingsData } from '@common/utils/helpers/mdx-data.helpers';
 import { MdxData } from '@common/utils/types/mdx-data';
 import { ProjectGrid } from '@home/components/ProjectGrid';
 import { ArrowRightIcon } from '@radix-ui/react-icons';
+import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { NextSeo, NextSeoProps } from 'next-seo';
 import NextLink from 'next/link';
@@ -38,13 +40,16 @@ const Index = ({
   return (
     <>
       <NextSeo {...SEO} />
+      <VisuallyHidden.Root>
+        <H1>Home</H1>
+      </VisuallyHidden.Root>
       <Stack gap='3xl'>
         {/* Intro */}
         <Stack as='section' gap='xl'>
           <Stack gap='m'>
-            <H1 size='2' family='serif' leading='tight'>
-              Hunter Jennings
-            </H1>
+            <H2 size='2' family='serif' leading='tight'>
+              <VisuallyHidden.Root>Who Is</VisuallyHidden.Root> Hunter Jennings
+            </H2>
             <Paragraph style={{ maxWidth: 600 }}>
               Frontend ui engineer interested in design systems, component
               architectures, and React.
@@ -52,7 +57,7 @@ const Index = ({
           </Stack>
           <Stack gap='xs'>
             <H2 color='2' aria-label="What I'm up to now" size='1'>
-              Now
+              <VisuallyHidden.Root>What I&apos;m Up To</VisuallyHidden.Root> Now
             </H2>
             <Paragraph>
               Currently working as a Frontend Developer for the award-winning
@@ -84,8 +89,9 @@ const Index = ({
         {/* Work */}
         <Stack as='section' gap='s'>
           <Flex direction='row' justify='between' align='center'>
-            <H1 leading='tight'>Selected work</H1>
-            <Grid
+            <H2 leading='tight'>Selected work</H2>
+            {/* TODO: Add once work page is necessary */}
+            {/* <Grid
               gap='2xs'
               justify='end'
               align='center'
@@ -97,7 +103,7 @@ const Index = ({
                 </Link>
               </NextLink>
               <ArrowRightIcon aria-hidden color='var(--colors-slate11)' />
-            </Grid>
+            </Grid> */}
           </Flex>
           <ProjectGrid />
         </Stack>
@@ -105,7 +111,7 @@ const Index = ({
         {/* Writing */}
         <Stack as='section' gap='m'>
           <Flex direction='row' justify='between' align='center'>
-            <H1 leading='tight'>Writing</H1>
+            <H2 leading='tight'>Writing</H2>
             <Grid
               gap='2xs'
               justify='end'
@@ -143,7 +149,7 @@ const Index = ({
         {/* Connect */}
 
         <Stack as='section' gap='m'>
-          <H1 leading='tight'>Connect</H1>
+          <H2 leading='tight'>Connect</H2>
           <Stack gap='xl'>
             <Paragraph>
               I&apos;m not currently looking for new opportunities, but feel
@@ -152,9 +158,9 @@ const Index = ({
             </Paragraph>
             <Stack as='ul' gap='s'>
               <Grid align='center' as='li' gap='s' columns='3'>
-                <H2 size='1' leading='tight'>
+                <H3 size='1' leading='tight'>
                   Twitter
-                </H2>
+                </H3>
                 <div style={{ gridColumn: '2 / span 2' }}>
                   <div>
                     <Link
@@ -172,9 +178,9 @@ const Index = ({
                 </div>
               </Grid>
               <Grid align='center' as='li' gap='s' columns='3'>
-                <H2 size='1' leading='tight'>
+                <H3 size='1' leading='tight'>
                   Email
-                </H2>
+                </H3>
                 <div style={{ gridColumn: '2 / span 2' }}>
                   <div>
                     <Link
@@ -190,9 +196,9 @@ const Index = ({
                 </div>
               </Grid>
               <Grid align='center' as='li' gap='s' columns='3'>
-                <H2 size='1' leading='tight'>
+                <H3 size='1' leading='tight'>
                   Github
-                </H2>
+                </H3>
                 <div style={{ gridColumn: '2 / span 2' }}>
                   <div>
                     <Link
