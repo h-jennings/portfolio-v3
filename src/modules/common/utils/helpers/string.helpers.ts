@@ -1,5 +1,3 @@
-import isUndefined from 'lodash/fp/isUndefined';
-
 export function parseTagsToString(tags: string[]): string {
   return tags.reduce((acc, curr, idx) => {
     if (tags.length === 0) return '';
@@ -14,7 +12,7 @@ export function parseTagsToString(tags: string[]): string {
 }
 
 export function commaSeparated(strings: string[]): string {
-  if (isUndefined(strings)) return '';
+  if (strings === undefined) return '';
   return strings.reduce((acc, str, idx) => {
     if (idx === 0) {
       return `${str}`;
