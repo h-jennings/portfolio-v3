@@ -59,6 +59,7 @@ export type ProjectPageData = Pick<
   tech: string[];
   contributions: string[];
   images: [string, string];
+  metaImage?: string;
   dates: string;
   url?: string;
 };

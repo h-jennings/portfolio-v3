@@ -4,7 +4,7 @@ export const PATHS = {
   linkedin: 'https://www.linkedin.com/in/hunter-jennings-591877b0/',
   seagulls: 'https://www.elegantseagulls.com/',
   email: 'mailto:jenningsdhunter@gmail.com',
-  base: 'https://www.hunterjennings.dev',
+  base: process.env.NEXT_PUBLIC_URL,
   home: '/',
   about: '/about',
   writing: '/writing',

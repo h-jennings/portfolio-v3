@@ -6,6 +6,7 @@ export const FrontMatterZodPreParse = z.object({
   description: z.string(),
   publishDate: z.date(),
   featured: z.boolean().optional(),
+  image: z.string().optional(),
   status: z.union([z.literal('draft'), z.literal('published')]),
 });
 

@@ -11,12 +11,13 @@ import {
   sortMdxDataByDateDesc,
 } from '@common/utils/helpers/date.helpers';
 import { getAllWritingsData } from '@common/utils/helpers/mdx-data.helpers';
+import { getMetaImage } from '@common/utils/helpers/meta-image.helpers';
 import { MdxData } from '@common/utils/types/mdx-data';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
+import { NextSeo, NextSeoProps } from 'next-seo';
 import NextLink from 'next/link';
 import * as React from 'react';
 
-// TODO: Add SEO
 const Writings = ({
   writingsData,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
@@ -27,8 +28,26 @@ const Writings = ({
   const hasFeaturedWritings = featured.length > 0;
   const groupedWritings = groupDatesByYear(writingsData);
 
+  const title = `Writing | Hunter Jennings`;
+  const url = `${PATHS.base}${PATHS.writing}`;
+  const image = '/writing/banner.png';
+  const description =
+    'Thoughts on software, books, life, and any opinions I have at a moment in time.';
+  const SEO: NextSeoProps = {
+    title,
+    canonical: url,
+    description,
+    openGraph: {
+      title,
+      url,
+      description,
+      ...getMetaImage(image),
+    },
+  };
+
   return (
     <>
+      <NextSeo {...SEO} />
       <Stack gap='xl'>
         <Box>
           <BackToLink href={PATHS.home}>Back to home</BackToLink>

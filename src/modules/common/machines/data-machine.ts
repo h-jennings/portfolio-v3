@@ -1,4 +1,3 @@
-import isUndefined from 'lodash/fp/isUndefined';
 import { assign, createMachine } from 'xstate';
 
 export interface DataFetchMachineContext<TResponseData> {
@@ -103,7 +102,7 @@ export const dataMachine = <TResponseData extends { [key: string]: any }>(
         }),
       },
       guards: {
-        noData: (context, _event) => isUndefined(context.data),
+        noData: (context, _event) => context.data === undefined,
       },
     },
   );

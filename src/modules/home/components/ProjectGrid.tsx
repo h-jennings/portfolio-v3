@@ -40,9 +40,7 @@ interface CardProps {
   project: ProjectMeta;
 }
 const Card = ({ project: { tags, project, path } }: CardProps): JSX.Element => {
-  const tagsString: string = React.useMemo(() => {
-    return parseTagsToString(tags);
-  }, [tags]);
+  const tagsString = parseTagsToString(tags);
 
   return (
     <Box
