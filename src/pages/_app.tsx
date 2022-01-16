@@ -14,7 +14,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <Script
         defer
         data-domain='hunterjennings.dev'
-        src='https://plausible.io/js/plausible.js'
+        src='https://plausible.io/js/plausible.outbound-links.js'
       />
       <Script
         id='404-tracking'
