@@ -1,3 +1,4 @@
+import { styled } from '@/stitches.config';
 import { Box } from '@common/components/Box';
 import { LinkBox, LinkOverlay } from '@common/components/LinkBox';
 import {
@@ -10,11 +11,11 @@ import { Stack } from '@common/components/Stack';
 import { H3, Paragraph } from '@common/components/Text';
 import { PATHS } from '@common/utils/constants/paths.constants';
 import { parseTagsToString } from '@common/utils/helpers/string.helpers';
-import * as AspectRatioPrimitive from '@radix-ui/react-aspect-ratio';
 import {
   ProjectMeta,
   PROJECT_METADATA,
 } from '@work/utils/constants/projects.constants';
+import Image from 'next/image';
 import NextLink from 'next/link';
 import * as React from 'react';
 
@@ -39,8 +40,11 @@ export const ProjectGrid = (): JSX.Element => {
 interface CardProps {
   project: ProjectMeta;
 }
-const Card = ({ project: { tags, project, path } }: CardProps): JSX.Element => {
+const Card = ({
+  project: { tags, project, path, images },
+}: CardProps): JSX.Element => {
   const tagsString = parseTagsToString(tags);
+  const [, image] = images;
 
   return (
     <Box
@@ -56,17 +60,19 @@ const Card = ({ project: { tags, project, path } }: CardProps): JSX.Element => {
     >
       <LinkBox>
         <Stack gap='s'>
-          <Box>
-            <AspectRatioPrimitive.Root ratio={4 / 5}>
-              <Box
-                css={{
-                  height: '100%',
-                  backgroundColor: '$slate7',
-                  borderRadius: 15,
-                }}
-              />
-            </AspectRatioPrimitive.Root>
-          </Box>
+          <ProjectImageContainer>
+            <Image
+              src={image}
+              priority
+              alt=''
+              layout='responsive'
+              blurDataURL={image}
+              placeholder='blur'
+              width={220}
+              height={275}
+              quality={95}
+            />
+          </ProjectImageContainer>
           <Box css={{ px: '$3xs' }}>
             <NextLink passHref href={`${PATHS.work}/[project]`} as={path}>
               <LinkOverlay style={{ display: 'inline-block' }}>
@@ -84,3 +90,9 @@ const Card = ({ project: { tags, project, path } }: CardProps): JSX.Element => {
     </Box>
   );
 };
+
+const ProjectImageContainer = styled('div', {
+  overflow: 'hidden',
+  borderRadius: '15px',
+  backgroundColor: '$slate8',
+});

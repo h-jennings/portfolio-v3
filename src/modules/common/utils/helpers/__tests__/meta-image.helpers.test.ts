@@ -4,7 +4,13 @@ describe('Generates Meta Image', () => {
   test('Handles undefined param', () => {
     const src = undefined;
     const result = getMetaImage(src);
-    expect(result).toStrictEqual({});
+    expect(result).toStrictEqual({
+      images: [
+        {
+          url: '/images/social-banner.jpg',
+        },
+      ],
+    });
   });
 
   test('Generates correct object', () => {

@@ -10,6 +10,11 @@ const SEO = {
     type: 'website',
     locale: 'en_IE',
     url: process.env.NEXT_PUBLIC_URL,
+    images: [
+      {
+        url: `${process.env.NEXT_PUBLIC_URL}/images/social-banner.jpg`,
+      },
+    ],
     title,
     description,
   },
