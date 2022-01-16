@@ -19,7 +19,6 @@ import {
 } from '@common/components/Text';
 import { PATHS } from '@common/utils/constants/paths.constants';
 import { getMetaImage } from '@common/utils/helpers/meta-image.helpers';
-import * as AspectRatio from '@radix-ui/react-aspect-ratio';
 import { ProjectLinks } from '@work/components/ProjectLinks';
 import {
   ProjectMeta,
@@ -30,6 +29,7 @@ import {
 import { ProjectIdentifiers } from '@work/utils/types/projects';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import { NextSeo, NextSeoProps } from 'next-seo';
+import Image from 'next/image';
 import * as React from 'react';
 
 const Project = ({
@@ -40,6 +40,7 @@ const Project = ({
   const title = `${projectData?.project} | Hunter Jennings`;
   const url = `${PATHS.base}${projectData?.path}`;
   const image = projectData?.metaImage;
+  const [imageLeft, imageRight] = projectData?.images;
   const SEO: NextSeoProps = {
     title,
     canonical: url,
@@ -86,28 +87,34 @@ const Project = ({
                     '@bp1': { mb: 'unset', gtc: 'repeat(3, 1fr)' },
                   }}
                 >
-                  <Box css={{ gridColumn: '1 / span 2' }}>
-                    <AspectRatio.Root ratio={92 / 55}>
-                      <Box
-                        css={{
-                          backgroundColor: '$slate8',
-                          height: '100%',
-                          borderRadius: '15px',
-                        }}
-                      />
-                    </AspectRatio.Root>
-                  </Box>
-                  <Box>
-                    <AspectRatio.Root ratio={4 / 5}>
-                      <Box
-                        css={{
-                          backgroundColor: '$slate8',
-                          borderRadius: '15px',
-                          height: '100%',
-                        }}
-                      />
-                    </AspectRatio.Root>
-                  </Box>
+                  <ImageContainer
+                    css={{
+                      gridColumn: '1 / span 2',
+                    }}
+                  >
+                    <Image
+                      src={imageLeft}
+                      alt=''
+                      layout='responsive'
+                      blurDataURL={imageLeft}
+                      placeholder='blur'
+                      width={460}
+                      height={275}
+                      quality={95}
+                    />
+                  </ImageContainer>
+                  <ImageContainer>
+                    <Image
+                      src={imageRight}
+                      alt=''
+                      layout='responsive'
+                      blurDataURL={imageLeft}
+                      placeholder='blur'
+                      width={220}
+                      height={275}
+                      quality={95}
+                    />
+                  </ImageContainer>
                 </Grid>
               </ScrollContainerViewport>
             </ScrollContainerArea>
@@ -190,6 +197,12 @@ export const getStaticProps: GetStaticProps<{
     },
   };
 };
+
+const ImageContainer = styled('div', {
+  borderRadius: '15px',
+  overflow: 'hidden',
+  backgroundColor: '$slate8',
+});
 
 const Chip = styled('li', {
   px: '$2xs',

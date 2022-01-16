@@ -30,7 +30,7 @@ const Writings = ({
 
   const title = `Writing | Hunter Jennings`;
   const url = `${PATHS.base}${PATHS.writing}`;
-  const image = '/writing/banner.png';
+  const image = '/images/social-banner.jpg';
   const description =
     'Thoughts on software, books, life, and any opinions I have at a moment in time.';
   const SEO: NextSeoProps = {

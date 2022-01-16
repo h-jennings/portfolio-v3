@@ -10,5 +10,11 @@ export const getMetaImage = (imageSrc: string | undefined) => {
           },
         ],
       }
-    : {};
+    : {
+        images: [
+          {
+            url: `${PATHS.base}/images/social-banner.jpg`,
+          },
+        ],
+      };
 };

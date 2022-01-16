@@ -33,8 +33,7 @@ const SEO: NextSeoProps = {
   title,
   openGraph: {
     title,
-    // TODO: Replace with actual image
-    ...getMetaImage('/home/banner.png'),
+    ...getMetaImage('/images/social-banner.jpg'),
   },
 };
 
