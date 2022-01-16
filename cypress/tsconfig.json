@@ -4,7 +4,7 @@
   "exclude": [],
   "compilerOptions": {
     "types": ["cypress"],
-    "lib": ["es2015", "dom"],
+    "lib": ["es2017", "dom"],
     "isolatedModules": false,
     "allowJs": true,
     "noEmit": true

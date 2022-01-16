@@ -75,7 +75,10 @@ const Card = ({
           </ProjectImageContainer>
           <Box css={{ px: '$3xs' }}>
             <NextLink passHref href={`${PATHS.work}/[project]`} as={path}>
-              <LinkOverlay style={{ display: 'inline-block' }}>
+              <LinkOverlay
+                data-testid={path}
+                style={{ display: 'inline-block' }}
+              >
                 <H3 leading='tight' size='1' css={{ pb: '$3xs' }}>
                   {project}
                 </H3>
