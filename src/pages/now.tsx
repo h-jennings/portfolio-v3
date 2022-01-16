@@ -1,7 +1,10 @@
-import { BackToLink } from '@common/components/BackToLink';
-import { Box } from '@common/components/Box';
+import {
+  ProseLayout,
+  ProseLayoutContent,
+  ProseLayoutHeader,
+} from '@common/components/ProseLayout';
 import { Stack } from '@common/components/Stack';
-import { PageHeader, Text } from '@common/components/Text';
+import { Text } from '@common/components/Text';
 import { MDX_ELEMENTS } from '@common/utils/constants/mdx-elements.contants';
 import { PATHS } from '@common/utils/constants/paths.constants';
 import { getNowPageData } from '@common/utils/helpers/mdx-data.helpers';
@@ -54,23 +57,31 @@ const Now = ({ source }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <>
       <NextSeo {...SEO} />
-      <Stack gap='xl'>
-        <Box>
-          <BackToLink href={PATHS.home}>Back to home</BackToLink>
-          <PageHeader>{source?.scope?.title}</PageHeader>
-        </Box>
-        <MDXRemote
-          {...source}
-          scope={source?.scope}
-          components={MDX_ELEMENTS}
-        />
-        <Text size='1' color='2' leading='tight'>
-          last updated:{' '}
-          <Text size='1' color='2' leading='tight' as='time'>
-            {source?.scope?.publishDate}
-          </Text>{' '}
-        </Text>
-      </Stack>
+      <ProseLayout>
+        <ProseLayoutHeader
+          backTo={{
+            hasLink: true,
+            content: 'Back to home',
+            href: PATHS.home,
+          }}
+          headline={source?.scope?.title}
+          description={source.scope?.description}
+        >
+          <Stack gap='3xs'>
+            <Text size='1' color='2'>
+              Last Updated
+            </Text>
+            <Text size='1'>{source?.scope?.publishDate}</Text>
+          </Stack>
+        </ProseLayoutHeader>
+        <ProseLayoutContent>
+          <MDXRemote
+            {...source}
+            scope={source?.scope}
+            components={MDX_ELEMENTS}
+          />
+        </ProseLayoutContent>
+      </ProseLayout>
     </>
   );
 };
