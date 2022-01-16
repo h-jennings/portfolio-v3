@@ -40,6 +40,8 @@ const SEO: NextSeoProps = {
 const Index = ({
   featuredWritings,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const hasWritings = featuredWritings.length > 0;
+
   return (
     <>
       <NextSeo {...SEO} />
@@ -117,42 +119,44 @@ const Index = ({
         </Stack>
 
         {/* Writing */}
-        <Stack as='section' gap='m'>
-          <Flex direction='row' justify='between' align='center'>
-            <H2 leading='tight'>Writing</H2>
-            <Grid
-              gap='2xs'
-              justify='end'
-              align='center'
-              css={{ gridTemplateColumns: 'auto auto' }}
-            >
-              <NextLink href={PATHS.writing} passHref>
-                <Link css={{ d: 'block' }} color='2' size='1' leading='tight'>
-                  view all
-                </Link>
-              </NextLink>
-              <ArrowRightIcon aria-hidden color='var(--colors-slate11)' />
-            </Grid>
-          </Flex>
-          <Stack as='ul' gap='m'>
-            {featuredWritings?.map(({ fileName, metaData }) => (
-              <StyledListItem key={fileName} as='li'>
-                <div>
-                  <NextLink
-                    href={`${PATHS.writing}/[slug]`}
-                    as={`${PATHS.writing}/${fileName.replace(/\.mdx?$/, '')}`}
-                    passHref
-                  >
-                    <Link size='1'>{metaData?.title}</Link>
-                  </NextLink>
-                </div>
-                <Text size='1' family='serif' as='time' dateTime='2021-12-08'>
-                  {parseDateToLongDateString(metaData?.publishDate)}
-                </Text>
-              </StyledListItem>
-            ))}
+        {hasWritings ? (
+          <Stack as='section' gap='m'>
+            <Flex direction='row' justify='between' align='center'>
+              <H2 leading='tight'>Writing</H2>
+              <Grid
+                gap='2xs'
+                justify='end'
+                align='center'
+                css={{ gridTemplateColumns: 'auto auto' }}
+              >
+                <NextLink href={PATHS.writing} passHref>
+                  <Link css={{ d: 'block' }} color='2' size='1' leading='tight'>
+                    view all
+                  </Link>
+                </NextLink>
+                <ArrowRightIcon aria-hidden color='var(--colors-slate11)' />
+              </Grid>
+            </Flex>
+            <Stack as='ul' gap='m'>
+              {featuredWritings?.map(({ fileName, metaData }) => (
+                <StyledListItem key={fileName} as='li'>
+                  <div>
+                    <NextLink
+                      href={`${PATHS.writing}/[slug]`}
+                      as={`${PATHS.writing}/${fileName.replace(/\.mdx?$/, '')}`}
+                      passHref
+                    >
+                      <Link size='1'>{metaData?.title}</Link>
+                    </NextLink>
+                  </div>
+                  <Text size='1' family='serif' as='time' dateTime='2021-12-08'>
+                    {parseDateToLongDateString(metaData?.publishDate)}
+                  </Text>
+                </StyledListItem>
+              ))}
+            </Stack>
           </Stack>
-        </Stack>
+        ) : null}
 
         {/* Connect */}
 
@@ -215,9 +219,9 @@ export const getStaticProps: GetStaticProps<{
 }> = () => {
   const writingsData = sortMdxDataByDateDesc(getAllWritingsData());
 
-  const featuredWritings: MdxData[] = writingsData.filter(
-    (writing) => writing?.metaData?.featured,
-  );
+  const featuredWritings: MdxData[] = writingsData
+    .filter((writing) => writing?.metaData?.status !== 'draft')
+    .filter((writing) => writing?.metaData?.featured);
 
   return {
     props: { featuredWritings },
