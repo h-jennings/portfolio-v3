@@ -1,7 +1,11 @@
-import { BackToLink } from '@common/components/BackToLink';
 import { Box } from '@common/components/Box';
+import {
+  ProseLayout,
+  ProseLayoutContent,
+  ProseLayoutHeader,
+} from '@common/components/ProseLayout';
 import { Stack } from '@common/components/Stack';
-import { PageHeader, Paragraph, Text } from '@common/components/Text';
+import { Text } from '@common/components/Text';
 import { MDX_ELEMENTS } from '@common/utils/constants/mdx-elements.contants';
 import { writingsFilePaths } from '@common/utils/constants/mdx.constants';
 import { PATHS } from '@common/utils/constants/paths.constants';
@@ -42,43 +46,39 @@ const Writing = ({
   return (
     <>
       <NextSeo noindex={isDraft} nofollow={isDraft} {...SEO} />
-      <Stack as='article' gap='xl'>
-        <Box
-          css={{
-            borderBottom: '1px dashed $slate8',
-            pb: '$xl',
+      <ProseLayout>
+        <ProseLayoutHeader
+          backTo={{
+            hasLink: true,
+            content: 'Back to writing',
+            href: PATHS.writing,
           }}
+          headline={scope?.title}
+          description={scope?.description}
         >
-          <BackToLink href={PATHS.writing}>Back to writing</BackToLink>
-          <Stack gap='m'>
-            <PageHeader>{scope?.title}</PageHeader>
-            <Paragraph size='1' leading='body'>
-              {scope?.description}
-            </Paragraph>
-            <Stack gap='xl' direction='row'>
-              <Stack gap='3xs'>
-                <Text size='1' color='2'>
-                  Published
-                </Text>
-                <Text size='1'>{scope?.publishDate}</Text>
-              </Stack>
-              <Stack gap='3xs'>
-                <Text size='1' color='2'>
-                  Reading Time
-                </Text>
-                <Text size='1'>{scope?.readingTimeResults?.text}</Text>
-              </Stack>
+          <Stack gap='xl' direction='row'>
+            <Stack gap='3xs'>
+              <Text size='1' color='2'>
+                Published
+              </Text>
+              <Text size='1'>{scope?.publishDate}</Text>
+            </Stack>
+            <Stack gap='3xs'>
+              <Text size='1' color='2'>
+                Reading Time
+              </Text>
+              <Text size='1'>{scope?.readingTimeResults?.text}</Text>
             </Stack>
           </Stack>
-        </Box>
-        <div>
+        </ProseLayoutHeader>
+        <ProseLayoutContent>
           <MDXRemote
             {...source}
-            scope={scope}
-            components={{ Image, Box, ...MDX_ELEMENTS }}
+            scope={source?.scope}
+            components={{ ...MDX_ELEMENTS, Box, Image }}
           />
-        </div>
-      </Stack>
+        </ProseLayoutContent>
+      </ProseLayout>
     </>
   );
 };
