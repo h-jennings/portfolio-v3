@@ -8,12 +8,7 @@ import { Navigation } from './Navigation';
 export const RootLayout = ({ children }: WithChildren): JSX.Element => {
   return (
     <>
-      <DefaultSeo
-        // TODO: REMOVE ONCE READY TO LAUNCH
-        dangerouslySetAllPagesToNoIndex
-        dangerouslySetAllPagesToNoFollow
-        {...SEO}
-      />
+      <DefaultSeo {...SEO} />
       <Container>
         <Wrapper>
           <Navigation />

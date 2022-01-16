@@ -156,7 +156,9 @@ const Writings = ({
               })}
             </Stack>
           </Stack>
-        ) : null}
+        ) : (
+          <Paragraph>No writings to display (yet!).</Paragraph>
+        )}
       </Stack>
     </>
   );
