@@ -14,6 +14,7 @@ import {
   BodyText,
   H2,
   H3,
+  Link,
   PageHeader,
   Paragraph,
 } from '@common/components/Text';
@@ -141,13 +142,28 @@ const Project = ({
                 ))}
               </Flex>
             </Stack>
-            <Stack gap='xs' css={{ gridColumn: '2 / span 2' }}>
-              <H3 color='2' size='1' leading='tight'>
-                Dates
-              </H3>
-              <Paragraph leading='tight' size='1'>
-                {projectData?.dates}
-              </Paragraph>
+            <Stack gap='l'>
+              <Stack gap='xs' css={{ gridColumn: '2 / span 2' }}>
+                <H3 color='2' size='1' leading='tight'>
+                  Dates
+                </H3>
+                <Paragraph leading='tight' size='1'>
+                  {projectData?.dates}
+                </Paragraph>
+              </Stack>
+              {projectData?.url ? (
+                <div>
+                  <Link
+                    href={projectData.url}
+                    color='2'
+                    size='1'
+                    underline='whileHover'
+                    leading='tight'
+                  >
+                    Link to the site
+                  </Link>
+                </div>
+              ) : null}
             </Stack>
           </Grid>
         </Stack>
