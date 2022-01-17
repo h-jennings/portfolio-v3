@@ -1,5 +1,4 @@
 import { BlockQuote } from '@common/components/BlockQuote';
-import { CustomLink } from '@common/components/CustomLink';
 import { UnorderedList } from '@common/components/List';
 import { Separator } from '@common/components/Separator';
 import {
@@ -10,31 +9,33 @@ import {
   H4,
   H5,
   H6,
+  Link,
   ListItem,
   Text,
 } from '@common/components/Text';
 import * as React from 'react';
 
 export const MDX_ELEMENTS: Record<string, React.ReactNode> = {
+  Text,
   h1: (props: any) => (
-    <H1 size='4' leading='body' color='1' css={{ mb: '$s' }} {...props} />
+    <H1 size='4' leading='body' color='1' css={{ mb: '$l' }} {...props} />
   ),
   h2: (props: any) => (
-    <H2 size='4' leading='body' color='1' css={{ mb: '$s' }} {...props} />
+    <H2 size='4' leading='body' color='1' css={{ mb: '$m' }} {...props} />
   ),
   h3: (props: any) => (
-    <H3 size='2' leading='body' color='2' css={{ mb: '$xs' }} {...props} />
+    <H3 size='2' leading='body' color='2' css={{ mb: '$m' }} {...props} />
   ),
   h4: (props: any) => (
-    <H4 size='1' leading='body' color='1' css={{ mb: '$xs' }} {...props} />
+    <H4 size='1' leading='body' color='1' css={{ mb: '$m' }} {...props} />
   ),
   h5: (props: any) => (
-    <H5 size='2' leading='body' color='1' css={{ mb: '$xs' }} {...props} />
+    <H5 size='2' leading='body' color='1' css={{ mb: '$m' }} {...props} />
   ),
   h6: (props: any) => (
-    <H6 size='2' leading='body' color='1' css={{ mb: '$xs' }} {...props} />
+    <H6 size='2' leading='body' color='1' css={{ mb: '$m' }} {...props} />
   ),
-  p: (props: any) => <BodyText css={{ mb: '$xs' }} {...props} />,
+  p: (props: any) => <BodyText css={{ mb: '$m' }} {...props} />,
   strong: (props: any) => (
     <Text
       as='strong'
@@ -52,9 +53,9 @@ export const MDX_ELEMENTS: Record<string, React.ReactNode> = {
     />
   ),
   a: (props: any) => (
-    <CustomLink
+    <Link
+      color='3'
       css={{
-        color: '3',
         css: {
           fontSize: 'inherit',
           lineHeight: 'inherit',
@@ -63,14 +64,27 @@ export const MDX_ELEMENTS: Record<string, React.ReactNode> = {
       {...props}
     />
   ),
-  ul: (props: any) => <UnorderedList css={{ mb: '$xs' }} {...props} />,
+  ul: (props: any) => (
+    <UnorderedList
+      css={{
+        mb: '$m',
+        [`${UnorderedList}`]: {
+          mb: '$2xs',
+        },
+      }}
+      {...props}
+    />
+  ),
   ol: (props: any) => (
     <UnorderedList
       as='ol'
       css={{
-        mb: '$xs',
+        mb: '$m',
         listStyle: 'none',
         counterReset: 'listCounter',
+        [`${UnorderedList}`]: {
+          mb: '$xs',
+        },
         [`& > ${ListItem}`]: {
           '&:before': {
             counterIncrement: 'listCounter',

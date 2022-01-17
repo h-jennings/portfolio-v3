@@ -1,5 +1,5 @@
 module.exports = {
   siteUrl: 'https://www.hunterjennings.dev',
   generateRobotsTxt: true,
-  exclude: ['/writing/*', '/writing'],
+  exclude: ['/writing/element-test'],
 };
