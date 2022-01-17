@@ -1,4 +1,5 @@
 import { Box } from '@common/components/Box';
+import { ImageContainer } from '@common/components/ImageContainer';
 import {
   ProseLayout,
   ProseLayoutContent,
@@ -76,7 +77,7 @@ const Writing = ({
           <MDXRemote
             {...source}
             scope={source?.scope}
-            components={{ ...MDX_ELEMENTS, Box, Image }}
+            components={{ ...MDX_ELEMENTS, Box, Image, ImageContainer }}
           />
         </ProseLayoutContent>
       </ProseLayout>
