@@ -1,9 +1,63 @@
 ---
 title: Website Redesign 2022
 description: Starting the new year off fresh. A new look and new tech.
-publishDate: 2022-01-03 11:59:00
-status: draft
+publishDate: 2022-01-16 11:59:00
+status: published
+image: /images/writings/website-redesign-2022/blog-2022-meta-banner.jpg
 featured: true
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+It's exciting to start something new. We're addicted to it; we just can't move forward without scratching that persistent itch. I needed to switch it up and make something that reflects my skills _today_ (not a year ago...yikes), and shows what I care about [now](/now).
+
+This is the third version of my personal site. Well, it's kind of v3.5, actually. I nearly finished the last iteration.
+
+<Box css={{ pt: '2xs', pb: '$xs' }}>
+  <Box
+    css={{
+      borderRadius: '15px',
+      overflow: 'hidden',
+      backgroundColor: '$slate8',
+    }}
+  >
+    <Image
+      src='/images/writings/website-redesign-2022/portfolio-v3-v1-project-detail.jpg'
+      alt='Screenshot of the details page for my first iteration of this portfolio site'
+      layout='responsive'
+      blurDataURL='/images/writings/website-redesign-2022/portfolio-v3-v1-project-detail.jpg'
+      placeholder='blur'
+      width={1440}
+      height={1084}
+      quality={95}
+    />
+  </Box>
+</Box>
+<Text size='1' color='2' as='p' css={{ pb: '$m' }}>
+  This is one of the screenshots of the details page.
+</Text>
+
+80% of it was implemented until I decided to scrap it all, leaving only the tech stack choices behind. It wasn't giving me the feel I wanted. I started to loath what I designed, I was making the same mistakes that I did with previous iterations. I try to design something that's too much like a product or an [awwwards](https://www.awwwards.com/) site. I've found that personal sites are rarely sustainable when approached this way, but I'm sure there are exceptions.
+
+By week two or three into the project, it started feel like a chore to implement. That was enough of a red flag for me to suck it up and start over. This time around I promised myself that I wouldn't overthink it. Simplicity, consistency, maintainability were my top priorities—especially [maintainability](https://brianlovin.com/writing/reasons-you-arent-updating-your-personal-site#too-hard-to-add-and-edit-content). It shouldn't feel like a chore to update and edit or add new content. We all know where that leads _sigh_...back to Figma.
+
+So this is what I came up with. It stands on the many shoulders of those I admire and look up to in my field of UI development. These people inspired me to ditch all of the noise and reject the traps found in over-designing. Instead, favoring an approach of simplicity, which strips away all the excuses one could make, and actually showcase what really matters—the content. Shoutout to [Paco Coursey](https://paco.me/), [Carl Barenbrug](https://cmhb.de/), [Rauno Freiberg](https://rauno.me/), [Pedro Duarte](https://ped.ro/), [Lee Robinson](https://leerob.io/), [Tim Chang](https://timcchang.com/), [Jenna Smith](https://jjenzz.com/), and others—there's a lot of them.
+
+Like many others, I'm hoping to start the new year off strong and share more about myself, my process, things I'm interested in, and helpful tips and suggestions I have when I come across them. I've been on the receiving end of so many generous people taking the time to write insightful and useful posts about technology that I'm learning about. Hopefully I can give back a bit.
+
+Ah, the most important part, the tech stack:
+
+- [TypeScript](https://www.typescriptlang.org/)
+- [React](https://reactjs.org/)
+- [Next.js](https://nextjs.org/)
+  - We use this framework heavily at my [job](https://www.elegantseagulls.com/) and I'm extremely bullish about it's future. The team consistently raises that bar with each release.
+- [Stitches](https://stitches.dev/)
+  - One the of the, if the _the_ best styling solution you can use in React today. [Vanilla Extract](https://vanilla-extract.style/) is a close second. The two are openly heavily inspired by one another.
+- [Radix](https://www.radix-ui.com/)
+  - Un-styled utility components for building accessible UIs
+- [MDX](https://mdxjs.com/)
+  - How I'm able to write this blog
+- [Shiki Twoslash](https://shikijs.github.io/twoslash/)
+  - Beautiful code syntax highlighting and vscode-like intellisense for markdown code blocks, from one of the TypeScript core maintainers, [Orta Therox](https://orta.io/)
+- [Framer Motion](https://www.framer.com/motion/)
+  - Declarative animations for React.
+
+The site is [open source on GitHub](https://github.com/h-jennings/portfolio-v3), feel free to check it out and reach out if you have any questions about it. My DMs [are open](https://twitter.com/jennings_hunter).
