@@ -1,3 +1,47 @@
+/* Fonts */
+
+@font-face {
+  font-family: 'Basier Circle';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/basiercircle-regular-webfont.woff2') format('woff2'),
+    url('/fonts/basiercircle-regular-webfont.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Basier Circle';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/basiercircle-bold-webfont.woff2') format('woff2'),
+    url('/fonts/basiercircle-bold-webfont.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Untitled Serif';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/untitled-serif-regular-italic.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Untitled Serif';
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/untitled-serif-bold-italic.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Jetbrains Mono';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/jetbrainsmono-regular.woff2') format('woff2');
+}
+
 /*! minireset.css v0.0.6 | MIT License | github.com/jgthms/minireset.css */
 html,
 body,
@@ -82,50 +126,6 @@ a {
 
 * {
   box-sizing: border-box;
-}
-
-/* Fonts */
-
-@font-face {
-  font-family: 'Basier Circle';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('/fonts/basiercircle-regular-webfont.woff2') format('woff2'),
-    url('/fonts/basiercircle-regular-webfont.woff') format('woff');
-}
-
-@font-face {
-  font-family: 'Basier Circle';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url('/fonts/basiercircle-bold-webfont.woff2') format('woff2'),
-    url('/fonts/basiercircle-bold-webfont.woff') format('woff');
-}
-
-@font-face {
-  font-family: 'Untitled Serif';
-  font-style: italic;
-  font-weight: 400;
-  font-display: swap;
-  src: url('/fonts/untitled-serif-regular-italic.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Untitled Serif';
-  font-style: italic;
-  font-weight: 700;
-  font-display: swap;
-  src: url('/fonts/untitled-serif-bold-italic.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Jetbrains Mono';
-  font-style: italic;
-  font-weight: 400;
-  font-display: swap;
-  src: url('/fonts/jetbrainsmono-regular.woff2') format('woff2');
 }
 
 /* Fluid spacing values */
