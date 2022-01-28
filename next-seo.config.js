@@ -8,7 +8,7 @@ const SEO = {
   canonical: process.env.NEXT_PUBLIC_URL,
   openGraph: {
     type: 'website',
-    locale: 'en_IE',
+    locale: 'en_US',
     url: process.env.NEXT_PUBLIC_URL,
     images: [
       {
