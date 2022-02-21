@@ -18,7 +18,11 @@ import type {
   GetStaticProps,
   InferGetStaticPropsType,
 } from 'next';
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
+import {
+  MDXRemote,
+  MDXRemoteProps,
+  MDXRemoteSerializeResult,
+} from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import { NextSeo, NextSeoProps } from 'next-seo';
 import Image from 'next/image';
@@ -77,13 +81,19 @@ const Writing = ({
           <MDXRemote
             {...source}
             scope={source?.scope}
-            components={{ ...MDX_ELEMENTS, Box, Image, ImageContainer }}
+            components={{ ...MDX_ELEMENTS, ...MDX_COMPONENTS }}
           />
         </ProseLayoutContent>
       </ProseLayout>
     </>
   );
 };
+
+const MDX_COMPONENTS = {
+  Box,
+  Image,
+  ImageContainer,
+} as MDXRemoteProps['components'];
 
 export const getStaticPaths: GetStaticPaths<{ slug: string }> = () => {
   const paths = writingsFilePaths

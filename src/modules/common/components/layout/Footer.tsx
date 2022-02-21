@@ -7,7 +7,6 @@ import { Text } from '@common/components/Text';
 import {
   WeatherData,
   weatherDataMachine,
-  WeatherDataService,
 } from '@common/machines/weather-data-machine';
 import { useActor, useInterpret } from '@xstate/react';
 import Image from 'next/image';
@@ -115,8 +114,7 @@ const formatterTwentyFour = new Intl.DateTimeFormat('en', {
 });
 
 const Weather = (): JSX.Element | null => {
-  const weatherDataService: WeatherDataService =
-    useInterpret(weatherDataMachine);
+  const weatherDataService = useInterpret(weatherDataMachine);
   const [current, send] = useActor(weatherDataService);
 
   // Fetch weather data on mount

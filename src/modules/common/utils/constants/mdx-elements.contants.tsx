@@ -13,9 +13,10 @@ import {
   ListItem,
   Text,
 } from '@common/components/Text';
+import { MDXRemoteProps } from 'next-mdx-remote';
 import * as React from 'react';
 
-export const MDX_ELEMENTS: Record<string, React.ReactNode> = {
+export const MDX_ELEMENTS = {
   Text,
   h1: (props: any) => (
     <H1 size='4' leading='body' color='1' css={{ mb: '$l' }} {...props} />
@@ -131,4 +132,4 @@ export const MDX_ELEMENTS: Record<string, React.ReactNode> = {
   ),
   hr: (props: any) => <Separator {...props} />,
   blockquote: (props: any) => <BlockQuote {...props} />,
-};
+} as MDXRemoteProps['components'];
