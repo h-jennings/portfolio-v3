@@ -1,18 +1,18 @@
 import { styled } from '@/stitches.config';
-import { BackToLink } from '@common/components/BackToLink';
-import { Box } from '@common/components/Box';
-import { Flex } from '@common/components/Flex';
-import { LinkBox, LinkOverlay } from '@common/components/LinkBox';
-import { Stack } from '@common/components/Stack';
-import { H2, H3, PageHeader, Paragraph } from '@common/components/Text';
-import { PATHS } from '@common/utils/constants/paths.constants';
+import { BackToLink } from '@components/common/BackToLink';
+import { Box } from '@components/common/Box';
+import { Flex } from '@components/common/Flex';
+import { LinkBox, LinkOverlay } from '@components/common/LinkBox';
+import { Stack } from '@components/common/Stack';
+import { H2, H3, PageHeader, Paragraph } from '@components/common/Text';
+import { PATHS } from '@utils/common/constants/paths.constants';
 import {
   groupDatesByYear,
   sortMdxDataByDateDesc,
-} from '@common/utils/helpers/date.helpers';
-import { getAllWritingsData } from '@common/utils/helpers/mdx-data.helpers';
-import { getMetaImage } from '@common/utils/helpers/meta-image.helpers';
-import { MdxData } from '@common/utils/types/mdx-data';
+} from '@utils/common/helpers/date.helpers';
+import { getAllWritingsData } from '@utils/common/helpers/mdx-data.helpers';
+import { getMetaImage } from '@utils/common/helpers/meta-image.helpers';
+import { MdxData } from '@utils/common/types/mdx-data';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { NextSeo, NextSeoProps } from 'next-seo';
 import NextLink from 'next/link';

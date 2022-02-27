@@ -16,6 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@common/*": ["./src/modules/common/*"],
+      "@components/*": ["./src/components/*"],
+      "@utils/*": ["./src/utils/*"],
       "@home/*": ["./src/modules/home/*"],
       "@work/*": ["./src/modules/work/*"],
       "@assets/*": ["./src/assets/*"],

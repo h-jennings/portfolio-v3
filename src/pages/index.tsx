@@ -1,8 +1,9 @@
 import { styled } from '@/stitches.config';
-import { CustomLink } from '@common/components/CustomLink';
-import { Flex } from '@common/components/Flex';
-import { Grid } from '@common/components/Grid';
-import { Stack } from '@common/components/Stack';
+import { CustomLink } from '@components/common/CustomLink';
+import { Flex } from '@components/common/Flex';
+import { Grid } from '@components/common/Grid';
+import { ArrowRightIcon } from '@components/common/icons/ArrowRightIcon';
+import { Stack } from '@components/common/Stack';
 import {
   BodyText,
   H1,
@@ -11,19 +12,18 @@ import {
   Link,
   Paragraph,
   Text,
-} from '@common/components/Text';
-import { PATHS } from '@common/utils/constants/paths.constants';
+} from '@components/common/Text';
+import { ProjectGrid } from '@components/home/ProjectGrid';
+import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
+import { PATHS } from '@utils/common/constants/paths.constants';
 import {
   parseDateToLongDateString,
   sortMdxDataByDateDesc,
-} from '@common/utils/helpers/date.helpers';
-import { getAllWritingsData } from '@common/utils/helpers/mdx-data.helpers';
-import { getMetaImage } from '@common/utils/helpers/meta-image.helpers';
-import { MdxData } from '@common/utils/types/mdx-data';
-import { WithChildren } from '@common/utils/types/with-children';
-import { ProjectGrid } from '@home/components/ProjectGrid';
-import { ArrowRightIcon } from '@radix-ui/react-icons';
-import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
+} from '@utils/common/helpers/date.helpers';
+import { getAllWritingsData } from '@utils/common/helpers/mdx-data.helpers';
+import { getMetaImage } from '@utils/common/helpers/meta-image.helpers';
+import { MdxData } from '@utils/common/types/mdx-data';
+import { WithChildren } from '@utils/common/types/with-children';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { NextSeo, NextSeoProps } from 'next-seo';
 import NextLink from 'next/link';

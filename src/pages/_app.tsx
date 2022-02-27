@@ -1,7 +1,7 @@
 import { lightTheme } from '@/stitches.config';
 import '@/styles/global.scss';
-import { RootLayout } from '@common/components/layout/RootLayout';
-import { useVisualViewportHeight } from '@common/hooks/use-visual-viewport-height';
+import { RootLayout } from '@components/common/layout/RootLayout';
+import { useVisualViewportHeight } from '@utils/common/hooks/use-visual-viewport-height';
 import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
 import Script from 'next/script';

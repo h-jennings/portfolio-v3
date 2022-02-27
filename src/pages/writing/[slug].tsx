@@ -1,18 +1,18 @@
-import { Box } from '@common/components/Box';
-import { ImageContainer } from '@common/components/ImageContainer';
+import { Box } from '@components/common/Box';
+import { ImageContainer } from '@components/common/ImageContainer';
 import {
   ProseLayout,
   ProseLayoutContent,
   ProseLayoutHeader,
-} from '@common/components/ProseLayout';
-import { Stack } from '@common/components/Stack';
-import { Text } from '@common/components/Text';
-import { MDX_ELEMENTS } from '@common/utils/constants/mdx-elements.contants';
-import { writingsFilePaths } from '@common/utils/constants/mdx.constants';
-import { PATHS } from '@common/utils/constants/paths.constants';
-import { getWritingDataFromSlug } from '@common/utils/helpers/mdx-data.helpers';
-import { getMetaImage } from '@common/utils/helpers/meta-image.helpers';
-import { MdxMetaData } from '@common/utils/types/mdx-data';
+} from '@components/common/ProseLayout';
+import { Stack } from '@components/common/Stack';
+import { Text } from '@components/common/Text';
+import { MDX_ELEMENTS } from '@utils/common/constants/mdx-elements.contants';
+import { writingsFilePaths } from '@utils/common/constants/mdx.constants';
+import { PATHS } from '@utils/common/constants/paths.constants';
+import { getWritingDataFromSlug } from '@utils/common/helpers/mdx-data.helpers';
+import { getMetaImage } from '@utils/common/helpers/meta-image.helpers';
+import { MdxMetaData } from '@utils/common/types/mdx-data';
 import type {
   GetStaticPaths,
   GetStaticProps,

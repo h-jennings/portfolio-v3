@@ -2,14 +2,14 @@ import {
   ProseLayout,
   ProseLayoutContent,
   ProseLayoutHeader,
-} from '@common/components/ProseLayout';
-import { Stack } from '@common/components/Stack';
-import { Text } from '@common/components/Text';
-import { MDX_ELEMENTS } from '@common/utils/constants/mdx-elements.contants';
-import { PATHS } from '@common/utils/constants/paths.constants';
-import { getNowPageData } from '@common/utils/helpers/mdx-data.helpers';
-import { getMetaImage } from '@common/utils/helpers/meta-image.helpers';
-import { MdxMetaData } from '@common/utils/types/mdx-data';
+} from '@components/common/ProseLayout';
+import { Stack } from '@components/common/Stack';
+import { Text } from '@components/common/Text';
+import { MDX_ELEMENTS } from '@utils/common/constants/mdx-elements.contants';
+import { PATHS } from '@utils/common/constants/paths.constants';
+import { getNowPageData } from '@utils/common/helpers/mdx-data.helpers';
+import { getMetaImage } from '@utils/common/helpers/meta-image.helpers';
+import { MdxMetaData } from '@utils/common/types/mdx-data';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
