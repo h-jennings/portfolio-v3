@@ -1,15 +1,15 @@
 import { styled } from '@/stitches.config';
-import { BackToLink } from '@common/components/BackToLink';
-import { Box } from '@common/components/Box';
-import { Flex } from '@common/components/Flex';
-import { Grid } from '@common/components/Grid';
+import { BackToLink } from '@components/common/BackToLink';
+import { Box } from '@components/common/Box';
+import { Flex } from '@components/common/Flex';
+import { Grid } from '@components/common/Grid';
 import {
   ScrollContainerArea,
   ScrollContainerScrollbar,
   ScrollContainerThumb,
   ScrollContainerViewport,
-} from '@common/components/ScrollContainer';
-import { Stack } from '@common/components/Stack';
+} from '@components/common/ScrollContainer';
+import { Stack } from '@components/common/Stack';
 import {
   BodyText,
   H2,
@@ -17,17 +17,17 @@ import {
   Link,
   PageHeader,
   Paragraph,
-} from '@common/components/Text';
-import { PATHS } from '@common/utils/constants/paths.constants';
-import { getMetaImage } from '@common/utils/helpers/meta-image.helpers';
-import { ProjectLinks } from '@work/components/ProjectLinks';
+} from '@components/common/Text';
+import { ProjectLinks } from '@components/work/ProjectLinks';
+import { PATHS } from '@utils/common/constants/paths.constants';
+import { getMetaImage } from '@utils/common/helpers/meta-image.helpers';
 import {
   ProjectMeta,
   ProjectPageData,
   PROJECT_METADATA,
   PROJECT_PAGE_DATA,
-} from '@work/utils/constants/projects.constants';
-import { ProjectIdentifiers } from '@work/utils/types/projects';
+} from '@utils/work/constants/projects.constants';
+import { ProjectIdentifiers } from '@utils/work/types/projects';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import { NextSeo, NextSeoProps } from 'next-seo';
 import Image from 'next/image';

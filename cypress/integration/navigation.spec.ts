@@ -1,5 +1,5 @@
-import { PATHS } from '@common/utils/constants/paths.constants';
-import { PROJECT_METADATA } from '@work/utils/constants/projects.constants';
+import { PATHS } from '@utils/common/constants/paths.constants';
+import { PROJECT_METADATA } from '@utils/work/constants/projects.constants';
 
 describe('Core Navigation Works', () => {
   beforeEach(() => {
