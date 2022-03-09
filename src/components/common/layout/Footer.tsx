@@ -34,7 +34,7 @@ export const Footer = (): JSX.Element => {
         >
           <Time />
           <Text leading='tight' css={{ whiteSpace: 'nowrap' }} size='1'>
-            Washington D.C.
+            Richmond, VA
           </Text>
         </Stack>
         <Flex

@@ -1,6 +1,6 @@
 const title = ` Portfolio | Hunter Jennings`;
 const description =
-  'Hunter Jennings is a Frontend Developer based in Washington, DC';
+  'Hunter Jennings is a Frontend Developer based in Richmond, VA';
 
 const SEO = {
   title,

@@ -8,7 +8,7 @@ import { ActorRefFrom } from 'xstate';
 import { ZodError } from 'zod';
 import { dataMachine } from './data-machine';
 
-const apiUrl = `https://api.openweathermap.org/data/2.5/weather?id=4140963&units=imperial&appid=${process.env.WEATHER_API_KEY}`;
+const apiUrl = `https://api.openweathermap.org/data/2.5/weather?id=4781708&units=imperial&appid=${process.env.WEATHER_API_KEY}`;
 
 export interface WeatherData {
   temp: number | undefined;
