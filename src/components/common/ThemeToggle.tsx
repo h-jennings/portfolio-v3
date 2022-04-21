@@ -1,13 +1,13 @@
 import { styled } from '@/stitches.config';
-import { ReactComponent as MoonIcon } from '@assets/common/moon-icon.svg';
-import { ReactComponent as SunIcon } from '@assets/common/sun-icon.svg';
-import { ReactComponent as SystemIcon } from '@assets/common/system-icon.svg';
 import { useIsMounted } from '@utils/common/hooks/use-is-mounted';
 import { LayoutGroup, motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
 import * as React from 'react';
 import { buttonReset } from './Button';
 import { Grid } from './Grid';
+import { MoonIcon } from './icons/MoonIcon';
+import { SunIcon } from './icons/SunIcon';
+import { SystemIcon } from './icons/SystemIcon';
 
 type Theme = 'system' | 'light' | 'dark';
 
@@ -51,10 +51,17 @@ const IconButton = ({ icon, theme }: IconButtonProps): JSX.Element => {
   const { setTheme } = useTheme();
   const isActive = theme === icon;
 
+  const Icon = ICON_SVG_COMPONENTS[icon].icon ?? (() => null);
+  const buttonLabel = ICON_SVG_COMPONENTS[icon].label;
+
   return (
     <Grid center css={{ position: 'relative', height: 20, zIndex: 0 }}>
-      <StyledIconButton isActive={isActive} onClick={() => setTheme(icon)}>
-        {ICON_SVG_COMPONENTS[icon]}
+      <StyledIconButton
+        isActive={isActive}
+        aria-label={`Change to ${buttonLabel}`}
+        onClick={() => setTheme(icon)}
+      >
+        <Icon />
       </StyledIconButton>
       {isActive ? <Circle layout layoutId='circle' /> : null}
     </Grid>
@@ -92,8 +99,20 @@ const Circle = styled(motion.div, {
   position: 'absolute',
 });
 
-const ICON_SVG_COMPONENTS: Record<Theme, JSX.Element> = {
-  dark: <MoonIcon aria-label='dark theme icon' />,
-  system: <SystemIcon aria-label='system theme icon' />,
-  light: <SunIcon aria-label='light theme icon' />,
+const ICON_SVG_COMPONENTS: Record<
+  Theme,
+  { label: string; icon: () => JSX.Element }
+> = {
+  dark: {
+    label: 'dark theme',
+    icon: () => <MoonIcon />,
+  },
+  system: {
+    label: 'system theme',
+    icon: () => <SystemIcon />,
+  },
+  light: {
+    label: 'light theme',
+    icon: () => <SunIcon />,
+  },
 };
