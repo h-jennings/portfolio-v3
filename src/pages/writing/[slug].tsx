@@ -35,7 +35,7 @@ const Writing = ({
   const { scope } = source;
   const title = `${scope?.title} | Hunter Jennings`;
   const url = `${PATHS.base}${PATHS.writing}/${slug}`;
-  const image = source?.scope?.image;
+  const image = source.scope?.image;
   const isDraft = scope?.status === 'draft';
   const SEO: NextSeoProps = {
     title,
@@ -73,14 +73,14 @@ const Writing = ({
               <Text size='1' color='2'>
                 Reading Time
               </Text>
-              <Text size='1'>{scope?.readingTimeResults?.text}</Text>
+              <Text size='1'>{scope?.readingTimeResults.text}</Text>
             </Stack>
           </Stack>
         </ProseLayoutHeader>
         <ProseLayoutContent>
           <MDXRemote
             {...source}
-            scope={source?.scope}
+            scope={source.scope}
             components={{ ...MDX_ELEMENTS, ...MDX_COMPONENTS }}
           />
         </ProseLayoutContent>

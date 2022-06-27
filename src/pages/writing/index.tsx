@@ -16,13 +16,12 @@ import { MdxData } from '@utils/common/types/mdx-data';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { NextSeo, NextSeoProps } from 'next-seo';
 import NextLink from 'next/link';
-import * as React from 'react';
 
 const Writings = ({
   writingsData,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const featured = writingsData.filter((data) =>
-    Boolean(data.metaData?.featured),
+    Boolean(data.metaData.featured),
   );
   const hasWritings = writingsData.length > 0;
   const hasFeaturedWritings = featured.length > 0;
@@ -143,7 +142,7 @@ const Writings = ({
                                   </LinkOverlay>
                                 </NextLink>
                                 <Paragraph size='1' color='2'>
-                                  {metaData?.publishDate}
+                                  {metaData.publishDate}
                                 </Paragraph>
                               </Flex>
                             </LinkBox>
@@ -168,7 +167,7 @@ export const getStaticProps: GetStaticProps<{
   writingsData: MdxData[];
 }> = () => {
   const writingsData = sortMdxDataByDateDesc(getAllWritingsData()).filter(
-    (data) => data?.metaData.status === 'published',
+    (data) => data.metaData.status === 'published',
   );
   return {
     props: {

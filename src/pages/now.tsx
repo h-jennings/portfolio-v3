@@ -14,7 +14,6 @@ import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import { NextSeo, NextSeoProps } from 'next-seo';
-import * as React from 'react';
 
 export const getStaticProps: GetStaticProps<{
   source: MDXRemoteSerializeResult<MdxMetaData>;
@@ -38,7 +37,7 @@ const Now = ({ source }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const title = `Now | Hunter Jennings`;
   const url = `${PATHS.base}${PATHS.now}`;
   const description = source.scope?.description;
-  const image = source?.scope?.image;
+  const image = source.scope?.image;
   const SEO: NextSeoProps = {
     title,
     canonical: url,
@@ -47,7 +46,7 @@ const Now = ({ source }: InferGetStaticPropsType<typeof getStaticProps>) => {
       title,
       url,
       article: {
-        publishedTime: source?.scope?.publishDate,
+        publishedTime: source.scope?.publishDate,
       },
       description,
       ...getMetaImage(image),
@@ -64,20 +63,20 @@ const Now = ({ source }: InferGetStaticPropsType<typeof getStaticProps>) => {
             content: 'Back to home',
             href: PATHS.home,
           }}
-          headline={source?.scope?.title}
+          headline={source.scope?.title}
           description={source.scope?.description}
         >
           <Stack gap='3xs'>
             <Text size='1' color='2'>
               Last Updated
             </Text>
-            <Text size='1'>{source?.scope?.publishDate}</Text>
+            <Text size='1'>{source.scope?.publishDate}</Text>
           </Stack>
         </ProseLayoutHeader>
         <ProseLayoutContent>
           <MDXRemote
             {...source}
-            scope={source?.scope}
+            scope={source.scope}
             components={MDX_ELEMENTS}
           />
         </ProseLayoutContent>

@@ -2,7 +2,6 @@ import { styled } from '@/stitches.config';
 import { useIsMounted } from '@utils/common/hooks/use-is-mounted';
 import { LayoutGroup, motion } from 'framer-motion';
 import { useTheme } from 'next-themes';
-import * as React from 'react';
 import { buttonReset } from './Button';
 import { Grid } from './Grid';
 import { MoonIcon } from './icons/MoonIcon';
@@ -51,7 +50,7 @@ const IconButton = ({ icon, theme }: IconButtonProps): JSX.Element => {
   const { setTheme } = useTheme();
   const isActive = theme === icon;
 
-  const Icon = ICON_SVG_COMPONENTS[icon].icon ?? (() => null);
+  const Icon = ICON_SVG_COMPONENTS[icon].icon;
   const buttonLabel = ICON_SVG_COMPONENTS[icon].label;
 
   return (

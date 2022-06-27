@@ -58,6 +58,5 @@ const externalLink = css(link, {
 
 function isExternalLink(href: string): boolean {
   const externalLinkRegex = /^https?:\/\//;
-  const mailToRegex = /^mailto\:/;
-  return externalLinkRegex.test(href) || mailToRegex.test(href);
+  return externalLinkRegex.test(href) || href.startsWith('mailto:');
 }

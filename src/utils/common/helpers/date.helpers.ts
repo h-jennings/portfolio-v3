@@ -22,12 +22,13 @@ export function sortMdxDataByDateDesc(mdxData: MdxData[]): MdxData[] {
 export function groupDatesByYear(mdxData: MdxData[]) {
   return Object.entries(
     mdxData.reduce((result, value) => {
-      if (result[value.metaData.year] === undefined) {
+      if (!Boolean(result[value.metaData.year])) {
         result[value.metaData.year] = [];
       }
       result[value.metaData.year].push(value);
+
       return result;
-    }, {} as { [x: string]: MdxData[] }),
+    }, {} as Record<string, MdxData[]>),
   )
     .map(([key, value]) => ({
       year: key,

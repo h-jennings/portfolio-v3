@@ -24,7 +24,7 @@ const getMdxMetadata = (
   const data = FrontMatterZodPreParse.parse(frontMatter);
   return {
     ...data,
-    publishDate: parseDateToString(data?.publishDate),
+    publishDate: parseDateToString(data.publishDate),
     readingTimeResults: readingTime(content),
     year: getYearFromDate(parseDateToString(data.publishDate)),
   };
@@ -32,7 +32,7 @@ const getMdxMetadata = (
 
 const getFileSource = (p1: string, p2: string): Buffer => {
   const filePath = path.join(p1, p2);
-  return fs?.readFileSync(filePath);
+  return fs.readFileSync(filePath);
 };
 
 export function getWritingDataFromSlug(slug: string): MdxData {
@@ -64,7 +64,7 @@ export const getAllWritingsData = (): MdxData[] => {
 };
 
 export const getNowPageData = (): MdxData => {
-  const nowFileSource = fs?.readFileSync(`${DATA_PATH}now.mdx`);
+  const nowFileSource = fs.readFileSync(`${DATA_PATH}now.mdx`);
   const { content, data } = matter(nowFileSource);
 
   return {
