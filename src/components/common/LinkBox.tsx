@@ -10,7 +10,11 @@ export const LinkBox = React.forwardRef<LinkBoxRef, LinkBoxProps>(
     const { className, ...rest } = props;
 
     return (
-      <div {...rest} className={`linkbox ${linkBox()}`} ref={forwardedRef} />
+      <div
+        {...rest}
+        className={`linkbox ${linkBox()} ${className}`}
+        ref={forwardedRef}
+      />
     );
   },
 );

@@ -19,6 +19,7 @@
     "no-implicit-coercion": "warn",
     "no-unneeded-ternary": "warn",
     "@typescript-eslint/no-unused-vars": ["error"],
-    "@typescript-eslint/prefer-reduce-type-parameter": "off"
+    "@typescript-eslint/prefer-reduce-type-parameter": "off",
+    "@typescript-eslint/restrict-template-expressions": "off"
   }
 }
