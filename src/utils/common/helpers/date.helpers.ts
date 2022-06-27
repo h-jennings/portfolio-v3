@@ -11,9 +11,6 @@ export const parseDateToLongDateString = (date: string): string => {
   return format(parseISO(date), 'LLLL dd, yyyy ');
 };
 
-/**
- * sorts dates in Desc order
- */
 export function sortMdxDataByDateDesc(mdxData: MdxData[]): MdxData[] {
   if (!Array.isArray(mdxData)) return [];
 
