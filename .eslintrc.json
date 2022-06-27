@@ -21,5 +21,6 @@
     "@typescript-eslint/no-unused-vars": ["error"],
     "@typescript-eslint/prefer-reduce-type-parameter": "off",
     "@typescript-eslint/restrict-template-expressions": "off"
-  }
+  },
+  "ignorePatterns": ["next.config.js"]
 }
