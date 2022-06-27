@@ -1,3 +1,24 @@
 {
-  "extends": "next/core-web-vitals"
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:@typescript-eslint/strict",
+    "plugin:cypress/recommended",
+    "prettier"
+  ],
+  "rules": {
+    "no-unused-vars": "off",
+    "no-console": "warn",
+    "no-debugger": "error",
+    "no-constant-binary-expression": "warn",
+    "no-implicit-coercion": "warn",
+    "no-unneeded-ternary": "warn",
+    "@typescript-eslint/no-unused-vars": ["error"],
+    "@typescript-eslint/prefer-reduce-type-parameter": "off"
+  }
 }
