@@ -20,9 +20,7 @@ export const ProjectLinks = ({
   projectIndex: number;
 }): JSX.Element => {
   const [previous, next] = prevNextProjectData(projectIndex);
-  const shouldCenter = React.useMemo(() => {
-    return isNull(previous) || isNull(next);
-  }, [previous, next]);
+  const shouldCenter = isNull(previous) || isNull(next);
 
   return (
     <LinksContainer>
@@ -56,9 +54,7 @@ const ProjectLink = ({
   alignment,
 }: LinkProps): JSX.Element => {
   const linkOverlayRef = React.useRef<HTMLAnchorElement>(null);
-  const justify = React.useMemo(() => {
-    return ALIGNMENT_LOOKUP[alignment];
-  }, [alignment]);
+  const justify = ALIGNMENT_LOOKUP[alignment];
 
   const clearFocus = () => {
     linkOverlayRef.current?.blur();
