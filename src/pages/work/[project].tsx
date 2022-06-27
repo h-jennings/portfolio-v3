@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { styled } from '@/stitches.config';
 import { BackToLink } from '@components/common/BackToLink';
 import { Box } from '@components/common/Box';
@@ -31,17 +32,16 @@ import { ProjectIdentifiers } from '@utils/work/types/projects';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import { NextSeo, NextSeoProps } from 'next-seo';
 import Image from 'next/image';
-import * as React from 'react';
 
 const Project = ({
   projectData,
   projectIndex,
   description,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const title = `${projectData?.project} | Hunter Jennings`;
-  const url = `${PATHS.base}${projectData?.path}`;
-  const image = projectData?.metaImage;
-  const [imageLeft, imageRight] = projectData?.images;
+  const title = `${projectData.project} | Hunter Jennings`;
+  const url = `${PATHS.base}${projectData.path}`;
+  const image = projectData.metaImage;
+  const [imageLeft, imageRight] = projectData.images;
   const SEO: NextSeoProps = {
     title,
     canonical: url,
@@ -68,63 +68,61 @@ const Project = ({
               justify='between'
               align='baseline'
             >
-              <PageHeader>{projectData?.project}</PageHeader>
+              <PageHeader>{projectData.project}</PageHeader>
               <H2 color='2' size='1'>
-                {projectData?.client}
+                {projectData.client}
               </H2>
             </Flex>
           </Box>
-          {projectData?.images ? (
-            <ScrollContainerArea>
-              <ScrollContainerScrollbar orientation='horizontal'>
-                <ScrollContainerThumb />
-              </ScrollContainerScrollbar>
-              <ScrollContainerViewport>
-                <Grid
-                  gap='s'
+          <ScrollContainerArea>
+            <ScrollContainerScrollbar orientation='horizontal'>
+              <ScrollContainerThumb />
+            </ScrollContainerScrollbar>
+            <ScrollContainerViewport>
+              <Grid
+                gap='s'
+                css={{
+                  mb: '$l',
+                  gtc: 'repeat(3, 40%)',
+                  '@bp1': { mb: 'unset', gtc: 'repeat(3, 1fr)' },
+                }}
+              >
+                <ImageContainer
                   css={{
-                    mb: '$l',
-                    gtc: 'repeat(3, 40%)',
-                    '@bp1': { mb: 'unset', gtc: 'repeat(3, 1fr)' },
+                    gridColumn: '1 / span 2',
                   }}
                 >
-                  <ImageContainer
-                    css={{
-                      gridColumn: '1 / span 2',
-                    }}
-                  >
-                    <Image
-                      src={imageLeft}
-                      alt=''
-                      layout='responsive'
-                      blurDataURL={imageLeft}
-                      placeholder='blur'
-                      width={460}
-                      height={275}
-                      quality={95}
-                    />
-                  </ImageContainer>
-                  <ImageContainer>
-                    <Image
-                      src={imageRight}
-                      alt=''
-                      layout='responsive'
-                      blurDataURL={imageLeft}
-                      placeholder='blur'
-                      width={220}
-                      height={275}
-                      quality={95}
-                    />
-                  </ImageContainer>
-                </Grid>
-              </ScrollContainerViewport>
-            </ScrollContainerArea>
-          ) : null}
+                  <Image
+                    src={imageLeft}
+                    alt=''
+                    layout='responsive'
+                    blurDataURL={imageLeft}
+                    placeholder='blur'
+                    width={460}
+                    height={275}
+                    quality={95}
+                  />
+                </ImageContainer>
+                <ImageContainer>
+                  <Image
+                    src={imageRight}
+                    alt=''
+                    layout='responsive'
+                    blurDataURL={imageLeft}
+                    placeholder='blur'
+                    width={220}
+                    height={275}
+                    quality={95}
+                  />
+                </ImageContainer>
+              </Grid>
+            </ScrollContainerViewport>
+          </ScrollContainerArea>
           <Stack gap='xs'>
             <H3 color='2' size='1' leading='tight'>
               Description
             </H3>
-            <BodyText>{projectData?.details}</BodyText>
+            <BodyText>{projectData.details}</BodyText>
           </Stack>
           <Grid gap='s' columns='3'>
             <Stack gap='xs'>
@@ -148,10 +146,10 @@ const Project = ({
                   Dates
                 </H3>
                 <Paragraph leading='tight' size='1'>
-                  {projectData?.dates}
+                  {projectData.dates}
                 </Paragraph>
               </Stack>
-              {projectData?.url ? (
+              {projectData.url ? (
                 <div>
                   <Link
                     href={projectData.url}
@@ -197,9 +195,9 @@ export const getStaticProps: GetStaticProps<{
 }> = ({ params }) => {
   const project = params?.project;
 
-  const projectData: ProjectPageData | undefined =
+  const projectData: ProjectPageData =
     PROJECT_PAGE_DATA[project as ProjectIdentifiers];
-  const projectMeta: ProjectMeta | undefined =
+  const projectMeta: ProjectMeta =
     PROJECT_METADATA[project as ProjectIdentifiers];
   const projectIndex = Object.keys(PROJECT_PAGE_DATA)
     .map((key) => key)
@@ -209,7 +207,7 @@ export const getStaticProps: GetStaticProps<{
     props: {
       projectData,
       projectIndex,
-      description: projectMeta?.description,
+      description: projectMeta.description,
     },
   };
 };

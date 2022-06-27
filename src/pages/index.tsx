@@ -138,7 +138,7 @@ const Index = ({
               </Grid>
             </Flex>
             <Stack as='ul' gap='m'>
-              {featuredWritings?.map(({ fileName, metaData }) => (
+              {featuredWritings.map(({ fileName, metaData }) => (
                 <StyledListItem key={fileName} as='li'>
                   <div>
                     <NextLink
@@ -146,11 +146,11 @@ const Index = ({
                       as={`${PATHS.writing}/${fileName.replace(/\.mdx?$/, '')}`}
                       passHref
                     >
-                      <Link size='1'>{metaData?.title}</Link>
+                      <Link size='1'>{metaData.title}</Link>
                     </NextLink>
                   </div>
                   <Text size='1' family='serif' as='time' dateTime='2021-12-08'>
-                    {parseDateToLongDateString(metaData?.publishDate)}
+                    {parseDateToLongDateString(metaData.publishDate)}
                   </Text>
                 </StyledListItem>
               ))}
@@ -215,13 +215,13 @@ const Index = ({
 };
 
 export const getStaticProps: GetStaticProps<{
-  featuredWritings: MdxData[];
+  featuredWritings: MdxData[] | [];
 }> = () => {
   const writingsData = sortMdxDataByDateDesc(getAllWritingsData());
 
-  const featuredWritings: MdxData[] = writingsData
-    .filter((writing) => writing?.metaData?.status !== 'draft')
-    .filter((writing) => writing?.metaData?.featured);
+  const featuredWritings: MdxData[] | [] = writingsData
+    .filter((writing) => writing.metaData.status !== 'draft')
+    .filter((writing) => writing.metaData.featured);
 
   return {
     props: { featuredWritings },
