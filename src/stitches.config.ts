@@ -12,6 +12,10 @@ import {
 } from '@radix-ui/colors';
 import type * as Stitches from '@stitches/react';
 import { createStitches } from '@stitches/react';
+import { createFluidValue } from './styles/create-fluid-value';
+
+const getConfigFluidValue = (minSize: number, maxSize: number) =>
+  createFluidValue(minSize, maxSize, 360, 1024);
 
 export const { config, styled, getCssText, theme, createTheme, css } =
   createStitches({
@@ -47,14 +51,14 @@ export const { config, styled, getCssText, theme, createTheme, css } =
         regular: 400,
       },
       fontSizes: {
-        1: 'clamp(0.80rem, 0.69rem + 0.48vw, 1.00rem)',
-        2: 'clamp(1.00rem, 0.86rem + 0.60vw, 1.25rem)',
-        3: 'clamp(1.25rem, 1.08rem + 0.75vw, 1.56rem)',
-        4: 'clamp(1.56rem, 1.35rem + 0.94vw, 1.95rem)',
-        5: 'clamp(1.95rem, 1.69rem + 1.18vw, 2.44rem)',
-        6: 'clamp(2.44rem, 2.11rem + 1.47vw, 3.05rem)',
-        7: 'clamp(3.05rem, 2.64rem + 1.84vw, 3.82rem)',
-        8: 'clamp(3.82rem, 3.30rem + 2.30vw, 4.77rem)',
+        1: getConfigFluidValue(13, 16),
+        2: getConfigFluidValue(16, 20),
+        3: getConfigFluidValue(20, 25),
+        4: getConfigFluidValue(25, 31),
+        5: getConfigFluidValue(31, 39),
+        6: getConfigFluidValue(39, 49),
+        7: getConfigFluidValue(49, 61),
+        8: getConfigFluidValue(61, 76),
       },
       lineHeights: {
         tight: 1,
@@ -63,27 +67,23 @@ export const { config, styled, getCssText, theme, createTheme, css } =
       },
       space: {
         // 4 - 5
-        '3xs':
-          'calc(((var(--fc-3xs-min) / 16) * 1rem) + (var(--fc-3xs-max) - var(--fc-3xs-min)) * var(--fluid-bp))',
+        '3xs': getConfigFluidValue(4, 5),
         // 8 - 10
-        '2xs':
-          'calc(((var(--fc-2xs-min) / 16) * 1rem) + (var(--fc-2xs-max) - var(--fc-2xs-min)) * var(--fluid-bp))',
+        '2xs': getConfigFluidValue(8, 10),
         // 12 - 15
-        xs: 'calc(((var(--fc-xs-min) / 16) * 1rem) + (var(--fc-xs-max) - var(--fc-xs-min)) * var(--fluid-bp))',
+        xs: getConfigFluidValue(12, 15),
         // 16 - 20
-        s: 'calc(((var(--fc-s-min) / 16) * 1rem) + (var(--fc-s-max) - var(--fc-s-min)) * var(--fluid-bp))',
+        s: getConfigFluidValue(16, 20),
         // 24 - 30
-        m: 'calc(((var(--fc-m-min) / 16) * 1rem) + (var(--fc-m-max) - var(--fc-m-min)) * var(--fluid-bp))',
+        m: getConfigFluidValue(24, 30),
         // 32 - 40
-        l: 'calc(((var(--fc-l-min) / 16) * 1rem) + (var(--fc-l-max) - var(--fc-l-min)) * var(--fluid-bp))',
+        l: getConfigFluidValue(32, 40),
         // 48 - 60
-        xl: 'calc(((var(--fc-xl-min) / 16) * 1rem) + (var(--fc-xl-max) - var(--fc-xl-min)) * var(--fluid-bp))',
+        xl: getConfigFluidValue(48, 60),
         // 64 - 80
-        '2xl':
-          'calc(((var(--fc-2xl-min) / 16) * 1rem) + (var(--fc-2xl-max) - var(--fc-2xl-min)) * var(--fluid-bp))',
+        '2xl': getConfigFluidValue(64, 80),
         // 96 - 120
-        '3xl':
-          'calc(((var(--fc-3xl-min) / 16) * 1rem) + (var(--fc-3xl-max) - var(--fc-3xl-min)) * var(--fluid-bp))',
+        '3xl': getConfigFluidValue(96, 120),
         // TODO: Potentially add space steps (S-M, ...etc.)
       },
       sizes: {
