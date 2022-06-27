@@ -1,17 +1,21 @@
-import { WithChildren } from '@utils/common/types/with-children';
+import React from 'react';
 import { BackToLink } from './BackToLink';
 import { Box } from './Box';
 import { Stack } from './Stack';
 import { PageHeader, Paragraph } from './Text';
 
-export const ProseLayout = ({ children }: WithChildren) => {
+export const ProseLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <Stack gap='xl' as='article'>
       {children}
     </Stack>
   );
 };
-export const ProseLayoutContent = ({ children }: WithChildren) => {
+export const ProseLayoutContent = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   return <div>{children}</div>;
 };
 
@@ -34,7 +38,7 @@ export const ProseLayoutHeader = ({
   headline,
   description,
   children,
-}: ProseLayoutHeaderProps & WithChildren) => {
+}: React.PropsWithChildren<ProseLayoutHeaderProps>) => {
   return (
     <Stack gap='xl'>
       <Box

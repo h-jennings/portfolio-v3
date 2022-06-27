@@ -1,4 +1,4 @@
-import { WithChildren } from '@utils/common/types/with-children';
+import * as React from 'react';
 import { Box } from './Box';
 import { Stack } from './Stack';
 import { Text } from './Text';
@@ -9,7 +9,7 @@ interface ImageContainerProps {
 export const ImageContainer = ({
   caption,
   children,
-}: ImageContainerProps & WithChildren) => {
+}: React.PropsWithChildren<ImageContainerProps>) => {
   return (
     <Stack gap='xs' css={{ pt: '$xs', pb: '$xs' }}>
       <Box

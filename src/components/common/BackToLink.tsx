@@ -1,5 +1,5 @@
-import { WithChildren } from '@utils/common/types/with-children';
 import NextLink from 'next/link';
+import * as React from 'react';
 import ArrowLeftIcon from './icons/ArrowLeftIcon';
 import { LinkBox, LinkOverlay } from './LinkBox';
 import { Stack } from './Stack';
@@ -12,7 +12,7 @@ interface BackToLinkProps {
 export const BackToLink = ({
   children,
   href,
-}: BackToLinkProps & WithChildren): JSX.Element => {
+}: React.PropsWithChildren<BackToLinkProps>): JSX.Element => {
   return (
     <LinkBox>
       <Stack css={{ mb: '$m' }} direction='row' gap='xs'>

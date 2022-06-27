@@ -1,11 +1,15 @@
 import { styled } from '@/stitches.config';
-import { WithChildren } from '@utils/common/types/with-children';
 import { DefaultSeo } from 'next-seo';
 import SEO from 'next-seo.config';
+import * as React from 'react';
 import { Footer } from './Footer';
 import { Navigation } from './Navigation';
 
-export const RootLayout = ({ children }: WithChildren): JSX.Element => {
+export const RootLayout = ({
+  children,
+}: {
+  children: React.ReactNode;
+}): JSX.Element => {
   return (
     <>
       <DefaultSeo {...SEO} />
