@@ -23,10 +23,10 @@ import {
 import { getAllWritingsData } from '@utils/common/helpers/mdx-data.helpers';
 import { getMetaImage } from '@utils/common/helpers/meta-image.helpers';
 import { MdxData } from '@utils/common/types/mdx-data';
-import { WithChildren } from '@utils/common/types/with-children';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { NextSeo, NextSeoProps } from 'next-seo';
 import NextLink from 'next/link';
+import * as React from 'react';
 
 const title = 'Home | Hunter Jennings';
 const SEO: NextSeoProps = {
@@ -252,7 +252,7 @@ interface ConnectLinkListItemProps {
 const ConnectLinkListItem = ({
   label,
   children,
-}: ConnectLinkListItemProps & WithChildren) => {
+}: React.PropsWithChildren<ConnectLinkListItemProps>) => {
   return (
     <Grid align='center' as='li' gap='s' columns='3'>
       <H3 size='1' leading='tight'>
