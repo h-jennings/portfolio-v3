@@ -17,9 +17,9 @@ export interface WeatherData {
 }
 export function mapResponseData(data: OpenWeatherResponse): WeatherData {
   return {
-    temp: data?.main?.temp,
-    description: data?.weather[0]?.description,
-    icon: data?.weather[0]?.icon,
+    temp: data.main.temp,
+    description: data.weather[0].description,
+    icon: data.weather[0].icon,
   };
 }
 
@@ -37,6 +37,7 @@ export const weatherDataMachine = dataMachine<WeatherData>(
         catchError((err: Error | ZodError) => {
           if (err instanceof ZodError) {
             err.format();
+            // eslint-disable-next-line no-console
             console.error(err);
           }
           return of({ type: 'ERROR', data: { message: err.message } });

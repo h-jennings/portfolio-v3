@@ -8,7 +8,7 @@ export function useVisualViewportHeight(): void {
     const root = document.documentElement;
 
     const setVisualVhProperty = (): void => {
-      const vh = window?.visualViewport?.height ?? window.innerHeight;
+      const vh = window.visualViewport.height;
       root.style.setProperty('--vh', `${vh}px`);
     };
 
