@@ -1,5 +1,5 @@
 import { lightTheme } from '@/stitches.config';
-import '@/styles/global.scss';
+import '@/styles/global.css';
 import { RootLayout } from '@components/common/layout/RootLayout';
 import { useVisualViewportHeight } from '@utils/common/hooks/use-visual-viewport-height';
 import { ThemeProvider } from 'next-themes';
