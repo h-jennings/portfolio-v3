@@ -23,7 +23,7 @@ export type DataFetchMachineEvent<TResponseData> =
       type: 'CANCEL';
     };
 
-export const dataMachine = <TResponseData extends { [key: string]: any }>(
+export const dataMachine = <TResponseData extends Record<string, any>>(
   id: string,
 ) => {
   return createMachine<
@@ -97,7 +97,8 @@ export const dataMachine = <TResponseData extends { [key: string]: any }>(
         }),
         assignErrorToContext: assign((_context, event: any) => {
           return {
-            errorMessage: event.data?.message || 'An unknown error occurred',
+            // eslint-disable-next-line
+            errorMessage: event?.data?.message ?? 'An unknown error occurred',
           };
         }),
       },

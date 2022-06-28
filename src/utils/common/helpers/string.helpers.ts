@@ -12,7 +12,6 @@ export function parseTagsToString(tags: string[]): string {
 }
 
 export function commaSeparated(strings: string[]): string {
-  if (strings === undefined) return '';
   return strings.reduce((acc, str, idx) => {
     if (idx === 0) {
       return `${str}`;
