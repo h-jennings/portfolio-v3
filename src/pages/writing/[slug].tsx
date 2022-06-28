@@ -26,7 +26,6 @@ import {
 import { serialize } from 'next-mdx-remote/serialize';
 import { NextSeo, NextSeoProps } from 'next-seo';
 import Image from 'next/image';
-import remarkTwoslash from 'remark-shiki-twoslash';
 
 const Writing = ({
   source,
@@ -119,9 +118,6 @@ export const getStaticProps: GetStaticProps<{
     content,
     {
       scope: metaData,
-      mdxOptions: {
-        remarkPlugins: [[remarkTwoslash, { theme: 'poimandres' }]],
-      },
     },
   );
 
