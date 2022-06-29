@@ -10,7 +10,7 @@ export interface ProjectMeta {
   path: `${typeof PATHS.work}/${string}`;
 }
 
-const sharedProjectData: Record<
+const SHARED_PROJECT_DATA: Record<
   ProjectIdentifiers,
   Pick<ProjectMeta, 'client' | 'project' | 'path' | 'images'>
 > = {
@@ -45,19 +45,19 @@ const sharedProjectData: Record<
 
 export const PROJECT_METADATA: Record<ProjectIdentifiers, ProjectMeta> = {
   dwr: {
-    ...sharedProjectData.dwr,
+    ...SHARED_PROJECT_DATA.dwr,
     description:
       'A supply chain management application which provided insights and analysis for the U.S. Department of Defense.',
     tags: ['Development', 'Design'],
   },
   nfip: {
-    ...sharedProjectData.nfip,
+    ...SHARED_PROJECT_DATA.nfip,
     description:
       "An expansive suite of microservices for FEMA's National Flood Insurance Program.",
     tags: ['Development'],
   },
   'portfolio-v2': {
-    ...sharedProjectData['portfolio-v2'],
+    ...SHARED_PROJECT_DATA['portfolio-v2'],
     description:
       "Hunter's previous portfolio of work. Built with TypeScript and React on Next.js",
     tags: ['Development', 'Design'],
@@ -77,7 +77,7 @@ export type ProjectPageData = Pick<
 };
 export const PROJECT_PAGE_DATA: Record<ProjectIdentifiers, ProjectPageData> = {
   dwr: {
-    ...sharedProjectData.dwr,
+    ...SHARED_PROJECT_DATA.dwr,
     contributions: ['Development', 'Design Systems', 'Architecture', 'Tooling'],
     metaImage: '/images/work/dwr/dwr-phones-wide.jpg',
     details:
@@ -96,7 +96,7 @@ export const PROJECT_PAGE_DATA: Record<ProjectIdentifiers, ProjectPageData> = {
     ],
   },
   nfip: {
-    ...sharedProjectData.nfip,
+    ...SHARED_PROJECT_DATA.nfip,
     contributions: ['Development', 'Design Systems', 'Architecture', 'Tooling'],
     metaImage: '/images/work/nfip/nfip-laptop-wide.jpg',
     details: `The National Flood Insurance Program's (NFIP) PIVOT is an expansive suite of web-based microservices that, collectively, facilitate how insurance companies work with the federal government and assist flood victims across the country—faced with the disaster of loosing their home.`,
@@ -112,7 +112,7 @@ export const PROJECT_PAGE_DATA: Record<ProjectIdentifiers, ProjectPageData> = {
     ],
   },
   'portfolio-v2': {
-    ...sharedProjectData['portfolio-v2'],
+    ...SHARED_PROJECT_DATA['portfolio-v2'],
     contributions: ['Development', 'Design', 'Design System'],
     metaImage: '/images/work/portfolio-v2/portfolio-v2-desktop-wide.jpg',
     dates: '2019 - 2021',

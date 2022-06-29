@@ -2,8 +2,10 @@
 import { styled } from '@/stitches.config';
 import { BackToLink } from '@components/common/BackToLink';
 import { Box } from '@components/common/Box';
+import { ButtonLink } from '@components/common/CustomLink';
 import { Flex } from '@components/common/Flex';
 import { Grid } from '@components/common/Grid';
+import { ArrowTopRightIcon } from '@components/common/icons/ArrowTopRightIcon';
 import {
   ScrollContainerArea,
   ScrollContainerScrollbar,
@@ -15,7 +17,6 @@ import {
   BodyText,
   H2,
   H3,
-  Link,
   PageHeader,
   Paragraph,
 } from '@components/common/Text';
@@ -124,7 +125,7 @@ const Project = ({
             </H3>
             <BodyText>{projectData.details}</BodyText>
           </Stack>
-          <Grid gap='s' columns='3'>
+          <Grid gap='m' columns='3'>
             <Stack gap='xs'>
               <H3 color='2' size='1' leading='tight'>
                 Contributions
@@ -140,7 +141,7 @@ const Project = ({
                 ))}
               </Flex>
             </Stack>
-            <Stack gap='l'>
+            <Stack css={{ gridColumn: 'span 2 / -1' }} gap='m'>
               <Stack gap='xs' css={{ gridColumn: '2 / span 2' }}>
                 <H3 color='2' size='1' leading='tight'>
                   Dates
@@ -149,19 +150,17 @@ const Project = ({
                   {projectData.dates}
                 </Paragraph>
               </Stack>
-              {projectData.url ? (
-                <div>
-                  <Link
+              <div>
+                {projectData.url ? (
+                  <ButtonLink
+                    title={`Visit ${projectData.url}`}
                     href={projectData.url}
-                    color='2'
-                    size='1'
-                    underline='whileHover'
-                    leading='tight'
                   >
-                    Link to the site
-                  </Link>
-                </div>
-              ) : null}
+                    <span>Visit Site</span>
+                    <ArrowTopRightIcon />
+                  </ButtonLink>
+                ) : null}
+              </div>
             </Stack>
           </Grid>
         </Stack>
