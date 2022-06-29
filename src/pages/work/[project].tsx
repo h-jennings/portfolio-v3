@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { styled } from '@/stitches.config';
 import { BackToLink } from '@components/common/BackToLink';
 import { Box } from '@components/common/Box';
@@ -21,6 +20,7 @@ import {
   Paragraph,
 } from '@components/common/Text';
 import { ProjectLinks } from '@components/work/ProjectLinks';
+import * as AspectRatio from '@radix-ui/react-aspect-ratio';
 import { PATHS } from '@utils/common/constants/paths.constants';
 import { getMetaImage } from '@utils/common/helpers/meta-image.helpers';
 import {
@@ -42,7 +42,6 @@ const Project = ({
   const title = `${projectData.project} | Hunter Jennings`;
   const url = `${PATHS.base}${projectData.path}`;
   const image = projectData.metaImage;
-  const [imageLeft, imageRight] = projectData.images;
   const SEO: NextSeoProps = {
     title,
     canonical: url,
@@ -80,43 +79,26 @@ const Project = ({
               <ScrollContainerThumb />
             </ScrollContainerScrollbar>
             <ScrollContainerViewport>
-              <Grid
-                gap='s'
-                css={{
-                  mb: '$l',
-                  gtc: 'repeat(3, 40%)',
-                  '@bp1': { mb: 'unset', gtc: 'repeat(3, 1fr)' },
-                }}
-              >
-                <ImageContainer
-                  css={{
-                    gridColumn: '1 / span 2',
-                  }}
-                >
-                  <Image
-                    src={imageLeft}
-                    alt=''
-                    layout='responsive'
-                    blurDataURL={imageLeft}
-                    placeholder='blur'
-                    width={460}
-                    height={275}
-                    quality={95}
-                  />
-                </ImageContainer>
-                <ImageContainer>
-                  <Image
-                    src={imageRight}
-                    alt=''
-                    layout='responsive'
-                    blurDataURL={imageLeft}
-                    placeholder='blur'
-                    width={220}
-                    height={275}
-                    quality={95}
-                  />
-                </ImageContainer>
-              </Grid>
+              <ImageGrid gap='s'>
+                {projectData.media.map(({ type, url }, idx) => {
+                  const isEven = (idx + 1) % 2 === 0;
+                  const width = isEven ? 220 : 460;
+                  const height = 275;
+
+                  const item = (idx % 3) as 0 | 1 | 2;
+
+                  return (
+                    <MediaContainer key={idx} item={item}>
+                      <RenderMedia
+                        type={type}
+                        url={url}
+                        width={width}
+                        height={height}
+                      />
+                    </MediaContainer>
+                  );
+                })}
+              </ImageGrid>
             </ScrollContainerViewport>
           </ScrollContainerArea>
           <Stack gap='xs'>
@@ -174,6 +156,122 @@ const Project = ({
     </>
   );
 };
+interface MediaProps {
+  url: string;
+  width: number;
+  height: number;
+}
+
+type ImageProps = {
+  type: 'image';
+} & MediaProps;
+
+type VideoProps = {
+  type: 'video';
+} & MediaProps;
+
+const RenderMedia = (props: ImageProps | VideoProps) => {
+  const Component = (() => {
+    switch (props.type) {
+      case 'image':
+        return <ImageMedia {...props} />;
+      case 'video':
+        return <VideoMedia {...props} />;
+      default:
+        return null;
+    }
+  })();
+
+  return Component;
+};
+
+const ImageMedia = (props: ImageProps) => {
+  const { url, width, height } = props;
+  return (
+    <Image
+      src={url}
+      alt=''
+      layout='responsive'
+      blurDataURL={url}
+      placeholder='blur'
+      objectFit='cover'
+      width={width}
+      height={height}
+      quality={95}
+    />
+  );
+};
+
+const VideoMedia = (props: VideoProps) => {
+  const { url, width, height } = props;
+  return (
+    <AspectRatio.Root ratio={width / height}>
+      <video
+        src={url}
+        style={{
+          objectFit: 'cover',
+          height: '100%',
+        }}
+        autoPlay
+        muted
+        loop
+        playsInline
+        controls={false}
+      />
+    </AspectRatio.Root>
+  );
+};
+
+const MediaContainer = styled('div', {
+  borderRadius: '15px',
+  isolation: 'isolate',
+  overflow: 'hidden',
+  height: '$full',
+  backgroundColor: '$slate8',
+  variants: {
+    item: {
+      0: {
+        gridColumn: '1 / span 2',
+      },
+      1: {
+        gridColumn: '3 / -1',
+      },
+      2: {
+        gridColumn: '1 / -1',
+      },
+    },
+  },
+});
+
+const ImageGrid = styled(Grid, {
+  mb: '$l',
+  gtc: 'repeat(3, 40%)',
+  '@bp1': { mb: 'unset', gtc: 'repeat(3, 1fr)' },
+});
+
+const Chip = styled('li', {
+  px: '$2xs',
+  py: '$3xs',
+  whiteSpace: 'nowrap',
+  borderRadius: '$pill',
+  fontSize: 12,
+  lineHeight: '$tight',
+  variants: {
+    variant: {
+      darker: {
+        backgroundColor: '$gold5',
+        color: '$gold10',
+      },
+      default: {
+        backgroundColor: '$gold7',
+        color: '$gold10',
+      },
+    },
+  },
+  defaultVariants: {
+    variant: 'default',
+  },
+});
 
 export const getStaticPaths: GetStaticPaths = () => {
   const paths = Object.keys(PROJECT_PAGE_DATA).map((pageId) => ({
@@ -210,35 +308,5 @@ export const getStaticProps: GetStaticProps<{
     },
   };
 };
-
-const ImageContainer = styled('div', {
-  borderRadius: '15px',
-  overflow: 'hidden',
-  backgroundColor: '$slate8',
-});
-
-const Chip = styled('li', {
-  px: '$2xs',
-  py: '$3xs',
-  whiteSpace: 'nowrap',
-  borderRadius: '$pill',
-  fontSize: 12,
-  lineHeight: '$tight',
-  variants: {
-    variant: {
-      darker: {
-        backgroundColor: '$gold5',
-        color: '$gold10',
-      },
-      default: {
-        backgroundColor: '$gold7',
-        color: '$gold10',
-      },
-    },
-  },
-  defaultVariants: {
-    variant: 'default',
-  },
-});
 
 export default Project;

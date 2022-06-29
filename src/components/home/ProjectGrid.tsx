@@ -17,10 +17,9 @@ import {
 } from '@utils/work/constants/projects.constants';
 import Image from 'next/image';
 import NextLink from 'next/link';
-import * as React from 'react';
 
 export const ProjectGrid = (): JSX.Element => {
-  const projectEntries = Object.entries(PROJECT_METADATA);
+  const firstThreeProjectEntries = Object.entries(PROJECT_METADATA).slice(0, 3);
   return (
     <ScrollContainerArea>
       <ScrollContainerScrollbar orientation='horizontal'>
@@ -28,7 +27,7 @@ export const ProjectGrid = (): JSX.Element => {
       </ScrollContainerScrollbar>
       <ScrollContainerViewport>
         <Stack gap='s' css={{ mb: '$l' }} direction='row'>
-          {projectEntries.map(([, project], idx) => (
+          {firstThreeProjectEntries.map(([, project], idx) => (
             <Card key={idx} project={project} />
           ))}
         </Stack>
@@ -41,10 +40,9 @@ interface CardProps {
   project: ProjectMeta;
 }
 const Card = ({
-  project: { tags, project, path, images },
+  project: { tags, project, path, featureImage },
 }: CardProps): JSX.Element => {
   const tagsString = parseTagsToString(tags);
-  const [, image] = images;
 
   return (
     <Box
@@ -62,11 +60,11 @@ const Card = ({
         <Stack gap='s'>
           <ProjectImageContainer>
             <Image
-              src={image}
+              src={featureImage}
               priority
               alt=''
               layout='responsive'
-              blurDataURL={image}
+              blurDataURL={featureImage}
               placeholder='blur'
               width={220}
               height={275}
