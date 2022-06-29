@@ -1,5 +1,5 @@
 import { styled } from '@/stitches.config';
-import { CustomLink } from '@components/common/CustomLink';
+import { StyledLink } from '@components/common/CustomLink';
 import { Flex } from '@components/common/Flex';
 import { Grid } from '@components/common/Grid';
 import { ArrowRightIcon } from '@components/common/icons/ArrowRightIcon';
@@ -85,13 +85,14 @@ const Index = ({
             </Paragraph>
             <BodyText>
               Other stuff I&apos;m working on{' '}
-              <CustomLink
+              <StyledLink
                 data-cy='now-link'
-                css={{ color: '2', underline: true }}
+                color='2'
+                underline
                 href={PATHS.now}
               >
                 now
-              </CustomLink>
+              </StyledLink>
             </BodyText>
           </Stack>
         </Stack>
