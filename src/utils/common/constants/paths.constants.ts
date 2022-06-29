@@ -12,6 +12,9 @@ export const PATHS = {
   work: '/work',
   dwr: '/work/dwr',
   nfip: '/work/nfip',
+  'audible-quiz': '/work/audible-quiz',
+  audibleQuizUrl:
+    'https://www.audible.com/quiz/audible-beat-the-sunday-scaries-escape-the-room',
   portfolioV2: '/work/portfolio-v2',
   portfolioV2Url: 'https://v2.hunterjennings.dev',
   writings: './src/data/writings',

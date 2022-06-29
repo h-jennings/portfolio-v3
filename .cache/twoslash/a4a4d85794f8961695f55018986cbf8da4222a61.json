@@ -1,1 +1,0 @@
-{"code":"const test = 'something';","extension":"ts","highlights":[],"queries":[],"staticQuickInfos":[{"text":"const test: \"something\"","docs":"","start":6,"length":4,"line":0,"character":6,"targetString":"test"}],"errors":[],"playgroundURL":"https://www.typescriptlang.org/play/#code/MYewdgzgLgBFCm0YF4YHIIgLbygCwEswBzNAbiA","tags":[]}

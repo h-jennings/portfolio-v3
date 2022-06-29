@@ -1,1 +1,5 @@
-export type ProjectIdentifiers = 'portfolio-v2' | 'dwr' | 'nfip';
+export type ProjectIdentifiers =
+  | 'portfolio-v2'
+  | 'dwr'
+  | 'nfip'
+  | 'audible-quiz';
