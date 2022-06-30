@@ -12,11 +12,13 @@ describe('Core Navigation Works', () => {
     cy.url().should('include', PATHS.now);
   });
 
-  Object.entries(PROJECT_METADATA).forEach(([key, project]) => {
-    it(`should navigate to the ${key} page`, () => {
-      cy.get(`[data-testid="${project.path}"]`).click();
+  Object.entries(PROJECT_METADATA)
+    .slice(0, 3)
+    .forEach(([key, project]) => {
+      it(`should navigate to the ${key} page`, () => {
+        cy.get(`[data-testid="${project.path}"]`).click();
 
-      cy.url().should('include', project.path);
+        cy.url().should('include', project.path);
+      });
     });
-  });
 });
