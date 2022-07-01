@@ -24,9 +24,9 @@ export function groupDatesByYear(mdxData: MdxData[]) {
     mdxData.reduce((result, value) => {
       if (result[value.metaData.year] === undefined) {
         result[value.metaData.year] = [];
-      } else {
-        result[value.metaData.year]?.push(value);
       }
+
+      result[value.metaData.year]?.push(value);
 
       return result;
     }, {} as Record<string, MdxData[]>),
