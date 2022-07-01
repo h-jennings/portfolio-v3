@@ -16,10 +16,11 @@ export interface WeatherData {
   description: string | undefined;
 }
 export function mapResponseData(data: OpenWeatherResponse): WeatherData {
+  const weather = data.weather[0];
   return {
     temp: data.main.temp,
-    description: data.weather[0].description,
-    icon: data.weather[0].icon,
+    description: weather ? weather.description : undefined,
+    icon: weather ? weather.icon : undefined,
   };
 }
 

@@ -67,7 +67,7 @@ const Writings = ({
                       <Box
                         css={{
                           p: '$s',
-                          borderRadius: '5px',
+                          borderRadius: '$card',
                           backgroundColor: '$slate3',
                         }}
                       >

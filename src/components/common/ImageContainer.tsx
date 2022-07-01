@@ -14,7 +14,7 @@ export const ImageContainer = ({
     <Stack gap='xs' css={{ pt: '$xs', pb: '$xs' }}>
       <Box
         css={{
-          borderRadius: '15px',
+          borderRadius: '$card',
           overflow: 'hidden',
           backgroundColor: '$slate8',
         }}

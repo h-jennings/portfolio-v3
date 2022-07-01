@@ -102,6 +102,7 @@ export const { config, styled, getCssText, theme, createTheme, css } =
         none: 0,
         round: '50%',
         pill: '9999px',
+        card: '15px',
       },
     },
 

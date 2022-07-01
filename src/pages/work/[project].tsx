@@ -5,6 +5,7 @@ import { ButtonLink } from '@components/common/CustomLink';
 import { Flex } from '@components/common/Flex';
 import { Grid } from '@components/common/Grid';
 import { ArrowTopRightIcon } from '@components/common/icons/ArrowTopRightIcon';
+import { Media } from '@components/common/Media';
 import {
   ScrollContainerArea,
   ScrollContainerScrollbar,
@@ -20,7 +21,6 @@ import {
   Paragraph,
 } from '@components/common/Text';
 import { ProjectLinks } from '@components/work/ProjectLinks';
-import * as AspectRatio from '@radix-ui/react-aspect-ratio';
 import { PATHS } from '@utils/common/constants/paths.constants';
 import { getMetaImage } from '@utils/common/helpers/meta-image.helpers';
 import {
@@ -32,7 +32,6 @@ import {
 import { ProjectIdentifiers } from '@utils/work/types/projects';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import { NextSeo, NextSeoProps } from 'next-seo';
-import Image from 'next/image';
 
 const Project = ({
   projectData,
@@ -60,7 +59,7 @@ const Project = ({
       <Stack gap='3xl'>
         <Stack gap='xl'>
           <Box>
-            <BackToLink href={PATHS.home}>Back to home</BackToLink>
+            <BackToLink href={PATHS.work}>Back to work</BackToLink>
             <Flex
               wrap='wrap'
               direction={{ '@initial': 'column', '@bp2': 'row' }}
@@ -89,7 +88,7 @@ const Project = ({
 
                   return (
                     <MediaContainer key={idx} item={item}>
-                      <RenderMedia
+                      <Media
                         type={type}
                         url={url}
                         width={width}
@@ -156,74 +155,9 @@ const Project = ({
     </>
   );
 };
-interface MediaProps {
-  url: string;
-  width: number;
-  height: number;
-}
-
-type ImageProps = {
-  type: 'image';
-} & MediaProps;
-
-type VideoProps = {
-  type: 'video';
-} & MediaProps;
-
-const RenderMedia = (props: ImageProps | VideoProps) => {
-  const Component = (() => {
-    switch (props.type) {
-      case 'image':
-        return <ImageMedia {...props} />;
-      case 'video':
-        return <VideoMedia {...props} />;
-      default:
-        return null;
-    }
-  })();
-
-  return Component;
-};
-
-const ImageMedia = (props: ImageProps) => {
-  const { url, width, height } = props;
-  return (
-    <Image
-      src={url}
-      alt=''
-      layout='responsive'
-      blurDataURL={url}
-      placeholder='blur'
-      objectFit='cover'
-      width={width}
-      height={height}
-      quality={95}
-    />
-  );
-};
-
-const VideoMedia = (props: VideoProps) => {
-  const { url, width, height } = props;
-  return (
-    <AspectRatio.Root ratio={width / height}>
-      <video
-        src={url}
-        style={{
-          objectFit: 'cover',
-          height: '100%',
-        }}
-        autoPlay
-        muted
-        loop
-        playsInline
-        controls={false}
-      />
-    </AspectRatio.Root>
-  );
-};
 
 const MediaContainer = styled('div', {
-  borderRadius: '15px',
+  borderRadius: '$card',
   isolation: 'isolate',
   overflow: 'hidden',
   height: '$full',
