@@ -17,7 +17,8 @@ export interface ProjectMeta {
   project: string;
   client: string;
   featured?: boolean;
-  featureImage: string;
+  featureImageNarrow: string;
+  featureImageWide: ProjectMedia;
   media: ProjectMedia[];
   description: string;
   path: `${typeof PATHS.work}/${string}`;
@@ -27,7 +28,13 @@ const SHARED_PROJECT_DATA: Record<
   ProjectIdentifiers,
   Pick<
     ProjectMeta,
-    'client' | 'project' | 'featured' | 'path' | 'featureImage' | 'media'
+    | 'client'
+    | 'project'
+    | 'featured'
+    | 'path'
+    | 'featureImageNarrow'
+    | 'featureImageWide'
+    | 'media'
   >
 > = {
   'audible-quiz': {
@@ -35,7 +42,11 @@ const SHARED_PROJECT_DATA: Record<
     path: PATHS['audible-quiz'],
     project: 'Audible Lite Quiz',
     featured: true,
-    featureImage: '/images/work/audible-quiz/audible-quiz-narrow.jpg',
+    featureImageNarrow: '/images/work/audible-quiz/audible-quiz-narrow.jpg',
+    featureImageWide: {
+      type: 'video',
+      url: '/videos/work/audible-quiz/audible-quiz-video.mp4',
+    },
     media: [
       {
         type: 'image',
@@ -55,7 +66,12 @@ const SHARED_PROJECT_DATA: Record<
     client: 'Personal',
     path: PATHS.portfolioV2,
     project: 'Portfolio V2',
-    featureImage: '/images/work/portfolio-v2/portfolio-v2-phone-narrow.jpg',
+    featureImageNarrow:
+      '/images/work/portfolio-v2/portfolio-v2-phone-narrow.jpg',
+    featureImageWide: {
+      type: 'image',
+      url: '/images/work/portfolio-v2/portfolio-v2-desktop-wide.jpg',
+    },
     media: [
       {
         type: 'image',
@@ -71,7 +87,11 @@ const SHARED_PROJECT_DATA: Record<
     client: 'Department of Defense',
     path: PATHS.dwr,
     project: 'Digital War Room',
-    featureImage: '/images/work/dwr/dwr-logo-narrow.jpg',
+    featureImageNarrow: '/images/work/dwr/dwr-logo-narrow.jpg',
+    featureImageWide: {
+      type: 'image',
+      url: '/images/work/dwr/dwr-phones-wide.jpg',
+    },
     media: [
       {
         type: 'image',
@@ -87,7 +107,11 @@ const SHARED_PROJECT_DATA: Record<
     project: 'NFIP',
     client: 'FEMA',
     path: PATHS.nfip,
-    featureImage: '/images/work/nfip/nfip-logo-narrow.jpg',
+    featureImageNarrow: '/images/work/nfip/nfip-logo-narrow.jpg',
+    featureImageWide: {
+      type: 'image',
+      url: '/images/work/nfip/nfip-laptop-wide.jpg',
+    },
     media: [
       {
         type: 'image',

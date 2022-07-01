@@ -101,8 +101,7 @@ const Index = ({
         <Stack as='section' gap='s'>
           <Flex direction='row' justify='between' align='center'>
             <H2 leading='tight'>Selected work</H2>
-            {/* TODO: Add once work page is necessary */}
-            {/* <Grid
+            <Grid
               gap='2xs'
               justify='end'
               align='center'
@@ -114,7 +113,7 @@ const Index = ({
                 </Link>
               </NextLink>
               <ArrowRightIcon aria-hidden color='var(--colors-slate11)' />
-            </Grid> */}
+            </Grid>
           </Flex>
           <ProjectGrid />
         </Stack>
