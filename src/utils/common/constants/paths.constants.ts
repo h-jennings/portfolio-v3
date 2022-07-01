@@ -14,7 +14,7 @@ export const PATHS = {
   nfip: '/work/nfip',
   'audible-quiz': '/work/audible-quiz',
   audibleQuizUrl:
-    'https://www.audible.com/quiz/audible-beat-the-sunday-scaries-escape-the-room',
+    'https://www.audible.com/quiz/audible-beat-the-sunday-scaries-spa-day',
   portfolioV2: '/work/portfolio-v2',
   portfolioV2Url: 'https://v2.hunterjennings.dev',
   writings: './src/data/writings',
