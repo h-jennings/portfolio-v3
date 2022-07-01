@@ -1,9 +1,11 @@
-const title = ` Portfolio | Hunter Jennings`;
+const title = 'Portfolio';
 const description =
   'Hunter Jennings is a Frontend Developer based in Richmond, VA';
 
+/** @type {import('next-seo').NextSeoProps} */
 const SEO = {
   title,
+  titleTemplate: '%s | Hunter Jennings',
   description,
   canonical: process.env.NEXT_PUBLIC_URL,
   openGraph: {

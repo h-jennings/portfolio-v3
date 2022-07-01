@@ -34,7 +34,7 @@ export const getStaticProps: GetStaticProps<{
   };
 };
 const Now = ({ source }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const title = `Now | Hunter Jennings`;
+  const title = `Now`;
   const url = `${PATHS.base}${PATHS.now}`;
   const description = source.scope?.description;
   const image = source.scope?.image;

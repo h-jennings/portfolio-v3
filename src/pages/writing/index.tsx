@@ -3,6 +3,7 @@ import { BackToLink } from '@components/common/BackToLink';
 import { Box } from '@components/common/Box';
 import { Flex } from '@components/common/Flex';
 import { LinkBox, LinkOverlay } from '@components/common/LinkBox';
+import { Seo } from '@components/common/Seo';
 import { Stack } from '@components/common/Stack';
 import { H2, H3, PageHeader, Paragraph } from '@components/common/Text';
 import { PATHS } from '@utils/common/constants/paths.constants';
@@ -11,10 +12,8 @@ import {
   sortMdxDataByDateDesc,
 } from '@utils/common/helpers/date.helpers';
 import { getAllWritingsData } from '@utils/common/helpers/mdx-data.helpers';
-import { getMetaImage } from '@utils/common/helpers/meta-image.helpers';
 import { MdxData } from '@utils/common/types/mdx-data';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
-import { NextSeo, NextSeoProps } from 'next-seo';
 import NextLink from 'next/link';
 
 const Writings = ({
@@ -27,26 +26,13 @@ const Writings = ({
   const hasFeaturedWritings = featured.length > 0;
   const groupedWritings = groupDatesByYear(writingsData);
 
-  const title = `Writing | Hunter Jennings`;
-  const url = `${PATHS.base}${PATHS.writing}`;
-  const image = '/images/social-banner.jpg';
-  const description =
-    'Thoughts on software, books, life, and any opinions I have at a moment in time.';
-  const SEO: NextSeoProps = {
-    title,
-    canonical: url,
-    description,
-    openGraph: {
-      title,
-      url,
-      description,
-      ...getMetaImage(image),
-    },
-  };
-
   return (
     <>
-      <NextSeo {...SEO} />
+      <Seo
+        title='Writing'
+        url={`${PATHS.base}${PATHS.writing}`}
+        description='Thoughts on software, books, life, and any opinions I have at a moment in time.'
+      />
       <Stack gap='xl'>
         <Box>
           <BackToLink href={PATHS.home}>Back to home</BackToLink>

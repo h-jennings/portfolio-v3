@@ -1,16 +1,9 @@
 import { ErrorContent } from '@components/common/ErrorContent';
+import { Seo } from '@components/common/Seo';
 import { NextPage } from 'next';
-import { NextSeo } from 'next-seo';
 import Script from 'next/script';
 
 const Custom404: NextPage = () => {
-  const TITLE = 'Page Not Found | Hunter Jennings';
-  const SEO = {
-    title: TITLE,
-    openGraph: {
-      title: TITLE,
-    },
-  };
   return (
     <>
       <Script
@@ -21,7 +14,12 @@ const Custom404: NextPage = () => {
           `,
         }}
       />
-      <NextSeo {...SEO} noindex={true} nofollow={true} />
+      <Seo
+        title='Page Not Found'
+        description='Something went wrong.'
+        noindex={true}
+        nofollow={true}
+      />
       <ErrorContent statusCode={404} />
     </>
   );

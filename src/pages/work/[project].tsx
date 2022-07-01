@@ -12,6 +12,7 @@ import {
   ScrollContainerThumb,
   ScrollContainerViewport,
 } from '@components/common/ScrollContainer';
+import { Seo } from '@components/common/Seo';
 import { Stack } from '@components/common/Stack';
 import {
   BodyText,
@@ -22,7 +23,6 @@ import {
 } from '@components/common/Text';
 import { ProjectLinks } from '@components/work/ProjectLinks';
 import { PATHS } from '@utils/common/constants/paths.constants';
-import { getMetaImage } from '@utils/common/helpers/meta-image.helpers';
 import {
   ProjectMeta,
   ProjectPageData,
@@ -31,31 +31,20 @@ import {
 } from '@utils/work/constants/projects.constants';
 import { ProjectIdentifiers } from '@utils/work/types/projects';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
-import { NextSeo, NextSeoProps } from 'next-seo';
 
 const Project = ({
   projectData,
   projectIndex,
   description,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const title = `${projectData.project} | Hunter Jennings`;
-  const url = `${PATHS.base}${projectData.path}`;
-  const image = projectData.metaImage;
-  const SEO: NextSeoProps = {
-    title,
-    canonical: url,
-    description,
-    openGraph: {
-      title,
-      url,
-      description,
-      ...getMetaImage(image),
-    },
-  };
-
   return (
     <>
-      <NextSeo {...SEO} />
+      <Seo
+        title={projectData.project}
+        url={`${PATHS.base}${projectData.path}`}
+        description={description}
+        image={projectData.metaImage}
+      />
       <Stack gap='3xl'>
         <Stack gap='xl'>
           <Box>
