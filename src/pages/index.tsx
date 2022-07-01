@@ -21,21 +21,11 @@ import {
   sortMdxDataByDateDesc,
 } from '@utils/common/helpers/date.helpers';
 import { getAllWritingsData } from '@utils/common/helpers/mdx-data.helpers';
-import { getMetaImage } from '@utils/common/helpers/meta-image.helpers';
 import { MdxData } from '@utils/common/types/mdx-data';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
-import { NextSeo, NextSeoProps } from 'next-seo';
+import { NextSeo } from 'next-seo';
 import NextLink from 'next/link';
 import * as React from 'react';
-
-const title = 'Home | Hunter Jennings';
-const SEO: NextSeoProps = {
-  title,
-  openGraph: {
-    title,
-    ...getMetaImage('/images/social-banner.jpg'),
-  },
-};
 
 const Index = ({
   featuredWritings,
@@ -44,7 +34,12 @@ const Index = ({
 
   return (
     <>
-      <NextSeo {...SEO} />
+      <NextSeo
+        title='Home'
+        openGraph={{
+          title: 'Home',
+        }}
+      />
       <VisuallyHidden.Root>
         <H1>Home</H1>
       </VisuallyHidden.Root>

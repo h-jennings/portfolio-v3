@@ -6,13 +6,12 @@ import { Grid } from '@components/common/Grid';
 import { LinkBox, LinkOverlay } from '@components/common/LinkBox';
 import { Media } from '@components/common/Media';
 import { ProjectCard } from '@components/common/ProjectCard';
+import { Seo } from '@components/common/Seo';
 import { Stack } from '@components/common/Stack';
 import { H2, PageHeader, Paragraph } from '@components/common/Text';
 import { PATHS } from '@utils/common/constants/paths.constants';
-import { getMetaImage } from '@utils/common/helpers/meta-image.helpers';
 import { PROJECT_METADATA } from '@utils/work/constants/projects.constants';
 import { GetStaticProps } from 'next';
-import { NextSeo, NextSeoProps } from 'next-seo';
 import NextLink from 'next/link';
 
 const Work = () => {
@@ -22,25 +21,13 @@ const Work = () => {
     .filter(([, project]) => Boolean(project.featured))
     .map(([, project]) => project)[0];
 
-  const title = `Work | Hunter Jennings`;
-  const url = `${PATHS.base}${PATHS.work}`;
-  const image = '/images/social-banner.jpg';
-  const description = 'A curated collection of my work throughout the years.';
-  const SEO: NextSeoProps = {
-    title,
-    canonical: url,
-    description,
-    openGraph: {
-      title,
-      url,
-      description,
-      ...getMetaImage(image),
-    },
-  };
-
   return (
     <>
-      <NextSeo {...SEO} />
+      <Seo
+        title='Work'
+        description='A curated collection of my work throughout the years.'
+        url={`${PATHS.base}${PATHS.work}`}
+      />
       <Stack gap='xl'>
         <Box>
           <BackToLink href={PATHS.home}>Back to home</BackToLink>

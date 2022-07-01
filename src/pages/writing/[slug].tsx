@@ -32,7 +32,7 @@ const Writing = ({
   slug,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { scope } = source;
-  const title = `${scope?.title} | Hunter Jennings`;
+  const title = scope?.title;
   const url = `${PATHS.base}${PATHS.writing}/${slug}`;
   const image = source.scope?.image;
   const isDraft = scope?.status === 'draft';
