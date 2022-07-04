@@ -5,7 +5,7 @@ import { LinkBox, LinkOverlay } from '@components/common/LinkBox';
 import { Stack } from '@components/common/Stack';
 import { Text } from '@components/common/Text';
 import { PATHS } from '@utils/common/constants/paths.constants';
-import { ProjectMeta } from '@utils/work/constants/projects.constants';
+import { ProjectData } from '@utils/work/constants/projects.constants';
 import { prevNextProjectData } from '@utils/work/helpers/prev-next-project-data.helpers';
 import NextLink from 'next/link';
 import * as React from 'react';
@@ -43,7 +43,7 @@ export const ProjectLinks = ({
 };
 
 interface LinkProps {
-  meta: ProjectMeta;
+  meta: ProjectData;
   arrowDirection: 'left' | 'right';
   alignment: 'left' | 'right' | 'center';
 }

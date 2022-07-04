@@ -24,10 +24,8 @@ import {
 import { ProjectLinks } from '@components/work/ProjectLinks';
 import { PATHS } from '@utils/common/constants/paths.constants';
 import {
-  ProjectMeta,
-  ProjectPageData,
-  PROJECT_METADATA,
-  PROJECT_PAGE_DATA,
+  ProjectData,
+  PROJECT_DATA,
 } from '@utils/work/constants/projects.constants';
 import { ProjectIdentifiers } from '@utils/work/types/projects';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
@@ -43,7 +41,7 @@ const Project = ({
         title={projectData.project}
         url={`${PATHS.base}${projectData.path}`}
         description={description}
-        image={projectData.metaImage}
+        image={projectData.seoImage}
       />
       <Stack gap='3xl'>
         <Stack gap='xl'>
@@ -197,7 +195,7 @@ const Chip = styled('li', {
 });
 
 export const getStaticPaths: GetStaticPaths = () => {
-  const paths = Object.keys(PROJECT_PAGE_DATA).map((pageId) => ({
+  const paths = Object.keys(PROJECT_DATA).map((pageId) => ({
     params: {
       project: pageId,
     },
@@ -209,17 +207,15 @@ export const getStaticPaths: GetStaticPaths = () => {
 };
 
 export const getStaticProps: GetStaticProps<{
-  projectData: ProjectPageData;
+  projectData: ProjectData;
   projectIndex: number;
   description: string;
 }> = ({ params }) => {
   const project = params?.project;
 
-  const projectData: ProjectPageData =
-    PROJECT_PAGE_DATA[project as ProjectIdentifiers];
-  const projectMeta: ProjectMeta =
-    PROJECT_METADATA[project as ProjectIdentifiers];
-  const projectIndex = Object.keys(PROJECT_PAGE_DATA)
+  const projectData = PROJECT_DATA[project as ProjectIdentifiers];
+
+  const projectIndex = Object.keys(PROJECT_DATA)
     .map((key) => key)
     .indexOf(project as string);
 
@@ -227,7 +223,7 @@ export const getStaticProps: GetStaticProps<{
     props: {
       projectData,
       projectIndex,
-      description: projectMeta.description,
+      description: projectData.description,
     },
   };
 };
