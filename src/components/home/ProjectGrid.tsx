@@ -7,10 +7,10 @@ import {
   ScrollContainerViewport,
 } from '@components/common/ScrollContainer';
 import { Stack } from '@components/common/Stack';
-import { PROJECT_METADATA } from '@utils/work/constants/projects.constants';
+import { PROJECT_DATA } from '@utils/work/constants/projects.constants';
 
 export const ProjectGrid = (): JSX.Element => {
-  const firstThreeProjectEntries = Object.entries(PROJECT_METADATA).slice(0, 3);
+  const firstThreeProjectEntries = Object.entries(PROJECT_DATA).slice(0, 3);
   return (
     <ScrollContainerArea>
       <ScrollContainerScrollbar orientation='horizontal'>

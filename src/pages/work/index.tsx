@@ -10,12 +10,12 @@ import { Seo } from '@components/common/Seo';
 import { Stack } from '@components/common/Stack';
 import { H2, PageHeader, Paragraph } from '@components/common/Text';
 import { PATHS } from '@utils/common/constants/paths.constants';
-import { PROJECT_METADATA } from '@utils/work/constants/projects.constants';
+import { PROJECT_DATA } from '@utils/work/constants/projects.constants';
 import { GetStaticProps } from 'next';
 import NextLink from 'next/link';
 
 const Work = () => {
-  const projectEntries = Object.entries(PROJECT_METADATA);
+  const projectEntries = Object.entries(PROJECT_DATA);
 
   const featuredProject = projectEntries
     .filter(([, project]) => Boolean(project.featured))

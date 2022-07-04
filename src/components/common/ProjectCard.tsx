@@ -1,7 +1,7 @@
 import { styled } from '@/stitches.config';
 import { PATHS } from '@utils/common/constants/paths.constants';
 import { parseTagsToString } from '@utils/common/helpers/string.helpers';
-import { ProjectMeta } from '@utils/work/constants/projects.constants';
+import { ProjectData } from '@utils/work/constants/projects.constants';
 import Image from 'next/image';
 import NextLink from 'next/link';
 import { Box } from './Box';
@@ -10,7 +10,7 @@ import { Stack } from './Stack';
 import { H3, Paragraph } from './Text';
 
 interface ProjectCardProps {
-  project: ProjectMeta;
+  project: ProjectData;
 }
 export const ProjectCard = ({
   project: { tags, project, path, featureImageNarrow: featureImage },

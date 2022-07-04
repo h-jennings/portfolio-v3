@@ -1,5 +1,5 @@
 import { PATHS } from '@utils/common/constants/paths.constants';
-import { PROJECT_METADATA } from '@utils/work/constants/projects.constants';
+import { PROJECT_DATA } from '@utils/work/constants/projects.constants';
 
 describe('Core Navigation Works', () => {
   beforeEach(() => {
@@ -12,7 +12,7 @@ describe('Core Navigation Works', () => {
     cy.url().should('include', PATHS.now);
   });
 
-  Object.entries(PROJECT_METADATA)
+  Object.entries(PROJECT_DATA)
     .slice(0, 3)
     .forEach(([key, project]) => {
       it(`should navigate to the ${key} page`, () => {
