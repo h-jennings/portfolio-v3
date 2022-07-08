@@ -44,7 +44,7 @@ const Work = () => {
                   px: '$s',
                   pt: '$s',
                   pb: '$m',
-                  borderRadius: 15,
+                  borderRadius: 'calc($space$s + $card)',
                   backgroundColor: '$slate3',
                 }}
               >
