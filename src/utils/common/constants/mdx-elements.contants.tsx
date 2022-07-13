@@ -14,7 +14,6 @@ import {
   Text,
 } from '@components/common/Text';
 import { MDXRemoteProps } from 'next-mdx-remote';
-import * as React from 'react';
 
 export const MDX_ELEMENTS = {
   Text,

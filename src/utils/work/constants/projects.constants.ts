@@ -18,7 +18,7 @@ export interface ProjectData {
   project: string;
   featured?: boolean;
   featureImageNarrow: string;
-  featureImageWide: ProjectMedia;
+  featureMediaWide: ProjectMedia;
   seoImage: string;
   media: ProjectMedia[];
   contributions: string[];
@@ -36,7 +36,7 @@ export const PROJECT_DATA: Record<ProjectIdentifiers, ProjectData> = {
     project: 'Audible Lite Quiz',
     featured: true,
     featureImageNarrow: '/images/work/audible-quiz/audible-quiz-narrow.jpg',
-    featureImageWide: {
+    featureMediaWide: {
       type: 'video',
       url: '/videos/work/audible-quiz/audible-quiz-video.mp4',
     },
@@ -68,12 +68,40 @@ export const PROJECT_DATA: Record<ProjectIdentifiers, ProjectData> = {
     dates: '11/2021',
     url: PATHS.audibleQuizUrl,
   },
+  katy: {
+    client: 'Katy Pentz',
+    path: PATHS.katy,
+    project: 'Katy Site V2',
+    featureImageNarrow: '/images/work/katy/katy-phone-narrow.jpg',
+    featureMediaWide: {
+      type: 'image',
+      url: '/images/work/katy/katy-desktop-wide.jpg',
+    },
+    media: [
+      {
+        type: 'image',
+        url: '/images/work/katy/katy-desktop-wide.jpg',
+      },
+      {
+        type: 'image',
+        url: '/images/work/katy/katy-phone-narrow.jpg',
+      },
+    ],
+    seoImage: '/images/work/katy/katy-desktop-wide.jpg',
+    contributions: ['Development', 'Design', 'Next.js', 'GraphCMS'],
+    description:
+      'New personal site for Katy Pentz, a privacy professional based in Richmond, VA.',
+    tags: ['Development', 'Design'],
+    details: `A simple, but powerful personal site powered by GraphCMS, Next.js, and Stitches. The site is fully CMS-able and allows Katy to quickly and seemlessly update her site without any development involvement whatsoever.`,
+    dates: '07/2022',
+    url: PATHS.katyUrl,
+  },
   dwr: {
     client: 'Department of Defense',
     path: PATHS.dwr,
     project: 'Digital War Room',
     featureImageNarrow: '/images/work/dwr/dwr-logo-narrow.jpg',
-    featureImageWide: {
+    featureMediaWide: {
       type: 'image',
       url: '/images/work/dwr/dwr-phones-wide.jpg',
     },
@@ -102,7 +130,7 @@ export const PROJECT_DATA: Record<ProjectIdentifiers, ProjectData> = {
     project: 'Portfolio V2',
     featureImageNarrow:
       '/images/work/portfolio-v2/portfolio-v2-phone-narrow.jpg',
-    featureImageWide: {
+    featureMediaWide: {
       type: 'image',
       url: '/images/work/portfolio-v2/portfolio-v2-desktop-wide.jpg',
     },
@@ -131,7 +159,7 @@ export const PROJECT_DATA: Record<ProjectIdentifiers, ProjectData> = {
     client: 'FEMA',
     path: PATHS.nfip,
     featureImageNarrow: '/images/work/nfip/nfip-logo-narrow.jpg',
-    featureImageWide: {
+    featureMediaWide: {
       type: 'image',
       url: '/images/work/nfip/nfip-laptop-wide.jpg',
     },

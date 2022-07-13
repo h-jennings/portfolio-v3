@@ -51,8 +51,8 @@ const Work = () => {
                 <Stack gap='m'>
                   <FeaturedMediaContainer>
                     <Media
-                      type={featuredProject.featureImageWide.type}
-                      url={featuredProject.featureImageWide.url}
+                      type={featuredProject.featureMediaWide.type}
+                      url={featuredProject.featureMediaWide.url}
                       width={460}
                       height={275}
                     />
