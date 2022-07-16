@@ -9,11 +9,19 @@
     "analyze": "cross-env ANALYZE=true next build",
     "start": "next start",
     "lint": "next lint",
+    "lint:staged": "lint-staged",
     "upgrade-deps": "ncu -u -i",
     "cypress": "cypress open",
     "cypress:headless": "cypress run",
     "e2e": "npm run build && start-server-and-test start http://localhost:3000 cypress",
-    "e2e:headless": "npm run build && start-server-and-test start http://localhost:3000 cypress:headless"
+    "e2e:headless": "npm run build && start-server-and-test start http://localhost:3000 cypress:headless",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "./src/**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "@radix-ui/colors": "^0.1.8",
@@ -59,7 +67,9 @@
     "eslint-plugin-cypress": "^2.12.1",
     "file-loader": "^6.2.0",
     "globby": "^13.1.2",
+    "husky": "^8.0.1",
     "identity-obj-proxy": "^3.0.0",
+    "lint-staged": "^13.0.3",
     "next-compose-plugins": "^2.2.1",
     "npm-check-updates": "^15.3.3",
     "prettier": "^2.7.1",
