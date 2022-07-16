@@ -8,6 +8,7 @@ import { PATHS } from '@utils/common/constants/paths.constants';
 import { ProjectData } from '@utils/work/constants/projects.constants';
 import { prevNextProjectData } from '@utils/work/helpers/prev-next-project-data.helpers';
 import NextLink from 'next/link';
+import { useRouter } from 'next/router';
 import * as React from 'react';
 
 const isNull = (val: any) => {
@@ -55,10 +56,7 @@ const ProjectLink = ({
 }: LinkProps): JSX.Element => {
   const linkOverlayRef = React.useRef<HTMLAnchorElement>(null);
   const justify = ALIGNMENT_LOOKUP[alignment];
-
-  const clearFocus = () => {
-    linkOverlayRef.current?.blur();
-  };
+  const { asPath } = useRouter();
 
   return (
     <LinkContainer
@@ -77,9 +75,9 @@ const ProjectLink = ({
           ) : null}
           <NextLink passHref href={`${PATHS.work}/[project]`} as={meta.path}>
             <LinkOverlay
+              key={asPath}
               ref={linkOverlayRef}
               className={hoverTextStyles()}
-              onClick={() => clearFocus()}
             >
               <Text leading='body' size='2'>
                 {meta.project}
