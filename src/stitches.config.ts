@@ -216,7 +216,7 @@ export const { config, styled, getCssText, theme, createTheme, css } =
         lineHeight: value,
       }),
 
-      hover: (val: Stitches.CSSProperties) => ({
+      hover: (val: Stitches.CSS) => ({
         '@media(hover: hover)': {
           '&:hover': val,
         },

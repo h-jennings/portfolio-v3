@@ -8,7 +8,9 @@ export function useVisualViewportHeight(): void {
     const root = document.documentElement;
 
     const setVisualVhProperty = (): void => {
-      const vh = window.visualViewport.height;
+      const v = window.visualViewport;
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      const vh = v?.height;
       root.style.setProperty('--vh', `${vh}px`);
     };
 
