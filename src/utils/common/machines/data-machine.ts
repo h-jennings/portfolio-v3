@@ -31,7 +31,8 @@ export const dataMachine = <TResponseData extends Record<string, any>>(
     DataFetchMachineEvent<TResponseData>
   >(
     {
-      id: id,
+      id,
+      preserveActionOrder: true,
       initial: 'idle',
       context: {},
       states: {

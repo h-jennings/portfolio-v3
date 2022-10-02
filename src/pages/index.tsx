@@ -75,13 +75,7 @@ const IntroductionSection = () => {
         <Paragraph>
           Currently working as a Frontend Developer for the award-winning
           digital creative agency&mdash;
-          <Link
-            target='_blank'
-            href={PATHS.seagulls}
-            rel='noreferrer'
-            underline='whileHover'
-            color='3'
-          >
+          <Link href={PATHS.seagulls} underline='whileHover' color='3'>
             Elegant Seagulls
           </Link>
           .
@@ -149,22 +143,24 @@ const WritingsSection = ({ writings }: WritingsSectionProps) => {
         </Grid>
       </Flex>
       <Stack as='ul' gap='m'>
-        {writings.map(({ fileName, metaData }) => (
-          <StyledListItem key={fileName} as='li'>
-            <div>
-              <NextLink
-                href={`${PATHS.writing}/[slug]`}
-                as={`${PATHS.writing}/${fileName.replace(/\.mdx?$/, '')}`}
-                passHref
-              >
-                <Link size='1'>{metaData.title}</Link>
-              </NextLink>
-            </div>
-            <Text size='1' family='serif' as='time' dateTime='2021-12-08'>
-              {parseDateToLongDateString(metaData.publishDate)}
-            </Text>
-          </StyledListItem>
-        ))}
+        {writings.map(({ fileName, metaData }) => {
+          return (
+            <StyledListItem key={fileName} as='li'>
+              <div>
+                <NextLink
+                  href={`${PATHS.writing}/[slug]`}
+                  as={`${PATHS.writing}/${fileName.replace(/\.mdx?$/, '')}`}
+                  passHref
+                >
+                  <Link size='1'>{metaData.title}</Link>
+                </NextLink>
+              </div>
+              <Text size='1' family='serif' as='time' dateTime='2021-12-08'>
+                {parseDateToLongDateString(metaData.publishDate)}
+              </Text>
+            </StyledListItem>
+          );
+        })}
       </Stack>
     </Stack>
   );
