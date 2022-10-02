@@ -2,6 +2,7 @@ export const PATHS = {
   github: 'https://github.com/h-jennings',
   twitter: 'https://twitter.com/jennings_hunter',
   linkedin: 'https://www.linkedin.com/in/hunter-jennings-591877b0/',
+  cv: 'https://read.cv/hunterjennings',
   seagulls: 'https://www.elegantseagulls.com/',
   email: 'mailto:jenningsdhunter@gmail.com',
   base: process.env.NEXT_PUBLIC_URL,
