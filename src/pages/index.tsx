@@ -183,9 +183,7 @@ const ConnectSection = () => {
         <Stack as='ul' gap='s'>
           <ConnectLinkListItem label='Twitter'>
             <Link
-              target='_blank'
               href={PATHS.twitter}
-              rel='noreferrer'
               size='1'
               color='2'
               leading='tight'
@@ -208,14 +206,23 @@ const ConnectSection = () => {
           <ConnectLinkListItem label='Github'>
             <Link
               css={{ d: 'inline-block' }}
-              target='_blank'
               href={PATHS.github}
-              rel='noreferrer'
               size='1'
               color='2'
               leading='tight'
             >
               h-jennings
+            </Link>
+          </ConnectLinkListItem>
+          <ConnectLinkListItem label='Resume'>
+            <Link
+              css={{ d: 'inline-block' }}
+              href={PATHS.cv}
+              size='1'
+              color='2'
+              leading='tight'
+            >
+              read.cv/hunterjennings
             </Link>
           </ConnectLinkListItem>
         </Stack>
