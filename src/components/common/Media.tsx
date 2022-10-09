@@ -8,19 +8,19 @@ interface MediaProps {
 }
 
 type ImageProps = {
-  type: 'image';
+  type: 'IMAGE';
 } & MediaProps;
 
 type VideoProps = {
-  type: 'video';
+  type: 'VIDEO';
 } & MediaProps;
 
 export const Media = (props: ImageProps | VideoProps) => {
   const Component = (() => {
     switch (props.type) {
-      case 'image':
+      case 'IMAGE':
         return <ImageMedia {...props} />;
-      case 'video':
+      case 'VIDEO':
         return <VideoMedia {...props} />;
       default:
         return null;

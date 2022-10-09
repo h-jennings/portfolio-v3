@@ -1,0 +1,34 @@
+query GetProject($slug: String!) {
+  projects(where: { slug: $slug }, first: 1) {
+    seo {
+      title
+      image {
+        url
+      }
+      description
+      hideFromSearch
+    }
+    slug
+    name
+    client {
+      name
+    }
+    featured
+    media {
+      id
+      mediaType
+      url
+      width
+      height
+    }
+    description {
+      raw
+    }
+    descriptionLong {
+      raw
+    }
+    contribution
+    date
+    link
+  }
+}
