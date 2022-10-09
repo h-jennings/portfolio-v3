@@ -2,9 +2,9 @@ import { getMetaImage } from '@utils/common/helpers/meta-image.helpers';
 import { NextSeo, NextSeoProps } from 'next-seo';
 
 interface SeoProps extends NextSeoProps {
-  title: string;
+  title?: string;
   url?: string;
-  description: string;
+  description?: string;
   image?: string;
 }
 

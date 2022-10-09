@@ -5,10 +5,10 @@ type ProjectMedia = {
   url: string;
 } & (
   | {
-      type: 'image';
+      type: 'IMAGE';
     }
   | {
-      type: 'video';
+      type: 'VIDEO';
     }
 );
 
@@ -37,20 +37,20 @@ export const PROJECT_DATA: Record<ProjectIdentifiers, ProjectData> = {
     featured: true,
     featureImageNarrow: '/images/work/audible-quiz/audible-quiz-narrow.jpg',
     featureMediaWide: {
-      type: 'video',
+      type: 'VIDEO',
       url: '/videos/work/audible-quiz/audible-quiz-video.mp4',
     },
     media: [
       {
-        type: 'image',
+        type: 'IMAGE',
         url: '/images/work/audible-quiz/audible-quiz-desktop-wide.jpg',
       },
       {
-        type: 'image',
+        type: 'IMAGE',
         url: '/images/work/audible-quiz/audible-quiz-narrow.jpg',
       },
       {
-        type: 'video',
+        type: 'VIDEO',
         url: '/videos/work/audible-quiz/audible-quiz-video.mp4',
       },
     ],
@@ -74,16 +74,16 @@ export const PROJECT_DATA: Record<ProjectIdentifiers, ProjectData> = {
     project: 'Katy Site V2',
     featureImageNarrow: '/images/work/katy/katy-phone-narrow.jpg',
     featureMediaWide: {
-      type: 'image',
+      type: 'IMAGE',
       url: '/images/work/katy/katy-desktop-wide.jpg',
     },
     media: [
       {
-        type: 'image',
+        type: 'IMAGE',
         url: '/images/work/katy/katy-desktop-wide.jpg',
       },
       {
-        type: 'image',
+        type: 'IMAGE',
         url: '/images/work/katy/katy-phone-narrow.jpg',
       },
     ],
@@ -102,16 +102,16 @@ export const PROJECT_DATA: Record<ProjectIdentifiers, ProjectData> = {
     project: 'Digital War Room',
     featureImageNarrow: '/images/work/dwr/dwr-logo-narrow.jpg',
     featureMediaWide: {
-      type: 'image',
+      type: 'IMAGE',
       url: '/images/work/dwr/dwr-phones-wide.jpg',
     },
     media: [
       {
-        type: 'image',
+        type: 'IMAGE',
         url: '/images/work/dwr/dwr-phones-wide.jpg',
       },
       {
-        type: 'image',
+        type: 'IMAGE',
         url: '/images/work/dwr/dwr-logo-narrow.jpg',
       },
     ],
@@ -131,16 +131,16 @@ export const PROJECT_DATA: Record<ProjectIdentifiers, ProjectData> = {
     featureImageNarrow:
       '/images/work/portfolio-v2/portfolio-v2-phone-narrow.jpg',
     featureMediaWide: {
-      type: 'image',
+      type: 'IMAGE',
       url: '/images/work/portfolio-v2/portfolio-v2-desktop-wide.jpg',
     },
     media: [
       {
-        type: 'image',
+        type: 'IMAGE',
         url: '/images/work/portfolio-v2/portfolio-v2-desktop-wide.jpg',
       },
       {
-        type: 'image',
+        type: 'IMAGE',
         url: '/images/work/portfolio-v2/portfolio-v2-phone-narrow.jpg',
       },
     ],
@@ -160,16 +160,16 @@ export const PROJECT_DATA: Record<ProjectIdentifiers, ProjectData> = {
     path: PATHS.nfip,
     featureImageNarrow: '/images/work/nfip/nfip-logo-narrow.jpg',
     featureMediaWide: {
-      type: 'image',
+      type: 'IMAGE',
       url: '/images/work/nfip/nfip-laptop-wide.jpg',
     },
     media: [
       {
-        type: 'image',
+        type: 'IMAGE',
         url: '/images/work/nfip/nfip-laptop-wide.jpg',
       },
       {
-        type: 'image',
+        type: 'IMAGE',
         url: '/images/work/nfip/nfip-logo-narrow.jpg',
       },
     ],

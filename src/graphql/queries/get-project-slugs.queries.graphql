@@ -1,0 +1,5 @@
+query GetProjectSlugs {
+  projects(first: 25) {
+    slug
+  }
+}

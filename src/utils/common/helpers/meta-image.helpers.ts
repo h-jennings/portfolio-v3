@@ -10,12 +10,10 @@ export const getMetaImage = (imageSrc: string | undefined) => {
       ],
     };
 
-  const imagePath = `${PATHS.base}${imageSrc}`;
-
   return {
     images: [
       {
-        url: imagePath,
+        url: imageSrc,
       },
     ],
   };

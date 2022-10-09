@@ -1,3 +1,11 @@
+import { projects } from '@/api/cms.api';
+import {
+  GetProjectDocument,
+  GetProjectQuery,
+  GetProjectQueryVariables,
+  useGetProjectQuery,
+} from '@/graphql/generated/types.generated';
+import { spawnHygraphCMSClientInstance, withUrqlSSR } from '@/graphql/urql';
 import { styled } from '@/stitches.config';
 import { BackToLink } from '@components/common/BackToLink';
 import { Box } from '@components/common/Box';
@@ -6,6 +14,7 @@ import { Flex } from '@components/common/Flex';
 import { Grid } from '@components/common/Grid';
 import { ArrowTopRightIcon } from '@components/common/icons/ArrowTopRightIcon';
 import { Media } from '@components/common/Media';
+import { RichText } from '@components/common/RichText';
 import {
   ScrollContainerArea,
   ScrollContainerScrollbar,
@@ -14,34 +23,42 @@ import {
 } from '@components/common/ScrollContainer';
 import { Seo } from '@components/common/Seo';
 import { Stack } from '@components/common/Stack';
-import {
-  BodyText,
-  H2,
-  H3,
-  PageHeader,
-  Paragraph,
-} from '@components/common/Text';
+import { H2, H3, PageHeader, Paragraph, Text } from '@components/common/Text';
 import { ProjectLinks } from '@components/work/ProjectLinks';
+import { RichTextContent } from '@graphcms/rich-text-types';
 import { PATHS } from '@utils/common/constants/paths.constants';
-import {
-  ProjectData,
-  PROJECT_DATA,
-} from '@utils/work/constants/projects.constants';
-import { ProjectIdentifiers } from '@utils/work/types/projects';
+import { getYear } from 'date-fns';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
+import { PHASE_PRODUCTION_BUILD } from 'next/constants';
+import { useRouter } from 'next/router';
 
 const Project = ({
-  projectData,
   projectIndex,
-  description,
+  slug,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const { query } = useRouter();
+  const { project: path } = query;
+  const [{ data }] = useGetProjectQuery({ variables: { slug } });
+  const { projects } = data ?? {};
+  const projectDataCMS = projects?.[0];
+  const {
+    name,
+    client,
+    seo,
+    media,
+    contribution,
+    date,
+    link,
+    descriptionLong,
+  } = projectDataCMS ?? {};
+
   return (
     <>
       <Seo
-        title={projectData.project}
-        url={`${PATHS.base}${projectData.path}`}
-        description={description}
-        image={projectData.seoImage}
+        title={seo?.title}
+        url={`${PATHS.base}/work/${path}`}
+        description={seo?.description ?? undefined}
+        image={seo?.image?.url}
       />
       <Stack gap='3xl'>
         <Stack gap='xl'>
@@ -54,10 +71,12 @@ const Project = ({
               justify='between'
               align='baseline'
             >
-              <PageHeader>{projectData.project}</PageHeader>
-              <H2 color='2' size='1'>
-                {projectData.client}
-              </H2>
+              <PageHeader>{name}</PageHeader>
+              {client?.name ? (
+                <H2 color='2' size='1'>
+                  {client.name}
+                </H2>
+              ) : null}
             </Flex>
           </Box>
           <ScrollContainerArea>
@@ -66,18 +85,24 @@ const Project = ({
             </ScrollContainerScrollbar>
             <ScrollContainerViewport>
               <ImageGrid gap='s'>
-                {projectData.media.map(({ type, url }, idx) => {
+                {media?.map(({ mediaType, url }, idx) => {
+                  if (mediaType == null) return null;
                   const isEven = (idx + 1) % 2 === 0;
                   const width = isEven ? 220 : 460;
                   const height = 275;
 
                   const item = (idx % 3) as 0 | 1 | 2;
 
+                  let u = url;
+                  if (mediaType === 'IMAGE') {
+                    u = transformImageUrl(url);
+                  }
+
                   return (
                     <MediaContainer key={idx} item={item}>
                       <Media
-                        type={type}
-                        url={url}
+                        type={mediaType}
+                        url={u}
                         width={width}
                         height={height}
                       />
@@ -91,7 +116,9 @@ const Project = ({
             <H3 color='2' size='1' leading='tight'>
               Description
             </H3>
-            <BodyText>{projectData.details}</BodyText>
+            {descriptionLong ? (
+              <RichText content={descriptionLong.raw as RichTextContent} />
+            ) : null}
           </Stack>
           <Grid gap='m' columns='3'>
             <Stack gap='xs'>
@@ -99,12 +126,9 @@ const Project = ({
                 Contributions
               </H3>
               <Flex gap='2xs' as='ul' wrap='wrap'>
-                {projectData.contributions.map((contribution, i) => (
-                  <Chip
-                    key={contribution}
-                    variant={i % 2 === 0 ? 'default' : 'darker'}
-                  >
-                    {contribution}
+                {contribution?.map((c, i) => (
+                  <Chip key={c} variant={i % 2 === 0 ? 'default' : 'darker'}>
+                    {c}
                   </Chip>
                 ))}
               </Flex>
@@ -115,15 +139,19 @@ const Project = ({
                   Dates
                 </H3>
                 <Paragraph leading='tight' size='1'>
-                  {projectData.dates}
+                  {date?.map((d, i) => {
+                    return (
+                      <Text key={i} leading='tight' size='1'>
+                        {i > 0 ? ' - ' : ''}
+                        {getYear(new Date(d as string))}
+                      </Text>
+                    );
+                  })}
                 </Paragraph>
               </Stack>
               <div>
-                {projectData.url ? (
-                  <ButtonLink
-                    title={`Visit ${projectData.url}`}
-                    href={projectData.url}
-                  >
+                {link ? (
+                  <ButtonLink title={`Visit ${link}`} href={link}>
                     <span>Visit Site</span>
                     <ArrowTopRightIcon />
                   </ButtonLink>
@@ -141,6 +169,16 @@ const Project = ({
       </Stack>
     </>
   );
+};
+
+const transformImageUrl = (url: string) => {
+  const CDN_URL = /https:\/\/media.graphassets.com\//;
+  if (CDN_URL.test(url)) {
+    const x = url.split(CDN_URL);
+    const assetId = x[1] ?? '';
+    return `https://media.graphassets.com/output=format:webp/quality=value:90/${assetId}`;
+  }
+  return url;
 };
 
 const MediaContainer = styled('div', {
@@ -194,38 +232,62 @@ const Chip = styled('li', {
   },
 });
 
-export const getStaticPaths: GetStaticPaths = () => {
-  const paths = Object.keys(PROJECT_DATA).map((pageId) => ({
-    params: {
-      project: pageId,
-    },
-  }));
+export const getStaticPaths: GetStaticPaths = async () => {
+  const data = await projects.fetch();
+
+  if (process.env.NEXT_PHASE === PHASE_PRODUCTION_BUILD) {
+    await projects.cache.set(data);
+  }
+
+  const paths = data.projects.map((p) => {
+    const { slug } = p;
+    return {
+      params: { project: slug },
+    };
+  });
+
   return {
     paths,
-    fallback: false,
+    fallback: 'blocking',
   };
 };
 
 export const getStaticProps: GetStaticProps<{
-  projectData: ProjectData;
   projectIndex: number;
-  description: string;
-}> = ({ params }) => {
-  const project = params?.project;
+  preview: boolean;
+  slug: string;
+}> = async ({ params, preview = false }) => {
+  const slug = params?.project;
+  const { client, ssrCache } = spawnHygraphCMSClientInstance(preview);
+  const projectData = await client
+    ?.query<GetProjectQuery, GetProjectQueryVariables>(GetProjectDocument, {
+      slug: slug as string,
+    })
+    .toPromise();
 
-  const projectData = PROJECT_DATA[project as ProjectIdentifiers];
+  if (!projectData?.data?.projects[0]) {
+    return {
+      notFound: true,
+    };
+  }
 
-  const projectIndex = Object.keys(PROJECT_DATA)
-    .map((key) => key)
-    .indexOf(project as string);
+  let p = await projects.cache.get();
+
+  if (!p) {
+    p = await projects.fetch();
+  }
+
+  const slugs = p.projects.map((proj) => proj.slug);
+  const projectIndex = slugs.indexOf(slug as string);
 
   return {
     props: {
-      projectData,
+      urqlState: ssrCache.extractData(),
       projectIndex,
-      description: projectData.description,
+      preview,
+      slug: slug as string,
     },
   };
 };
 
-export default Project;
+export default withUrqlSSR(Project);
