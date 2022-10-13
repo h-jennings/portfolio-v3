@@ -33,7 +33,10 @@ export const ProjectGrid = ({ count }: { count: number }): JSX.Element => {
                 },
               }}
             >
-              <ProjectCard project={project} />
+              <ProjectCard
+                project={project}
+                sizes='(max-width: 590px) 90vw, (max-width: 767px) 45vw, 220px'
+              />
             </Box>
           ))}
         </Stack>

@@ -64,6 +64,7 @@ const Work = () => {
                         url={featuredProject.featureMediaWide.url}
                         width={460}
                         height={275}
+                        sizes='(max-width) 100vw, 460px'
                       />
                     </FeaturedMediaContainer>
                   ) : null}
@@ -114,7 +115,10 @@ const Work = () => {
             {projects?.map((project) => {
               return (
                 <li key={project.id}>
-                  <ProjectCard project={project} />
+                  <ProjectCard
+                    project={project}
+                    sizes='(max-width: 449px) 100vw, (max-width: 767px) 50vw, 220px'
+                  />
                 </li>
               );
             })}

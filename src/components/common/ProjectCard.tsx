@@ -2,27 +2,27 @@ import { GetProjectsQuery } from '@/graphql/generated/types.generated';
 import { styled } from '@/stitches.config';
 import { PATHS } from '@utils/common/constants/paths.constants';
 import { parseTagsToString } from '@utils/common/helpers/string.helpers';
-import { transformImageUrl } from '@utils/common/helpers/transform-image-url.helpers';
-import Image from 'next/image';
 import NextLink from 'next/link';
 import { Box } from './Box';
+import { HygraphImageWithLoader } from './HygraphImageWithLoader';
 import { LinkBox, LinkOverlay } from './LinkBox';
 import { Stack } from './Stack';
 import { H3, Paragraph } from './Text';
 
 interface ProjectCardProps {
   project: GetProjectsQuery['projects'][0];
+  sizes?: string;
 }
-export const ProjectCard = ({ project }: ProjectCardProps) => {
+export const ProjectCard = ({ project, sizes = '100vw' }: ProjectCardProps) => {
   const { featureMediaNarrow, slug, category, name } = project;
   const tagsString = parseTagsToString(category);
-  const src = transformImageUrl(featureMediaNarrow.url);
+  const src = featureMediaNarrow.url;
 
   return (
     <LinkBox>
       <Stack gap='s'>
         <ProjectImageContainer>
-          <Image
+          <HygraphImageWithLoader
             src={src}
             priority
             alt=''
@@ -32,6 +32,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
             width={220}
             height={275}
             quality={100}
+            sizes={sizes}
           />
         </ProjectImageContainer>
         <Box css={{ px: '$3xs' }}>

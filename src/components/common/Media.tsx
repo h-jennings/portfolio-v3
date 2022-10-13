@@ -1,10 +1,11 @@
 import * as AspectRatio from '@radix-ui/react-aspect-ratio';
-import Image from 'next/image';
+import { HygraphImageWithLoader } from './HygraphImageWithLoader';
 
 interface MediaProps {
   url: string;
   width: number;
   height: number;
+  sizes?: string;
 }
 
 type ImageProps = {
@@ -31,9 +32,9 @@ export const Media = (props: ImageProps | VideoProps) => {
 };
 
 const ImageMedia = (props: ImageProps) => {
-  const { url, width, height } = props;
+  const { url, width, height, sizes } = props;
   return (
-    <Image
+    <HygraphImageWithLoader
       src={url}
       alt=''
       layout='responsive'
@@ -43,6 +44,7 @@ const ImageMedia = (props: ImageProps) => {
       width={width}
       height={height}
       quality={100}
+      sizes={sizes}
     />
   );
 };

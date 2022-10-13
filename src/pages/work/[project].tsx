@@ -27,7 +27,6 @@ import { H2, H3, PageHeader, Paragraph, Text } from '@components/common/Text';
 import { ProjectLinks } from '@components/work/ProjectLinks';
 import { RichTextContent } from '@graphcms/rich-text-types';
 import { PATHS } from '@utils/common/constants/paths.constants';
-import { transformImageUrl } from '@utils/common/helpers/transform-image-url.helpers';
 import { getYear } from 'date-fns';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import { PHASE_PRODUCTION_BUILD } from 'next/constants';
@@ -93,19 +92,20 @@ const Project = ({
                   const height = 275;
 
                   const item = (idx % 3) as 0 | 1 | 2;
-
-                  let u = url;
-                  if (mediaType === 'IMAGE') {
-                    u = transformImageUrl(url);
-                  }
+                  const sizes = [
+                    '(max-width: 519px) 78vw, (max-width: 740px) 60vw, 460px',
+                    '(max-width: 519px) 38vw, (max-width: 740px) 30vw, 220px',
+                    '(max-width: 519px) 120vw, (max-width: 740px) 100vw, 418px',
+                  ] as const;
 
                   return (
                     <MediaContainer key={idx} item={item}>
                       <Media
                         type={mediaType}
-                        url={u}
+                        url={url}
                         width={width}
                         height={height}
+                        sizes={sizes[item]}
                       />
                     </MediaContainer>
                   );
