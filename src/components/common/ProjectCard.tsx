@@ -2,6 +2,7 @@ import { GetProjectsQuery } from '@/graphql/generated/types.generated';
 import { styled } from '@/stitches.config';
 import { PATHS } from '@utils/common/constants/paths.constants';
 import { parseTagsToString } from '@utils/common/helpers/string.helpers';
+import { transformImageUrl } from '@utils/common/helpers/transform-image-url.helpers';
 import Image from 'next/image';
 import NextLink from 'next/link';
 import { Box } from './Box';
@@ -15,21 +16,22 @@ interface ProjectCardProps {
 export const ProjectCard = ({ project }: ProjectCardProps) => {
   const { featureMediaNarrow, slug, category, name } = project;
   const tagsString = parseTagsToString(category);
+  const src = transformImageUrl(featureMediaNarrow.url);
 
   return (
     <LinkBox>
       <Stack gap='s'>
         <ProjectImageContainer>
           <Image
-            src={featureMediaNarrow.url}
+            src={src}
             priority
             alt=''
             layout='responsive'
-            blurDataURL={featureMediaNarrow.url}
+            blurDataURL={src}
             placeholder='blur'
             width={220}
             height={275}
-            quality={95}
+            quality={100}
           />
         </ProjectImageContainer>
         <Box css={{ px: '$3xs' }}>

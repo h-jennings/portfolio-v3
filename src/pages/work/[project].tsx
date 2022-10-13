@@ -27,6 +27,7 @@ import { H2, H3, PageHeader, Paragraph, Text } from '@components/common/Text';
 import { ProjectLinks } from '@components/work/ProjectLinks';
 import { RichTextContent } from '@graphcms/rich-text-types';
 import { PATHS } from '@utils/common/constants/paths.constants';
+import { transformImageUrl } from '@utils/common/helpers/transform-image-url.helpers';
 import { getYear } from 'date-fns';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import { PHASE_PRODUCTION_BUILD } from 'next/constants';
@@ -172,16 +173,6 @@ const Project = ({
       </Stack>
     </>
   );
-};
-
-const transformImageUrl = (url: string) => {
-  const CDN_URL = /https:\/\/media.graphassets.com\//;
-  if (CDN_URL.test(url)) {
-    const x = url.split(CDN_URL);
-    const assetId = x[1] ?? '';
-    return `https://media.graphassets.com/output=format:webp/quality=value:90/${assetId}`;
-  }
-  return url;
 };
 
 const MediaContainer = styled('div', {

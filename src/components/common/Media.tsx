@@ -42,7 +42,7 @@ const ImageMedia = (props: ImageProps) => {
       objectFit='cover'
       width={width}
       height={height}
-      quality={95}
+      quality={100}
     />
   );
 };
