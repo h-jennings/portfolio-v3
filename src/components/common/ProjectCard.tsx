@@ -1,7 +1,7 @@
+import { GetProjectsQuery } from '@/graphql/generated/types.generated';
 import { styled } from '@/stitches.config';
 import { PATHS } from '@utils/common/constants/paths.constants';
 import { parseTagsToString } from '@utils/common/helpers/string.helpers';
-import { ProjectData } from '@utils/work/constants/projects.constants';
 import Image from 'next/image';
 import NextLink from 'next/link';
 import { Box } from './Box';
@@ -10,23 +10,22 @@ import { Stack } from './Stack';
 import { H3, Paragraph } from './Text';
 
 interface ProjectCardProps {
-  project: ProjectData;
+  project: GetProjectsQuery['projects'][0];
 }
-export const ProjectCard = ({
-  project: { tags, project, path, featureImageNarrow: featureImage },
-}: ProjectCardProps) => {
-  const tagsString = parseTagsToString(tags);
+export const ProjectCard = ({ project }: ProjectCardProps) => {
+  const { featureMediaNarrow, slug, category, name } = project;
+  const tagsString = parseTagsToString(category);
 
   return (
     <LinkBox>
       <Stack gap='s'>
         <ProjectImageContainer>
           <Image
-            src={featureImage}
+            src={featureMediaNarrow.url}
             priority
             alt=''
             layout='responsive'
-            blurDataURL={featureImage}
+            blurDataURL={featureMediaNarrow.url}
             placeholder='blur'
             width={220}
             height={275}
@@ -34,10 +33,14 @@ export const ProjectCard = ({
           />
         </ProjectImageContainer>
         <Box css={{ px: '$3xs' }}>
-          <NextLink passHref href={`${PATHS.work}/[project]`} as={path}>
-            <LinkOverlay data-testid={path} style={{ display: 'inline-block' }}>
+          <NextLink
+            passHref
+            href={`${PATHS.work}/[project]`}
+            as={`${PATHS.work}/${slug}`}
+          >
+            <LinkOverlay data-testid={slug} style={{ display: 'inline-block' }}>
               <H3 leading='tight' size='1' css={{ pb: '$3xs' }}>
-                {project}
+                {name}
               </H3>
             </LinkOverlay>
           </NextLink>

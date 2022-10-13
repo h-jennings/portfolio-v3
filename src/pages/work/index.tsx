@@ -1,4 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
+import {
+  GetProjectsDocument,
+  GetProjectsQuery,
+  useGetProjectsQuery,
+} from '@/graphql/generated/types.generated';
+import { spawnHygraphCMSClientInstance, withUrqlSSR } from '@/graphql/urql';
 import { styled } from '@/stitches.config';
 import { BackToLink } from '@components/common/BackToLink';
 import { Box } from '@components/common/Box';
@@ -9,17 +15,19 @@ import { ProjectCard } from '@components/common/ProjectCard';
 import { Seo } from '@components/common/Seo';
 import { Stack } from '@components/common/Stack';
 import { H2, PageHeader, Paragraph } from '@components/common/Text';
+import { RichText } from '@graphcms/rich-text-react-renderer';
+import { RichTextContent } from '@graphcms/rich-text-types';
 import { PATHS } from '@utils/common/constants/paths.constants';
-import { PROJECT_DATA } from '@utils/work/constants/projects.constants';
 import { GetStaticProps } from 'next';
 import NextLink from 'next/link';
 
 const Work = () => {
-  const projectEntries = Object.entries(PROJECT_DATA);
+  const [{ data }] = useGetProjectsQuery();
+  const { projects } = data ?? {};
 
-  const featuredProject = projectEntries
-    .filter(([, project]) => Boolean(project.featured))
-    .map(([, project]) => project)[0];
+  const featuredProject = projects
+    ?.filter((project) => Boolean(project.featured))
+    .map((project) => project)[0];
 
   return (
     <>
@@ -49,29 +57,42 @@ const Work = () => {
                 }}
               >
                 <Stack gap='m'>
-                  <FeaturedMediaContainer>
-                    <Media
-                      type={featuredProject.featureMediaWide.type}
-                      url={featuredProject.featureMediaWide.url}
-                      width={460}
-                      height={275}
-                    />
-                  </FeaturedMediaContainer>
+                  {featuredProject.featureMediaWide.mediaType ? (
+                    <FeaturedMediaContainer>
+                      <Media
+                        type={featuredProject.featureMediaWide.mediaType}
+                        url={featuredProject.featureMediaWide.url}
+                        width={460}
+                        height={275}
+                      />
+                    </FeaturedMediaContainer>
+                  ) : null}
                   <Box>
                     <NextLink
                       href={`${PATHS.work}/[project]`}
-                      as={featuredProject.path}
+                      as={`${PATHS.work}/${featuredProject.slug}`}
                       passHref
                     >
                       <LinkOverlay>
                         <Paragraph size='1' css={{ d: 'inline-block' }}>
-                          {featuredProject.project}
+                          {featuredProject.name}
                         </Paragraph>
                       </LinkOverlay>
                     </NextLink>
-                    <Paragraph size='1' color='2' css={{ pt: '$3xs' }}>
-                      {featuredProject.description}
-                    </Paragraph>
+                    {featuredProject.description ? (
+                      <RichText
+                        renderers={{
+                          p: ({ children }) => (
+                            <Paragraph size='1' color='2' css={{ pt: '$3xs' }}>
+                              {children}
+                            </Paragraph>
+                          ),
+                        }}
+                        content={
+                          featuredProject.description.raw as RichTextContent
+                        }
+                      />
+                    ) : null}
                   </Box>
                 </Stack>
               </Box>
@@ -90,9 +111,9 @@ const Work = () => {
             }}
             as='ul'
           >
-            {projectEntries.map(([key, project]) => {
+            {projects?.map((project) => {
               return (
-                <li key={key}>
+                <li key={project.id}>
                   <ProjectCard project={project} />
                 </li>
               );
@@ -112,10 +133,23 @@ const FeaturedMediaContainer = styled('div', {
   backgroundColor: '$slate8',
 });
 
-export const getStaticProps: GetStaticProps = () => {
+export const getStaticProps: GetStaticProps = async ({ preview }) => {
+  const { client, ssrCache } = spawnHygraphCMSClientInstance(preview);
+  const projectsData = await client
+    ?.query<GetProjectsQuery>(GetProjectsDocument, {})
+    .toPromise();
+
+  if (!projectsData?.data?.projects) {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
-    props: {},
+    props: {
+      urqlState: ssrCache.extractData(),
+    },
   };
 };
 
-export default Work;
+export default withUrqlSSR(Work);

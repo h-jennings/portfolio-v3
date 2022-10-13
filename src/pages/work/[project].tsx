@@ -1,4 +1,4 @@
-import { projects } from '@/api/cms.api';
+import { projectSlugs } from '@/api/cms.api';
 import {
   GetProjectDocument,
   GetProjectQuery,
@@ -39,8 +39,8 @@ const Project = ({
   const { query } = useRouter();
   const { project: path } = query;
   const [{ data }] = useGetProjectQuery({ variables: { slug } });
-  const { projects } = data ?? {};
-  const projectDataCMS = projects?.[0];
+  const { project, projectsMeta } = data ?? {};
+  const projectDataCMS = project?.[0];
   const {
     name,
     client,
@@ -164,7 +164,10 @@ const Project = ({
           <H3 color='2' size='1' leading='tight'>
             Other Projects
           </H3>
-          <ProjectLinks projectIndex={projectIndex} />
+          <ProjectLinks
+            projectIndex={projectIndex}
+            projectsMeta={projectsMeta}
+          />
         </Stack>
       </Stack>
     </>
@@ -233,10 +236,10 @@ const Chip = styled('li', {
 });
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const data = await projects.fetch();
+  const data = await projectSlugs.fetch();
 
   if (process.env.NEXT_PHASE === PHASE_PRODUCTION_BUILD) {
-    await projects.cache.set(data);
+    await projectSlugs.cache.set(data);
   }
 
   const paths = data.projects.map((p) => {
@@ -265,16 +268,16 @@ export const getStaticProps: GetStaticProps<{
     })
     .toPromise();
 
-  if (!projectData?.data?.projects[0]) {
+  if (!projectData?.data?.project[0]) {
     return {
       notFound: true,
     };
   }
 
-  let p = await projects.cache.get();
+  let p = await projectSlugs.cache.get();
 
   if (!p) {
-    p = await projects.fetch();
+    p = await projectSlugs.fetch();
   }
 
   const slugs = p.projects.map((proj) => proj.slug);
