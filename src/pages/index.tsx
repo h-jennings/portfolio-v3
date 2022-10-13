@@ -1,3 +1,9 @@
+import {
+  GetProjectsDocument,
+  GetProjectsQuery,
+  GetProjectsQueryVariables,
+} from '@/graphql/generated/types.generated';
+import { spawnHygraphCMSClientInstance, withUrqlSSR } from '@/graphql/urql';
 import { styled } from '@/stitches.config';
 import { StyledLink } from '@components/common/CustomLink';
 import { Flex } from '@components/common/Flex';
@@ -29,6 +35,7 @@ import * as React from 'react';
 
 const Index = ({
   featuredWritings,
+  count,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <>
@@ -43,12 +50,40 @@ const Index = ({
       </VisuallyHidden.Root>
       <Stack gap='3xl'>
         <IntroductionSection />
-        <WorkSection />
+        <WorkSection count={count} />
         <WritingsSection writings={featuredWritings} />
         <ConnectSection />
       </Stack>
     </>
   );
+};
+
+export const getStaticProps: GetStaticProps<{
+  featuredWritings: MdxData[] | [];
+  count: number;
+}> = async ({ preview }) => {
+  const { client, ssrCache } = spawnHygraphCMSClientInstance(preview);
+  const PROJECT_COUNT = 3;
+
+  await client
+    ?.query<GetProjectsQuery, GetProjectsQueryVariables>(GetProjectsDocument, {
+      count: PROJECT_COUNT,
+    })
+    .toPromise();
+
+  const writingsData = sortMdxDataByDateDesc(getAllWritingsData());
+
+  const featuredWritings: MdxData[] | [] = writingsData
+    .filter((writing) => writing.metaData.status !== 'draft')
+    .filter((writing) => writing.metaData.featured);
+
+  return {
+    props: {
+      urqlState: ssrCache.extractData(),
+      count: PROJECT_COUNT,
+      featuredWritings,
+    },
+  };
 };
 
 const IntroductionSection = () => {
@@ -91,7 +126,7 @@ const IntroductionSection = () => {
   );
 };
 
-const WorkSection = () => {
+const WorkSection = ({ count }: { count: number }) => {
   return (
     <Stack as='section' gap='s'>
       <Flex direction='row' justify='between' align='center'>
@@ -110,7 +145,7 @@ const WorkSection = () => {
           <ArrowRightIcon aria-hidden color='var(--colors-slate11)' />
         </Grid>
       </Flex>
-      <ProjectGrid />
+      <ProjectGrid count={count} />
     </Stack>
   );
 };
@@ -227,20 +262,6 @@ const ConnectSection = () => {
   );
 };
 
-export const getStaticProps: GetStaticProps<{
-  featuredWritings: MdxData[] | [];
-}> = () => {
-  const writingsData = sortMdxDataByDateDesc(getAllWritingsData());
-
-  const featuredWritings: MdxData[] | [] = writingsData
-    .filter((writing) => writing.metaData.status !== 'draft')
-    .filter((writing) => writing.metaData.featured);
-
-  return {
-    props: { featuredWritings },
-  };
-};
-
 const StyledListItem = styled(Stack, {
   position: 'relative',
   $$bottom: 'calc((var(--space-m) / 2) * -1)',
@@ -278,4 +299,4 @@ const ConnectLinkListItem = ({
   );
 };
 
-export default Index;
+export default withUrqlSSR(Index);

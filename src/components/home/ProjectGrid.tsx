@@ -1,3 +1,4 @@
+import { useGetProjectsQuery } from '@/graphql/generated/types.generated';
 import { Box } from '@components/common/Box';
 import { ProjectCard } from '@components/common/ProjectCard';
 import {
@@ -7,10 +8,11 @@ import {
   ScrollContainerViewport,
 } from '@components/common/ScrollContainer';
 import { Stack } from '@components/common/Stack';
-import { PROJECT_DATA } from '@utils/work/constants/projects.constants';
 
-export const ProjectGrid = (): JSX.Element => {
-  const firstThreeProjectEntries = Object.entries(PROJECT_DATA).slice(0, 3);
+export const ProjectGrid = ({ count }: { count: number }): JSX.Element => {
+  const [{ data }] = useGetProjectsQuery({ variables: { count } });
+  const { projects } = data ?? {};
+
   return (
     <ScrollContainerArea>
       <ScrollContainerScrollbar orientation='horizontal'>
@@ -18,9 +20,9 @@ export const ProjectGrid = (): JSX.Element => {
       </ScrollContainerScrollbar>
       <ScrollContainerViewport>
         <Stack gap='s' css={{ mb: '$l' }} direction='row'>
-          {firstThreeProjectEntries.map(([, project], idx) => (
+          {projects?.map((project) => (
             <Box
-              key={idx}
+              key={project.id}
               css={{
                 minWidth: '90%',
                 '@bp1': {

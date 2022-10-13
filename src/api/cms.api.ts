@@ -6,7 +6,7 @@ import {
 import * as fs from 'fs';
 import * as path from 'path';
 
-export const projects = {
+export const projectSlugs = {
   fetch: async () => {
     return await createHygraphClient(false).request<GetProjectSlugsQuery>(
       GetProjectSlugsDocument,

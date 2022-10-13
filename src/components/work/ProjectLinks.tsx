@@ -5,7 +5,7 @@ import { LinkBox, LinkOverlay } from '@components/common/LinkBox';
 import { Stack } from '@components/common/Stack';
 import { Text } from '@components/common/Text';
 import { PATHS } from '@utils/common/constants/paths.constants';
-import { ProjectData } from '@utils/work/constants/projects.constants';
+import { ProjectsMeta } from '@utils/common/types/cms.types';
 import { prevNextProjectData } from '@utils/work/helpers/prev-next-project-data.helpers';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
@@ -17,16 +17,19 @@ const isNull = (val: any) => {
 
 export const ProjectLinks = ({
   projectIndex,
+  projectsMeta,
 }: {
   projectIndex: number;
+  projectsMeta: ProjectsMeta | undefined;
 }): JSX.Element => {
-  const [previous, next] = prevNextProjectData(projectIndex);
+  const [previous, next] = prevNextProjectData(projectIndex, projectsMeta);
   const shouldCenter = isNull(previous) || isNull(next);
 
   return (
     <LinksContainer>
       {previous ? (
         <ProjectLink
+          key={previous.id}
           arrowDirection='left'
           alignment={shouldCenter ? 'center' : 'left'}
           meta={previous}
@@ -34,6 +37,7 @@ export const ProjectLinks = ({
       ) : null}
       {next ? (
         <ProjectLink
+          key={next.id}
           arrowDirection='right'
           alignment={shouldCenter ? 'center' : 'right'}
           meta={next}
@@ -44,7 +48,7 @@ export const ProjectLinks = ({
 };
 
 interface LinkProps {
-  meta: ProjectData;
+  meta: ProjectsMeta[number];
   arrowDirection: 'left' | 'right';
   alignment: 'left' | 'right' | 'center';
 }
@@ -57,6 +61,7 @@ const ProjectLink = ({
   const linkOverlayRef = React.useRef<HTMLAnchorElement>(null);
   const justify = ALIGNMENT_LOOKUP[alignment];
   const { asPath } = useRouter();
+  const { slug, name } = meta;
 
   return (
     <LinkContainer
@@ -73,14 +78,14 @@ const ProjectLink = ({
           {arrowDirection === 'left' ? (
             <ArrowLeftIcon aria-hidden width={15} color='var(--colors-text1)' />
           ) : null}
-          <NextLink passHref href={`${PATHS.work}/[project]`} as={meta.path}>
+          <NextLink passHref href={`${PATHS.work}/[project]`} as={slug}>
             <LinkOverlay
               key={asPath}
               ref={linkOverlayRef}
               className={hoverTextStyles()}
             >
               <Text leading='body' size='2'>
-                {meta.project}
+                {name}
               </Text>
             </LinkOverlay>
           </NextLink>

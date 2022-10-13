@@ -1,5 +1,5 @@
 query GetProject($slug: String!) {
-  projects(where: { slug: $slug }, first: 1) {
+  project: projects(where: { slug: $slug }, first: 1) {
     seo {
       title
       image {
@@ -30,5 +30,10 @@ query GetProject($slug: String!) {
     contribution
     date
     link
+  }
+  projectsMeta: projects(first: 25) {
+    id
+    name
+    slug
   }
 }
