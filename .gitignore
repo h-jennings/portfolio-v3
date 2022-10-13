@@ -40,3 +40,7 @@ public/robots.txt
 
 # No need to track cached files into source control
 *.db
+
+# Generated
+schema.generated.graphql
+src/graphql/generated/
