@@ -26,12 +26,12 @@ import {
   parseDateToLongDateString,
   sortMdxDataByDateDesc,
 } from '@utils/common/helpers/date.helpers';
-import { getAllWritingsData } from '@utils/common/helpers/mdx-data.helpers';
 import { MdxData } from '@utils/common/types/mdx-data';
 import type { GetStaticProps, InferGetStaticPropsType, PageConfig } from 'next';
 import { NextSeo } from 'next-seo';
 import NextLink from 'next/link';
 import * as React from 'react';
+import { getWritings } from './api/writings';
 
 const Index = ({
   featuredWritings,
@@ -70,8 +70,9 @@ export const getStaticProps: GetStaticProps<{
       count: PROJECT_COUNT,
     })
     .toPromise();
+  const writings = await getWritings();
 
-  const writingsData = sortMdxDataByDateDesc(getAllWritingsData());
+  const writingsData = sortMdxDataByDateDesc(writings);
 
   const featuredWritings: MdxData[] | [] = writingsData
     .filter((writing) => writing.metaData.status !== 'draft')
