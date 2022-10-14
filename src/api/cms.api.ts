@@ -14,13 +14,17 @@ export const projectSlugs = {
   },
   cache: {
     get: async (): Promise<GetProjectSlugsQuery | null> => {
-      const dir = path.resolve('./', 'src');
-      const data = await fs.promises.readFile(path.join(dir, 'projects.db'));
-      const projects = JSON.parse(
-        data as unknown as string,
-      ) as GetProjectSlugsQuery;
+      try {
+        const dir = path.resolve('./', 'src');
+        const data = await fs.promises.readFile(path.join(dir, 'projects.db'));
+        const projects = JSON.parse(
+          data as unknown as string,
+        ) as GetProjectSlugsQuery;
 
-      return projects;
+        return projects;
+      } catch {
+        return null;
+      }
     },
     set: async (data: GetProjectSlugsQuery) => {
       const dir = path.resolve('./', 'src');
