@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { PATHS } from './paths.constants';
 
-const dir = path.resolve('./', 'src');
+const dir = path.resolve(process.cwd(), 'src');
 
 export const WRITINGS_PATH = path.join(dir, PATHS.writings);
 
