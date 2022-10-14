@@ -10,6 +10,6 @@ export const PATHS = {
   writing: '/writing',
   now: '/now',
   work: '/work',
-  writings: './src/data/writings',
-  data: './src/data/',
+  writings: 'data/writings',
+  data: 'data',
 } as const;

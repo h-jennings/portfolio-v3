@@ -64,7 +64,7 @@ export const getAllWritingsData = (): MdxData[] => {
 };
 
 export const getNowPageData = (): MdxData => {
-  const nowFileSource = fs.readFileSync(`${DATA_PATH}now.mdx`);
+  const nowFileSource = fs.readFileSync(`${DATA_PATH}/now.mdx`);
   const { content, data } = matter(nowFileSource);
 
   return {
