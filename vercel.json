@@ -1,7 +1,7 @@
 {
   "functions": {
-    "./src/pages/**/*": {
-      "includeFiles": "./src/data/writings/**/*.mdx"
+    "pages/**/*": {
+      "includeFiles": "data/writings/**/*.mdx"
     }
   }
 }
