@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "pages/**/*": {
+      "includeFiles": "src/data/writings/**/*.mdx"
+    }
+  }
+}
