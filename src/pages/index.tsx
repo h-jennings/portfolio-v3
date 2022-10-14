@@ -84,7 +84,6 @@ export const getStaticProps: GetStaticProps<{
       count: PROJECT_COUNT,
       featuredWritings,
     },
-    revalidate: 60,
   };
 };
 

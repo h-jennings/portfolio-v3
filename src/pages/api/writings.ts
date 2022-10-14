@@ -1,4 +1,3 @@
-import { PATHS } from '@utils/common/constants/paths.constants';
 import { getMdxMetadata } from '@utils/common/helpers/mdx-data.helpers';
 import { FrontMatterPreParse } from '@utils/common/types/mdx-data';
 import { readdirSync, readFileSync } from 'fs';
@@ -12,8 +11,7 @@ const getFileSource = (p1: string, p2: string): Buffer => {
 };
 
 export const getWritings = () => {
-  const dir = path.resolve(process.cwd(), 'src');
-  const WRITINGS_PATH = path.join(dir, PATHS.writings);
+  const WRITINGS_PATH = path.join(process.cwd(), 'src', 'data', 'writings');
 
   const writingsFilePaths = readdirSync(WRITINGS_PATH).filter((path) =>
     /\.mdx?$/.test(path),

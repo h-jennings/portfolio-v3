@@ -27,6 +27,9 @@ const revalidate = async (req: NextApiRequest, res: NextApiResponse) => {
     const slug = body.data.slug;
     if (type === 'Project') {
       try {
+        console.log('[Next.js] Revalidating /');
+        await res.revalidate('/');
+
         console.log('[Next.js] Revalidating /work');
         await res.revalidate('/work');
 
