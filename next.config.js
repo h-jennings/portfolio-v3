@@ -1,9 +1,8 @@
-/** @type {import('next').NextConfig} */
-
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   swcMinify: true,
   reactStrictMode: true,
@@ -11,6 +10,7 @@ const nextConfig = {
     WEATHER_API_KEY: process.env.WEATHER_API_KEY,
     NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL,
   },
+  outputFileTracing: true,
   images: {
     domains: ['openweathermap.org', 'media.graphassets.com'],
   },
