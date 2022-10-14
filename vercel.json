@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "src/pages/api/writings.js": {
+      "includeFiles": "src/data/**/*.mdx"
+    }
+  }
+}
