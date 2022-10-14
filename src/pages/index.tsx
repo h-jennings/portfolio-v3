@@ -28,7 +28,7 @@ import {
 } from '@utils/common/helpers/date.helpers';
 import { getAllWritingsData } from '@utils/common/helpers/mdx-data.helpers';
 import { MdxData } from '@utils/common/types/mdx-data';
-import type { GetStaticProps, InferGetStaticPropsType } from 'next';
+import type { GetStaticProps, InferGetStaticPropsType, PageConfig } from 'next';
 import { NextSeo } from 'next-seo';
 import NextLink from 'next/link';
 import * as React from 'react';
@@ -298,6 +298,10 @@ const ConnectLinkListItem = ({
       </div>
     </Grid>
   );
+};
+
+export const config: PageConfig = {
+  unstable_includeFiles: ['../data/writings/**/*.mdx'],
 };
 
 export default withUrqlSSR(Index);
