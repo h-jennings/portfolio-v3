@@ -26,15 +26,19 @@ const revalidate = async (req: NextApiRequest, res: NextApiResponse) => {
     const type = body.data.__typename;
     const slug = body.data.slug;
     if (type === 'Project') {
-      console.log('[Next.js] Revalidating /');
-      await res.revalidate('/');
+      try {
+        console.log('[Next.js] Revalidating /');
+        await res.revalidate('/');
 
-      console.log('[Next.js] Revalidating /work');
-      await res.revalidate('/work');
+        console.log('[Next.js] Revalidating /work');
+        await res.revalidate('/work');
 
-      console.log(`[Next.js] Revalidating /work/${slug}`);
-      await res.revalidate(`/work/${slug}`);
-      return res.status(200).send('Success!');
+        console.log(`[Next.js] Revalidating /work/${slug}`);
+        await res.revalidate(`/work/${slug}`);
+        return res.status(200).send('Success!');
+      } catch {
+        return res.status(500).send('Error revalidating');
+      }
     } else {
       return res
         .status(403)
