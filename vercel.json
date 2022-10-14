@@ -1,7 +1,7 @@
 {
   "functions": {
-    "pages/api/revalidate.js": {
-      "includeFiles": "data/writings/*"
+    "src/pages/api/revalidate.js": {
+      "includeFiles": "src/data/writings/*"
     }
   }
 }
