@@ -39,7 +39,7 @@ public/sitemap-?.xml
 public/robots.txt
 
 # No need to track cached files into source control
-*.db
+**/*.db
 
 # Generated
 schema.generated.graphql
