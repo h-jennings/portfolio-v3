@@ -14,9 +14,8 @@ export const projectSlugs = {
   },
   cache: {
     get: async (): Promise<GetProjectSlugsQuery | null> => {
-      const data = await fs.promises.readFile(
-        path.join(process.cwd(), 'projects.db'),
-      );
+      const dir = path.resolve('./', 'src');
+      const data = await fs.promises.readFile(path.join(dir, 'projects.db'));
       const projects = JSON.parse(
         data as unknown as string,
       ) as GetProjectSlugsQuery;
@@ -24,8 +23,9 @@ export const projectSlugs = {
       return projects;
     },
     set: async (data: GetProjectSlugsQuery) => {
+      const dir = path.resolve('./', 'src');
       return await fs.promises.writeFile(
-        path.join(process.cwd(), 'projects.db'),
+        path.join(dir, 'projects.db'),
         JSON.stringify(data),
       );
     },
