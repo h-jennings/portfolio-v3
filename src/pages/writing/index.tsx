@@ -151,8 +151,8 @@ const Writings = ({
 
 export const getStaticProps: GetStaticProps<{
   writingsData: MdxData[];
-}> = async () => {
-  const writings = await getWritings();
+}> = () => {
+  const writings = getWritings();
   const writingsData = sortMdxDataByDateDesc(writings).filter(
     (data) => data.metaData.status === 'published',
   );

@@ -70,7 +70,7 @@ export const getStaticProps: GetStaticProps<{
       count: PROJECT_COUNT,
     })
     .toPromise();
-  const writings = await getWritings();
+  const writings = getWritings();
 
   const writingsData = sortMdxDataByDateDesc(writings);
 
