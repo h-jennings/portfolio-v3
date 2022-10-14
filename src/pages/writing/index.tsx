@@ -11,10 +11,10 @@ import {
   groupDatesByYear,
   sortMdxDataByDateDesc,
 } from '@utils/common/helpers/date.helpers';
-import { getAllWritingsData } from '@utils/common/helpers/mdx-data.helpers';
 import { MdxData } from '@utils/common/types/mdx-data';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import NextLink from 'next/link';
+import { getWritings } from '../api/writings';
 
 const Writings = ({
   writingsData,
@@ -151,8 +151,9 @@ const Writings = ({
 
 export const getStaticProps: GetStaticProps<{
   writingsData: MdxData[];
-}> = () => {
-  const writingsData = sortMdxDataByDateDesc(getAllWritingsData()).filter(
+}> = async () => {
+  const writings = await getWritings();
+  const writingsData = sortMdxDataByDateDesc(writings).filter(
     (data) => data.metaData.status === 'published',
   );
   return {

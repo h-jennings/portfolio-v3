@@ -5,7 +5,6 @@ import readingTime from 'reading-time';
 import {
   DATA_PATH,
   nowFilePath,
-  writingsFilePaths,
   WRITINGS_PATH,
 } from '../constants/mdx.constants';
 import {
@@ -16,7 +15,7 @@ import {
 } from '../types/mdx-data';
 import { getYearFromDate, parseDateToString } from './date.helpers';
 
-const getMdxMetadata = (
+export const getMdxMetadata = (
   content: string,
   frontMatter: FrontMatterPreParse,
 ): MdxMetaData => {
@@ -48,20 +47,6 @@ export function getWritingDataFromSlug(slug: string): MdxData {
     metaData: getMdxMetadata(content, data as FrontMatterPreParse),
   };
 }
-
-export const getAllWritingsData = (): MdxData[] => {
-  const writings: MdxData[] = writingsFilePaths.map((fileName) => {
-    const { content, data } = matter(getFileSource(WRITINGS_PATH, fileName));
-
-    return {
-      content,
-      fileName,
-      metaData: getMdxMetadata(content, data as FrontMatterPreParse),
-    };
-  });
-
-  return writings;
-};
 
 export const getNowPageData = (): MdxData => {
   const nowFileSource = fs.readFileSync(`${DATA_PATH}/now.mdx`);
