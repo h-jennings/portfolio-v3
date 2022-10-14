@@ -1,7 +1,0 @@
-{
-  "functions": {
-    "src/pages/api/revalidate.js": {
-      "includeFiles": "src/data/writings/**"
-    }
-  }
-}
