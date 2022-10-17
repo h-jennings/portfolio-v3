@@ -1,16 +1,28 @@
 ---
 title: What I'm up to now
-description: Things I'm interested in, working on, and excited to learn more about at this moment in time.
-publishDate: 2022-07-14 11:59:00
+description:
+  Things I'm interested in, working on, and excited to learn more about at this
+  moment in time.
+publishDate: 2022-10-17 11:59:00
 image: /images/now/now-banner.jpg
 status: published
 ---
 
-- Added a new [work](/work) page to the site
-- Designed and built a fresh new site for [Katy Pentz](https://www.katypentz.com/)
-  - Project write up is [here](/work/katy)
-- Working on some incredibly challenging landing pages for Audible
-  - Will add more details soon. The site is slated to launch on July 8th
-- Audible's [Lite Quiz](/work/audible-quiz) that I built is starting to be used very regularly by their internal marketing team
-- Built and launched Audible's new brand guide in two months
-  - Internal only for now. Will be public very soon
+- Moved all of the [work](/work) content to a headless
+  CMS—[Hygraph](https://hygraph.com/)
+- Implemented
+  [On-demand ISR](https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration#using-on-demand-revalidation)
+  using webhooks
+  - Any time I make a change in Hygraph to the "Project" type, a webhook sends a
+    request to an api route and revalidates all the pages that may reference
+    that data.
+    - [See the code here](https://github.com/h-jennings/portfolio-v3/blob/main/src/pages/api/revalidate.ts)
+- Launched a new [Quiz](https://www.audible.com/quiz/a/custom-quiz-v1) for
+  Audible
+- Working on our e-commerce setup at Elegant Seagulls. At the moment we're
+  considering the following:
+  - [Shopify Hydrogen](https://hydrogen.shopify.dev/)
+  - Headless e-commerce with Next.js. Most likely the same approach and setup
+    that basement studio used on their
+    [Mr. Beast](https://vercel.com/blog/serving-millions-of-users-on-the-new-mrbeast-storefront)
+    site
