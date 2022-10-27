@@ -5,21 +5,22 @@ import {
   useGetProjectsQuery,
 } from '@/graphql/generated/types.generated';
 import { spawnHygraphCMSClientInstance, withUrqlSSR } from '@/graphql/urql';
-import { styled } from '@/stitches.config';
+import { grid } from '@/styles/elements/grid.css';
+import { stack } from '@/styles/elements/stack.css';
+import { pageHeader, text } from '@/styles/elements/text.css';
+import { sprinkles } from '@/styles/sprinkles.css';
+import { tokenVars } from '@/styles/tokens.css';
 import { BackToLink } from '@components/common/BackToLink';
-import { Box } from '@components/common/Box';
-import { Grid } from '@components/common/Grid';
-import { LinkBox, LinkOverlay } from '@components/common/LinkBox';
+import { LinkBox } from '@components/common/LinkBox/LinkBox';
 import { Media } from '@components/common/Media';
 import { ProjectCard } from '@components/common/ProjectCard';
 import { Seo } from '@components/common/Seo';
-import { Stack } from '@components/common/Stack';
-import { H2, PageHeader, Paragraph } from '@components/common/Text';
 import { RichText } from '@graphcms/rich-text-react-renderer';
 import { RichTextContent } from '@graphcms/rich-text-types';
 import { PATHS } from '@utils/common/constants/paths.constants';
+import { calc } from '@vanilla-extract/css-utils';
+import clsx from 'clsx';
 import { GetStaticProps } from 'next';
-import NextLink from 'next/link';
 
 const Work = () => {
   const [{ data }] = useGetProjectsQuery();
@@ -36,29 +37,38 @@ const Work = () => {
         description='A curated collection of my work throughout the years.'
         url={`${PATHS.base}${PATHS.work}`}
       />
-      <Stack gap='xl'>
-        <Box>
+      <div className={stack({ gap: 'xl' })}>
+        <div>
           <BackToLink href={PATHS.home}>Back to home</BackToLink>
-          <PageHeader>Work</PageHeader>
-        </Box>
+          <h1 className={pageHeader}>Work</h1>
+        </div>
         {featuredProject ? (
-          <Stack gap='m'>
-            <H2 size='2' leading='tight'>
-              Featured
-            </H2>
-            <LinkBox>
-              <Box
-                css={{
-                  px: '$s',
-                  pt: '$s',
-                  pb: '$m',
-                  borderRadius: 'calc($space$s + $card)',
-                  backgroundColor: '$slate3',
+          <div className={stack({ gap: 'm' })}>
+            <h2 className={text({ size: 2, leading: 'tight' })}>Featured</h2>
+            <LinkBox.Root>
+              <div
+                className={sprinkles({
+                  paddingX: 's',
+                  paddingTop: 's',
+                  paddingBottom: 'm',
+                  backgroundColor: 'slate3',
+                })}
+                style={{
+                  borderRadius: calc(tokenVars.space.s)
+                    .add(tokenVars.radii.card)
+                    .toString(),
                 }}
               >
-                <Stack gap='m'>
+                <div className={stack({ gap: 'm' })}>
                   {featuredProject.featureMediaWide.mediaType ? (
-                    <FeaturedMediaContainer>
+                    <div
+                      className={sprinkles({
+                        borderRadius: 'card',
+                        height: 'full',
+                        backgroundColor: 'slate8',
+                      })}
+                      style={{ overflow: 'hidden', isolation: 'isolate' }}
+                    >
                       <Media
                         type={featuredProject.featureMediaWide.mediaType}
                         url={featuredProject.featureMediaWide.url}
@@ -66,27 +76,32 @@ const Work = () => {
                         height={275}
                         sizes='(max-width) 100vw, 460px'
                       />
-                    </FeaturedMediaContainer>
+                    </div>
                   ) : null}
-                  <Box>
-                    <NextLink
+                  <div>
+                    <LinkBox.Target
                       href={`${PATHS.work}/[project]`}
                       as={`${PATHS.work}/${featuredProject.slug}`}
-                      passHref
                     >
-                      <LinkOverlay>
-                        <Paragraph size='1' css={{ d: 'inline-block' }}>
-                          {featuredProject.name}
-                        </Paragraph>
-                      </LinkOverlay>
-                    </NextLink>
+                      <p
+                        className={text({ size: 1 })}
+                        style={{ display: 'inline-block' }}
+                      >
+                        {featuredProject.name}
+                      </p>
+                    </LinkBox.Target>
                     {featuredProject.description ? (
                       <RichText
                         renderers={{
                           p: ({ children }) => (
-                            <Paragraph size='1' color='2' css={{ pt: '$3xs' }}>
+                            <p
+                              className={clsx(
+                                sprinkles({ paddingTop: '3xs' }),
+                                text({ size: 1, color: 2 }),
+                              )}
+                            >
                               {children}
-                            </Paragraph>
+                            </p>
                           ),
                         }}
                         content={
@@ -94,23 +109,19 @@ const Work = () => {
                         }
                       />
                     ) : null}
-                  </Box>
-                </Stack>
-              </Box>
-            </LinkBox>
-          </Stack>
+                  </div>
+                </div>
+              </div>
+            </LinkBox.Root>
+          </div>
         ) : null}
-        <Stack gap='m'>
-          <H2 size='2' leading='tight'>
-            All Work
-          </H2>
-          <Grid
-            gap='s'
-            gapY='m'
-            css={{
-              gtc: 'repeat(auto-fill, minmax(200px, 1fr))',
+        <div className={stack({ gap: 'm' })}>
+          <h2 className={text({ size: 2, leading: 'tight' })}>All Work</h2>
+          <ul
+            className={grid({ gap: 's', gapY: 'm' })}
+            style={{
+              gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
             }}
-            as='ul'
           >
             {projects?.map((project) => {
               return (
@@ -122,20 +133,12 @@ const Work = () => {
                 </li>
               );
             })}
-          </Grid>
-        </Stack>
-      </Stack>
+          </ul>
+        </div>
+      </div>
     </>
   );
 };
-
-const FeaturedMediaContainer = styled('div', {
-  borderRadius: '$card',
-  isolation: 'isolate',
-  overflow: 'hidden',
-  height: '$full',
-  backgroundColor: '$slate8',
-});
 
 export const getStaticProps: GetStaticProps = async ({ preview }) => {
   const { client, ssrCache } = spawnHygraphCMSClientInstance(preview);

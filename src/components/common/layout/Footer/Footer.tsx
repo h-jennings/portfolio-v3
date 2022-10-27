@@ -1,83 +1,74 @@
-import { styled } from '@/stitches.config';
-import { Box } from '@components/common/Box';
-import { Flex } from '@components/common/Flex';
-import { Grid } from '@components/common/Grid';
-import { Stack } from '@components/common/Stack';
-import { Text } from '@components/common/Text';
+import { grid } from '@/styles/elements/grid.css';
+import { stack } from '@/styles/elements/stack.css';
+import { text } from '@/styles/elements/text.css';
+import { sprinkles } from '@/styles/sprinkles.css';
+import { themeVars } from '@/styles/theme.css';
 import {
   WeatherData,
   weatherDataMachine,
 } from '@utils/common/machines/weather-data-machine';
 import { useActor, useInterpret } from '@xstate/react';
+import clsx from 'clsx';
 import Image from 'next/image';
 import * as React from 'react';
+import * as s from './Footer.css';
 
 export const Footer = (): JSX.Element => {
   return (
-    <Box as='footer' css={{ pt: '$3xl', pb: '$m', '@bp1': { pb: '$xl' } }}>
-      <Stack
-        css={{ jc: 'center', pb: '$2xl' }}
-        direction='row'
-        gap='3xs'
+    <footer
+      className={sprinkles({
+        paddingTop: '3xl',
+        paddingBottom: { initial: 'm', bp1: 'xl' },
+      })}
+      style={{ gridArea: 'footer' }}
+    >
+      <div
+        className={clsx(
+          stack({
+            orientation: 'horizontal',
+            gap: '3xs',
+          }),
+          sprinkles({ paddingBottom: '2xl' }),
+        )}
         role='separator'
       >
-        <Dot />
-        <Dot />
-        <Dot />
-      </Stack>
-      <Wrapper align='end' gap='s' gapY={{ '@initial': 'xl', '@bp1': 's' }}>
-        <Stack
-          gap='2xs'
-          css={{
-            ta: 'left',
-          }}
+        <div className={s.dot} />
+        <div className={s.dot} />
+        <div className={s.dot} />
+      </div>
+      <div className={s.footer.wrapper}>
+        <div
+          className={clsx(
+            stack({ gap: '2xs' }),
+            sprinkles({ textAlign: 'left' }),
+          )}
         >
           <Time />
-          <Text leading='tight' css={{ whiteSpace: 'nowrap' }} size='1'>
+          <span
+            className={text({ leading: 'tight', size: 1 })}
+            style={{ whiteSpace: 'nowrap' }}
+          >
             Richmond, VA
-          </Text>
-        </Stack>
-        <Flex
-          direction='row'
-          align='center'
-          css={{ justifySelf: 'end', '@bp1': { justifySelf: 'start' } }}
-        >
+          </span>
+        </div>
+        <div className={s.weather.wrapper}>
           <Weather />
-        </Flex>
-        <Text
-          size='1'
-          leading='tight'
-          css={{
-            color: '$slate9',
-            ta: 'center',
-            gridArea: 'c',
-            '@bp1': { ta: 'right' },
-          }}
+        </div>
+        <span
+          className={clsx(
+            text({ size: 1, leading: 'tight', color: 2 }),
+            sprinkles({
+              textAlign: { initial: 'center', bp1: 'right' },
+            }),
+          )}
+          style={{ gridArea: 'c' }}
         >
           Always pushing.
-        </Text>
-      </Wrapper>
-    </Box>
+        </span>
+      </div>
+    </footer>
   );
 };
-
-const Dot = styled('div', {
-  backgroundColor: '$slate11',
-  width: 2,
-  height: 2,
-  borderRadius: '$round',
-});
-
-const Wrapper = styled(Grid, {
-  width: '$full',
-  gridTemplateAreas: `'a b'
-                      'c c'`,
-  gridTemplateColumns: 'repeat(2, 1fr)',
-  '@bp1': {
-    gridTemplateAreas: `'a b c'`,
-    gridTemplateColumns: 'repeat(3, 1fr)',
-  },
-});
 
 const Time = (): JSX.Element => {
   const [currentTime, setTime] = React.useState<{
@@ -96,9 +87,12 @@ const Time = (): JSX.Element => {
     return () => clearInterval(tick);
   }, []);
   return (
-    <Text leading='tight' size='1' dateTime={currentTime.twentyFour} as='time'>
+    <time
+      className={text({ leading: 'tight', size: 1 })}
+      dateTime={currentTime.twentyFour}
+    >
       {currentTime.pretty}
-    </Text>
+    </time>
   );
 };
 
@@ -130,21 +124,28 @@ const Weather = (): JSX.Element | null => {
         return (
           <>
             <WeatherIcon description={description} icon={icon} />
-            <Text leading='tight' size='1'>
+            <span className={text({ leading: 'tight', size: 1 })}>
               {tempText(temp)}&deg;F
-            </Text>
+            </span>
           </>
         );
       }
       case current.matches('idle.errored'): {
         return (
-          <Text size='1' leading='tight' css={{ color: '$tomato9' }}>
+          <span
+            className={text({ size: 1, leading: 'tight' })}
+            style={{ color: themeVars.colors.tomato9 }}
+          >
             weather data errored
-          </Text>
+          </span>
         );
       }
       case current.matches('fetching'): {
-        return <Text size='1'>loading...</Text>;
+        return (
+          <span className={text({ size: 1, leading: 'tight' })}>
+            loading...
+          </span>
+        );
       }
       default: {
         return null;
@@ -172,15 +173,17 @@ const WeatherIcon = ({
       alt={description ?? 'weather icon'}
     />
   ) : (
-    <Grid aria-hidden center style={{ width: 25 }}>
-      <Box
-        css={{
-          borderRadius: '$round',
-          height: 15,
-          width: 15,
-          backgroundColor: '$text1',
-        }}
+    <div
+      className={clsx(grid({ center: true }))}
+      aria-hidden
+      style={{ width: 25 }}
+    >
+      <div
+        className={clsx(
+          sprinkles({ borderRadius: 'round', backgroundColor: 'text1' }),
+        )}
+        style={{ width: 15, height: 15 }}
       />
-    </Grid>
+    </div>
   );
 };

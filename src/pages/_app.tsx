@@ -1,6 +1,5 @@
-import { lightTheme } from '@/stitches.config';
 import '@/styles/global.css';
-import { RootLayout } from '@components/common/layout/RootLayout';
+import { RootLayout } from '@components/common/layout/RootLayout/RootLayout';
 import { useVisualViewportHeight } from '@utils/common/hooks/use-visual-viewport-height';
 import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
@@ -27,7 +26,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <ThemeProvider
         disableTransitionOnChange
         attribute='class'
-        value={{ dark: 'dark-theme', light: lightTheme.className }}
+        value={{ dark: 'dark-theme', light: 'light-theme' }}
         defaultTheme='system'
       >
         <RootLayout>
