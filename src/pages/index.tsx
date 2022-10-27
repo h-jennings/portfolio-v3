@@ -4,22 +4,15 @@ import {
   GetProjectsQueryVariables,
 } from '@/graphql/generated/types.generated';
 import { spawnHygraphCMSClientInstance, withUrqlSSR } from '@/graphql/urql';
-import { styled } from '@/stitches.config';
-import { StyledLink } from '@components/common/CustomLink';
-import { Flex } from '@components/common/Flex';
-import { Grid } from '@components/common/Grid';
+import { flex } from '@/styles/elements/flex.css';
+import { link } from '@/styles/elements/link.css';
+import { stack } from '@/styles/elements/stack.css';
+import { bodyText, text } from '@/styles/elements/text.css';
+import * as s from '@/styles/pages/index.css';
+import { sprinkles } from '@/styles/sprinkles.css';
+import { CustomLink } from '@components/common/CustomLink';
 import { ArrowRightIcon } from '@components/common/icons/ArrowRightIcon';
-import { Stack } from '@components/common/Stack';
-import {
-  BodyText,
-  H1,
-  H2,
-  H3,
-  Link,
-  Paragraph,
-  Text,
-} from '@components/common/Text';
-import { ProjectGrid } from '@components/home/ProjectGrid';
+import { ProjectGrid } from '@components/home/ProjectGrid/ProjectGrid';
 import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
 import { PATHS } from '@utils/common/constants/paths.constants';
 import {
@@ -27,9 +20,9 @@ import {
   sortMdxDataByDateDesc,
 } from '@utils/common/helpers/date.helpers';
 import { MdxData } from '@utils/common/types/mdx-data';
+import clsx from 'clsx';
 import type { GetStaticProps, InferGetStaticPropsType, PageConfig } from 'next';
 import { NextSeo } from 'next-seo';
-import NextLink from 'next/link';
 import * as React from 'react';
 import { getWritings } from './api/writings';
 
@@ -46,14 +39,14 @@ const Index = ({
         }}
       />
       <VisuallyHidden.Root>
-        <H1>Home</H1>
+        <h1>Home</h1>
       </VisuallyHidden.Root>
-      <Stack gap='3xl'>
+      <div className={stack({ gap: '3xl' })}>
         <IntroductionSection />
         <WorkSection count={count} />
         <WritingsSection writings={featuredWritings} />
         <ConnectSection />
-      </Stack>
+      </div>
     </>
   );
 };
@@ -89,65 +82,65 @@ export const getStaticProps: GetStaticProps<{
 
 const IntroductionSection = () => {
   return (
-    <Stack as='section' gap='xl'>
-      <Stack gap='m'>
-        <H2
+    <section className={stack({ gap: 'xl' })}>
+      <div className={stack({ gap: 'm' })}>
+        <h2
+          className={text({
+            size: 2,
+            family: 'serif',
+            leading: 'tight',
+          })}
           aria-label='Who is Hunter Jennings'
-          size='2'
-          family='serif'
-          leading='tight'
         >
           Hunter Jennings
-        </H2>
-        <Paragraph style={{ maxWidth: 600 }}>
+        </h2>
+        <p className={bodyText} style={{ maxWidth: 600 }}>
           Frontend ui engineer interested in design systems, component
           architectures, and React.
-        </Paragraph>
-      </Stack>
-      <Stack gap='xs'>
-        <H2 color='2' aria-label="What I'm up to now" size='1'>
+        </p>
+      </div>
+      <div className={stack({ gap: 'xs' })}>
+        <h2
+          className={text({ color: 2, size: 1 })}
+          aria-label="What I'm up to now"
+        >
           Now
-        </H2>
-        <Paragraph>
+        </h2>
+        <p className={bodyText}>
           Currently working as a Frontend Developer for the award-winning
           digital creative agency&mdash;
-          <Link href={PATHS.seagulls} underline='whileHover' color='3'>
+          <CustomLink
+            className={link({ underline: 'whileHover', color: 3 })}
+            href={PATHS.seagulls}
+          >
             Elegant Seagulls
-          </Link>
+          </CustomLink>
           .
-        </Paragraph>
-        <BodyText>
+        </p>
+        <p className={bodyText}>
           Other stuff I&apos;m working on{' '}
-          <StyledLink data-cy='now-link' color='2' underline href={PATHS.now}>
+          <CustomLink
+            className={link({ underline: true, color: 2 })}
+            data-cy='now-link'
+            href={PATHS.now}
+          >
             now
-          </StyledLink>
-        </BodyText>
-      </Stack>
-    </Stack>
+          </CustomLink>
+        </p>
+      </div>
+    </section>
   );
 };
 
 const WorkSection = ({ count }: { count: number }) => {
   return (
-    <Stack as='section' gap='s'>
-      <Flex direction='row' justify='between' align='center'>
-        <H2 leading='tight'>Selected work</H2>
-        <Grid
-          gap='2xs'
-          justify='end'
-          align='center'
-          css={{ gridTemplateColumns: 'auto auto' }}
-        >
-          <NextLink href={PATHS.work} passHref>
-            <Link css={{ d: 'block' }} color='2' size='1' leading='tight'>
-              view all
-            </Link>
-          </NextLink>
-          <ArrowRightIcon aria-hidden color='var(--colors-slate11)' />
-        </Grid>
-      </Flex>
+    <section className={stack({ gap: 's' })}>
+      <div className={flex({ justify: 'between', align: 'center' })}>
+        <h2 className={text({ leading: 'tight' })}>Selected work</h2>
+        <ArrowLink href={PATHS.work}>view all</ArrowLink>
+      </div>
       <ProjectGrid count={count} />
-    </Stack>
+    </section>
   );
 };
 
@@ -161,124 +154,94 @@ const WritingsSection = ({ writings }: WritingsSectionProps) => {
   if (!hasWritings) return null;
 
   return (
-    <Stack as='section' gap='m'>
-      <Flex direction='row' justify='between' align='center'>
-        <H2 leading='tight'>Writing</H2>
-        <Grid
-          gap='2xs'
-          justify='end'
-          align='center'
-          css={{ gridTemplateColumns: 'auto auto' }}
-        >
-          <NextLink href={PATHS.writing} passHref>
-            <Link css={{ d: 'block' }} color='2' size='1' leading='tight'>
-              view all
-            </Link>
-          </NextLink>
-          <ArrowRightIcon aria-hidden color='var(--colors-slate11)' />
-        </Grid>
-      </Flex>
-      <Stack as='ul' gap='m'>
+    <section className={stack({ gap: 'm' })}>
+      <div className={flex({ justify: 'between', align: 'center' })}>
+        <h2 className={text({ leading: 'tight' })}>Writing</h2>
+        <ArrowLink href={PATHS.writing}>view all</ArrowLink>
+      </div>
+      <ul className={stack({ gap: 'm' })}>
         {writings.map(({ fileName, metaData }) => {
           return (
-            <StyledListItem key={fileName} as='li'>
+            <li
+              className={clsx(stack({ gap: '3xs' }), s.writings.listItem)}
+              key={fileName}
+            >
               <div>
-                <NextLink
+                <CustomLink
                   href={`${PATHS.writing}/[slug]`}
                   as={`${PATHS.writing}/${fileName.replace(/\.mdx?$/, '')}`}
-                  passHref
+                  className={link({ size: 1 })}
                 >
-                  <Link size='1'>{metaData.title}</Link>
-                </NextLink>
+                  {metaData.title}
+                </CustomLink>
               </div>
-              <Text size='1' family='serif' as='time' dateTime='2021-12-08'>
+              <time className={text({ size: 1, family: 'serif' })}>
                 {parseDateToLongDateString(metaData.publishDate)}
-              </Text>
-            </StyledListItem>
+              </time>
+            </li>
           );
         })}
-      </Stack>
-    </Stack>
+      </ul>
+    </section>
+  );
+};
+
+const ArrowLink = ({
+  href,
+  children,
+}: React.PropsWithChildren<{ href: string }>) => {
+  return (
+    <div className={s.arrowLink.root}>
+      <CustomLink
+        href={href}
+        className={link({
+          color: 2,
+          size: 1,
+          leading: 'tight',
+        })}
+        style={{ display: 'block' }}
+      >
+        {children}
+      </CustomLink>
+      <ArrowRightIcon aria-hidden color='var(--colors-slate11)' />
+    </div>
   );
 };
 
 const ConnectSection = () => {
   return (
-    <Stack as='section' gap='m'>
-      <H2 leading='tight'>Connect</H2>
-      <Stack gap='xl'>
-        <Paragraph>
+    <section className={stack({ gap: 'm' })}>
+      <h2 className={text({ leading: 'tight' })}>Connect</h2>
+      <div className={stack({ gap: 'xl' })}>
+        <p className={bodyText}>
           I&apos;m not currently looking for new opportunities, but feel free to
           reach out if you&apos;d like. I&apos;m always happy to hear from folks
           and talk shop.
-        </Paragraph>
-        <Stack as='ul' gap='s'>
+        </p>
+        <ul className={stack({ gap: 's' })}>
           <ConnectLinkListItem label='Twitter'>
-            <Link
-              href={PATHS.twitter}
-              size='1'
-              color='2'
-              leading='tight'
-              css={{ d: 'inline-block' }}
-            >
+            <ConnectListLink href={PATHS.twitter}>
               @jennings_hunter
-            </Link>
+            </ConnectListLink>
           </ConnectLinkListItem>
           <ConnectLinkListItem label='Email'>
-            <Link
-              href={PATHS.email}
-              css={{ d: 'inline-block' }}
-              leading='tight'
-              size='1'
-              color='2'
-            >
+            <ConnectListLink href={PATHS.email}>
               jenningsdhunter@gmail.com
-            </Link>
+            </ConnectListLink>
           </ConnectLinkListItem>
           <ConnectLinkListItem label='Github'>
-            <Link
-              css={{ d: 'inline-block' }}
-              href={PATHS.github}
-              size='1'
-              color='2'
-              leading='tight'
-            >
-              h-jennings
-            </Link>
+            <ConnectListLink href={PATHS.github}>h-jennings</ConnectListLink>
           </ConnectLinkListItem>
           <ConnectLinkListItem label='Resume'>
-            <Link
-              css={{ d: 'inline-block' }}
-              href={PATHS.cv}
-              size='1'
-              color='2'
-              leading='tight'
-            >
+            <ConnectListLink href={PATHS.cv}>
               read.cv/hunterjennings
-            </Link>
+            </ConnectListLink>
           </ConnectLinkListItem>
-        </Stack>
-      </Stack>
-    </Stack>
+        </ul>
+      </div>
+    </section>
   );
 };
-
-const StyledListItem = styled(Stack, {
-  position: 'relative',
-  $$bottom: 'calc((var(--space-m) / 2) * -1)',
-  '&:after': {
-    content: '',
-    width: '$full',
-    height: 0,
-    borderTop: '1px dashed $slate8',
-    position: 'absolute',
-    bottom: '$$bottom',
-    left: 0,
-  },
-  defaultVariants: {
-    gap: '3xs',
-  },
-});
 
 interface ConnectLinkListItemProps {
   label: string;
@@ -289,14 +252,33 @@ const ConnectLinkListItem = ({
   children,
 }: React.PropsWithChildren<ConnectLinkListItemProps>) => {
   return (
-    <Grid align='center' as='li' gap='s' columns='3'>
-      <H3 size='1' leading='tight'>
-        {label}
-      </H3>
+    <li className={s.connectLinkListItem.root}>
+      <h3 className={text({ size: 1, leading: 'tight' })}>{label}</h3>
       <div style={{ gridColumn: '2 / span 2' }}>
         <div>{children}</div>
       </div>
-    </Grid>
+    </li>
+  );
+};
+
+const ConnectListLink = ({
+  children,
+  href,
+}: React.PropsWithChildren<{ href: string }>) => {
+  return (
+    <CustomLink
+      className={clsx(
+        sprinkles({ display: 'inline-block' }),
+        link({
+          size: 1,
+          color: 2,
+          leading: 'tight',
+        }),
+      )}
+      href={href}
+    >
+      {children}
+    </CustomLink>
   );
 };
 

@@ -6,27 +6,25 @@ import {
   useGetProjectQuery,
 } from '@/graphql/generated/types.generated';
 import { spawnHygraphCMSClientInstance, withUrqlSSR } from '@/graphql/urql';
-import { styled } from '@/stitches.config';
+import { buttonLink } from '@/styles/elements/button.css';
+import { flex } from '@/styles/elements/flex.css';
+import { grid } from '@/styles/elements/grid.css';
+import * as sc from '@/styles/elements/scrollContainer.css';
+import { stack } from '@/styles/elements/stack.css';
+import { pageHeader, text } from '@/styles/elements/text.css';
+import * as s from '@/styles/pages/project.css';
+import { sprinkles } from '@/styles/sprinkles.css';
 import { BackToLink } from '@components/common/BackToLink';
-import { Box } from '@components/common/Box';
-import { ButtonLink } from '@components/common/CustomLink';
-import { Flex } from '@components/common/Flex';
-import { Grid } from '@components/common/Grid';
+import { CustomLink } from '@components/common/CustomLink';
 import { ArrowTopRightIcon } from '@components/common/icons/ArrowTopRightIcon';
 import { Media } from '@components/common/Media';
-import { RichText } from '@components/common/RichText';
-import {
-  ScrollContainerArea,
-  ScrollContainerScrollbar,
-  ScrollContainerThumb,
-  ScrollContainerViewport,
-} from '@components/common/ScrollContainer';
+import { RichText } from '@components/common/RichText/RichText';
 import { Seo } from '@components/common/Seo';
-import { Stack } from '@components/common/Stack';
-import { H2, H3, PageHeader, Paragraph, Text } from '@components/common/Text';
-import { ProjectLinks } from '@components/work/ProjectLinks';
+import { ProjectLinks } from '@components/work/ProjectLinks/ProjectLinks';
 import { RichTextContent } from '@graphcms/rich-text-types';
+import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
 import { PATHS } from '@utils/common/constants/paths.constants';
+import clsx from 'clsx';
 import { getYear } from 'date-fns';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import { PHASE_PRODUCTION_BUILD } from 'next/constants';
@@ -60,31 +58,40 @@ const Project = ({
         description={seo?.description ?? undefined}
         image={seo?.image?.url}
       />
-      <Stack gap='3xl'>
-        <Stack gap='xl'>
-          <Box>
+      <div className={stack({ gap: '3xl' })}>
+        <div className={stack({ gap: 'xl' })}>
+          <div>
             <BackToLink href={PATHS.work}>Back to work</BackToLink>
-            <Flex
-              wrap='wrap'
-              direction={{ '@initial': 'column', '@bp2': 'row' }}
-              gap='3xs'
-              justify='between'
-              align='baseline'
+            <div
+              className={clsx(
+                flex({
+                  wrap: 'wrap',
+                  gap: '3xs',
+                  justify: 'between',
+                  align: 'baseline',
+                }),
+                sprinkles({ flexDirection: { initial: 'column', bp2: 'row' } }),
+              )}
             >
-              <PageHeader>{name}</PageHeader>
+              <h1 className={pageHeader}>{name}</h1>
               {client?.name ? (
-                <H2 color='2' size='1'>
-                  {client.name}
-                </H2>
+                <h2 className={text({ color: 2, size: 1 })}>{client.name}</h2>
               ) : null}
-            </Flex>
-          </Box>
-          <ScrollContainerArea>
-            <ScrollContainerScrollbar orientation='horizontal'>
-              <ScrollContainerThumb />
-            </ScrollContainerScrollbar>
-            <ScrollContainerViewport>
-              <ImageGrid gap='s'>
+            </div>
+          </div>
+          <ScrollAreaPrimitive.Root className={sc.scrollContainer.area}>
+            <ScrollAreaPrimitive.Scrollbar
+              className={sc.scrollContainer.scrollBar}
+              orientation='horizontal'
+            >
+              <ScrollAreaPrimitive.Thumb
+                className={sc.scrollContainer.scrollThumb}
+              />
+            </ScrollAreaPrimitive.Scrollbar>
+            <ScrollAreaPrimitive.Viewport
+              className={sc.scrollContainer.viewPort}
+            >
+              <div className={s.imageGrid}>
                 {media?.map(({ mediaType, url }, idx) => {
                   if (mediaType == null) return null;
                   const isEven = (idx + 1) % 2 === 0;
@@ -99,7 +106,7 @@ const Project = ({
                   ] as const;
 
                   return (
-                    <MediaContainer key={idx} item={item}>
+                    <div className={s.mediaContainer({ item })} key={idx}>
                       <Media
                         type={mediaType}
                         url={url}
@@ -107,124 +114,93 @@ const Project = ({
                         height={height}
                         sizes={sizes[item]}
                       />
-                    </MediaContainer>
+                    </div>
                   );
                 })}
-              </ImageGrid>
-            </ScrollContainerViewport>
-          </ScrollContainerArea>
-          <Stack gap='xs'>
-            <H3 color='2' size='1' leading='tight'>
+              </div>
+            </ScrollAreaPrimitive.Viewport>
+          </ScrollAreaPrimitive.Root>
+          <div className={stack({ gap: 'xs' })}>
+            <h3 className={text({ color: 2, size: 1, leading: 'tight' })}>
               Description
-            </H3>
+            </h3>
             {descriptionLong ? (
               <RichText content={descriptionLong.raw as RichTextContent} />
             ) : null}
-          </Stack>
-          <Grid gap='m' columns='3'>
-            <Stack gap='xs'>
-              <H3 color='2' size='1' leading='tight'>
+          </div>
+          <div className={grid({ gap: 'm', columns: 3 })}>
+            <div
+              className={stack({ gap: 'xs' })}
+              style={{ height: 'fit-content' }}
+            >
+              <h3 className={text({ color: 2, size: 1, leading: 'tight' })}>
                 Contributions
-              </H3>
-              <Flex gap='2xs' as='ul' wrap='wrap'>
-                {contribution?.map((c, i) => (
-                  <Chip key={c} variant={i % 2 === 0 ? 'default' : 'darker'}>
-                    {c}
-                  </Chip>
-                ))}
-              </Flex>
-            </Stack>
-            <Stack css={{ gridColumn: 'span 2 / -1' }} gap='m'>
-              <Stack gap='xs' css={{ gridColumn: '2 / span 2' }}>
-                <H3 color='2' size='1' leading='tight'>
+              </h3>
+              <div>
+                <ul className={flex({ gap: '2xs', wrap: 'wrap' })}>
+                  {contribution?.map((c, i) => (
+                    <li
+                      className={s.chip({
+                        variant: i % 2 === 0 ? 'default' : 'darker',
+                      })}
+                      key={c}
+                    >
+                      {c}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+            <div
+              className={stack({ gap: 'm', justify: 'left' })}
+              style={{ gridColumn: 'span 2 / -1' }}
+            >
+              <div className={stack({ gap: 'xs' })}>
+                <h3 className={text({ color: 2, size: 1, leading: 'tight' })}>
                   Dates
-                </H3>
-                <Paragraph leading='tight' size='1'>
+                </h3>
+                <p className={text({ leading: 'tight', size: 1 })}>
                   {date?.map((d, i) => {
                     return (
-                      <Text key={i} leading='tight' size='1'>
+                      <span
+                        className={text({ leading: 'tight', size: 1 })}
+                        key={i}
+                      >
                         {i > 0 ? ' - ' : ''}
                         {getYear(new Date(d as string))}
-                      </Text>
+                      </span>
                     );
                   })}
-                </Paragraph>
-              </Stack>
+                </p>
+              </div>
               <div>
                 {link ? (
-                  <ButtonLink title={`Visit ${link}`} href={link}>
+                  <CustomLink
+                    className={buttonLink}
+                    title={`Visit ${link}`}
+                    href={link}
+                  >
                     <span>Visit Site</span>
                     <ArrowTopRightIcon />
-                  </ButtonLink>
+                  </CustomLink>
                 ) : null}
               </div>
-            </Stack>
-          </Grid>
-        </Stack>
-        <Stack gap='s'>
-          <H3 color='2' size='1' leading='tight'>
+            </div>
+          </div>
+        </div>
+        <div className={stack({ gap: 's' })}>
+          <h3 className={text({ color: 2, size: 1, leading: 'tight' })}>
             Other Projects
-          </H3>
+          </h3>
           <ProjectLinks
             projectIndex={projectIndex}
             projectsMeta={projectsMeta}
           />
-        </Stack>
-      </Stack>
+        </div>
+      </div>
     </>
   );
 };
-
-const MediaContainer = styled('div', {
-  borderRadius: '$card',
-  isolation: 'isolate',
-  overflow: 'hidden',
-  height: '$full',
-  backgroundColor: '$slate8',
-  variants: {
-    item: {
-      0: {
-        gridColumn: '1 / span 2',
-      },
-      1: {
-        gridColumn: '3 / -1',
-      },
-      2: {
-        gridColumn: '1 / -1',
-      },
-    },
-  },
-});
-
-const ImageGrid = styled(Grid, {
-  mb: '$l',
-  gtc: 'repeat(3, 40%)',
-  '@bp1': { mb: 'unset', gtc: 'repeat(3, 1fr)' },
-});
-
-const Chip = styled('li', {
-  px: '$2xs',
-  py: '$3xs',
-  whiteSpace: 'nowrap',
-  borderRadius: '$pill',
-  fontSize: 12,
-  lineHeight: '$tight',
-  variants: {
-    variant: {
-      darker: {
-        backgroundColor: '$gold5',
-        color: '$gold10',
-      },
-      default: {
-        backgroundColor: '$gold7',
-        color: '$gold10',
-      },
-    },
-  },
-  defaultVariants: {
-    variant: 'default',
-  },
-});
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const data = await projectSlugs.fetch();

@@ -1,7 +1,8 @@
+import { stack } from '@/styles/elements/stack.css';
+import { text } from '@/styles/elements/text.css';
+import { sprinkles } from '@/styles/sprinkles.css';
+import clsx from 'clsx';
 import * as React from 'react';
-import { Box } from './Box';
-import { Stack } from './Stack';
-import { Text } from './Text';
 
 interface ImageContainerProps {
   caption: string;
@@ -11,21 +12,36 @@ export const ImageContainer = ({
   children,
 }: React.PropsWithChildren<ImageContainerProps>) => {
   return (
-    <Stack gap='xs' css={{ pt: '$xs', pb: '$xs' }}>
-      <Box
-        css={{
-          borderRadius: '$card',
+    <div
+      className={clsx(
+        stack({ gap: 'xs' }),
+        sprinkles({
+          paddingTop: 'xs',
+          paddingBottom: 'xs',
+        }),
+      )}
+    >
+      <div
+        className={sprinkles({
+          borderRadius: 'card',
+          backgroundColor: 'slate8',
+        })}
+        style={{
           overflow: 'hidden',
-          backgroundColor: '$slate8',
         }}
       >
         {children}
-      </Box>
+      </div>
       {caption ? (
-        <Text size='1' color='2' as='p' css={{ pb: '$m' }}>
+        <p
+          className={clsx(
+            sprinkles({ paddingBottom: 'm' }),
+            text({ size: 1, color: 2 }),
+          )}
+        >
           {caption}
-        </Text>
+        </p>
       ) : null}
-    </Stack>
+    </div>
   );
 };

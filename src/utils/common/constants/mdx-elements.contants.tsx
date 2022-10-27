@@ -1,134 +1,98 @@
-import { BlockQuote } from '@components/common/BlockQuote';
-import { UnorderedList } from '@components/common/List';
-import { Separator } from '@components/common/Separator';
-import {
-  BodyText,
-  H1,
-  H2,
-  H3,
-  H4,
-  H5,
-  H6,
-  Link,
-  ListItem,
-  Text,
-} from '@components/common/Text';
+import * as s from '@/components/common/RichText/RichText.css';
+import { blockquote } from '@/styles/elements/blockquote.css';
+import { link } from '@/styles/elements/link.css';
+import { bodyText, text } from '@/styles/elements/text.css';
+import { sprinkles } from '@/styles/sprinkles.css';
+import { CustomLink } from '@components/common/CustomLink';
+import { Separator } from '@components/common/Separator/Separator';
+import clsx from 'clsx';
 import { MDXRemoteProps } from 'next-mdx-remote';
 
 export const MDX_ELEMENTS = {
-  Text,
   h1: (props: any) => (
-    <H1 size='4' leading='body' color='1' css={{ mb: '$l' }} {...props} />
+    <h1
+      className={clsx(
+        text({ leading: 'body', size: 4, color: 1 }),
+        sprinkles({ marginBottom: 'l' }),
+      )}
+      {...props}
+    />
   ),
   h2: (props: any) => (
-    <H2
-      size='3'
-      leading='body'
-      color='1'
-      css={{ mt: '$l', mb: '$xs' }}
+    <h2
+      className={clsx(
+        text({ leading: 'body', size: 3, color: 1 }),
+        sprinkles({ marginTop: 'l', marginBottom: 'xs' }),
+      )}
       {...props}
     />
   ),
   h3: (props: any) => (
-    <H3 size='2' leading='body' color='2' css={{ mb: '$m' }} {...props} />
+    <h3
+      className={clsx(
+        text({ leading: 'body', size: 2, color: 1 }),
+        sprinkles({ marginBottom: 'm' }),
+      )}
+      {...props}
+    />
   ),
   h4: (props: any) => (
-    <H4 size='1' leading='body' color='1' css={{ mb: '$m' }} {...props} />
+    <h4
+      className={clsx(
+        text({ leading: 'body', size: 1, color: 1 }),
+        sprinkles({ marginBottom: 'm' }),
+      )}
+      {...props}
+    />
   ),
   h5: (props: any) => (
-    <H5 size='2' leading='body' color='1' css={{ mb: '$m' }} {...props} />
+    <h5
+      className={clsx(
+        text({ leading: 'body', size: 2, color: 1 }),
+        sprinkles({ marginBottom: 'm' }),
+      )}
+      {...props}
+    />
   ),
   h6: (props: any) => (
-    <H6 size='2' leading='body' color='1' css={{ mb: '$m' }} {...props} />
+    <h6
+      className={clsx(
+        text({ leading: 'body', size: 2, color: 1 }),
+        sprinkles({ marginBottom: 'm' }),
+      )}
+      {...props}
+    />
   ),
-  p: (props: any) => <BodyText css={{ mb: '$m' }} {...props} />,
+  p: (props: any) => (
+    <p
+      className={clsx(bodyText, sprinkles({ marginBottom: 'm' }), s.paragraph)}
+      {...props}
+    />
+  ),
   strong: (props: any) => (
-    <Text
-      as='strong'
-      weight='bold'
-      css={{ fontSize: 'inherit', color: 'inherit', lineHeight: 'inherit' }}
+    <strong
+      className={clsx(text({ weight: 'bold' }), s.inlineElementReset)}
       {...props}
     />
   ),
   em: (props: any) => (
-    <Text
-      as='em'
-      family='serif'
-      css={{ fontSize: 'inherit', color: 'inherit', lineHeight: 'inherit' }}
+    <em
+      className={clsx(text({ family: 'serif' }), s.inlineElementReset)}
       {...props}
     />
   ),
   a: (props: any) => (
-    <Link
-      color='3'
-      css={{
-        css: {
-          fontSize: 'inherit',
-          lineHeight: 'inherit',
-        },
-      }}
+    <CustomLink
+      className={link({ color: 3 })}
+      style={{ fontSize: 'inherit', lineHeight: 'inherit' }}
       {...props}
     />
   ),
-  ul: (props: any) => (
-    <UnorderedList
-      css={{
-        mb: '$m',
-        [`${UnorderedList}`]: {
-          mb: '$2xs',
-        },
-      }}
-      {...props}
-    />
-  ),
-  ol: (props: any) => (
-    <UnorderedList
-      as='ol'
-      css={{
-        mb: '$m',
-        listStyle: 'none',
-        counterReset: 'listCounter',
-        [`${UnorderedList}`]: {
-          mb: '$xs',
-        },
-        [`& > ${ListItem}`]: {
-          '&:before': {
-            counterIncrement: 'listCounter',
-            display: 'inline-block',
-            content: 'counter(listCounter)"."',
-            width: '1em',
-            ml: '-1em',
-          },
-        },
-      }}
-      {...props}
-    />
-  ),
+  ul: (props: any) => <ul className={s.unorderedList} {...props} />,
+  ol: (props: any) => <ol className={s.orderedList} {...props} />,
   li: (props: any) => (
-    <ListItem
-      leading='body'
-      css={{
-        listStyle: 'none',
-        ml: 0,
-        pl: 0,
-        '&:before': {
-          display: 'inline-block',
-          content: '-',
-          width: '1em',
-          ml: '-1em',
-        },
-        'ul,ol': {
-          li: {
-            '&:first-of-type': {
-              pt: '$xs',
-            },
-          },
-        },
-        mb: '$xs',
-      }}
-      {...props}
-    />
+    <li className={clsx(text({ leading: 'body' }), s.listItem)} {...props} />
   ),
   hr: (props: any) => <Separator {...props} />,
-  blockquote: (props: any) => <BlockQuote {...props} />,
+  blockquote: (props: any) => <blockquote className={blockquote} {...props} />,
 } as MDXRemoteProps['components'];

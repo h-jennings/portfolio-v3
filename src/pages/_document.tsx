@@ -1,4 +1,3 @@
-import { getCssText } from '@/stitches.config';
 import NextDocument, { Head, Html, Main, NextScript } from 'next/document';
 
 const FONTS = `
@@ -63,10 +62,6 @@ export default class Document extends NextDocument {
             as='font'
             type='font/woff2'
             crossOrigin='anonymous'
-          />
-          <style
-            id='stitches'
-            dangerouslySetInnerHTML={{ __html: getCssText() }}
           />
           <style
             dangerouslySetInnerHTML={{

@@ -1,10 +1,10 @@
+import { stack } from '@/styles/elements/stack.css';
+import { text } from '@/styles/elements/text.css';
 import {
   ProseLayout,
   ProseLayoutContent,
   ProseLayoutHeader,
 } from '@components/common/ProseLayout';
-import { Stack } from '@components/common/Stack';
-import { Text } from '@components/common/Text';
 import { MDX_ELEMENTS } from '@utils/common/constants/mdx-elements.contants';
 import { PATHS } from '@utils/common/constants/paths.constants';
 import { getNowPageData } from '@utils/common/helpers/mdx-data.helpers';
@@ -66,12 +66,12 @@ const Now = ({ source }: InferGetStaticPropsType<typeof getStaticProps>) => {
           headline={source.scope?.title}
           description={source.scope?.description}
         >
-          <Stack gap='3xs'>
-            <Text size='1' color='2'>
-              Last Updated
-            </Text>
-            <Text size='1'>{source.scope?.publishDate}</Text>
-          </Stack>
+          <div className={stack({ gap: '3xs' })}>
+            <span className={text({ size: 1, color: 2 })}>Last Updated</span>
+            <span className={text({ size: 1 })}>
+              {source.scope?.publishDate}
+            </span>
+          </div>
         </ProseLayoutHeader>
         <ProseLayoutContent>
           <MDXRemote

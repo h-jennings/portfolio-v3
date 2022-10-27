@@ -1,14 +1,15 @@
+import { stack } from '@/styles/elements/stack.css';
+import { pageHeader, text } from '@/styles/elements/text.css';
+import { sprinkles } from '@/styles/sprinkles.css';
+import { themeVars } from '@/styles/theme.css';
 import React from 'react';
 import { BackToLink } from './BackToLink';
-import { Box } from './Box';
-import { Stack } from './Stack';
-import { PageHeader, Paragraph } from './Text';
 
 export const ProseLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <Stack gap='xl' as='article'>
+    <article className={stack({ gap: 'xl' })} style={{ height: 'min-content' }}>
       {children}
-    </Stack>
+    </article>
   );
 };
 export const ProseLayoutContent = ({
@@ -40,26 +41,25 @@ export const ProseLayoutHeader = ({
   children,
 }: React.PropsWithChildren<ProseLayoutHeaderProps>) => {
   return (
-    <Stack gap='xl'>
-      <Box
-        css={{
-          borderBottom: '1px dashed $slate8',
-          pb: '$xl',
-        }}
-      >
-        <Box>
-          {backTo.hasLink ? (
-            <BackToLink href={backTo.href}>{backTo.content}</BackToLink>
-          ) : null}
-          <Stack gap='m'>
-            <PageHeader>{headline}</PageHeader>
-            <Paragraph css={{ maxWidth: '50ch' }} size='1' leading='body'>
-              {description}
-            </Paragraph>
-            {children}
-          </Stack>
-        </Box>
-      </Box>
-    </Stack>
+    <div
+      className={sprinkles({ paddingBottom: 'xl' })}
+      style={{ borderBottom: `1px dashed ${themeVars.colors.slate8}` }}
+    >
+      <div>
+        {backTo.hasLink ? (
+          <BackToLink href={backTo.href}>{backTo.content}</BackToLink>
+        ) : null}
+        <div className={stack({ gap: 'm' })}>
+          <h1 className={pageHeader}>{headline}</h1>
+          <p
+            className={text({ size: 1, leading: 'body' })}
+            style={{ maxWidth: '50ch' }}
+          >
+            {description}
+          </p>
+          {children}
+        </div>
+      </div>
+    </div>
   );
 };

@@ -1,9 +1,10 @@
-import NextLink from 'next/link';
+import { stack } from '@/styles/elements/stack.css';
+import { text } from '@/styles/elements/text.css';
+import { sprinkles } from '@/styles/sprinkles.css';
+import clsx from 'clsx';
 import * as React from 'react';
 import ArrowLeftIcon from './icons/ArrowLeftIcon';
-import { LinkBox, LinkOverlay } from './LinkBox';
-import { Stack } from './Stack';
-import { Text } from './Text';
+import { LinkBox } from './LinkBox/LinkBox';
 
 interface BackToLinkProps {
   href: string;
@@ -14,17 +15,25 @@ export const BackToLink = ({
   href,
 }: React.PropsWithChildren<BackToLinkProps>): JSX.Element => {
   return (
-    <LinkBox>
-      <Stack css={{ mb: '$m' }} direction='row' gap='xs'>
+    <LinkBox.Root>
+      <div
+        className={clsx(
+          sprinkles({ marginBottom: 'm' }),
+          stack({
+            align: 'center',
+            orientation: 'horizontal',
+            inline: true,
+            gap: 'xs',
+          }),
+        )}
+      >
         <ArrowLeftIcon color='var(--colors-text1)' width={15} aria-hidden />
-        <NextLink href={href} passHref>
-          <LinkOverlay style={{ display: 'flex' }}>
-            <Text leading='tight' css={{ fontSize: 12 }}>
-              {children}
-            </Text>
-          </LinkOverlay>
-        </NextLink>
-      </Stack>
-    </LinkBox>
+        <LinkBox.Target href={href} style={{ display: 'flex' }}>
+          <span className={text({ leading: 'tight' })} style={{ fontSize: 12 }}>
+            {children}
+          </span>
+        </LinkBox.Target>
+      </div>
+    </LinkBox.Root>
   );
 };

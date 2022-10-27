@@ -1,13 +1,12 @@
 import { GetProjectsQuery } from '@/graphql/generated/types.generated';
-import { styled } from '@/stitches.config';
+import { stack } from '@/styles/elements/stack.css';
+import { text } from '@/styles/elements/text.css';
+import { sprinkles } from '@/styles/sprinkles.css';
 import { PATHS } from '@utils/common/constants/paths.constants';
 import { parseTagsToString } from '@utils/common/helpers/string.helpers';
-import NextLink from 'next/link';
-import { Box } from './Box';
+import clsx from 'clsx';
 import { HygraphImageWithLoader } from './HygraphImageWithLoader';
-import { LinkBox, LinkOverlay } from './LinkBox';
-import { Stack } from './Stack';
-import { H3, Paragraph } from './Text';
+import { LinkBox } from './LinkBox/LinkBox';
 
 interface ProjectCardProps {
   project: GetProjectsQuery['projects'][0];
@@ -19,9 +18,15 @@ export const ProjectCard = ({ project, sizes = '100vw' }: ProjectCardProps) => {
   const src = featureMediaNarrow.url;
 
   return (
-    <LinkBox>
-      <Stack gap='s'>
-        <ProjectImageContainer>
+    <LinkBox.Root>
+      <div className={stack({ gap: 's' })}>
+        <div
+          className={sprinkles({
+            borderRadius: 'card',
+            backgroundColor: 'slate8',
+          })}
+          style={{ overflow: 'hidden' }}
+        >
           <HygraphImageWithLoader
             src={src}
             priority
@@ -34,30 +39,26 @@ export const ProjectCard = ({ project, sizes = '100vw' }: ProjectCardProps) => {
             quality={100}
             sizes={sizes}
           />
-        </ProjectImageContainer>
-        <Box css={{ px: '$3xs' }}>
-          <NextLink
-            passHref
+        </div>
+        <div className={sprinkles({ paddingX: '3xs' })}>
+          <LinkBox.Target
             href={`${PATHS.work}/[project]`}
             as={`${PATHS.work}/${slug}`}
+            data-testid={slug}
+            style={{ display: 'inline-block' }}
           >
-            <LinkOverlay data-testid={slug} style={{ display: 'inline-block' }}>
-              <H3 leading='tight' size='1' css={{ pb: '$3xs' }}>
-                {name}
-              </H3>
-            </LinkOverlay>
-          </NextLink>
-          <Paragraph color='2' size='1'>
-            {tagsString}
-          </Paragraph>
-        </Box>
-      </Stack>
-    </LinkBox>
+            <h3
+              className={clsx(
+                text({ leading: 'tight', size: 1 }),
+                sprinkles({ paddingBottom: '3xs' }),
+              )}
+            >
+              {name}
+            </h3>
+          </LinkBox.Target>
+          <p className={text({ color: 2, size: 1 })}>{tagsString}</p>
+        </div>
+      </div>
+    </LinkBox.Root>
   );
 };
-
-const ProjectImageContainer = styled('div', {
-  overflow: 'hidden',
-  borderRadius: '$card',
-  backgroundColor: '$slate8',
-});

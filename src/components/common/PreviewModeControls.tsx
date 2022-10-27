@@ -1,4 +1,4 @@
-import { styled } from '@/stitches.config';
+import { sprinkles } from '@/styles/sprinkles.css';
 import { useRouter } from 'next/router';
 import { CustomLink } from './CustomLink';
 
@@ -8,15 +8,15 @@ export const PreviewModeControls = () => {
   if (!isPreview) return null;
 
   return (
-    <Wrapper>
+    <div
+      className={sprinkles({
+        position: 'fixed',
+        bottom: 'm',
+        left: 'm',
+        zIndex: 'nuclear',
+      })}
+    >
       <CustomLink href='/api/preview/exit'>Exit Preview</CustomLink>
-    </Wrapper>
+    </div>
   );
 };
-
-const Wrapper = styled('div', {
-  position: 'fixed',
-  bottom: '$m',
-  left: '$m',
-  zIndex: '$nuclear',
-});

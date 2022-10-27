@@ -1,12 +1,11 @@
-import { Box } from '@components/common/Box';
+import { stack } from '@/styles/elements/stack.css';
+import { text } from '@/styles/elements/text.css';
 import { ImageContainer } from '@components/common/ImageContainer';
 import {
   ProseLayout,
   ProseLayoutContent,
   ProseLayoutHeader,
 } from '@components/common/ProseLayout';
-import { Stack } from '@components/common/Stack';
-import { Text } from '@components/common/Text';
 import { MDX_ELEMENTS } from '@utils/common/constants/mdx-elements.contants';
 import { writingsFilePaths } from '@utils/common/constants/mdx.constants';
 import { PATHS } from '@utils/common/constants/paths.constants';
@@ -61,20 +60,24 @@ const Writing = ({
           headline={scope?.title}
           description={scope?.description}
         >
-          <Stack gap='xl' direction='row'>
-            <Stack gap='3xs'>
-              <Text size='1' color='2'>
-                Published
-              </Text>
-              <Text size='1'>{scope?.publishDate}</Text>
-            </Stack>
-            <Stack gap='3xs'>
-              <Text size='1' color='2'>
-                Reading Time
-              </Text>
-              <Text size='1'>{scope?.readingTimeResults.text}</Text>
-            </Stack>
-          </Stack>
+          <div
+            className={stack({
+              justify: 'left',
+              gap: 'xl',
+              orientation: 'horizontal',
+            })}
+          >
+            <div className={stack({ gap: '3xs' })}>
+              <span className={text({ size: 1, color: 2 })}>Published</span>
+              <span className={text({ size: 1 })}>{scope?.publishDate}</span>
+            </div>
+            <div className={stack({ gap: '3xs' })}>
+              <span className={text({ size: 1, color: 2 })}>Reading Time</span>
+              <span className={text({ size: 1 })}>
+                {scope?.readingTimeResults.text}
+              </span>
+            </div>
+          </div>
         </ProseLayoutHeader>
         <ProseLayoutContent>
           <MDXRemote
@@ -89,7 +92,6 @@ const Writing = ({
 };
 
 const MDX_COMPONENTS = {
-  Box,
   Image,
   ImageContainer,
 } as MDXRemoteProps['components'];
