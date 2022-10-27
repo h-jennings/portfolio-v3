@@ -2,6 +2,7 @@ import { styled } from '@/stitches.config';
 import { DefaultSeo } from 'next-seo';
 import SEO from 'next-seo.config';
 import * as React from 'react';
+import { PreviewModeControls } from '../PreviewModeControls';
 import { Footer } from './Footer';
 import { Navigation } from './Navigation';
 
@@ -13,6 +14,7 @@ export const RootLayout = ({
   return (
     <>
       <DefaultSeo {...SEO} />
+      <PreviewModeControls />
       <Container>
         <Wrapper>
           <Navigation />
