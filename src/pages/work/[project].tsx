@@ -7,12 +7,12 @@ import {
 } from '@/graphql/generated/types.generated';
 import { spawnHygraphCMSClientInstance, withUrqlSSR } from '@/graphql/urql';
 import { buttonLink } from '@/styles/elements/button.css';
-import { flex } from '@/styles/elements/flex.css';
-import { grid } from '@/styles/elements/grid.css';
 import * as sc from '@/styles/elements/scrollContainer.css';
-import { stack } from '@/styles/elements/stack.css';
-import { pageHeader, text } from '@/styles/elements/text.css';
 import * as s from '@/styles/pages/project.css';
+import { flex } from '@/styles/primitives/flex.css';
+import { grid } from '@/styles/primitives/grid.css';
+import { stack } from '@/styles/primitives/stack.css';
+import { pageHeader, text } from '@/styles/primitives/text.css';
 import { sprinkles } from '@/styles/sprinkles.css';
 import { BackToLink } from '@components/common/BackToLink';
 import { CustomLink } from '@components/common/CustomLink';

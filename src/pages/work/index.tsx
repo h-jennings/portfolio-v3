@@ -5,9 +5,9 @@ import {
   useGetProjectsQuery,
 } from '@/graphql/generated/types.generated';
 import { spawnHygraphCMSClientInstance, withUrqlSSR } from '@/graphql/urql';
-import { grid } from '@/styles/elements/grid.css';
-import { stack } from '@/styles/elements/stack.css';
-import { pageHeader, text } from '@/styles/elements/text.css';
+import { grid } from '@/styles/primitives/grid.css';
+import { stack } from '@/styles/primitives/stack.css';
+import { pageHeader, text } from '@/styles/primitives/text.css';
 import { sprinkles } from '@/styles/sprinkles.css';
 import { tokenVars } from '@/styles/tokens.css';
 import { BackToLink } from '@components/common/BackToLink';

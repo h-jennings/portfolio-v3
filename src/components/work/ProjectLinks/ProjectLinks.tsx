@@ -1,6 +1,6 @@
 import { link } from '@/styles/elements/link.css';
-import { stack } from '@/styles/elements/stack.css';
-import { text } from '@/styles/elements/text.css';
+import { stack } from '@/styles/primitives/stack.css';
+import { text } from '@/styles/primitives/text.css';
 import { sprinkles } from '@/styles/sprinkles.css';
 import { ArrowLeftIcon } from '@components/common/icons/ArrowLeftIcon';
 import { ArrowRightIcon } from '@components/common/icons/ArrowRightIcon';

@@ -1,5 +1,5 @@
-import { stack } from '@/styles/elements/stack.css';
-import { pageHeader, text } from '@/styles/elements/text.css';
+import { stack } from '@/styles/primitives/stack.css';
+import { pageHeader, text } from '@/styles/primitives/text.css';
 import { sprinkles } from '@/styles/sprinkles.css';
 import { themeVars } from '@/styles/theme.css';
 import React from 'react';

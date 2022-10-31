@@ -1,4 +1,4 @@
-import { stack } from '@/styles/elements/stack.css';
+import { stack } from '@/styles/primitives/stack.css';
 import * as s from './Separator.css';
 
 export const Separator = (): JSX.Element => {

@@ -1,5 +1,5 @@
-import { stack } from '@/styles/elements/stack.css';
-import { text } from '@/styles/elements/text.css';
+import { stack } from '@/styles/primitives/stack.css';
+import { text } from '@/styles/primitives/text.css';
 import {
   ProseLayout,
   ProseLayoutContent,

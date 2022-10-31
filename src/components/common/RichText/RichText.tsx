@@ -1,6 +1,6 @@
 import { blockquote } from '@/styles/elements/blockquote.css';
 import { link } from '@/styles/elements/link.css';
-import { bodyText, text } from '@/styles/elements/text.css';
+import { bodyText, text } from '@/styles/primitives/text.css';
 import { sprinkles } from '@/styles/sprinkles.css';
 import {
   NodeRendererType,

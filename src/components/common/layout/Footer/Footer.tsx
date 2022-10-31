@@ -1,6 +1,6 @@
-import { grid } from '@/styles/elements/grid.css';
-import { stack } from '@/styles/elements/stack.css';
-import { text } from '@/styles/elements/text.css';
+import { grid } from '@/styles/primitives/grid.css';
+import { stack } from '@/styles/primitives/stack.css';
+import { text } from '@/styles/primitives/text.css';
 import { sprinkles } from '@/styles/sprinkles.css';
 import { themeVars } from '@/styles/theme.css';
 import {

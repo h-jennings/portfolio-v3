@@ -1,6 +1,6 @@
 import { GetProjectsQuery } from '@/graphql/generated/types.generated';
-import { stack } from '@/styles/elements/stack.css';
-import { text } from '@/styles/elements/text.css';
+import { stack } from '@/styles/primitives/stack.css';
+import { text } from '@/styles/primitives/text.css';
 import { sprinkles } from '@/styles/sprinkles.css';
 import { PATHS } from '@utils/common/constants/paths.constants';
 import { parseTagsToString } from '@utils/common/helpers/string.helpers';

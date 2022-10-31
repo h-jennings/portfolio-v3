@@ -1,7 +1,7 @@
 import * as s from '@/components/common/RichText/RichText.css';
 import { blockquote } from '@/styles/elements/blockquote.css';
 import { link } from '@/styles/elements/link.css';
-import { bodyText, text } from '@/styles/elements/text.css';
+import { bodyText, text } from '@/styles/primitives/text.css';
 import { sprinkles } from '@/styles/sprinkles.css';
 import { CustomLink } from '@components/common/CustomLink';
 import { Separator } from '@components/common/Separator/Separator';

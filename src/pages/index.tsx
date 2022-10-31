@@ -4,11 +4,11 @@ import {
   GetProjectsQueryVariables,
 } from '@/graphql/generated/types.generated';
 import { spawnHygraphCMSClientInstance, withUrqlSSR } from '@/graphql/urql';
-import { flex } from '@/styles/elements/flex.css';
 import { link } from '@/styles/elements/link.css';
-import { stack } from '@/styles/elements/stack.css';
-import { bodyText, text } from '@/styles/elements/text.css';
 import * as s from '@/styles/pages/index.css';
+import { flex } from '@/styles/primitives/flex.css';
+import { stack } from '@/styles/primitives/stack.css';
+import { bodyText, text } from '@/styles/primitives/text.css';
 import { sprinkles } from '@/styles/sprinkles.css';
 import { CustomLink } from '@components/common/CustomLink';
 import { ArrowRightIcon } from '@components/common/icons/ArrowRightIcon';

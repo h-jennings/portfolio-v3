@@ -1,5 +1,5 @@
 import { link } from '@/styles/elements/link.css';
-import { text } from '@/styles/elements/text.css';
+import { text } from '@/styles/primitives/text.css';
 import { PATHS } from '@utils/common/constants/paths.constants';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';

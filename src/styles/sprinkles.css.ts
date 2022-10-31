@@ -30,6 +30,7 @@ const responsiveProperties = defineProperties({
       'inline-flex',
     ],
     flexDirection: ['row', 'row-reverse', 'column', 'column-reverse'],
+    justifyItems: ['start', 'end', 'center', 'stretch'],
     justifyContent: [
       'stretch',
       'flex-start',

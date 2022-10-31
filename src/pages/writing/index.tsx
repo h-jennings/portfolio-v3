@@ -1,7 +1,7 @@
-import { flex } from '@/styles/elements/flex.css';
-import { stack } from '@/styles/elements/stack.css';
-import { pageHeader, text } from '@/styles/elements/text.css';
 import * as s from '@/styles/pages/writing.css';
+import { flex } from '@/styles/primitives/flex.css';
+import { stack } from '@/styles/primitives/stack.css';
+import { pageHeader, text } from '@/styles/primitives/text.css';
 import { sprinkles } from '@/styles/sprinkles.css';
 import { BackToLink } from '@components/common/BackToLink';
 import { LinkBox } from '@components/common/LinkBox/LinkBox';
