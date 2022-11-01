@@ -2,9 +2,9 @@ import * as AspectRatio from '@radix-ui/react-aspect-ratio';
 import { HygraphImageWithLoader } from './HygraphImageWithLoader';
 
 interface MediaProps {
-  url: string;
   width: number;
   height: number;
+  url: string;
   sizes?: string;
 }
 
@@ -34,18 +34,18 @@ export const Media = (props: ImageProps | VideoProps) => {
 const ImageMedia = (props: ImageProps) => {
   const { url, width, height, sizes } = props;
   return (
-    <HygraphImageWithLoader
-      src={url}
-      alt=''
-      layout='responsive'
-      blurDataURL={url}
-      placeholder='blur'
-      objectFit='cover'
-      width={width}
-      height={height}
-      quality={100}
-      sizes={sizes}
-    />
+    <AspectRatio.Root ratio={width / height}>
+      <HygraphImageWithLoader
+        src={url}
+        alt=''
+        blurDataURL={url}
+        fill
+        placeholder='blur'
+        style={{ objectFit: 'cover' }}
+        quality={100}
+        sizes={sizes}
+      />
+    </AspectRatio.Root>
   );
 };
 

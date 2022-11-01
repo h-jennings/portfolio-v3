@@ -6,6 +6,7 @@ import {
   ProseLayoutContent,
   ProseLayoutHeader,
 } from '@components/common/ProseLayout';
+import { AspectRatio } from '@radix-ui/react-aspect-ratio';
 import { MDX_ELEMENTS } from '@utils/common/constants/mdx-elements.contants';
 import { writingsFilePaths } from '@utils/common/constants/mdx.constants';
 import { PATHS } from '@utils/common/constants/paths.constants';
@@ -94,6 +95,7 @@ const Writing = ({
 const MDX_COMPONENTS = {
   Image,
   ImageContainer,
+  AspectRatio,
 } as MDXRemoteProps['components'];
 
 export const getStaticPaths: GetStaticPaths<{ slug: string }> = () => {

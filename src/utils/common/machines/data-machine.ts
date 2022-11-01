@@ -33,6 +33,7 @@ export const dataMachine = <TResponseData extends Record<string, any>>(
     {
       id,
       preserveActionOrder: true,
+      predictableActionArguments: true,
       initial: 'idle',
       context: {},
       states: {

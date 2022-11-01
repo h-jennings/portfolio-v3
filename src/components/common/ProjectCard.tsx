@@ -2,6 +2,7 @@ import { GetProjectsQuery } from '@/graphql/generated/types.generated';
 import { stack } from '@/styles/primitives/stack.css';
 import { text } from '@/styles/primitives/text.css';
 import { sprinkles } from '@/styles/sprinkles.css';
+import * as AspectRatio from '@radix-ui/react-aspect-ratio';
 import { PATHS } from '@utils/common/constants/paths.constants';
 import { parseTagsToString } from '@utils/common/helpers/string.helpers';
 import clsx from 'clsx';
@@ -24,21 +25,23 @@ export const ProjectCard = ({ project, sizes = '100vw' }: ProjectCardProps) => {
           className={sprinkles({
             borderRadius: 'card',
             backgroundColor: 'slate8',
+            position: 'relative',
           })}
           style={{ overflow: 'hidden' }}
         >
-          <HygraphImageWithLoader
-            src={src}
-            priority
-            alt=''
-            layout='responsive'
-            blurDataURL={src}
-            placeholder='blur'
-            width={220}
-            height={275}
-            quality={100}
-            sizes={sizes}
-          />
+          <AspectRatio.Root ratio={220 / 275}>
+            <HygraphImageWithLoader
+              src={src}
+              priority
+              alt=''
+              fill
+              blurDataURL={src}
+              style={{ objectFit: 'cover' }}
+              placeholder='blur'
+              quality={100}
+              sizes={sizes}
+            />
+          </AspectRatio.Root>
         </div>
         <div className={sprinkles({ paddingX: '3xs' })}>
           <LinkBox.Target
