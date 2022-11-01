@@ -167,9 +167,9 @@ const WeatherIcon = ({
   return icon ? (
     <Image
       src={`https://openweathermap.org/img/wn/${icon}.png`}
-      width='25px'
+      width={25}
       aria-hidden
-      height='25px'
+      height={25}
       alt={description ?? 'weather icon'}
     />
   ) : (

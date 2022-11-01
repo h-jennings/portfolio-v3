@@ -7,6 +7,6 @@ export const loader = ({ src, width }: ImageLoaderProps) => {
   return `${CDN_URL}${transform}${srcInfo}`;
 };
 
-export const HygraphImageWithLoader = ({ alt, ...rest }: ImageProps) => {
-  return <Image {...rest} loader={loader} alt={alt ?? ''} />;
+export const HygraphImageWithLoader = (props: ImageProps) => {
+  return <Image {...props} loader={loader} alt={props.alt} />;
 };
