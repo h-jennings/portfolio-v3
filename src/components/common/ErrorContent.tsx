@@ -4,7 +4,7 @@ import { pageHeader } from '@/styles/primitives/text.css';
 import { sprinkles } from '@/styles/sprinkles.css';
 import clsx from 'clsx';
 import { ErrorProps } from 'next/error';
-import { CustomLink } from './CustomLink';
+import Link from 'next/link';
 
 export const ErrorContent = ({ statusCode }: ErrorProps): JSX.Element => {
   return (
@@ -12,7 +12,7 @@ export const ErrorContent = ({ statusCode }: ErrorProps): JSX.Element => {
       <div className={stack({ gap: 'm' })}>
         <h1 className={pageHeader}>{statusCode} - Page Not Found</h1>
         <div>
-          <CustomLink
+          <Link
             href='/'
             className={clsx(
               link({ color: 3 }),
@@ -22,7 +22,7 @@ export const ErrorContent = ({ statusCode }: ErrorProps): JSX.Element => {
             )}
           >
             Back to homepage
-          </CustomLink>
+          </Link>
         </div>
       </div>
     </div>

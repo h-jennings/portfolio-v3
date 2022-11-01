@@ -10,7 +10,6 @@ import { flex } from '@/styles/primitives/flex.css';
 import { stack } from '@/styles/primitives/stack.css';
 import { bodyText, text } from '@/styles/primitives/text.css';
 import { sprinkles } from '@/styles/sprinkles.css';
-import { CustomLink } from '@components/common/CustomLink';
 import { ArrowRightIcon } from '@components/common/icons/ArrowRightIcon';
 import { ProjectGrid } from '@components/home/ProjectGrid/ProjectGrid';
 import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
@@ -23,6 +22,7 @@ import { MdxData } from '@utils/common/types/mdx-data';
 import clsx from 'clsx';
 import type { GetStaticProps, InferGetStaticPropsType, PageConfig } from 'next';
 import { NextSeo } from 'next-seo';
+import Link from 'next/link';
 import * as React from 'react';
 import { getWritings } from './api/writings';
 
@@ -109,23 +109,23 @@ const IntroductionSection = () => {
         <p className={bodyText}>
           Currently working as a Frontend Developer for the award-winning
           digital creative agency&mdash;
-          <CustomLink
+          <Link
             className={link({ underline: 'whileHover', color: 3 })}
             href={PATHS.seagulls}
           >
             Elegant Seagulls
-          </CustomLink>
+          </Link>
           .
         </p>
         <p className={bodyText}>
           Other stuff I&apos;m working on{' '}
-          <CustomLink
+          <Link
             className={link({ underline: true, color: 2 })}
             data-cy='now-link'
             href={PATHS.now}
           >
             now
-          </CustomLink>
+          </Link>
         </p>
       </div>
     </section>
@@ -167,13 +167,13 @@ const WritingsSection = ({ writings }: WritingsSectionProps) => {
               key={fileName}
             >
               <div>
-                <CustomLink
+                <Link
                   href={`${PATHS.writing}/[slug]`}
                   as={`${PATHS.writing}/${fileName.replace(/\.mdx?$/, '')}`}
                   className={link({ size: 1 })}
                 >
                   {metaData.title}
-                </CustomLink>
+                </Link>
               </div>
               <time className={text({ size: 1, family: 'serif' })}>
                 {parseDateToLongDateString(metaData.publishDate)}
@@ -192,7 +192,7 @@ const ArrowLink = ({
 }: React.PropsWithChildren<{ href: string }>) => {
   return (
     <div className={s.arrowLink.root}>
-      <CustomLink
+      <Link
         href={href}
         className={link({
           color: 2,
@@ -202,7 +202,7 @@ const ArrowLink = ({
         style={{ display: 'block' }}
       >
         {children}
-      </CustomLink>
+      </Link>
       <ArrowRightIcon aria-hidden color='var(--colors-slate11)' />
     </div>
   );
@@ -266,7 +266,7 @@ const ConnectListLink = ({
   href,
 }: React.PropsWithChildren<{ href: string }>) => {
   return (
-    <CustomLink
+    <Link
       className={clsx(
         sprinkles({ display: 'inline-block' }),
         link({
@@ -278,7 +278,7 @@ const ConnectListLink = ({
       href={href}
     >
       {children}
-    </CustomLink>
+    </Link>
   );
 };
 

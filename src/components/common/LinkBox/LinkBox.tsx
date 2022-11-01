@@ -1,7 +1,6 @@
 import clsx from 'clsx';
-import { LinkProps } from 'next/link';
+import Link, { LinkProps } from 'next/link';
 import * as React from 'react';
-import { CustomLink } from '../CustomLink';
 import * as s from './LinkBox.css';
 
 export const LinkBoxRoot = React.forwardRef<
@@ -33,13 +32,13 @@ const LinkBoxTarget = React.forwardRef<
   React.PropsWithChildren<LinkTargetProps>
 >(({ children, className, ...rest }, forwardedRef) => {
   return (
-    <CustomLink
+    <Link
       {...rest}
       className={clsx('linkbox__target', s.target, className)}
       ref={forwardedRef}
     >
       {children}
-    </CustomLink>
+    </Link>
   );
 });
 

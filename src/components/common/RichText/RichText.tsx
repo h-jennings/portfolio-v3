@@ -8,7 +8,7 @@ import {
 } from '@graphcms/rich-text-react-renderer';
 import { RichTextContent } from '@graphcms/rich-text-types';
 import clsx from 'clsx';
-import { CustomLink } from '../CustomLink';
+import Link from 'next/link';
 import * as s from './RichText.css';
 
 interface RichTextProps {
@@ -106,14 +106,14 @@ const DEFAULT_RENDERERS: NodeRendererType = {
     </i>
   ),
   a: ({ children, href, ...rest }) => (
-    <CustomLink
+    <Link
+      {...rest}
       className={link({ color: 3 })}
       style={{ fontSize: 'inherit', lineHeight: 'inherit' }}
       href={href ?? ''}
-      {...rest}
     >
       {children}
-    </CustomLink>
+    </Link>
   ),
   ul: ({ children }) => <ul className={s.unorderedList}>{children}</ul>,
   ol: ({ children }) => <ol className={s.orderedList}>{children}</ol>,

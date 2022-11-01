@@ -3,10 +3,10 @@ import { blockquote } from '@/styles/elements/blockquote.css';
 import { link } from '@/styles/elements/link.css';
 import { bodyText, text } from '@/styles/primitives/text.css';
 import { sprinkles } from '@/styles/sprinkles.css';
-import { CustomLink } from '@components/common/CustomLink';
 import { Separator } from '@components/common/Separator/Separator';
 import clsx from 'clsx';
 import { MDXRemoteProps } from 'next-mdx-remote';
+import Link from 'next/link';
 
 export const MDX_ELEMENTS = {
   h1: (props: any) => (
@@ -82,10 +82,10 @@ export const MDX_ELEMENTS = {
     />
   ),
   a: (props: any) => (
-    <CustomLink
+    <Link
+      {...props}
       className={link({ color: 3 })}
       style={{ fontSize: 'inherit', lineHeight: 'inherit' }}
-      {...props}
     />
   ),
   ul: (props: any) => <ul className={s.unorderedList} {...props} />,

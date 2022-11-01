@@ -1,6 +1,6 @@
 import { sprinkles } from '@/styles/sprinkles.css';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { CustomLink } from './CustomLink';
 
 export const PreviewModeControls = () => {
   const { isPreview } = useRouter();
@@ -16,7 +16,7 @@ export const PreviewModeControls = () => {
         zIndex: 'nuclear',
       })}
     >
-      <CustomLink href='/api/preview/exit'>Exit Preview</CustomLink>
+      <Link href='/api/preview/exit'>Exit Preview</Link>
     </div>
   );
 };

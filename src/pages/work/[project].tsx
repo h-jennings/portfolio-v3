@@ -15,7 +15,6 @@ import { stack } from '@/styles/primitives/stack.css';
 import { pageHeader, text } from '@/styles/primitives/text.css';
 import { sprinkles } from '@/styles/sprinkles.css';
 import { BackToLink } from '@components/common/BackToLink';
-import { CustomLink } from '@components/common/CustomLink';
 import { ArrowTopRightIcon } from '@components/common/icons/ArrowTopRightIcon';
 import { Media } from '@components/common/Media';
 import { RichText } from '@components/common/RichText/RichText';
@@ -28,6 +27,7 @@ import clsx from 'clsx';
 import { getYear } from 'date-fns';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import { PHASE_PRODUCTION_BUILD } from 'next/constants';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 const Project = ({
@@ -175,14 +175,14 @@ const Project = ({
               </div>
               <div>
                 {link ? (
-                  <CustomLink
+                  <Link
                     className={buttonLink}
                     title={`Visit ${link}`}
                     href={link}
                   >
                     <span>Visit Site</span>
                     <ArrowTopRightIcon />
-                  </CustomLink>
+                  </Link>
                 ) : null}
               </div>
             </div>
