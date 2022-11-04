@@ -3,8 +3,11 @@ import {
   GetProjectDocument,
   GetProjectQuery,
   GetProjectQueryVariables,
-  useGetProjectQuery,
 } from '@/graphql/generated/types.generated';
+import {
+  prefetchProject,
+  useGetProjectQuery as useGetProjectQueryRQ,
+} from '@/graphql/queries/get-project';
 import { spawnHygraphCMSClientInstance, withUrqlSSR } from '@/graphql/urql';
 import { buttonLink } from '@/styles/elements/button.css';
 import * as sc from '@/styles/elements/scrollContainer.css';
@@ -22,6 +25,7 @@ import { Seo } from '@components/common/Seo';
 import { ProjectLinks } from '@components/work/ProjectLinks/ProjectLinks';
 import { RichTextContent } from '@graphcms/rich-text-types';
 import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
+import { dehydrate } from '@tanstack/react-query';
 import { PATHS } from '@utils/common/constants/paths.constants';
 import clsx from 'clsx';
 import { getYear } from 'date-fns';
@@ -36,7 +40,11 @@ const Project = ({
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { query } = useRouter();
   const { project: path } = query;
-  const [{ data }] = useGetProjectQuery({ variables: { slug } });
+  const { data } = useGetProjectQueryRQ(
+    false,
+    { slug },
+    { staleTime: Infinity },
+  );
   const { project, projectsMeta } = data ?? {};
   const projectDataCMS = project?.[0];
   const {
@@ -228,6 +236,9 @@ export const getStaticProps: GetStaticProps<{
   slug: string;
 }> = async ({ params, preview = false }) => {
   const slug = params?.project;
+
+  const queryClient = await prefetchProject(preview, { slug: slug as string });
+
   const { client, ssrCache } = spawnHygraphCMSClientInstance(preview);
   const projectData = await client
     ?.query<GetProjectQuery, GetProjectQueryVariables>(GetProjectDocument, {
@@ -253,6 +264,7 @@ export const getStaticProps: GetStaticProps<{
   return {
     props: {
       urqlState: ssrCache.extractData(),
+      dehydratedState: dehydrate(queryClient),
       projectIndex,
       preview,
       slug: slug as string,

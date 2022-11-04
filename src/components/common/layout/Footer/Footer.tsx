@@ -108,6 +108,7 @@ const formatterTwentyFour = new Intl.DateTimeFormat('en', {
 });
 
 const Weather = (): JSX.Element | null => {
+  // TODO: replace with react query and add api route for weather api
   const weatherDataService = useInterpret(weatherDataMachine);
   const [current, send] = useActor(weatherDataService);
 

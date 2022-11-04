@@ -13,6 +13,14 @@ export const createHygraphClient = (preview = false, url?: string) => {
   });
 };
 
+export const cmsFetcher = <TData, TVariables>(
+  preview: boolean,
+  query: RequestDocument,
+  variables?: TVariables,
+): (() => Promise<TData>) => {
+  return () => createHygraphClient(preview).request(query, variables);
+};
+
 export const makePreviewRequest = <
   TData,
   TVariables extends Record<string, any>,

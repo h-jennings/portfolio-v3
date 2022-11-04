@@ -12,7 +12,7 @@ const config: CodegenConfig = {
         },
     },
   ],
-  documents: ['src/**/*.graphql', 'src/**/*.ts', '!node_modules'],
+  documents: ['src/**/*.graphql', '!node_modules'],
   hooks: {
     afterAllFileWrite: 'prettier --write',
   },
@@ -33,7 +33,7 @@ const config: CodegenConfig = {
         'typescript-urql',
       ],
     },
-    'src/graphql/generated/types.generated.ts': {
+    'src/graphql/generated/types-new.generated.ts': {
       plugins: [
         {
           add: {
