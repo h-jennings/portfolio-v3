@@ -17,7 +17,7 @@ const config: CodegenConfig = {
     afterAllFileWrite: 'prettier --write',
   },
   generates: {
-    'src/graphql/generated/types-new.generated.ts': {
+    'src/graphql/generated/types.generated.ts': {
       plugins: [
         {
           add: {
