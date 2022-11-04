@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "gen": "graphql-codegen --require dotenv/config --config codegen.yml dotenv_config_path=.env.local",
+    "gen": "graphql-codegen --require dotenv/config --config codegen.ts dotenv_config_path=.env.local",
     "dev": "npm run gen && next dev",
     "build": "npm run gen && next build",
     "postbuild": "next-sitemap",
