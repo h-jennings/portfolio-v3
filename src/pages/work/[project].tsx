@@ -1,14 +1,10 @@
 import { projectSlugs } from '@/api/cms.api';
-import {
-  GetProjectDocument,
-  GetProjectQuery,
-  GetProjectQueryVariables,
-} from '@/graphql/generated/types.generated';
+import { GetProjectQuery } from '@/graphql/generated/types.generated';
 import {
   prefetchProject,
-  useGetProjectQuery as useGetProjectQueryRQ,
+  QUERY_KEY,
+  useGetProjectQuery,
 } from '@/graphql/queries/get-project';
-import { spawnHygraphCMSClientInstance, withUrqlSSR } from '@/graphql/urql';
 import { buttonLink } from '@/styles/elements/button.css';
 import * as sc from '@/styles/elements/scrollContainer.css';
 import * as s from '@/styles/pages/project.css';
@@ -37,13 +33,14 @@ import { useRouter } from 'next/router';
 const Project = ({
   projectIndex,
   slug,
+  preview,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { query } = useRouter();
   const { project: path } = query;
-  const { data } = useGetProjectQueryRQ(
-    false,
+  const { data } = useGetProjectQuery(
+    preview,
     { slug },
-    { staleTime: Infinity },
+    { staleTime: 20 * 1000 },
   );
   const { project, projectsMeta } = data ?? {};
   const projectDataCMS = project?.[0];
@@ -238,15 +235,13 @@ export const getStaticProps: GetStaticProps<{
   const slug = params?.project;
 
   const queryClient = await prefetchProject(preview, { slug: slug as string });
+  const data = queryClient.getQueryData<GetProjectQuery>([
+    QUERY_KEY,
+    { slug: slug as string },
+    preview,
+  ]);
 
-  const { client, ssrCache } = spawnHygraphCMSClientInstance(preview);
-  const projectData = await client
-    ?.query<GetProjectQuery, GetProjectQueryVariables>(GetProjectDocument, {
-      slug: slug as string,
-    })
-    .toPromise();
-
-  if (!projectData?.data?.project[0]) {
+  if (!data?.project[0]) {
     return {
       notFound: true,
     };
@@ -263,7 +258,6 @@ export const getStaticProps: GetStaticProps<{
 
   return {
     props: {
-      urqlState: ssrCache.extractData(),
       dehydratedState: dehydrate(queryClient),
       projectIndex,
       preview,
@@ -272,4 +266,4 @@ export const getStaticProps: GetStaticProps<{
   };
 };
 
-export default withUrqlSSR(Project);
+export default Project;

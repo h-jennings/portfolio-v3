@@ -8,9 +8,9 @@ import {
   GetProject,
   GetProjectQuery,
   GetProjectQueryVariables,
-} from '../generated/types-new.generated';
+} from '../generated/types.generated';
 
-const QUERY_KEY = 'GetProjects';
+export const QUERY_KEY = 'GetProject';
 
 const projectFetcher = (
   preview: boolean,
@@ -29,7 +29,7 @@ export const useGetProjectQuery = <TData = GetProjectQuery, TError = unknown>(
   options?: UseQueryOptions<GetProjectQuery, TError, TData>,
 ) =>
   useQuery<GetProjectQuery, TError, TData>(
-    [QUERY_KEY, variables],
+    [QUERY_KEY, variables, preview],
     projectFetcher(preview, variables),
     options,
   );
@@ -41,13 +41,13 @@ export const prefetchProject = async (
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
-        staleTime: Infinity,
+        staleTime: 20 * 1000,
       },
     },
   });
 
   await queryClient.prefetchQuery({
-    queryKey: [QUERY_KEY, variables],
+    queryKey: [QUERY_KEY, variables, preview],
     queryFn: projectFetcher(preview, variables),
   });
 
