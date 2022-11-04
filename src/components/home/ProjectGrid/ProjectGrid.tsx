@@ -15,7 +15,7 @@ export const ProjectGrid = ({
   const { data } = useGetProjectsQuery(
     preview,
     { count },
-    { staleTime: 20 * 1000 },
+    { staleTime: Infinity },
   );
   const { projects } = data ?? {};
 

@@ -40,7 +40,7 @@ const Project = ({
   const { data } = useGetProjectQuery(
     preview,
     { slug },
-    { staleTime: 20 * 1000 },
+    { staleTime: Infinity },
   );
   const { project, projectsMeta } = data ?? {};
   const projectDataCMS = project?.[0];

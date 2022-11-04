@@ -41,7 +41,7 @@ export const prefetchProject = async (
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
-        staleTime: 20 * 1000,
+        staleTime: Infinity,
       },
     },
   });

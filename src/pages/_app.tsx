@@ -13,7 +13,16 @@ import Script from 'next/script';
 import * as React from 'react';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
-  const [queryClient] = React.useState(() => new QueryClient());
+  const [queryClient] = React.useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: Infinity,
+          },
+        },
+      }),
+  );
   useVisualViewportHeight();
 
   return (

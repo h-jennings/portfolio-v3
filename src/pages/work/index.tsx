@@ -27,7 +27,7 @@ const Work = ({
   preview,
 }: InferGetServerSidePropsType<typeof getStaticProps>) => {
   const { data } = useGetProjectsQuery(preview, undefined, {
-    staleTime: 20 * 1000,
+    staleTime: Infinity,
   });
   const { projects } = data ?? {};
 
