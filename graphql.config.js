@@ -9,8 +9,8 @@ module.exports = {
       extensions: {
         endpoints: {
           default: {
-            url: process.env.CMS_URL,
-            headers: { Authorization: process.env.CMS_BEARER_TOKEN },
+            url: `https://api-us-east-1.hygraph.com/v2/${process.env.CMS_SPACE}/${process.env.CMS_ENV}`,
+            headers: { Authorization: `Bearer ${process.env.CMS_PROD_TOKEN}` },
           },
         },
       },
