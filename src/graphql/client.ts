@@ -9,6 +9,7 @@ export const createHygraphClient = (preview = false, url?: string) => {
   return new GraphQLClient(url ?? URL, {
     headers: {
       Authorization: getAuthHeader(preview),
+      preview: String(preview),
     },
   });
 };
@@ -19,26 +20,4 @@ export const cmsFetcher = <TData, TVariables>(
   variables?: TVariables,
 ): (() => Promise<TData>) => {
   return () => createHygraphClient(preview).request(query, variables);
-};
-
-export const makePreviewRequest = <
-  TData,
-  TVariables extends Record<string, any>,
->(
-  query: RequestDocument,
-  variables?: TVariables,
-) => {
-  const v = {
-    ...variables,
-    preview: true,
-  };
-
-  try {
-    return createHygraphClient(true).request<TData>(query, v);
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error(error);
-
-    return null;
-  }
 };
