@@ -3,11 +3,8 @@ import { stack } from '@/styles/primitives/stack.css';
 import { text } from '@/styles/primitives/text.css';
 import { sprinkles } from '@/styles/sprinkles.css';
 import { themeVars } from '@/styles/theme.css';
-import {
-  WeatherData,
-  weatherDataMachine,
-} from '@utils/common/machines/weather-data-machine';
-import { useActor, useInterpret } from '@xstate/react';
+import { useQuery } from '@tanstack/react-query';
+import { WeatherData } from '@utils/common/types/open-weather';
 import clsx from 'clsx';
 import Image from 'next/image';
 import * as React from 'react';
@@ -107,21 +104,23 @@ const formatterTwentyFour = new Intl.DateTimeFormat('en', {
   hour12: false,
 });
 
-const Weather = (): JSX.Element | null => {
-  // TODO: replace with react query and add api route for weather api
-  const weatherDataService = useInterpret(weatherDataMachine);
-  const [current, send] = useActor(weatherDataService);
+const getWeather = () => {
+  return fetch('/api/weather').then((res) =>
+    res.json(),
+  ) as unknown as Promise<WeatherData>;
+};
 
-  // Fetch weather data on mount
-  React.useEffect(() => {
-    send('FETCH');
-  }, [send]);
+const Weather = (): JSX.Element | null => {
+  const { data, status } = useQuery({
+    queryKey: ['Weather'],
+    queryFn: getWeather,
+    staleTime: 300000, // 5min,
+  });
 
   const weatherUI = React.useMemo(() => {
-    const { data } = current.context;
-    switch (true) {
-      case current.matches('idle.noError.hasData'): {
-        const { description, icon, temp } = data!;
+    switch (status) {
+      case 'success': {
+        const { description, icon, temp } = data;
         return (
           <>
             <WeatherIcon description={description} icon={icon} />
@@ -131,7 +130,7 @@ const Weather = (): JSX.Element | null => {
           </>
         );
       }
-      case current.matches('idle.errored'): {
+      case 'error': {
         return (
           <span
             className={text({ size: 1, leading: 'tight' })}
@@ -141,7 +140,7 @@ const Weather = (): JSX.Element | null => {
           </span>
         );
       }
-      case current.matches('fetching'): {
+      case 'loading': {
         return (
           <span className={text({ size: 1, leading: 'tight' })}>
             loading...
@@ -152,7 +151,7 @@ const Weather = (): JSX.Element | null => {
         return null;
       }
     }
-  }, [current]);
+  }, [data, status]);
 
   return weatherUI;
 };

@@ -57,3 +57,9 @@ export const OpenWeatherResponseZod = z.object({
 });
 
 export type OpenWeatherResponse = z.infer<typeof OpenWeatherResponseZod>;
+
+export interface WeatherData {
+  temp: number | undefined;
+  icon: string | undefined;
+  description: string | undefined;
+}
