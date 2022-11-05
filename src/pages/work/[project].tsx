@@ -1,8 +1,6 @@
 import { projectSlugs } from '@/api/cms.api';
-import { GetProjectQuery } from '@/graphql/generated/types.generated';
 import {
   prefetchProject,
-  QUERY_KEY,
   useGetProjectQuery,
 } from '@/graphql/queries/get-project';
 import { buttonLink } from '@/styles/elements/button.css';
@@ -234,14 +232,11 @@ export const getStaticProps: GetStaticProps<{
 }> = async ({ params, preview = false }) => {
   const slug = params?.project;
 
-  const queryClient = await prefetchProject(preview, { slug: slug as string });
-  const data = queryClient.getQueryData<GetProjectQuery>([
-    QUERY_KEY,
-    { slug: slug as string },
-    preview,
-  ]);
+  const { queryClient, initialData } = await prefetchProject(preview, {
+    slug: slug as string,
+  });
 
-  if (!data?.project[0]) {
+  if (!initialData?.project[0]) {
     return {
       notFound: true,
     };

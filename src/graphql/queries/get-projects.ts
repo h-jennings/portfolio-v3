@@ -10,18 +10,7 @@ import {
   GetProjectsQueryVariables,
 } from '../generated/types.generated';
 
-export const QUERY_KEY = 'GetProjects';
-
-const projectsFetcher = (
-  preview: boolean,
-  variables?: GetProjectsQueryVariables,
-) => {
-  return cmsFetcher<GetProjectsQuery, GetProjectsQueryVariables>(
-    preview,
-    GetProjects,
-    variables,
-  );
-};
+const QUERY_KEY = 'GetProjects';
 
 export const useGetProjectsQuery = <TData = GetProjectsQuery, TError = unknown>(
   preview: boolean,
@@ -29,9 +18,7 @@ export const useGetProjectsQuery = <TData = GetProjectsQuery, TError = unknown>(
   options?: UseQueryOptions<GetProjectsQuery, TError, TData>,
 ) =>
   useQuery<GetProjectsQuery, TError, TData>(
-    variables === undefined
-      ? [QUERY_KEY, preview]
-      : [QUERY_KEY, variables, preview],
+    variables === undefined ? [QUERY_KEY] : [QUERY_KEY, variables],
     projectsFetcher(preview, variables),
     options,
   );
@@ -48,13 +35,26 @@ export const prefetchProjects = async (
     },
   });
 
+  const queryKey =
+    variables === undefined ? [QUERY_KEY] : [QUERY_KEY, variables];
+
   await queryClient.prefetchQuery({
-    queryKey:
-      variables === undefined
-        ? [QUERY_KEY, preview]
-        : [QUERY_KEY, variables, preview],
+    queryKey,
     queryFn: projectsFetcher(preview, variables),
   });
 
-  return queryClient;
+  const initialData = queryClient.getQueryData<GetProjectsQuery>(queryKey);
+
+  return { queryClient, initialData };
+};
+
+const projectsFetcher = (
+  preview: boolean,
+  variables?: GetProjectsQueryVariables,
+) => {
+  return cmsFetcher<GetProjectsQuery, GetProjectsQueryVariables>(
+    preview,
+    GetProjects,
+    variables,
+  );
 };

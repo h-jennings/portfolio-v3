@@ -55,7 +55,9 @@ export const getStaticProps: GetStaticProps<{
 }> = async ({ preview = false }) => {
   const PROJECT_COUNT = 3;
 
-  const queryClient = await prefetchProjects(preview, { count: PROJECT_COUNT });
+  const { queryClient } = await prefetchProjects(preview, {
+    count: PROJECT_COUNT,
+  });
 
   const writings = getWritings();
 

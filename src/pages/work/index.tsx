@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
-import { GetProjectsQuery } from '@/graphql/generated/types.generated';
 import {
   prefetchProjects,
-  QUERY_KEY,
   useGetProjectsQuery,
 } from '@/graphql/queries/get-projects';
 import { grid } from '@/styles/primitives/grid.css';
@@ -148,10 +146,9 @@ const Work = ({
 export const getStaticProps: GetStaticProps<{ preview: boolean }> = async ({
   preview = false,
 }) => {
-  const queryClient = await prefetchProjects(preview);
-  const data = queryClient.getQueryData<GetProjectsQuery>([QUERY_KEY, preview]);
+  const { queryClient, initialData } = await prefetchProjects(preview);
 
-  if (!data?.projects) {
+  if (!initialData?.projects) {
     return {
       notFound: true,
     };
