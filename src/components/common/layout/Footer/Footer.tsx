@@ -104,10 +104,9 @@ const formatterTwentyFour = new Intl.DateTimeFormat('en', {
   hour12: false,
 });
 
-const getWeather = () => {
-  return fetch('/api/weather').then((res) =>
-    res.json(),
-  ) as unknown as Promise<WeatherData>;
+const getWeather = async () => {
+  const response = await fetch('/api/weather');
+  return (await response.json()) as WeatherData;
 };
 
 const Weather = (): JSX.Element | null => {
