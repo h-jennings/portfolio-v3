@@ -1,10 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import {
-  GetProjectsDocument,
-  GetProjectsQuery,
+  prefetchProjects,
   useGetProjectsQuery,
-} from '@/graphql/generated/types.generated';
-import { spawnHygraphCMSClientInstance, withUrqlSSR } from '@/graphql/urql';
+} from '@/graphql/queries/get-projects';
 import { grid } from '@/styles/primitives/grid.css';
 import { stack } from '@/styles/primitives/stack.css';
 import { pageHeader, text } from '@/styles/primitives/text.css';
@@ -17,13 +15,18 @@ import { ProjectCard } from '@components/common/ProjectCard';
 import { Seo } from '@components/common/Seo';
 import { RichText } from '@graphcms/rich-text-react-renderer';
 import { RichTextContent } from '@graphcms/rich-text-types';
+import { dehydrate } from '@tanstack/react-query';
 import { PATHS } from '@utils/common/constants/paths.constants';
 import { calc } from '@vanilla-extract/css-utils';
 import clsx from 'clsx';
-import { GetStaticProps } from 'next';
+import { GetStaticProps, InferGetServerSidePropsType } from 'next';
 
-const Work = () => {
-  const [{ data }] = useGetProjectsQuery();
+const Work = ({
+  preview,
+}: InferGetServerSidePropsType<typeof getStaticProps>) => {
+  const { data } = useGetProjectsQuery(preview, undefined, {
+    staleTime: Infinity,
+  });
   const { projects } = data ?? {};
 
   const featuredProject = projects
@@ -140,13 +143,12 @@ const Work = () => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ preview }) => {
-  const { client, ssrCache } = spawnHygraphCMSClientInstance(preview);
-  const projectsData = await client
-    ?.query<GetProjectsQuery>(GetProjectsDocument, {})
-    .toPromise();
+export const getStaticProps: GetStaticProps<{ preview: boolean }> = async ({
+  preview = false,
+}) => {
+  const { queryClient, initialData } = await prefetchProjects(preview);
 
-  if (!projectsData?.data?.projects) {
+  if (!initialData?.projects) {
     return {
       notFound: true,
     };
@@ -154,9 +156,10 @@ export const getStaticProps: GetStaticProps = async ({ preview }) => {
 
   return {
     props: {
-      urqlState: ssrCache.extractData(),
+      dehydratedState: dehydrate(queryClient),
+      preview,
     },
   };
 };
 
-export default withUrqlSSR(Work);
+export default Work;

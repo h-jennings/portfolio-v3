@@ -1,11 +1,8 @@
 import { projectSlugs } from '@/api/cms.api';
 import {
-  GetProjectDocument,
-  GetProjectQuery,
-  GetProjectQueryVariables,
+  prefetchProject,
   useGetProjectQuery,
-} from '@/graphql/generated/types.generated';
-import { spawnHygraphCMSClientInstance, withUrqlSSR } from '@/graphql/urql';
+} from '@/graphql/queries/get-project';
 import { buttonLink } from '@/styles/elements/button.css';
 import * as sc from '@/styles/elements/scrollContainer.css';
 import * as s from '@/styles/pages/project.css';
@@ -22,6 +19,7 @@ import { Seo } from '@components/common/Seo';
 import { ProjectLinks } from '@components/work/ProjectLinks/ProjectLinks';
 import { RichTextContent } from '@graphcms/rich-text-types';
 import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
+import { dehydrate } from '@tanstack/react-query';
 import { PATHS } from '@utils/common/constants/paths.constants';
 import clsx from 'clsx';
 import { getYear } from 'date-fns';
@@ -33,10 +31,15 @@ import { useRouter } from 'next/router';
 const Project = ({
   projectIndex,
   slug,
+  preview,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { query } = useRouter();
   const { project: path } = query;
-  const [{ data }] = useGetProjectQuery({ variables: { slug } });
+  const { data } = useGetProjectQuery(
+    preview,
+    { slug },
+    { staleTime: Infinity },
+  );
   const { project, projectsMeta } = data ?? {};
   const projectDataCMS = project?.[0];
   const {
@@ -228,14 +231,12 @@ export const getStaticProps: GetStaticProps<{
   slug: string;
 }> = async ({ params, preview = false }) => {
   const slug = params?.project;
-  const { client, ssrCache } = spawnHygraphCMSClientInstance(preview);
-  const projectData = await client
-    ?.query<GetProjectQuery, GetProjectQueryVariables>(GetProjectDocument, {
-      slug: slug as string,
-    })
-    .toPromise();
 
-  if (!projectData?.data?.project[0]) {
+  const { queryClient, initialData } = await prefetchProject(preview, {
+    slug: slug as string,
+  });
+
+  if (!initialData?.project[0]) {
     return {
       notFound: true,
     };
@@ -252,7 +253,7 @@ export const getStaticProps: GetStaticProps<{
 
   return {
     props: {
-      urqlState: ssrCache.extractData(),
+      dehydratedState: dehydrate(queryClient),
       projectIndex,
       preview,
       slug: slug as string,
@@ -260,4 +261,4 @@ export const getStaticProps: GetStaticProps<{
   };
 };
 
-export default withUrqlSSR(Project);
+export default Project;

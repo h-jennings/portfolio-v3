@@ -11,7 +11,6 @@ const nextConfig = {
   swcMinify: true,
   reactStrictMode: true,
   env: {
-    WEATHER_API_KEY: process.env.WEATHER_API_KEY,
     NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL,
   },
   outputFileTracing: true,
@@ -41,9 +40,6 @@ const nextConfig = {
         permanent: true,
       },
     ];
-  },
-  webpack: (config) => {
-    return config;
   },
 };
 module.exports = withBundleAnalyzer(withVanillaExtract(nextConfig));

@@ -1,12 +1,22 @@
-import { useGetProjectsQuery } from '@/graphql/generated/types.generated';
+import { useGetProjectsQuery } from '@/graphql/queries/get-projects';
 import * as sc from '@/styles/elements/scrollContainer.css';
 import { ProjectCard } from '@components/common/ProjectCard';
 import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
 import clsx from 'clsx';
 import * as s from './ProjectGrid.css';
 
-export const ProjectGrid = ({ count }: { count: number }): JSX.Element => {
-  const [{ data }] = useGetProjectsQuery({ variables: { count } });
+export const ProjectGrid = ({
+  count,
+  preview,
+}: {
+  count: number;
+  preview: boolean;
+}): JSX.Element => {
+  const { data } = useGetProjectsQuery(
+    preview,
+    { count },
+    { staleTime: Infinity },
+  );
   const { projects } = data ?? {};
 
   return (

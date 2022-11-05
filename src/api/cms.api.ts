@@ -1,17 +1,17 @@
-import { createHygraphClient } from '@/graphql/client';
+import { cmsFetcher } from '@/graphql/client';
 import {
-  GetProjectSlugsDocument,
+  GetProjectQueryVariables,
+  GetProjectSlugs,
   GetProjectSlugsQuery,
 } from '@/graphql/generated/types.generated';
 import * as fs from 'fs';
 import * as path from 'path';
 
 export const projectSlugs = {
-  fetch: async () => {
-    return await createHygraphClient(false).request<GetProjectSlugsQuery>(
-      GetProjectSlugsDocument,
-    );
-  },
+  fetch: cmsFetcher<GetProjectSlugsQuery, GetProjectQueryVariables>(
+    false,
+    GetProjectSlugs,
+  ),
   cache: {
     get: async (): Promise<GetProjectSlugsQuery | null> => {
       try {

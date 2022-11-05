@@ -1,9 +1,4 @@
-import {
-  GetProjectsDocument,
-  GetProjectsQuery,
-  GetProjectsQueryVariables,
-} from '@/graphql/generated/types.generated';
-import { spawnHygraphCMSClientInstance, withUrqlSSR } from '@/graphql/urql';
+import { prefetchProjects } from '@/graphql/queries/get-projects';
 import { link } from '@/styles/elements/link.css';
 import * as s from '@/styles/pages/index.css';
 import { flex } from '@/styles/primitives/flex.css';
@@ -13,6 +8,7 @@ import { sprinkles } from '@/styles/sprinkles.css';
 import { ArrowRightIcon } from '@components/common/icons/ArrowRightIcon';
 import { ProjectGrid } from '@components/home/ProjectGrid/ProjectGrid';
 import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
+import { dehydrate } from '@tanstack/react-query';
 import { PATHS } from '@utils/common/constants/paths.constants';
 import {
   parseDateToLongDateString,
@@ -29,6 +25,7 @@ import { getWritings } from './api/writings';
 const Index = ({
   featuredWritings,
   count,
+  preview,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <>
@@ -43,7 +40,7 @@ const Index = ({
       </VisuallyHidden.Root>
       <div className={stack({ gap: '3xl' })}>
         <IntroductionSection />
-        <WorkSection count={count} />
+        <WorkSection preview={preview} count={count} />
         <WritingsSection writings={featuredWritings} />
         <ConnectSection />
       </div>
@@ -54,15 +51,14 @@ const Index = ({
 export const getStaticProps: GetStaticProps<{
   featuredWritings: MdxData[] | [];
   count: number;
-}> = async ({ preview }) => {
-  const { client, ssrCache } = spawnHygraphCMSClientInstance(preview);
+  preview: boolean;
+}> = async ({ preview = false }) => {
   const PROJECT_COUNT = 3;
 
-  await client
-    ?.query<GetProjectsQuery, GetProjectsQueryVariables>(GetProjectsDocument, {
-      count: PROJECT_COUNT,
-    })
-    .toPromise();
+  const { queryClient } = await prefetchProjects(preview, {
+    count: PROJECT_COUNT,
+  });
+
   const writings = getWritings();
 
   const writingsData = sortMdxDataByDateDesc(writings);
@@ -73,8 +69,9 @@ export const getStaticProps: GetStaticProps<{
 
   return {
     props: {
-      urqlState: ssrCache.extractData(),
+      dehydratedState: dehydrate(queryClient),
       count: PROJECT_COUNT,
+      preview,
       featuredWritings,
     },
   };
@@ -132,14 +129,20 @@ const IntroductionSection = () => {
   );
 };
 
-const WorkSection = ({ count }: { count: number }) => {
+const WorkSection = ({
+  count,
+  preview,
+}: {
+  count: number;
+  preview: boolean;
+}) => {
   return (
     <section className={stack({ gap: 's' })}>
       <div className={flex({ justify: 'between', align: 'center' })}>
         <h2 className={text({ leading: 'tight' })}>Selected work</h2>
         <ArrowLink href={PATHS.work}>view all</ArrowLink>
       </div>
-      <ProjectGrid count={count} />
+      <ProjectGrid preview={preview} count={count} />
     </section>
   );
 };
@@ -286,4 +289,4 @@ export const config: PageConfig = {
   unstable_includeFiles: ['../data/writings/**/*.mdx'],
 };
 
-export default withUrqlSSR(Index);
+export default Index;
