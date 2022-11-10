@@ -6,19 +6,30 @@ import {
   NodeRendererType,
   RichText as GRichText,
 } from '@graphcms/rich-text-react-renderer';
-import { RichTextContent } from '@graphcms/rich-text-types';
+import { EmbedReferences, RichTextContent } from '@graphcms/rich-text-types';
+import * as AspectRatio from '@radix-ui/react-aspect-ratio';
 import clsx from 'clsx';
 import Link from 'next/link';
+import { HygraphImageWithLoader } from '../HygraphImageWithLoader';
+import { ImageContainer } from '../ImageContainer';
+import { ImageProps } from '../Media';
 import * as s from './RichText.css';
 
 interface RichTextProps {
   content: RichTextContent;
   renderers?: NodeRendererType;
+  references?: EmbedReferences;
 }
 
-export const RichText = ({ content, renderers }: RichTextProps) => {
+export const RichText = ({ content, renderers, references }: RichTextProps) => {
   const combinedRenderers = { ...DEFAULT_RENDERERS, ...renderers };
-  return <GRichText content={content} renderers={combinedRenderers} />;
+  return (
+    <GRichText
+      references={references}
+      content={content}
+      renderers={combinedRenderers}
+    />
+  );
 };
 
 const DEFAULT_RENDERERS: NodeRendererType = {
@@ -105,9 +116,10 @@ const DEFAULT_RENDERERS: NodeRendererType = {
       {children}
     </i>
   ),
-  a: ({ children, href, ...rest }) => (
+  a: ({ children, href, rel, openInNewTab, ...rest }) => (
     <Link
       {...rest}
+      rel={openInNewTab ? 'noopener norefferer' : rel}
       className={link({ color: 3 })}
       style={{ fontSize: 'inherit', lineHeight: 'inherit' }}
       href={href ?? ''}
@@ -123,4 +135,27 @@ const DEFAULT_RENDERERS: NodeRendererType = {
   blockquote: ({ children }) => (
     <blockquote className={blockquote}>{children}</blockquote>
   ),
+  Asset: {
+    image: ({
+      height,
+      width,
+      url,
+      caption,
+    }: ImageProps & { caption?: string }) => (
+      <ImageContainer caption={caption}>
+        <AspectRatio.Root ratio={width / height}>
+          <HygraphImageWithLoader
+            src={url}
+            alt=''
+            blurDataURL={url}
+            fill
+            placeholder='blur'
+            style={{ objectFit: 'cover' }}
+            quality={100}
+            sizes='100vw, 700px'
+          />
+        </AspectRatio.Root>
+      </ImageContainer>
+    ),
+  },
 };

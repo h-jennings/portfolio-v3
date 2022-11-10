@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import * as React from 'react';
 
 interface ImageContainerProps {
-  caption: string;
+  caption?: string;
 }
 export const ImageContainer = ({
   caption,

@@ -95,6 +95,7 @@ const Writings = ({
               </h2>
               <ul className={stack({ gap: 'm' })}>
                 {groupedWritings.map(({ year, writings }) => {
+                  writings.map(({}) => null);
                   return (
                     <li
                       className={sprinkles({ position: 'relative' })}

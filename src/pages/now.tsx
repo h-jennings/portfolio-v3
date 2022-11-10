@@ -15,6 +15,7 @@ import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import { NextSeo, NextSeoProps } from 'next-seo';
 
+// TODO: Still need to wire up CMS data here
 export const getStaticProps: GetStaticProps<{
   source: MDXRemoteSerializeResult<MdxMetaData>;
 }> = async () => {
