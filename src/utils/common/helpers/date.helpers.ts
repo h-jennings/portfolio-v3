@@ -12,11 +12,11 @@ export const parseDateToLongDateString = (date: string): string => {
 };
 
 export const sortWritingsDataByDateDesc = (
-  mdxData: GetWritingsQuery['writings'] | undefined,
+  writings: GetWritingsQuery['writings'] | undefined,
 ) => {
-  if (!Array.isArray(mdxData)) return [];
+  if (!Array.isArray(writings)) return [];
 
-  return [...mdxData].sort(({ datePublished: a }, { datePublished: b }) =>
+  return [...writings].sort(({ datePublished: a }, { datePublished: b }) =>
     compareDesc(new Date(a as string), new Date(b as string)),
   );
 };

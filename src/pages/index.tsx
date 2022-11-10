@@ -24,7 +24,7 @@ import {
   sortWritingsDataByDateDesc,
 } from '@utils/common/helpers/date.helpers';
 import clsx from 'clsx';
-import type { GetStaticProps, InferGetStaticPropsType, PageConfig } from 'next';
+import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import * as React from 'react';
@@ -301,10 +301,6 @@ const ConnectListLink = ({
       {children}
     </Link>
   );
-};
-
-export const config: PageConfig = {
-  unstable_includeFiles: ['../data/writings/**/*.mdx'],
 };
 
 export default Index;
