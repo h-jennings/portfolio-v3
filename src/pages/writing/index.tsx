@@ -14,7 +14,7 @@ import { dehydrate } from '@tanstack/react-query';
 import { PATHS } from '@utils/common/constants/paths.constants';
 import {
   addYearToWritings,
-  groupDatesByYearNew,
+  groupDatesByYear,
 } from '@utils/common/helpers/date.helpers';
 import clsx from 'clsx';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
@@ -31,7 +31,7 @@ const Writings = ({
   });
   const hasWritings = data.writings.length > 0;
   const hasFeaturedWritings = data.writings.some((writing) => writing.featured);
-  const groupedWritings = groupDatesByYearNew(addYearToWritings(data.writings));
+  const groupedWritings = groupDatesByYear(addYearToWritings(data.writings));
 
   return (
     <>

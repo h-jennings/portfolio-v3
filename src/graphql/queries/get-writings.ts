@@ -10,7 +10,7 @@ import {
   GetWritingsQueryVariables,
 } from '../generated/types.generated';
 
-const QUERY_KEY = 'GetWritings';
+export const QUERY_KEY = 'GetWritings';
 
 export const useGetWritingsQuery = <TData = GetWritingsQuery, TError = unknown>(
   preview: boolean,
@@ -48,7 +48,7 @@ export const prefetchWritings = async (
   return { queryClient, initialData };
 };
 
-const writingsFetcher = (
+export const writingsFetcher = (
   preview: boolean,
   variables?: GetWritingsQueryVariables,
 ) => {

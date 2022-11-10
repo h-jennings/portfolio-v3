@@ -1,4 +1,13 @@
-import { prefetchProjects } from '@/graphql/queries/get-projects';
+import { GetWritingsQuery } from '@/graphql/generated/types.generated';
+import {
+  projectsFetcher,
+  QUERY_KEY as PROJECTS_QUERY_KEY,
+} from '@/graphql/queries/get-projects';
+import {
+  QUERY_KEY as WRITINGS_QUERY_KEY,
+  useGetWritingsQuery,
+  writingsFetcher,
+} from '@/graphql/queries/get-writings';
 import { link } from '@/styles/elements/link.css';
 import * as s from '@/styles/pages/index.css';
 import { flex } from '@/styles/primitives/flex.css';
@@ -8,25 +17,29 @@ import { sprinkles } from '@/styles/sprinkles.css';
 import { ArrowRightIcon } from '@components/common/icons/ArrowRightIcon';
 import { ProjectGrid } from '@components/home/ProjectGrid/ProjectGrid';
 import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
-import { dehydrate } from '@tanstack/react-query';
+import { dehydrate, QueryClient } from '@tanstack/react-query';
 import { PATHS } from '@utils/common/constants/paths.constants';
 import {
   parseDateToLongDateString,
-  sortMdxDataByDateDesc,
+  sortWritingsDataByDateDesc,
 } from '@utils/common/helpers/date.helpers';
-import { MdxData } from '@utils/common/types/mdx-data';
 import clsx from 'clsx';
 import type { GetStaticProps, InferGetStaticPropsType, PageConfig } from 'next';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import * as React from 'react';
-import { getWritings } from './api/writings';
 
 const Index = ({
-  featuredWritings,
   count,
   preview,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const { data: writingsData } = useGetWritingsQuery(preview);
+  const { writings } = writingsData ?? {};
+  const featuredWritings = React.useMemo(
+    () => sortWritingsDataByDateDesc(writings?.filter((w) => w.featured)),
+    [writings],
+  );
+
   return (
     <>
       <NextSeo
@@ -49,31 +62,35 @@ const Index = ({
 };
 
 export const getStaticProps: GetStaticProps<{
-  featuredWritings: MdxData[] | [];
   count: number;
   preview: boolean;
 }> = async ({ preview = false }) => {
   const PROJECT_COUNT = 3;
-
-  const { queryClient } = await prefetchProjects(preview, {
-    count: PROJECT_COUNT,
+  const qc = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: Infinity,
+      },
+    },
   });
 
-  // TODO refactor to use hygraph
-  const writings = getWritings();
+  // Prefetching projects
+  await qc.prefetchQuery({
+    queryKey: [PROJECTS_QUERY_KEY, { count: PROJECT_COUNT }],
+    queryFn: projectsFetcher(preview, { count: PROJECT_COUNT }),
+  });
 
-  const writingsData = sortMdxDataByDateDesc(writings);
-
-  const featuredWritings: MdxData[] | [] = writingsData
-    .filter((writing) => writing.metaData.status !== 'draft')
-    .filter((writing) => writing.metaData.featured);
+  // Prefetching writings
+  await qc.prefetchQuery({
+    queryKey: [WRITINGS_QUERY_KEY],
+    queryFn: writingsFetcher(preview),
+  });
 
   return {
     props: {
-      dehydratedState: dehydrate(queryClient),
+      dehydratedState: dehydrate(qc),
       count: PROJECT_COUNT,
       preview,
-      featuredWritings,
     },
   };
 };
@@ -149,11 +166,11 @@ const WorkSection = ({
 };
 
 interface WritingsSectionProps {
-  writings: MdxData[] | [];
+  writings: GetWritingsQuery['writings'] | undefined;
 }
 
 const WritingsSection = ({ writings }: WritingsSectionProps) => {
-  const hasWritings = writings.length > 0;
+  const hasWritings = writings && writings.length > 0;
 
   if (!hasWritings) return null;
 
@@ -164,23 +181,23 @@ const WritingsSection = ({ writings }: WritingsSectionProps) => {
         <ArrowLink href={PATHS.writing}>view all</ArrowLink>
       </div>
       <ul className={stack({ gap: 'm' })}>
-        {writings.map(({ fileName, metaData }) => {
+        {writings.map(({ id, slug, title, datePublished }) => {
           return (
             <li
               className={clsx(stack({ gap: '3xs' }), s.writings.listItem)}
-              key={fileName}
+              key={id}
             >
               <div>
                 <Link
                   href={`${PATHS.writing}/[slug]`}
-                  as={`${PATHS.writing}/${fileName.replace(/\.mdx?$/, '')}`}
+                  as={`${PATHS.writing}/${slug}`}
                   className={link({ size: 1 })}
                 >
-                  {metaData.title}
+                  {title}
                 </Link>
               </div>
               <time className={text({ size: 1, family: 'serif' })}>
-                {parseDateToLongDateString(metaData.publishDate)}
+                {parseDateToLongDateString(datePublished as string)}
               </time>
             </li>
           );
