@@ -16,6 +16,7 @@ const nextConfig = {
   outputFileTracing: true,
   images: {
     domains: ['openweathermap.org', 'media.graphassets.com'],
+    formats: ['image/webp'],
   },
   async redirects() {
     return [
