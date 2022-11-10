@@ -1,3 +1,7 @@
+import {
+  prefetchWritings,
+  useGetWritingsQuery,
+} from '@/graphql/queries/get-writings';
 import * as s from '@/styles/pages/writing.css';
 import { flex } from '@/styles/primitives/flex.css';
 import { stack } from '@/styles/primitives/stack.css';
@@ -6,25 +10,28 @@ import { sprinkles } from '@/styles/sprinkles.css';
 import { BackToLink } from '@components/common/BackToLink';
 import { LinkBox } from '@components/common/LinkBox/LinkBox';
 import { Seo } from '@components/common/Seo';
+import { dehydrate } from '@tanstack/react-query';
 import { PATHS } from '@utils/common/constants/paths.constants';
 import {
-  groupDatesByYear,
-  sortMdxDataByDateDesc,
+  addYearToWritings,
+  groupDatesByYearNew,
 } from '@utils/common/helpers/date.helpers';
-import { MdxData } from '@utils/common/types/mdx-data';
 import clsx from 'clsx';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
-import { getWritings } from '../api/writings';
 
 const Writings = ({
-  writingsData,
+  preview,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const featured = writingsData.filter((data) =>
-    Boolean(data.metaData.featured),
-  );
-  const hasWritings = writingsData.length > 0;
-  const hasFeaturedWritings = featured.length > 0;
-  const groupedWritings = groupDatesByYear(writingsData);
+  const { data } = useGetWritingsQuery(preview);
+
+  if (!data) return null;
+
+  const featuredWritings = data.writings.filter(({ featured }) => {
+    return featured;
+  });
+  const hasWritings = data.writings.length > 0;
+  const hasFeaturedWritings = data.writings.some((writing) => writing.featured);
+  const groupedWritings = groupDatesByYearNew(addYearToWritings(data.writings));
 
   return (
     <>
@@ -43,9 +50,7 @@ const Writings = ({
             <div className={stack({ gap: 'm' })}>
               <h2 className={text({ size: 2, leading: 'tight' })}>Featured</h2>
               <ul className={stack({ gap: 's' })}>
-                {featured.map(({ fileName, metaData }) => {
-                  const slug = fileName.replace(/\.mdx?$/, '');
-
+                {featuredWritings.map(({ slug, title, seo }) => {
                   return (
                     <li key={slug}>
                       <LinkBox.Root>
@@ -64,7 +69,7 @@ const Writings = ({
                               className={text({ size: 1 })}
                               style={{ display: 'inline-block' }}
                             >
-                              {metaData.title}
+                              {title}
                             </p>
                           </LinkBox.Target>
                           <p
@@ -73,7 +78,7 @@ const Writings = ({
                               text({ size: 1, color: 2 }),
                             )}
                           >
-                            {metaData.description}
+                            {seo.description}
                           </p>
                         </div>
                       </LinkBox.Root>
@@ -104,9 +109,7 @@ const Writings = ({
                         {year}
                       </h3>
                       <ul className={stack({ gap: 'xs' })}>
-                        {writings.map(({ fileName, metaData }) => {
-                          const slug = fileName.replace(/\.mdx?$/, '');
-
+                        {writings.map(({ slug, title, datePublished }) => {
                           return (
                             <li key={slug}>
                               <LinkBox.Root>
@@ -122,12 +125,10 @@ const Writings = ({
                                     href={`${PATHS.writing}/[slug]`}
                                     as={`${PATHS.writing}/${slug}`}
                                   >
-                                    <p className={text({ size: 1 })}>
-                                      {metaData.title}
-                                    </p>
+                                    <p className={text({ size: 1 })}>{title}</p>
                                   </LinkBox.Target>
                                   <p className={text({ size: 1, color: 2 })}>
-                                    {metaData.publishDate}
+                                    {datePublished}
                                   </p>
                                 </div>
                               </LinkBox.Root>
@@ -150,15 +151,20 @@ const Writings = ({
 };
 
 export const getStaticProps: GetStaticProps<{
-  writingsData: MdxData[];
-}> = () => {
-  const writings = getWritings();
-  const writingsData = sortMdxDataByDateDesc(writings).filter(
-    (data) => data.metaData.status === 'published',
-  );
+  preview: boolean;
+}> = async ({ preview = false }) => {
+  const { queryClient, initialData } = await prefetchWritings(preview);
+
+  if (!initialData?.writings[0]) {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
     props: {
-      writingsData,
+      dehydratedState: dehydrate(queryClient),
+      preview,
     },
   };
 };
