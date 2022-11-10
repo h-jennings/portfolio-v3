@@ -59,6 +59,7 @@ export const getStaticProps: GetStaticProps<{
     count: PROJECT_COUNT,
   });
 
+  // TODO refactor to use hygraph
   const writings = getWritings();
 
   const writingsData = sortMdxDataByDateDesc(writings);
