@@ -25,24 +25,48 @@ const revalidate = async (req: NextApiRequest, res: NextApiResponse) => {
   if ('data' in body && 'slug' in body.data && '__typename' in body.data) {
     const type = body.data.__typename;
     const slug = body.data.slug;
-    if (type === 'Project') {
-      try {
-        console.log('[Next.js] Revalidating /');
-        await res.revalidate('/');
+    switch (type) {
+      case 'Project': {
+        try {
+          console.log('[Next.js] Revalidating /');
+          await res.revalidate('/');
 
-        console.log('[Next.js] Revalidating /work');
-        await res.revalidate('/work');
+          console.log('[Next.js] Revalidating /work');
+          await res.revalidate('/work');
 
-        console.log(`[Next.js] Revalidating /work/${slug}`);
-        await res.revalidate(`/work/${slug}`);
-        return res.status(200).send('Success!');
-      } catch {
-        return res.status(500).send('Error revalidating');
+          console.log(`[Next.js] Revalidating /work/${slug}`);
+          await res.revalidate(`/work/${slug}`);
+          return res.status(200).send('Success!');
+        } catch {
+          return res.status(500).send('Error revalidating');
+        }
       }
-    } else {
-      return res
-        .status(403)
-        .json({ message: 'Only Project changes are valid' });
+      case 'Writing': {
+        try {
+          console.log('[Next.js] Revalidating /');
+          await res.revalidate('/');
+
+          if (slug === 'now') {
+            console.log(`[Next.js] Revalidating /now`);
+            await res.revalidate(`/now`);
+            return res.status(200).send('Success!');
+          } else {
+            console.log('[Next.js] Revalidating /writing');
+            await res.revalidate('/writing');
+
+            console.log(`[Next.js] Revalidating /writing/${slug}`);
+            await res.revalidate(`/writing/${slug}`);
+            return res.status(200).send('Success!');
+          }
+        } catch {
+          return res.status(500).send('Error revalidating');
+        }
+      }
+      default: {
+        return res
+          .status(403)
+          .json({ message: 'Only Project and Writing changes are valid' });
+      }
     }
   } else {
     return res.status(403).json({ message: 'Incorrect data signature' });

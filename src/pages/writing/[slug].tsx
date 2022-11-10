@@ -1,56 +1,60 @@
+import { cmsFetcher } from '@/graphql/client';
+import {
+  GetWritingSlugs,
+  GetWritingSlugsQuery,
+  GetWritingSlugsQueryVariables,
+} from '@/graphql/generated/types.generated';
+import {
+  prefetchWriting,
+  useGetWritingQuery,
+} from '@/graphql/queries/get-writing';
 import { stack } from '@/styles/primitives/stack.css';
 import { text } from '@/styles/primitives/text.css';
-import { ImageContainer } from '@components/common/ImageContainer';
 import {
   ProseLayout,
   ProseLayoutContent,
   ProseLayoutHeader,
 } from '@components/common/ProseLayout';
-import { AspectRatio } from '@radix-ui/react-aspect-ratio';
-import { MDX_ELEMENTS } from '@utils/common/constants/mdx-elements.contants';
-import { writingsFilePaths } from '@utils/common/constants/mdx.constants';
+import { RichText } from '@components/common/RichText/RichText';
+import { RichTextContent } from '@graphcms/rich-text-types';
+import { dehydrate } from '@tanstack/react-query';
 import { PATHS } from '@utils/common/constants/paths.constants';
-import { getWritingDataFromSlug } from '@utils/common/helpers/mdx-data.helpers';
 import { getMetaImage } from '@utils/common/helpers/meta-image.helpers';
-import { MdxMetaData } from '@utils/common/types/mdx-data';
 import type {
   GetStaticPaths,
   GetStaticProps,
   InferGetStaticPropsType,
 } from 'next';
-import {
-  MDXRemote,
-  MDXRemoteProps,
-  MDXRemoteSerializeResult,
-} from 'next-mdx-remote';
-import { serialize } from 'next-mdx-remote/serialize';
 import { NextSeo, NextSeoProps } from 'next-seo';
-import Image from 'next/image';
+import readingTime from 'reading-time';
 
 const Writing = ({
-  source,
   slug,
+  preview,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const { scope } = source;
-  const title = scope?.title;
+  const { data } = useGetWritingQuery(preview, { slug });
+
+  const { writing } = data ?? {};
+  const { seo } = writing ?? {};
+
+  const title = seo?.title;
   const url = `${PATHS.base}${PATHS.writing}/${slug}`;
-  const image = source.scope?.image;
-  const isDraft = scope?.status === 'draft';
+  const image = seo?.image?.url;
   const SEO: NextSeoProps = {
     title,
     canonical: url,
-    description: scope?.description,
+    description: seo?.description ?? undefined,
     openGraph: {
       title,
       url,
-      description: scope?.description,
+      description: seo?.description ?? undefined,
       ...getMetaImage(image),
     },
   };
 
   return (
     <>
-      <NextSeo noindex={isDraft} nofollow={isDraft} {...SEO} />
+      <NextSeo {...SEO} />
       <ProseLayout>
         <ProseLayoutHeader
           backTo={{
@@ -58,8 +62,8 @@ const Writing = ({
             content: 'Back to writing',
             href: PATHS.writing,
           }}
-          headline={scope?.title}
-          description={scope?.description}
+          headline={writing?.title}
+          description={writing?.seo.description}
         >
           <div
             className={stack({
@@ -70,21 +74,26 @@ const Writing = ({
           >
             <div className={stack({ gap: '3xs' })}>
               <span className={text({ size: 1, color: 2 })}>Published</span>
-              <span className={text({ size: 1 })}>{scope?.publishDate}</span>
-            </div>
-            <div className={stack({ gap: '3xs' })}>
-              <span className={text({ size: 1, color: 2 })}>Reading Time</span>
               <span className={text({ size: 1 })}>
-                {scope?.readingTimeResults.text}
+                {writing?.datePublished}
               </span>
             </div>
+            {writing?.content.text ? (
+              <div className={stack({ gap: '3xs' })}>
+                <span className={text({ size: 1, color: 2 })}>
+                  Reading Time
+                </span>
+                <span className={text({ size: 1 })}>
+                  {readingTime(writing.content.text).text}
+                </span>
+              </div>
+            ) : null}
           </div>
         </ProseLayoutHeader>
         <ProseLayoutContent>
-          <MDXRemote
-            {...source}
-            scope={source.scope}
-            components={{ ...MDX_ELEMENTS, ...MDX_COMPONENTS }}
+          <RichText
+            references={writing?.content.references}
+            content={writing?.content.json as RichTextContent}
           />
         </ProseLayoutContent>
       </ProseLayout>
@@ -92,43 +101,45 @@ const Writing = ({
   );
 };
 
-const MDX_COMPONENTS = {
-  Image,
-  ImageContainer,
-  AspectRatio,
-} as MDXRemoteProps['components'];
+export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
+  const data = await cmsFetcher<
+    GetWritingSlugsQuery,
+    GetWritingSlugsQueryVariables
+  >(false, GetWritingSlugs)();
 
-export const getStaticPaths: GetStaticPaths<{ slug: string }> = () => {
-  const paths = writingsFilePaths
-    // Remove file extensions for page paths
-    .map((path) => path.replace(/\.mdx?$/, ''))
-    // Map the path into the static paths object required by Next.js
-    .map((slug) => ({ params: { slug } }));
+  const paths = data.writings.map((p) => {
+    const { slug } = p;
+    return {
+      params: { slug },
+    };
+  });
 
   return {
     paths,
-    fallback: false,
+    fallback: 'blocking',
   };
 };
 
 export const getStaticProps: GetStaticProps<{
-  source: MDXRemoteSerializeResult<MdxMetaData>;
-  slug: string | string[] | undefined;
-}> = async ({ params }) => {
+  slug: string;
+  preview: boolean;
+}> = async ({ params, preview = false }) => {
   const { slug } = params!;
-  const { content, metaData } = getWritingDataFromSlug(slug as string);
-  //@ts-expect-error
-  const mdxSource: MDXRemoteSerializeResult<MdxMetaData> = await serialize(
-    content,
-    {
-      scope: metaData,
-    },
-  );
+  const { queryClient, initialData } = await prefetchWriting(preview, {
+    slug: slug as string,
+  });
+
+  if (!initialData?.writing) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: {
-      source: mdxSource,
+      dehydratedState: dehydrate(queryClient),
       slug: slug as string,
+      preview,
     },
   };
 };

@@ -1,5 +1,5 @@
+import { GetWritingsQuery } from '@/graphql/generated/types.generated';
 import { compareDesc, format, parseISO } from 'date-fns';
-import { MdxData } from '../types/mdx-data';
 
 export const getYearFromDate = (date: string): string => {
   return new Date(date).getFullYear().toString();
@@ -11,29 +11,41 @@ export const parseDateToLongDateString = (date: string): string => {
   return format(parseISO(date), 'LLLL dd, yyyy ');
 };
 
-export function sortMdxDataByDateDesc(mdxData: MdxData[]): MdxData[] {
-  if (!Array.isArray(mdxData)) return [];
+export const sortWritingsDataByDateDesc = (
+  writings: GetWritingsQuery['writings'] | undefined,
+) => {
+  if (!Array.isArray(writings)) return [];
 
-  return [...mdxData].sort(({ metaData: a }, { metaData: b }) =>
-    compareDesc(new Date(a.publishDate), new Date(b.publishDate)),
+  return [...writings].sort(({ datePublished: a }, { datePublished: b }) =>
+    compareDesc(new Date(a as string), new Date(b as string)),
   );
-}
+};
 
-export function groupDatesByYear(mdxData: MdxData[]) {
+type Writings = (GetWritingsQuery['writings'][0] & { year: string })[];
+export const groupDatesByYear = (writings: Writings) => {
   return Object.entries(
-    mdxData.reduce((result, value) => {
-      if (result[value.metaData.year] === undefined) {
-        result[value.metaData.year] = [];
+    writings.reduce((result, value) => {
+      if (result[value.year] === undefined) {
+        result[value.year] = [];
       }
 
-      result[value.metaData.year]?.push(value);
+      result[value.year]?.push(value);
 
       return result;
-    }, {} as Record<string, MdxData[]>),
+    }, {} as Record<string, Writings>),
   )
     .map(([key, value]) => ({
       year: key,
       writings: value,
     }))
     .reverse();
-}
+};
+
+export const addYearToWritings = (writings: GetWritingsQuery['writings']) => {
+  return writings.map((writing) => {
+    return {
+      ...writing,
+      year: getYearFromDate(writing.datePublished as string),
+    };
+  });
+};

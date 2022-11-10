@@ -1,0 +1,12 @@
+query GetWritings($count: Int = 50) {
+  writings(first: $count, where: { slug_not: "now" }) {
+    id
+    title
+    slug
+    datePublished
+    featured
+    seo {
+      description
+    }
+  }
+}

@@ -1,3 +1,7 @@
+import {
+  prefetchWriting,
+  useGetWritingQuery,
+} from '@/graphql/queries/get-writing';
 import { stack } from '@/styles/primitives/stack.css';
 import { text } from '@/styles/primitives/text.css';
 import {
@@ -5,48 +9,33 @@ import {
   ProseLayoutContent,
   ProseLayoutHeader,
 } from '@components/common/ProseLayout';
-import { MDX_ELEMENTS } from '@utils/common/constants/mdx-elements.contants';
+import { RichText } from '@components/common/RichText/RichText';
+import { RichTextContent } from '@graphcms/rich-text-types';
+import { dehydrate } from '@tanstack/react-query';
 import { PATHS } from '@utils/common/constants/paths.constants';
-import { getNowPageData } from '@utils/common/helpers/mdx-data.helpers';
 import { getMetaImage } from '@utils/common/helpers/meta-image.helpers';
-import { MdxMetaData } from '@utils/common/types/mdx-data';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
-import { serialize } from 'next-mdx-remote/serialize';
 import { NextSeo, NextSeoProps } from 'next-seo';
 
-export const getStaticProps: GetStaticProps<{
-  source: MDXRemoteSerializeResult<MdxMetaData>;
-}> = async () => {
-  const { content, metaData } = getNowPageData();
-  //@ts-expect-error
-  const mdxSource: MDXRemoteSerializeResult<MdxMetaData> = await serialize(
-    content,
-    {
-      scope: metaData,
-    },
-  );
+const NOW_SLUG = 'now';
 
-  return {
-    props: {
-      source: mdxSource,
-    },
-  };
-};
-const Now = ({ source }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const title = `Now`;
-  const url = `${PATHS.base}${PATHS.now}`;
-  const description = source.scope?.description;
-  const image = source.scope?.image;
+const Now = ({ preview }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const { data } = useGetWritingQuery(preview, { slug: NOW_SLUG });
+  const { writing } = data ?? {};
+  const { seo } = writing ?? {};
+
+  const url = `${PATHS.base}${writing?.slug}`;
+  const description = seo?.description ?? undefined;
+  const image = seo?.image?.url;
   const SEO: NextSeoProps = {
-    title,
+    title: seo?.title,
     canonical: url,
     description,
     openGraph: {
-      title,
+      title: seo?.title,
       url,
       article: {
-        publishedTime: source.scope?.publishDate,
+        publishedTime: writing?.datePublished as string,
       },
       description,
       ...getMetaImage(image),
@@ -63,26 +52,44 @@ const Now = ({ source }: InferGetStaticPropsType<typeof getStaticProps>) => {
             content: 'Back to home',
             href: PATHS.home,
           }}
-          headline={source.scope?.title}
-          description={source.scope?.description}
+          headline={writing?.title}
+          description={seo?.description}
         >
           <div className={stack({ gap: '3xs' })}>
             <span className={text({ size: 1, color: 2 })}>Last Updated</span>
-            <span className={text({ size: 1 })}>
-              {source.scope?.publishDate}
-            </span>
+            <span className={text({ size: 1 })}>{writing?.datePublished}</span>
           </div>
         </ProseLayoutHeader>
         <ProseLayoutContent>
-          <MDXRemote
-            {...source}
-            scope={source.scope}
-            components={MDX_ELEMENTS}
+          <RichText
+            references={writing?.content.references}
+            content={writing?.content.json as RichTextContent}
           />
         </ProseLayoutContent>
       </ProseLayout>
     </>
   );
+};
+
+export const getStaticProps: GetStaticProps<{
+  preview: boolean;
+}> = async ({ preview = false }) => {
+  const { queryClient, initialData } = await prefetchWriting(preview, {
+    slug: NOW_SLUG,
+  });
+
+  if (!initialData?.writing) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+      preview,
+    },
+  };
 };
 
 export default Now;

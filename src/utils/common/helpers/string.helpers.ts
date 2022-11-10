@@ -10,12 +10,3 @@ export function parseTagsToString(tags: string[]): string {
     return `${curr} + ${acc}`;
   }, '');
 }
-
-export function commaSeparated(strings: string[]): string {
-  return strings.reduce((acc, str, idx) => {
-    if (idx === 0) {
-      return `${str}`;
-    }
-    return `${acc}, ${str}`;
-  }, '');
-}

@@ -31,7 +31,7 @@ interface ProseLayoutHeaderProps {
         hasLink: false;
       };
   headline?: string;
-  description?: string;
+  description?: string | null;
 }
 
 export const ProseLayoutHeader = ({

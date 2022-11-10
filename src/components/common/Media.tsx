@@ -8,7 +8,7 @@ interface MediaProps {
   sizes?: string;
 }
 
-type ImageProps = {
+export type ImageProps = {
   type: 'IMAGE';
 } & MediaProps;
 

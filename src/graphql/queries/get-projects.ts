@@ -10,7 +10,7 @@ import {
   GetProjectsQueryVariables,
 } from '../generated/types.generated';
 
-const QUERY_KEY = 'GetProjects';
+export const QUERY_KEY = 'GetProjects';
 
 export const useGetProjectsQuery = <TData = GetProjectsQuery, TError = unknown>(
   preview: boolean,
@@ -48,7 +48,7 @@ export const prefetchProjects = async (
   return { queryClient, initialData };
 };
 
-const projectsFetcher = (
+export const projectsFetcher = (
   preview: boolean,
   variables?: GetProjectsQueryVariables,
 ) => {
