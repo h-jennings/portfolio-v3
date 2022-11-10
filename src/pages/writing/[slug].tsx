@@ -1,3 +1,9 @@
+import { cmsFetcher } from '@/graphql/client';
+import {
+  GetWritingSlugs,
+  GetWritingSlugsQuery,
+  GetWritingSlugsQueryVariables,
+} from '@/graphql/generated/types.generated';
 import { stack } from '@/styles/primitives/stack.css';
 import { text } from '@/styles/primitives/text.css';
 import { ImageContainer } from '@components/common/ImageContainer';
@@ -8,7 +14,6 @@ import {
 } from '@components/common/ProseLayout';
 import { AspectRatio } from '@radix-ui/react-aspect-ratio';
 import { MDX_ELEMENTS } from '@utils/common/constants/mdx-elements.contants';
-import { writingsFilePaths } from '@utils/common/constants/mdx.constants';
 import { PATHS } from '@utils/common/constants/paths.constants';
 import { getWritingDataFromSlug } from '@utils/common/helpers/mdx-data.helpers';
 import { getMetaImage } from '@utils/common/helpers/meta-image.helpers';
@@ -98,22 +103,29 @@ const MDX_COMPONENTS = {
   AspectRatio,
 } as MDXRemoteProps['components'];
 
-export const getStaticPaths: GetStaticPaths<{ slug: string }> = () => {
-  const paths = writingsFilePaths
-    // Remove file extensions for page paths
-    .map((path) => path.replace(/\.mdx?$/, ''))
-    // Map the path into the static paths object required by Next.js
-    .map((slug) => ({ params: { slug } }));
+export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
+  const data = await cmsFetcher<
+    GetWritingSlugsQuery,
+    GetWritingSlugsQueryVariables
+  >(false, GetWritingSlugs)();
+
+  const paths = data.writings.map((p) => {
+    const { slug } = p;
+    return {
+      params: { slug },
+    };
+  });
 
   return {
     paths,
-    fallback: false,
+    fallback: 'blocking',
   };
 };
 
+// TODO: Still wiring up CMS data here
 export const getStaticProps: GetStaticProps<{
   source: MDXRemoteSerializeResult<MdxMetaData>;
-  slug: string | string[] | undefined;
+  slug: string;
 }> = async ({ params }) => {
   const { slug } = params!;
   const { content, metaData } = getWritingDataFromSlug(slug as string);
