@@ -147,9 +147,7 @@ const DEFAULT_RENDERERS: NodeRendererType = {
           <HygraphImageWithLoader
             src={url}
             alt=''
-            blurDataURL={url}
             fill
-            placeholder='blur'
             style={{ objectFit: 'cover' }}
             quality={100}
             sizes='100vw, 700px'

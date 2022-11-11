@@ -38,9 +38,7 @@ const ImageMedia = (props: ImageProps) => {
       <HygraphImageWithLoader
         src={url}
         alt=''
-        blurDataURL={url}
         fill
-        placeholder='blur'
         style={{ objectFit: 'cover' }}
         quality={100}
         sizes={sizes}

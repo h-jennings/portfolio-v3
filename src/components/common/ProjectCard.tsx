@@ -35,9 +35,7 @@ export const ProjectCard = ({ project, sizes = '100vw' }: ProjectCardProps) => {
               priority
               alt=''
               fill
-              blurDataURL={src}
               style={{ objectFit: 'cover' }}
-              placeholder='blur'
               quality={100}
               sizes={sizes}
             />
