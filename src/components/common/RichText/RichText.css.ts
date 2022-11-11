@@ -1,4 +1,3 @@
-import { unorderedList as list } from '@/styles/elements/list.css';
 import { sprinkles } from '@/styles/sprinkles.css';
 import { tokenVars } from '@/styles/tokens.css';
 import { globalStyle, style } from '@vanilla-extract/css';
@@ -18,11 +17,19 @@ export const inlineElementReset = style({
 });
 
 export const unorderedList = style([
-  list,
+  {
+    listStyleType: 'disc',
+  },
   sprinkles({
+    color: 'text1',
+    paddingLeft: 's',
     marginBottom: 'm',
   }),
 ]);
+
+globalStyle(`${unorderedList} ul`, {
+  paddingLeft: tokenVars.space.m,
+});
 
 globalStyle(`${unorderedList} ul, ol`, {
   marginBottom: tokenVars.space['2xs'],
@@ -31,35 +38,15 @@ globalStyle(`${unorderedList} ul, ol`, {
 export const orderedList = style([
   unorderedList,
   {
-    listStyle: 'none',
-    counterReset: 'listCounter',
+    listStyleType: 'decimal',
   },
 ]);
 
-globalStyle(`${orderedList} > li:before`, {
-  counterIncrement: 'listCounter',
-  display: 'inline-block',
-  content: 'counter(listCounter)"."',
-  width: '1em',
-  marginLeft: '-1em',
+export const listItem = sprinkles({
+  marginLeft: 'none',
+  marginBottom: 'xs',
+  paddingLeft: 'none',
 });
-
-export const listItem = style([
-  {
-    listStyle: 'none',
-    ':before': {
-      display: 'inline-block',
-      content: '-',
-      width: '1em',
-      marginLeft: '-1em',
-    },
-  },
-  sprinkles({
-    marginLeft: 'none',
-    marginBottom: 'xs',
-    paddingLeft: 'none',
-  }),
-]);
 
 globalStyle(`${listItem} ul li:first-of-type, ol li:first-of-type`, {
   paddingTop: tokenVars.space.xs,
