@@ -48,6 +48,6 @@ export const listItem = sprinkles({
   paddingLeft: 'none',
 });
 
-globalStyle(`${listItem} ul li:first-of-type, ol li:first-of-type`, {
+globalStyle(`${listItem} > ul li:first-of-type, ol li:first-of-type`, {
   paddingTop: tokenVars.space.xs,
 });
