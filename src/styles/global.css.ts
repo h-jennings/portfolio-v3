@@ -1,4 +1,5 @@
 import { globalStyle } from '@vanilla-extract/css';
+import { ds } from './ds.css';
 
 globalStyle(
   'html, body, p, ol, ul, li, dl, dt, dd, blockquote, figure, fieldset, legend, textarea, pre, iframe, hr, h1, h2, h3, h4, h5, h6',
@@ -48,8 +49,8 @@ globalStyle('td, th', {
 });
 
 globalStyle('html, body', {
-  fontFamily: 'var(--fonts-primary)',
-  backgroundColor: 'var(--colors-uiBg)',
+  fontFamily: ds.tokens.fonts.primary,
+  backgroundColor: ds.theme.colors.uiBg,
 });
 
 globalStyle('a', {

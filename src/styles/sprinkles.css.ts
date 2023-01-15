@@ -1,8 +1,8 @@
 import { createSprinkles, defineProperties } from '@vanilla-extract/sprinkles';
-import { themeVars } from './theme.css';
-import { BREAKPOINTS, tokenVars } from './tokens.css';
+import { BREAKPOINTS, ds } from './ds.css';
 
-const spacesWithAuto = { ...tokenVars.space, auto: 'auto' };
+const { tokens, theme } = ds;
+const spacesWithAuto = { ...tokens.space, auto: 'auto' };
 
 const responsiveProperties = defineProperties({
   defaultCondition: 'initial',
@@ -51,26 +51,26 @@ const responsiveProperties = defineProperties({
       'flex-end',
     ],
     alignContent: ['start', 'end', 'center'],
-    padding: tokenVars.space,
-    paddingTop: tokenVars.space,
-    paddingBottom: tokenVars.space,
-    paddingLeft: tokenVars.space,
-    paddingRight: tokenVars.space,
+    padding: tokens.space,
+    paddingTop: tokens.space,
+    paddingBottom: tokens.space,
+    paddingLeft: tokens.space,
+    paddingRight: tokens.space,
     margin: spacesWithAuto,
     marginTop: spacesWithAuto,
     marginBottom: spacesWithAuto,
     marginLeft: spacesWithAuto,
     marginRight: spacesWithAuto,
-    gap: tokenVars.space,
-    columnGap: tokenVars.space,
-    rowGap: tokenVars.space,
-    height: tokenVars.sizes,
-    width: tokenVars.sizes,
-    maxHeight: tokenVars.sizes,
-    maxWidth: tokenVars.sizes,
-    minHeight: tokenVars.sizes,
-    minWidth: tokenVars.sizes,
-    fontSize: tokenVars.fontSizes,
+    gap: tokens.space,
+    columnGap: tokens.space,
+    rowGap: tokens.space,
+    height: tokens.sizes,
+    width: tokens.sizes,
+    maxHeight: tokens.sizes,
+    maxWidth: tokens.sizes,
+    minHeight: tokens.sizes,
+    minWidth: tokens.sizes,
+    fontSize: tokens.fontSizes,
     textAlign: ['left', 'center', 'right'],
   },
   shorthands: {
@@ -83,17 +83,17 @@ const responsiveProperties = defineProperties({
 
 const nonResponsiveProperties = defineProperties({
   properties: {
-    borderRadius: tokenVars.radii,
-    zIndex: tokenVars.zIndices,
-    lineHeight: tokenVars.lineHeights,
-    fontWeight: tokenVars.fontWeights,
-    transition: tokenVars.transitions,
-    fontFamily: tokenVars.fonts,
+    borderRadius: tokens.radii,
+    zIndex: tokens.zIndices,
+    lineHeight: tokens.lineHeights,
+    fontWeight: tokens.fontWeights,
+    transition: tokens.transitions,
+    fontFamily: tokens.fonts,
     flexWrap: ['wrap', 'nowrap'],
-    top: tokenVars.space,
-    bottom: tokenVars.space,
-    left: tokenVars.space,
-    right: tokenVars.space,
+    top: tokens.space,
+    bottom: tokens.space,
+    left: tokens.space,
+    right: tokens.space,
     shorthands: {
       inset: ['top', 'bottom', 'left', 'right'],
     },
@@ -107,8 +107,8 @@ const interactiveProperties = defineProperties({
     hover: { selector: '&:hover' },
   },
   properties: {
-    color: themeVars.colors,
-    backgroundColor: themeVars.colors,
+    color: theme.colors,
+    backgroundColor: theme.colors,
   },
 });
 

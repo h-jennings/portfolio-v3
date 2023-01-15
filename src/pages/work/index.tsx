@@ -1,13 +1,12 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import {
   prefetchProjects,
   useGetProjectsQuery,
 } from '@/graphql/queries/get-projects';
+import { ds } from '@/styles/ds.css';
 import { grid } from '@/styles/primitives/grid.css';
 import { stack } from '@/styles/primitives/stack.css';
 import { pageHeader, text } from '@/styles/primitives/text.css';
 import { sprinkles } from '@/styles/sprinkles.css';
-import { tokenVars } from '@/styles/tokens.css';
 import { BackToLink } from '@components/common/BackToLink';
 import { LinkBox } from '@components/common/LinkBox/LinkBox';
 import { Media } from '@components/common/Media';
@@ -57,8 +56,8 @@ const Work = ({
                   backgroundColor: 'slate3',
                 })}
                 style={{
-                  borderRadius: calc(tokenVars.space.s)
-                    .add(tokenVars.radii.card)
+                  borderRadius: calc(ds.tokens.space.s)
+                    .add(ds.tokens.radii.card)
                     .toString(),
                 }}
               >

@@ -1,8 +1,80 @@
 import {
+  gold,
+  goldDark,
+  green,
+  greenDark,
+  slate,
+  slateDark,
+  tomato,
+  tomatoDark,
+  yellow,
+  yellowDark,
+} from '@radix-ui/colors';
+import {
   createGlobalTheme,
   createGlobalThemeContract,
 } from '@vanilla-extract/css';
 import { createFluidValue } from './create-fluid-value';
+
+const colorsDark = {
+  ...goldDark,
+  ...greenDark,
+  ...slateDark,
+  ...greenDark,
+  ...yellowDark,
+  ...tomatoDark,
+} as const;
+
+const colorsLight = {
+  ...gold,
+  ...green,
+  ...slate,
+  ...green,
+  ...yellow,
+  ...tomato,
+} as const;
+
+const themeVars = createGlobalThemeContract(
+  {
+    colors: {
+      ...colorsDark,
+      uiBg: null,
+      surface1: null,
+      surface2: null,
+      text1: null,
+      text2: null,
+      text3: null,
+      text4: null,
+    },
+  },
+  (_, path) => path.join('-'),
+);
+
+createGlobalTheme('html.dark-theme', themeVars, {
+  colors: {
+    ...colorsDark,
+    uiBg: colorsDark.slate1,
+    surface1: colorsDark.slate1,
+    surface2: colorsDark.slate12,
+    text1: 'white',
+    text2: colorsDark.slate11,
+    text3: colorsDark.gold9,
+    text4: colorsDark.slate1,
+  },
+});
+
+createGlobalTheme('html.light-theme', themeVars, {
+  colors: {
+    ...colorsLight,
+    uiBg: colorsLight.slate1,
+    surface1: colorsLight.slate1,
+    surface2: colorsLight.slate12,
+    text1: 'black',
+    text2: colorsLight.slate11,
+    text3: colorsLight.gold9,
+    text4: colorsLight.slate1,
+  },
+});
 
 const getConfigFluidValue = (minSize: number, maxSize: number) =>
   createFluidValue(minSize, maxSize, 360, 1024);
@@ -18,74 +90,7 @@ export const BREAKPOINTS = {
   '<bp4': '(width < 1799px)',
 } as const;
 
-export const tokenVars = createGlobalThemeContract(
-  {
-    space: {
-      none: null,
-      '3xs': null,
-      '2xs': null,
-      xs: null,
-      s: null,
-      m: null,
-      l: null,
-      xl: null,
-      '2xl': null,
-      '3xl': null,
-    },
-    sizes: {
-      full: null,
-      channel: null,
-      screenW: null,
-      screenH: null,
-      desktop: null,
-      prose: null,
-    },
-    radii: {
-      none: null,
-      pill: null,
-      round: null,
-      card: null,
-    },
-    fonts: {
-      primary: null,
-      serif: null,
-    },
-    shadows: {
-      focus: null,
-    },
-    transitions: {
-      default: null,
-    },
-    fontWeights: {
-      regular: null,
-      bold: null,
-    },
-    fontSizes: {
-      1: null,
-      2: null,
-      3: null,
-      4: null,
-      5: null,
-      6: null,
-      7: null,
-      8: null,
-    },
-    lineHeights: {
-      tight: null,
-      body: null,
-      loose: null,
-    },
-    zIndices: {
-      under: null,
-      over: null,
-      init: null,
-      nuclear: null,
-    },
-  },
-  (_, path) => `${path.join('-')}`,
-);
-
-createGlobalTheme(':root', tokenVars, {
+const tokenVars = createGlobalTheme(':root', {
   space: {
     none: '0',
     '3xs': getConfigFluidValue(4, 5),
@@ -117,7 +122,7 @@ createGlobalTheme(':root', tokenVars, {
     serif: '"Untitled Serif", Georgia, serif',
   },
   shadows: {
-    focus: '0 0 0 3px var(--colors-gold6)',
+    focus: `0 0 0 3px ${themeVars.colors.gold6}`,
   },
   transitions: {
     default: '225ms cubic-bezier(0.4, 0, 0.2, 1)',
@@ -148,3 +153,8 @@ createGlobalTheme(':root', tokenVars, {
     nuclear: '9999px',
   },
 });
+
+export const ds = {
+  theme: themeVars,
+  tokens: tokenVars,
+} as const;

@@ -8,6 +8,7 @@ import {
   useGetWritingsQuery,
   writingsFetcher,
 } from '@/graphql/queries/get-writings';
+import { ds } from '@/styles/ds.css';
 import { link } from '@/styles/elements/link.css';
 import * as s from '@/styles/pages/index.css';
 import { flex } from '@/styles/primitives/flex.css';
@@ -224,7 +225,7 @@ const ArrowLink = ({
       >
         {children}
       </Link>
-      <ArrowRightIcon aria-hidden color='var(--colors-slate11)' />
+      <ArrowRightIcon aria-hidden color={ds.theme.colors.slate11} />
     </div>
   );
 };

@@ -1,8 +1,8 @@
+import { ds } from '@/styles/ds.css';
 import { grid } from '@/styles/primitives/grid.css';
 import { stack } from '@/styles/primitives/stack.css';
 import { text } from '@/styles/primitives/text.css';
 import { sprinkles } from '@/styles/sprinkles.css';
-import { themeVars } from '@/styles/theme.css';
 import { useQuery } from '@tanstack/react-query';
 import { WeatherData } from '@utils/common/types/open-weather';
 import clsx from 'clsx';
@@ -133,7 +133,7 @@ const Weather = (): JSX.Element | null => {
         return (
           <span
             className={text({ size: 1, leading: 'tight' })}
-            style={{ color: themeVars.colors.tomato9 }}
+            style={{ color: ds.theme.colors.tomato9 }}
           >
             weather data errored
           </span>

@@ -1,7 +1,6 @@
 import { createVar, style } from '@vanilla-extract/css';
+import { ds } from '../ds.css';
 import { sprinkles } from '../sprinkles.css';
-import { themeVars } from '../theme.css';
-import { tokenVars } from '../tokens.css';
 
 export const arrowLink = {
   root: style([
@@ -27,15 +26,15 @@ export const writings = {
     {
       ':after': {
         content: '',
-        width: tokenVars.sizes.full,
+        width: ds.tokens.sizes.full,
         height: 0,
-        borderTop: `1px dashed ${themeVars.colors.slate8}`,
+        borderTop: `1px dashed ${ds.theme.colors.slate8}`,
         position: 'absolute',
         bottom: bottom,
         left: 0,
       },
       vars: {
-        [bottom]: `calc((${tokenVars.space.m} / 2) * -1)`,
+        [bottom]: `calc((${ds.tokens.space.m} / 2) * -1)`,
       },
     },
   ]),

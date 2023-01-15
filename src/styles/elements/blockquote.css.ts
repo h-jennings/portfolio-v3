@@ -1,11 +1,10 @@
 import { globalStyle, style } from '@vanilla-extract/css';
+import { ds } from '../ds.css';
 import { sprinkles } from '../sprinkles.css';
-import { themeVars } from '../theme.css';
-import { tokenVars } from '../tokens.css';
 
 export const blockquote = style([
   {
-    borderLeft: `4px solid ${themeVars.colors.slate10}`,
+    borderLeft: `4px solid ${ds.theme.colors.slate10}`,
     borderRadius: 5,
   },
   sprinkles({
@@ -17,8 +16,8 @@ export const blockquote = style([
 ]);
 
 globalStyle(`${blockquote} > p`, {
-  fontSize: tokenVars.fontSizes[1],
-  color: themeVars.colors.text1,
+  fontSize: ds.tokens.fontSizes[1],
+  color: ds.theme.colors.text1,
 });
 
 globalStyle(`${blockquote} > p:last-of-type`, {

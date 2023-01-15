@@ -1,6 +1,6 @@
+import { ds } from '@/styles/ds.css';
 import { buttonReset } from '@/styles/elements/button.css';
 import { sprinkles } from '@/styles/sprinkles.css';
-import { themeVars } from '@/styles/theme.css';
 import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
 
@@ -53,10 +53,10 @@ export const button = {
     variants: {
       isActive: {
         true: {
-          color: themeVars.colors.slate12,
+          color: ds.theme.colors.slate12,
         },
         false: {
-          color: themeVars.colors.slate8,
+          color: ds.theme.colors.slate8,
         },
       },
     },

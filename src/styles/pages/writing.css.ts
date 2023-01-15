@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css';
 import { calc } from '@vanilla-extract/css-utils';
+import { ds } from '../ds.css';
 import { sprinkles } from '../sprinkles.css';
-import { tokenVars } from '../tokens.css';
 
 export const yearTitle = style([
   sprinkles({
@@ -10,7 +10,7 @@ export const yearTitle = style([
   }),
   {
     transform: 'translateX(0%)',
-    left: calc(tokenVars.space.l).multiply(-1).toString(),
+    left: calc(ds.tokens.space.l).multiply(-1).toString(),
     '@media': {
       '(width >= 924px)': {
         position: 'absolute',

@@ -1,7 +1,7 @@
+import { ds } from '@/styles/ds.css';
 import { stack } from '@/styles/primitives/stack.css';
 import { pageHeader, text } from '@/styles/primitives/text.css';
 import { sprinkles } from '@/styles/sprinkles.css';
-import { themeVars } from '@/styles/theme.css';
 import React from 'react';
 import { BackToLink } from './BackToLink';
 
@@ -43,7 +43,7 @@ export const ProseLayoutHeader = ({
   return (
     <div
       className={sprinkles({ paddingBottom: 'xl' })}
-      style={{ borderBottom: `1px dashed ${themeVars.colors.slate8}` }}
+      style={{ borderBottom: `1px dashed ${ds.theme.colors.slate8}` }}
     >
       <div>
         {backTo.hasLink ? (

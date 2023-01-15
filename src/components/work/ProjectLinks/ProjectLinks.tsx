@@ -1,3 +1,4 @@
+import { ds } from '@/styles/ds.css';
 import { link } from '@/styles/elements/link.css';
 import { stack } from '@/styles/primitives/stack.css';
 import { text } from '@/styles/primitives/text.css';
@@ -85,7 +86,11 @@ const ProjectLink = ({
           )}
         >
           {arrowDirection === 'left' ? (
-            <ArrowLeftIcon aria-hidden width={15} color='var(--colors-text1)' />
+            <ArrowLeftIcon
+              aria-hidden
+              width={15}
+              color={ds.theme.colors.text1}
+            />
           ) : null}
           <LinkBox.Target
             href={`${PATHS.work}/[project]`}
@@ -105,7 +110,7 @@ const ProjectLink = ({
             <ArrowRightIcon
               aria-hidden
               width={15}
-              color='var(--colors-text1)'
+              color={ds.theme.colors.text1}
             />
           ) : null}
         </div>
