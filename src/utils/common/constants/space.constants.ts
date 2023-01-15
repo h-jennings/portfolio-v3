@@ -1,10 +1,10 @@
+import { ds } from '@/styles/ds.css';
 import { sprinkles } from '@/styles/sprinkles.css';
-import { tokenVars } from '@/styles/tokens.css';
 
-type SpaceKeys = keyof typeof tokenVars.space;
+type SpaceKeys = keyof typeof ds.tokens.space;
 
 const createSpaceVariant = (property: string) =>
-  Object.entries(tokenVars.space).reduce((acc, [key]) => {
+  Object.entries(ds.tokens.space).reduce((acc, [key]) => {
     acc[key as SpaceKeys] = sprinkles({ [property]: key });
     return acc;
   }, {} as Record<SpaceKeys, string>);

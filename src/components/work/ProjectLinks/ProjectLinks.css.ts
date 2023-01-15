@@ -1,5 +1,5 @@
+import { ds } from '@/styles/ds.css';
 import { sprinkles } from '@/styles/sprinkles.css';
-import { themeVars } from '@/styles/theme.css';
 import { style } from '@vanilla-extract/css';
 
 export const root = style([
@@ -8,8 +8,8 @@ export const root = style([
     display: 'flex',
   }),
   {
-    borderTop: `1px dashed ${themeVars.colors.slate8}`,
-    borderBottom: `1px dashed ${themeVars.colors.slate8}`,
+    borderTop: `1px dashed ${ds.theme.colors.slate8}`,
+    borderBottom: `1px dashed ${ds.theme.colors.slate8}`,
   },
 ]);
 

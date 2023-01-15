@@ -1,5 +1,6 @@
 import { createVar } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
+import { ds } from '../ds.css';
 import { sprinkles } from '../sprinkles.css';
 
 const hoverColor = createVar();
@@ -18,7 +19,7 @@ export const link = recipe({
       transitionProperty: 'box-shadow, color',
       ':focus': {
         outline: 'none',
-        boxShadow: 'var(--colors-focus)',
+        boxShadow: ds.tokens.shadows.focus,
       },
       ':hover': {
         color: hoverColor,
@@ -38,19 +39,19 @@ export const link = recipe({
     },
     color: {
       1: [
-        { vars: { [hoverColor]: 'var(--colors-slate11)' } },
+        { vars: { [hoverColor]: ds.theme.colors.slate11 } },
         sprinkles({ color: 'text1' }),
       ],
       2: [
-        { vars: { [hoverColor]: 'var(--colors-slate9)' } },
+        { vars: { [hoverColor]: ds.theme.colors.slate9 } },
         sprinkles({ color: 'text2' }),
       ],
       3: [
-        { vars: { [hoverColor]: 'var(--colors-gold8)' } },
+        { vars: { [hoverColor]: ds.theme.colors.gold8 } },
         sprinkles({ color: 'text3' }),
       ],
       4: [
-        { vars: { [hoverColor]: 'var(--colors-slate2)' } },
+        { vars: { [hoverColor]: ds.theme.colors.slate2 } },
         sprinkles({ color: 'text4' }),
       ],
     },
@@ -64,7 +65,7 @@ export const link = recipe({
         position: 'relative',
         selectors: {
           '&:hover:after': {
-            transition: 'var(--transitions-default)',
+            transition: ds.tokens.transitions.default,
             transitionProperty: 'transform, opacity, color',
             transform: 'translateY(0%)',
             opacity: 1,
@@ -74,12 +75,12 @@ export const link = recipe({
           content: '',
           position: 'absolute',
           opacity: 0,
-          width: 'var(--sizes-full)',
+          width: ds.tokens.sizes.full,
           height: 2,
           backgroundColor: hoverColor,
           left: 0,
           bottom: -2,
-          transition: 'var(--transitions-default)',
+          transition: ds.tokens.transitions.default,
           transitionProperty: 'transform, opacity, color',
           transform: 'translateY(100%)',
         },

@@ -1,3 +1,4 @@
+import { ds } from '@/styles/ds.css';
 import { stack } from '@/styles/primitives/stack.css';
 import { text } from '@/styles/primitives/text.css';
 import { sprinkles } from '@/styles/sprinkles.css';
@@ -27,7 +28,7 @@ export const BackToLink = ({
           }),
         )}
       >
-        <ArrowLeftIcon color='var(--colors-text1)' width={15} aria-hidden />
+        <ArrowLeftIcon color={ds.theme.colors.text1} width={15} aria-hidden />
         <LinkBox.Target href={href} style={{ display: 'flex' }}>
           <span className={text({ leading: 'tight' })} style={{ fontSize: 12 }}>
             {children}

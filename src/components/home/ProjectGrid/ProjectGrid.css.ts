@@ -1,5 +1,5 @@
+import { BREAKPOINTS, ds } from '@/styles/ds.css';
 import { sprinkles } from '@/styles/sprinkles.css';
-import { BREAKPOINTS, tokenVars } from '@/styles/tokens.css';
 import { style } from '@vanilla-extract/css';
 
 export const cardContainer = style([
@@ -13,7 +13,7 @@ export const cardContainer = style([
 
 export const cardWrapper = style({
   minWidth: '90%',
-  marginLeft: tokenVars.space.s,
+  marginLeft: ds.tokens.space.s,
   selectors: {
     '&:first-of-type': {
       marginLeft: 0,

@@ -1,5 +1,5 @@
+import { BREAKPOINTS } from '@/styles/ds.css';
 import { sprinkles } from '@/styles/sprinkles.css';
-import { BREAKPOINTS } from '@/styles/tokens.css';
 import { style } from '@vanilla-extract/css';
 
 export const dot = style([

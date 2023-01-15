@@ -1,6 +1,6 @@
 import { globalStyle, style } from '@vanilla-extract/css';
+import { ds } from '../ds.css';
 import { sprinkles } from '../sprinkles.css';
-import { tokenVars } from '../tokens.css';
 
 export const unorderedList = style([
   {
@@ -14,7 +14,7 @@ export const unorderedList = style([
 ]);
 
 globalStyle(`${unorderedList} ul`, {
-  paddingLeft: tokenVars.space.l,
+  paddingLeft: ds.tokens.space.l,
   listStyle: 'unset',
   listStyleType: 'disc',
 });

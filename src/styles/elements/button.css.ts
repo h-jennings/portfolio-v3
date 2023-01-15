@@ -1,7 +1,6 @@
 import { globalStyle, style } from '@vanilla-extract/css';
+import { ds } from '../ds.css';
 import { sprinkles } from '../sprinkles.css';
-import { themeVars } from '../theme.css';
-import { tokenVars } from '../tokens.css';
 
 export const buttonReset = style([
   sprinkles({
@@ -22,7 +21,7 @@ export const buttonReset = style([
     transitionProperty: 'box-shadow',
     ':focus': {
       outline: 'none',
-      boxShadow: tokenVars.shadows.focus,
+      boxShadow: ds.tokens.shadows.focus,
     },
   },
 ]);
@@ -40,7 +39,7 @@ export const buttonLink = style([
   }),
   {
     borderRadius: 5,
-    border: `1px solid ${themeVars.colors.surface2}`,
+    border: `1px solid ${ds.theme.colors.surface2}`,
     minWidth: 90,
     minHeight: 40,
     transitionProperty: 'backgroundColor, opacity',
@@ -48,5 +47,5 @@ export const buttonLink = style([
 ]);
 
 globalStyle(`${buttonLink} > * + *`, {
-  marginLeft: tokenVars.space['2xs'],
+  marginLeft: ds.tokens.space['2xs'],
 });

@@ -1,7 +1,7 @@
 import { style } from '@vanilla-extract/css';
 import { recipe } from '@vanilla-extract/recipes';
+import { BREAKPOINTS } from '../ds.css';
 import { sprinkles } from '../sprinkles.css';
-import { BREAKPOINTS } from '../tokens.css';
 
 export const chip = recipe({
   base: [
