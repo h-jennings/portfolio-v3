@@ -38,14 +38,17 @@ export const prefetchProjects = async (
   const queryKey =
     variables === undefined ? [QUERY_KEY] : [QUERY_KEY, variables];
 
-  await queryClient.prefetchQuery({
-    queryKey,
-    queryFn: projectsFetcher(preview, variables),
-  });
+  let projects = null;
+  try {
+    projects = await queryClient.fetchQuery({
+      queryKey,
+      queryFn: projectsFetcher(preview, variables),
+    });
+  } catch (error) {
+    projects = null;
+  }
 
-  const initialData = queryClient.getQueryData<GetProjectsQuery>(queryKey);
-
-  return { queryClient, initialData };
+  return { queryClient, initialData: projects };
 };
 
 export const projectsFetcher = (

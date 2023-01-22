@@ -38,14 +38,17 @@ export const prefetchWriting = async (
   const queryKey =
     variables === undefined ? [QUERY_KEY] : [QUERY_KEY, variables];
 
-  await queryClient.prefetchQuery({
-    queryKey,
-    queryFn: writingFetcher(preview, variables),
-  });
+  let writing = null;
+  try {
+    writing = await queryClient.fetchQuery({
+      queryKey,
+      queryFn: writingFetcher(preview, variables),
+    });
+  } catch (error) {
+    writing = null;
+  }
 
-  const initialData = queryClient.getQueryData<GetWritingQuery>(queryKey);
-
-  return { queryClient, initialData };
+  return { queryClient, initialData: writing };
 };
 
 const writingFetcher = (

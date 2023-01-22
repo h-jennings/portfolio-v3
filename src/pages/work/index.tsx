@@ -147,7 +147,7 @@ export const getStaticProps: GetStaticProps<{ preview: boolean }> = async ({
 }) => {
   const { queryClient, initialData } = await prefetchProjects(preview);
 
-  if (!initialData?.projects) {
+  if (!initialData) {
     return {
       notFound: true,
     };

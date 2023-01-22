@@ -54,46 +54,14 @@ const Index = ({
       </VisuallyHidden.Root>
       <div className={stack({ gap: '3xl' })}>
         <IntroductionSection />
-        <WorkSection preview={preview} count={count} />
+        <WorkSection>
+          <ProjectGrid preview={preview} count={count} />
+        </WorkSection>
         <WritingsSection writings={featuredWritings} />
         <ConnectSection />
       </div>
     </>
   );
-};
-
-export const getStaticProps: GetStaticProps<{
-  count: number;
-  preview: boolean;
-}> = async ({ preview = false }) => {
-  const PROJECT_COUNT = 3;
-  const qc = new QueryClient({
-    defaultOptions: {
-      queries: {
-        staleTime: Infinity,
-      },
-    },
-  });
-
-  // Prefetching projects
-  await qc.prefetchQuery({
-    queryKey: [PROJECTS_QUERY_KEY, { count: PROJECT_COUNT }],
-    queryFn: projectsFetcher(preview, { count: PROJECT_COUNT }),
-  });
-
-  // Prefetching writings
-  await qc.prefetchQuery({
-    queryKey: [WRITINGS_QUERY_KEY],
-    queryFn: writingsFetcher(preview),
-  });
-
-  return {
-    props: {
-      dehydratedState: dehydrate(qc),
-      count: PROJECT_COUNT,
-      preview,
-    },
-  };
 };
 
 const IntroductionSection = () => {
@@ -148,20 +116,14 @@ const IntroductionSection = () => {
   );
 };
 
-const WorkSection = ({
-  count,
-  preview,
-}: {
-  count: number;
-  preview: boolean;
-}) => {
+const WorkSection = ({ children }: { children?: React.ReactNode }) => {
   return (
     <section className={stack({ gap: 's' })}>
       <div className={flex({ justify: 'between', align: 'center' })}>
         <h2 className={text({ leading: 'tight' })}>Selected work</h2>
         <ArrowLink href={PATHS.work}>view all</ArrowLink>
       </div>
-      <ProjectGrid preview={preview} count={count} />
+      {children}
     </section>
   );
 };
@@ -302,6 +264,40 @@ const ConnectListLink = ({
       {children}
     </Link>
   );
+};
+
+export const getStaticProps: GetStaticProps<{
+  count: number;
+  preview: boolean;
+}> = async ({ preview = false }) => {
+  const PROJECT_COUNT = 3;
+  const qc = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: Infinity,
+      },
+    },
+  });
+
+  // Pre-populating cache
+  await Promise.allSettled([
+    qc.prefetchQuery({
+      queryKey: [PROJECTS_QUERY_KEY, { count: PROJECT_COUNT }],
+      queryFn: projectsFetcher(preview, { count: PROJECT_COUNT }),
+    }),
+    qc.prefetchQuery({
+      queryKey: [WRITINGS_QUERY_KEY],
+      queryFn: writingsFetcher(preview),
+    }),
+  ]);
+
+  return {
+    props: {
+      dehydratedState: dehydrate(qc),
+      count: PROJECT_COUNT,
+      preview,
+    },
+  };
 };
 
 export default Index;

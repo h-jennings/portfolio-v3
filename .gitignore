@@ -33,6 +33,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# typescript
+*.tsbuildinfo
+
 # Seo stuff created at build time
 public/sitemap.xml
 public/sitemap-?.xml
