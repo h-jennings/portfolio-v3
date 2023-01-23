@@ -92,25 +92,23 @@ const Work = ({
                         {featuredProject.name}
                       </p>
                     </LinkBox.Target>
-                    {featuredProject.description ? (
-                      <RichText
-                        renderers={{
-                          p: ({ children }) => (
-                            <p
-                              className={clsx(
-                                sprinkles({ paddingTop: '3xs' }),
-                                text({ size: 1, color: 2 }),
-                              )}
-                            >
-                              {children}
-                            </p>
-                          ),
-                        }}
-                        content={
-                          featuredProject.description.raw as RichTextContent
-                        }
-                      />
-                    ) : null}
+                    <RichText
+                      renderers={{
+                        p: ({ children }) => (
+                          <p
+                            className={clsx(
+                              sprinkles({ paddingTop: '3xs' }),
+                              text({ size: 1, color: 2 }),
+                            )}
+                          >
+                            {children}
+                          </p>
+                        ),
+                      }}
+                      content={
+                        featuredProject.description.raw as RichTextContent
+                      }
+                    />
                   </div>
                 </div>
               </div>

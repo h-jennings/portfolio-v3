@@ -1,7 +1,3 @@
-import {
-  prefetchWritings,
-  useGetWritingsQuery,
-} from '@/graphql/queries/get-writings';
 import * as s from '@/styles/pages/writing.css';
 import { flex } from '@/styles/primitives/flex.css';
 import { stack } from '@/styles/primitives/stack.css';
@@ -10,28 +6,25 @@ import { sprinkles } from '@/styles/sprinkles.css';
 import { BackToLink } from '@components/common/BackToLink';
 import { LinkBox } from '@components/common/LinkBox/LinkBox';
 import { Seo } from '@components/common/Seo';
-import { dehydrate } from '@tanstack/react-query';
 import { PATHS } from '@utils/common/constants/paths.constants';
 import {
   addYearToWritings,
   groupDatesByYear,
+  parseDateToString,
 } from '@utils/common/helpers/date.helpers';
 import clsx from 'clsx';
+import { allWritings, Writing } from 'contentlayer/generated';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 
 const Writings = ({
-  preview,
+  writings,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const { data } = useGetWritingsQuery(preview);
-
-  if (!data) return null;
-
-  const featuredWritings = data.writings.filter(({ featured }) => {
+  const featuredWritings = writings.filter(({ featured }) => {
     return featured;
   });
-  const hasWritings = data.writings.length > 0;
-  const hasFeaturedWritings = data.writings.some((writing) => writing.featured);
-  const groupedWritings = groupDatesByYear(addYearToWritings(data.writings));
+  const hasWritings = writings.length > 0;
+  const hasFeaturedWritings = writings.some((writing) => writing.featured);
+  const groupedWritings = groupDatesByYear(addYearToWritings(writings));
 
   return (
     <>
@@ -50,7 +43,7 @@ const Writings = ({
             <div className={stack({ gap: 'm' })}>
               <h2 className={text({ size: 2, leading: 'tight' })}>Featured</h2>
               <ul className={stack({ gap: 's' })}>
-                {featuredWritings.map(({ slug, title, seo }) => {
+                {featuredWritings.map(({ slug, title, description }) => {
                   return (
                     <li key={slug}>
                       <LinkBox.Root>
@@ -78,7 +71,7 @@ const Writings = ({
                               text({ size: 1, color: 2 }),
                             )}
                           >
-                            {seo.description}
+                            {description}
                           </p>
                         </div>
                       </LinkBox.Root>
@@ -110,7 +103,7 @@ const Writings = ({
                         {year}
                       </h3>
                       <ul className={stack({ gap: 'xs' })}>
-                        {writings.map(({ slug, title, datePublished }) => {
+                        {writings.map(({ slug, title, date }) => {
                           return (
                             <li key={slug}>
                               <LinkBox.Root>
@@ -129,7 +122,7 @@ const Writings = ({
                                     <p className={text({ size: 1 })}>{title}</p>
                                   </LinkBox.Target>
                                   <p className={text({ size: 1, color: 2 })}>
-                                    {datePublished}
+                                    {parseDateToString(date)}
                                   </p>
                                 </div>
                               </LinkBox.Root>
@@ -152,20 +145,11 @@ const Writings = ({
 };
 
 export const getStaticProps: GetStaticProps<{
-  preview: boolean;
-}> = async ({ preview = false }) => {
-  const { queryClient, initialData } = await prefetchWritings(preview);
-
-  if (!initialData?.writings[0]) {
-    return {
-      notFound: true,
-    };
-  }
-
+  writings: Writing[];
+}> = () => {
   return {
     props: {
-      dehydratedState: dehydrate(queryClient),
-      preview,
+      writings: allWritings,
     },
   };
 };
