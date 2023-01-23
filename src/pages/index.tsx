@@ -91,7 +91,7 @@ const IntroductionSection = () => {
           Now
         </h2>
         <p className={bodyText}>
-          Currently working as a Frontend Developer for the award-winning
+          Currently working as a Senior Frontend Developer for the award-winning
           digital creative agency&mdash;
           <Link
             className={link({ underline: 'whileHover', color: 3 })}
