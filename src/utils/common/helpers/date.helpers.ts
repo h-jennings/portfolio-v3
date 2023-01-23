@@ -1,27 +1,25 @@
-import { GetWritingsQuery } from '@/graphql/generated/types.generated';
+import { Writing } from 'contentlayer/generated';
 import { compareDesc, format, parseISO } from 'date-fns';
 
 export const getYearFromDate = (date: string): string => {
   return new Date(date).getFullYear().toString();
 };
-export const parseDateToString = (date: Date): string => {
-  return format(date, 'yyyy-MM-dd');
+export const parseDateToString = (date: string): string => {
+  return format(parseISO(date), 'yyyy-MM-dd');
 };
 export const parseDateToLongDateString = (date: string): string => {
   return format(parseISO(date), 'LLLL dd, yyyy ');
 };
 
-export const sortWritingsDataByDateDesc = (
-  writings: GetWritingsQuery['writings'] | undefined,
-) => {
+export const sortWritingsDataByDateDesc = (writings: Writing[]) => {
   if (!Array.isArray(writings)) return [];
 
-  return [...writings].sort(({ datePublished: a }, { datePublished: b }) =>
-    compareDesc(new Date(a as string), new Date(b as string)),
+  return [...writings].sort(({ date: a }, { date: b }) =>
+    compareDesc(new Date(a), new Date(b)),
   );
 };
 
-type Writings = (GetWritingsQuery['writings'][0] & { year: string })[];
+type Writings = (Writing & { year: string })[];
 export const groupDatesByYear = (writings: Writings) => {
   return Object.entries(
     writings.reduce((result, value) => {
@@ -41,11 +39,11 @@ export const groupDatesByYear = (writings: Writings) => {
     .reverse();
 };
 
-export const addYearToWritings = (writings: GetWritingsQuery['writings']) => {
+export const addYearToWritings = (writings: Writing[]) => {
   return writings.map((writing) => {
     return {
       ...writing,
-      year: getYearFromDate(writing.datePublished as string),
+      year: getYearFromDate(writing.date),
     };
   });
 };

@@ -1,56 +1,47 @@
-import { cmsFetcher } from '@/graphql/client';
-import {
-  GetWritingSlugs,
-  GetWritingSlugsQuery,
-  GetWritingSlugsQueryVariables,
-} from '@/graphql/generated/types.generated';
-import {
-  prefetchWriting,
-  useGetWritingQuery,
-} from '@/graphql/queries/get-writing';
 import { stack } from '@/styles/primitives/stack.css';
 import { text } from '@/styles/primitives/text.css';
+import { ImageContainer } from '@components/common/ImageContainer';
 import {
   ProseLayout,
   ProseLayoutContent,
   ProseLayoutHeader,
 } from '@components/common/ProseLayout';
-import { RichText } from '@components/common/RichText/RichText';
-import { RichTextContent } from '@graphcms/rich-text-types';
-import { dehydrate } from '@tanstack/react-query';
+import { AspectRatio } from '@radix-ui/react-aspect-ratio';
+import { MDX_ELEMENTS } from '@utils/common/constants/mdx.constants';
 import { PATHS } from '@utils/common/constants/paths.constants';
+import { parseDateToString } from '@utils/common/helpers/date.helpers';
 import { getMetaImage } from '@utils/common/helpers/meta-image.helpers';
+import { allWritings, Writing } from 'contentlayer/generated';
 import type {
   GetStaticPaths,
   GetStaticProps,
   InferGetStaticPropsType,
 } from 'next';
+import { useMDXComponent } from 'next-contentlayer/hooks';
 import { NextSeo, NextSeoProps } from 'next-seo';
-import readingTime from 'reading-time';
+import Image from 'next/image';
 
 const Writing = ({
-  slug,
-  preview,
+  writing,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const { data } = useGetWritingQuery(preview, { slug });
+  const { title, description, date, body, slug, readingTime } = writing;
 
-  const { writing } = data ?? {};
-  const { seo } = writing ?? {};
-
-  const title = seo?.title;
   const url = `${PATHS.base}${PATHS.writing}/${slug}`;
-  const image = seo?.image?.url;
   const SEO: NextSeoProps = {
     title,
     canonical: url,
-    description: seo?.description ?? undefined,
+    description,
     openGraph: {
       title,
       url,
-      description: seo?.description ?? undefined,
-      ...getMetaImage(image),
+      article: {
+        publishedTime: date,
+      },
+      description,
+      ...getMetaImage(undefined),
     },
   };
+  const MDXContent = useMDXComponent(body.code);
 
   return (
     <>
@@ -62,8 +53,8 @@ const Writing = ({
             content: 'Back to writing',
             href: PATHS.writing,
           }}
-          headline={writing?.title}
-          description={writing?.seo.description}
+          headline={title}
+          description={description}
         >
           <div
             className={stack({
@@ -75,42 +66,35 @@ const Writing = ({
             <div className={stack({ gap: '3xs' })}>
               <span className={text({ size: 1, color: 2 })}>Published</span>
               <span className={text({ size: 1 })}>
-                {writing?.datePublished}
+                {parseDateToString(date)}
               </span>
             </div>
-            {writing?.content.text ? (
-              <div className={stack({ gap: '3xs' })}>
-                <span className={text({ size: 1, color: 2 })}>
-                  Reading Time
-                </span>
-                <span className={text({ size: 1 })}>
-                  {readingTime(writing.content.text).text}
-                </span>
-              </div>
-            ) : null}
+            <div className={stack({ gap: '3xs' })}>
+              <span className={text({ size: 1, color: 2 })}>Reading Time</span>
+              <span className={text({ size: 1 })}>{readingTime}</span>
+            </div>
           </div>
         </ProseLayoutHeader>
         <ProseLayoutContent>
-          <RichText
-            references={writing?.content.references}
-            content={writing?.content.json as RichTextContent}
-          />
+          <MDXContent components={{ ...MDX_ELEMENTS, ...MDX_COMPONENTS }} />
         </ProseLayoutContent>
       </ProseLayout>
     </>
   );
 };
 
-export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
-  const data = await cmsFetcher<
-    GetWritingSlugsQuery,
-    GetWritingSlugsQueryVariables
-  >(false, GetWritingSlugs)();
+const MDX_COMPONENTS = {
+  Image,
+  ImageContainer,
+  AspectRatio,
+} as const;
 
-  const paths = data.writings.map((p) => {
-    const { slug } = p;
+export const getStaticPaths: GetStaticPaths<{ slug: string }> = () => {
+  const paths = allWritings.map((writing) => {
     return {
-      params: { slug },
+      params: {
+        slug: writing.slug,
+      },
     };
   });
 
@@ -121,15 +105,12 @@ export const getStaticPaths: GetStaticPaths<{ slug: string }> = async () => {
 };
 
 export const getStaticProps: GetStaticProps<{
-  slug: string;
-  preview: boolean;
-}> = async ({ params, preview = false }) => {
+  writing: Writing;
+}> = ({ params }) => {
   const { slug } = params!;
-  const { queryClient, initialData } = await prefetchWriting(preview, {
-    slug: slug as string,
-  });
+  const writing = allWritings.find((writing) => writing.slug === slug);
 
-  if (!initialData?.writing) {
+  if (!writing) {
     return {
       notFound: true,
     };
@@ -137,9 +118,7 @@ export const getStaticProps: GetStaticProps<{
 
   return {
     props: {
-      dehydratedState: dehydrate(queryClient),
-      slug: slug as string,
-      preview,
+      writing,
     },
   };
 };

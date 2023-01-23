@@ -16,6 +16,7 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
+      "contentlayer/generated": ["./.contentlayer/generated"],
       "@common/*": ["./src/modules/common/*"],
       "@components/*": ["./src/components/*"],
       "@utils/*": ["./src/utils/*"],
@@ -26,6 +27,11 @@
     },
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    ".contentlayer/generated",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
   "exclude": ["node_modules"]
 }

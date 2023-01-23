@@ -1,13 +1,7 @@
-import { GetWritingsQuery } from '@/graphql/generated/types.generated';
 import {
   projectsFetcher,
   QUERY_KEY as PROJECTS_QUERY_KEY,
 } from '@/graphql/queries/get-projects';
-import {
-  QUERY_KEY as WRITINGS_QUERY_KEY,
-  useGetWritingsQuery,
-  writingsFetcher,
-} from '@/graphql/queries/get-writings';
 import { ds } from '@/styles/ds.css';
 import { link } from '@/styles/elements/link.css';
 import * as s from '@/styles/pages/index.css';
@@ -25,6 +19,7 @@ import {
   sortWritingsDataByDateDesc,
 } from '@utils/common/helpers/date.helpers';
 import clsx from 'clsx';
+import { allWritings, Writing } from 'contentlayer/generated';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
@@ -34,11 +29,8 @@ const Index = ({
   count,
   preview,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const { data: writingsData } = useGetWritingsQuery(preview);
-  const { writings } = writingsData ?? {};
-  const featuredWritings = React.useMemo(
-    () => sortWritingsDataByDateDesc(writings?.filter((w) => w.featured)),
-    [writings],
+  const featuredWritings = sortWritingsDataByDateDesc(
+    allWritings.filter((w) => w.featured),
   );
 
   return (
@@ -129,11 +121,11 @@ const WorkSection = ({ children }: { children?: React.ReactNode }) => {
 };
 
 interface WritingsSectionProps {
-  writings: GetWritingsQuery['writings'] | undefined;
+  writings: Writing[];
 }
 
 const WritingsSection = ({ writings }: WritingsSectionProps) => {
-  const hasWritings = writings && writings.length > 0;
+  const hasWritings = writings.length > 0;
 
   if (!hasWritings) return null;
 
@@ -144,11 +136,11 @@ const WritingsSection = ({ writings }: WritingsSectionProps) => {
         <ArrowLink href={PATHS.writing}>view all</ArrowLink>
       </div>
       <ul className={stack({ gap: 'm' })}>
-        {writings.map(({ id, slug, title, datePublished }) => {
+        {writings.map(({ _id, slug, title, date }) => {
           return (
             <li
               className={clsx(stack({ gap: '3xs' }), s.writings.listItem)}
-              key={id}
+              key={_id}
             >
               <div>
                 <Link
@@ -160,7 +152,7 @@ const WritingsSection = ({ writings }: WritingsSectionProps) => {
                 </Link>
               </div>
               <time className={text({ size: 1, family: 'serif' })}>
-                {parseDateToLongDateString(datePublished as string)}
+                {parseDateToLongDateString(date)}
               </time>
             </li>
           );
@@ -284,10 +276,6 @@ export const getStaticProps: GetStaticProps<{
     qc.prefetchQuery({
       queryKey: [PROJECTS_QUERY_KEY, { count: PROJECT_COUNT }],
       queryFn: projectsFetcher(preview, { count: PROJECT_COUNT }),
-    }),
-    qc.prefetchQuery({
-      queryKey: [WRITINGS_QUERY_KEY],
-      queryFn: writingsFetcher(preview),
     }),
   ]);
 

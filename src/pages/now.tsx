@@ -1,7 +1,3 @@
-import {
-  prefetchWriting,
-  useGetWritingQuery,
-} from '@/graphql/queries/get-writing';
 import { stack } from '@/styles/primitives/stack.css';
 import { text } from '@/styles/primitives/text.css';
 import {
@@ -9,38 +5,36 @@ import {
   ProseLayoutContent,
   ProseLayoutHeader,
 } from '@components/common/ProseLayout';
-import { RichText } from '@components/common/RichText/RichText';
-import { RichTextContent } from '@graphcms/rich-text-types';
-import { dehydrate } from '@tanstack/react-query';
+import { MDX_ELEMENTS } from '@utils/common/constants/mdx.constants';
 import { PATHS } from '@utils/common/constants/paths.constants';
+import { parseDateToString } from '@utils/common/helpers/date.helpers';
 import { getMetaImage } from '@utils/common/helpers/meta-image.helpers';
+import { allNows, Now } from 'contentlayer/generated';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
+import { useMDXComponent } from 'next-contentlayer/hooks';
 import { NextSeo, NextSeoProps } from 'next-seo';
 
-const NOW_SLUG = 'now';
+const Now = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const { title, description, date, body, slug } = data;
 
-const Now = ({ preview }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const { data } = useGetWritingQuery(preview, { slug: NOW_SLUG });
-  const { writing } = data ?? {};
-  const { seo } = writing ?? {};
+  const url = `${PATHS.base}/${slug}}`;
 
-  const url = `${PATHS.base}${writing?.slug}`;
-  const description = seo?.description ?? undefined;
-  const image = seo?.image?.url;
   const SEO: NextSeoProps = {
-    title: seo?.title,
+    title,
     canonical: url,
     description,
     openGraph: {
-      title: seo?.title,
+      title,
       url,
       article: {
-        publishedTime: writing?.datePublished as string,
+        publishedTime: date,
       },
       description,
-      ...getMetaImage(image),
+      ...getMetaImage(undefined), // TODO: replace with og/image
     },
   };
+
+  const MDXContent = useMDXComponent(body.code);
 
   return (
     <>
@@ -52,19 +46,16 @@ const Now = ({ preview }: InferGetStaticPropsType<typeof getStaticProps>) => {
             content: 'Back to home',
             href: PATHS.home,
           }}
-          headline={writing?.title}
-          description={seo?.description}
+          headline={title}
+          description={description}
         >
           <div className={stack({ gap: '3xs' })}>
             <span className={text({ size: 1, color: 2 })}>Last Updated</span>
-            <span className={text({ size: 1 })}>{writing?.datePublished}</span>
+            <span className={text({ size: 1 })}>{parseDateToString(date)}</span>
           </div>
         </ProseLayoutHeader>
         <ProseLayoutContent>
-          <RichText
-            references={writing?.content.references}
-            content={writing?.content.json as RichTextContent}
-          />
+          <MDXContent components={MDX_ELEMENTS} />
         </ProseLayoutContent>
       </ProseLayout>
     </>
@@ -72,13 +63,11 @@ const Now = ({ preview }: InferGetStaticPropsType<typeof getStaticProps>) => {
 };
 
 export const getStaticProps: GetStaticProps<{
-  preview: boolean;
-}> = async ({ preview = false }) => {
-  const { queryClient, initialData } = await prefetchWriting(preview, {
-    slug: NOW_SLUG,
-  });
+  data: Now;
+}> = () => {
+  const data = allNows[0];
 
-  if (!initialData?.writing) {
+  if (!data) {
     return {
       notFound: true,
     };
@@ -86,8 +75,7 @@ export const getStaticProps: GetStaticProps<{
 
   return {
     props: {
-      dehydratedState: dehydrate(queryClient),
-      preview,
+      data,
     },
   };
 };

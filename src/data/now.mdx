@@ -1,0 +1,20 @@
+---
+title: What I'm up to now
+description:
+  Things I'm interested in, working on, and excited to learn more about at this
+  moment in time.
+date: 2023-01-23
+status: published
+---
+
+- I was recently promoted to Senior Frontend Developer 🎉.
+- Moved this page to [Contentlayer](https://www.contentlayer.dev/). This makes
+  using MDX _a lot_ easier and worth the effort compared to other methods I've
+  tried.
+- Implemented
+  [On-demand ISR](https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration#using-on-demand-revalidation)
+  using webhooks
+  - Any time I make a change in Hygraph to the "Project" type, a webhook sends a
+    request to an api route and revalidates all the pages that may reference
+    that data.
+    - [See the code here](https://github.com/h-jennings/portfolio-v3/blob/main/src/pages/api/revalidate.ts)

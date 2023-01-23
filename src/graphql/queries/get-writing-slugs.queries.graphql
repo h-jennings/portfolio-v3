@@ -1,5 +1,0 @@
-query GetWritingSlugs($count: Int = 50) {
-  writings(first: $count, where: { slug_not: "now" }) {
-    slug
-  }
-}
