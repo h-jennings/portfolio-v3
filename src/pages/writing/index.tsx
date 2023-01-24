@@ -25,13 +25,17 @@ const Writings = ({
   const hasWritings = writings.length > 0;
   const hasFeaturedWritings = writings.some((writing) => writing.featured);
   const groupedWritings = groupDatesByYear(addYearToWritings(writings));
+  const title = 'Writing';
+  const description =
+    'Thoughts on software, books, life, and any opinions I have at a moment in time.';
 
   return (
     <>
       <Seo
-        title='Writing'
+        title={title}
         url={`${PATHS.base}${PATHS.writing}`}
-        description='Thoughts on software, books, life, and any opinions I have at a moment in time.'
+        description={description}
+        image={`${PATHS.og}?title=${title}&subtitle=${description}`}
       />
       <div className={sprinkles({ width: 'full' })}>
         <div className={stack({ gap: 'xl' })}>

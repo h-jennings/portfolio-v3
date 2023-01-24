@@ -10,7 +10,6 @@ import { AspectRatio } from '@radix-ui/react-aspect-ratio';
 import { MDX_ELEMENTS } from '@utils/common/constants/mdx.constants';
 import { PATHS } from '@utils/common/constants/paths.constants';
 import { parseDateToString } from '@utils/common/helpers/date.helpers';
-import { getMetaImage } from '@utils/common/helpers/meta-image.helpers';
 import { allWritings, Writing } from 'contentlayer/generated';
 import type {
   GetStaticPaths,
@@ -38,7 +37,11 @@ const Writing = ({
         publishedTime: date,
       },
       description,
-      ...getMetaImage(undefined),
+      images: [
+        {
+          url: PATHS.og,
+        },
+      ],
     },
   };
   const MDXContent = useMDXComponent(body.code);

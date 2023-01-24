@@ -1,3 +1,5 @@
+import { PATHS } from '@utils/common/constants/paths.constants';
+
 const title = 'Portfolio';
 const description =
   'Hunter Jennings is a Frontend Developer based in Richmond, VA';
@@ -14,7 +16,7 @@ const SEO = {
     url: process.env.NEXT_PUBLIC_URL,
     images: [
       {
-        url: `${process.env.NEXT_PUBLIC_URL}/images/social-banner.jpg`,
+        url: PATHS.og,
       },
     ],
     title,

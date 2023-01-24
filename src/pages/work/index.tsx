@@ -31,13 +31,16 @@ const Work = ({
   const featuredProject = projects
     ?.filter((project) => Boolean(project.featured))
     .map((project) => project)[0];
+  const title = 'Work';
+  const description = 'A curated collection of my work throughout the years.';
 
   return (
     <>
       <Seo
-        title='Work'
-        description='A curated collection of my work throughout the years.'
+        title={title}
+        description={description}
         url={`${PATHS.base}${PATHS.work}`}
+        image={`${PATHS.og}?title=${title}&subtitle=${description}`}
       />
       <div className={stack({ gap: 'xl' })}>
         <div>

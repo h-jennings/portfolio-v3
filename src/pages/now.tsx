@@ -8,7 +8,6 @@ import {
 import { MDX_ELEMENTS } from '@utils/common/constants/mdx.constants';
 import { PATHS } from '@utils/common/constants/paths.constants';
 import { parseDateToString } from '@utils/common/helpers/date.helpers';
-import { getMetaImage } from '@utils/common/helpers/meta-image.helpers';
 import { allNows, Now } from 'contentlayer/generated';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { useMDXComponent } from 'next-contentlayer/hooks';
@@ -30,7 +29,11 @@ const Now = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
         publishedTime: date,
       },
       description,
-      ...getMetaImage(undefined), // TODO: replace with og/image
+      images: [
+        {
+          url: `${PATHS.og}?title=${title}&subtitle=${description}`,
+        },
+      ],
     },
   };
 
