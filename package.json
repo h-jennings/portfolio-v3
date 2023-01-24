@@ -39,6 +39,7 @@
     "@vanilla-extract/dynamic": "^2.0.3",
     "@vanilla-extract/recipes": "^0.3.0",
     "@vanilla-extract/sprinkles": "^1.5.1",
+    "@vercel/og": "^0.0.20",
     "body-scroll-lock": "^4.0.0-beta.0",
     "clsx": "^1.2.1",
     "contentlayer": "^0.3.0",

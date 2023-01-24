@@ -50,6 +50,7 @@ const Project = ({
     contribution,
     date,
     link,
+    description,
     descriptionLong,
   } = projectDataCMS ?? {};
 
@@ -59,7 +60,7 @@ const Project = ({
         title={seo?.title}
         url={`${PATHS.base}/work/${path}`}
         description={seo?.description ?? undefined}
-        image={seo?.image?.url}
+        image={`${PATHS.og}?title=${seo?.title}&subtitle=${description}`}
       />
       <div className={stack({ gap: '3xl' })}>
         <div className={stack({ gap: 'xl' })}>

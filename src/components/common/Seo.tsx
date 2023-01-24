@@ -1,4 +1,4 @@
-import { getMetaImage } from '@utils/common/helpers/meta-image.helpers';
+import { PATHS } from '@utils/common/constants/paths.constants';
 import { NextSeo, NextSeoProps } from 'next-seo';
 
 interface SeoProps extends NextSeoProps {
@@ -19,7 +19,11 @@ export const Seo = ({ title, url, description, image, ...rest }: SeoProps) => {
         title,
         url,
         description,
-        ...getMetaImage(image),
+        images: [
+          {
+            url: image ?? PATHS.og,
+          },
+        ],
       }}
     />
   );

@@ -12,4 +12,5 @@ export const PATHS = {
   work: '/work',
   writings: 'data/writings',
   data: 'data',
+  og: 'https://www.hunterjennings.dev/api/og',
 } as const;
