@@ -39,7 +39,7 @@ const Writing = ({
       description,
       images: [
         {
-          url: PATHS.og,
+          url: `${PATHS.og}?title=${title}&subtitle=${description}`,
         },
       ],
     },
