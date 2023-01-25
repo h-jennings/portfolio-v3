@@ -93,16 +93,6 @@ const IntroductionSection = () => {
           </Link>
           .
         </p>
-        <p className={bodyText}>
-          Other stuff I&apos;m working on{' '}
-          <Link
-            className={link({ underline: true, color: 2 })}
-            data-cy='now-link'
-            href={PATHS.now}
-          >
-            now
-          </Link>
-        </p>
       </div>
     </section>
   );
