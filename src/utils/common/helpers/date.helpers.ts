@@ -11,13 +11,15 @@ export const parseDateToLongDateString = (date: string): string => {
   return format(parseISO(date), 'LLLL dd, yyyy ');
 };
 
-export const sortWritingsDataByDateDesc = (writings: Writing[]) => {
-  if (!Array.isArray(writings)) return [];
+export function sortArrayByDateDesc<TArray extends { date: string }[]>(
+  arr: TArray,
+) {
+  if (!Array.isArray(arr)) return [];
 
-  return [...writings].sort(({ date: a }, { date: b }) =>
+  return [...arr].sort(({ date: a }, { date: b }) =>
     compareDesc(new Date(a), new Date(b)),
   );
-};
+}
 
 type Writings = (Writing & { year: string })[];
 export const groupDatesByYear = (writings: Writings) => {
