@@ -59,7 +59,7 @@ const Update = ({ update }: UpdateProps) => {
 
         <ProseLayoutContent>
           <MDXContent components={MDX_ELEMENTS} />
-          <time dateTime={date} className={text({ color: 2, size: 1 })}>
+          <time dateTime={date} className={text({ color: '2', size: '1' })}>
             {fancyDate}
           </time>
         </ProseLayoutContent>

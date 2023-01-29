@@ -32,7 +32,7 @@ export const buttonLink = style([
     lineHeight: 'tight',
     justifyContent: 'center',
     alignItems: 'center',
-    fontSize: 1,
+    fontSize: '1',
     paddingX: 's',
     transition: 'default',
     backgroundColor: { initial: 'surface1', hover: 'slate4' },

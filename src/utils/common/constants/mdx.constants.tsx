@@ -11,7 +11,7 @@ export const MDX_ELEMENTS = {
   h1: (props: any) => (
     <h1
       className={clsx(
-        text({ leading: 'body', size: 4, color: 1 }),
+        text({ leading: 'body', size: '4', color: '1' }),
         sprinkles({ marginBottom: 'l' }),
       )}
       {...props}
@@ -20,7 +20,7 @@ export const MDX_ELEMENTS = {
   h2: (props: any) => (
     <h2
       className={clsx(
-        text({ leading: 'body', size: 3, color: 1 }),
+        text({ leading: 'body', size: '3', color: '1' }),
         sprinkles({ marginTop: 'l', marginBottom: 'xs' }),
       )}
       {...props}
@@ -29,7 +29,7 @@ export const MDX_ELEMENTS = {
   h3: (props: any) => (
     <h3
       className={clsx(
-        text({ leading: 'body', size: 2, color: 1 }),
+        text({ leading: 'body', size: '2', color: '1' }),
         sprinkles({ marginBottom: 'm' }),
       )}
       {...props}
@@ -38,7 +38,7 @@ export const MDX_ELEMENTS = {
   h4: (props: any) => (
     <h4
       className={clsx(
-        text({ leading: 'body', size: 1, color: 1 }),
+        text({ leading: 'body', size: '1', color: '1' }),
         sprinkles({ marginBottom: 'm' }),
       )}
       {...props}
@@ -47,7 +47,7 @@ export const MDX_ELEMENTS = {
   h5: (props: any) => (
     <h5
       className={clsx(
-        text({ leading: 'body', size: 2, color: 1 }),
+        text({ leading: 'body', size: '2', color: '1' }),
         sprinkles({ marginBottom: 'm' }),
       )}
       {...props}
@@ -56,7 +56,7 @@ export const MDX_ELEMENTS = {
   h6: (props: any) => (
     <h6
       className={clsx(
-        text({ leading: 'body', size: 2, color: 1 }),
+        text({ leading: 'body', size: '2', color: '1' }),
         sprinkles({ marginBottom: 'm' }),
       )}
       {...props}
@@ -83,7 +83,7 @@ export const MDX_ELEMENTS = {
   a: (props: any) => (
     <Link
       {...props}
-      className={link({ color: 3 })}
+      className={link({ color: '3' })}
       style={{ fontSize: 'inherit', lineHeight: 'inherit' }}
     />
   ),

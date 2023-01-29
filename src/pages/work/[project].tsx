@@ -78,7 +78,9 @@ const Project = ({
             >
               <h1 className={pageHeader}>{name}</h1>
               {client?.name ? (
-                <h2 className={text({ color: 2, size: 1 })}>{client.name}</h2>
+                <h2 className={text({ color: '2', size: '1' })}>
+                  {client.name}
+                </h2>
               ) : null}
             </div>
           </div>
@@ -124,19 +126,19 @@ const Project = ({
             </ScrollAreaPrimitive.Viewport>
           </ScrollAreaPrimitive.Root>
           <div className={stack({ gap: 'xs' })}>
-            <h3 className={text({ color: 2, size: 1, leading: 'tight' })}>
+            <h3 className={text({ color: '2', size: '1', leading: 'tight' })}>
               Description
             </h3>
             {descriptionLong ? (
               <RichText content={descriptionLong.raw as RichTextContent} />
             ) : null}
           </div>
-          <div className={grid({ gap: 'm', columns: 3 })}>
+          <div className={grid({ gap: 'm', columns: '3' })}>
             <div
               className={stack({ gap: 'xs' })}
               style={{ height: 'fit-content' }}
             >
-              <h3 className={text({ color: 2, size: 1, leading: 'tight' })}>
+              <h3 className={text({ color: '2', size: '1', leading: 'tight' })}>
                 Contributions
               </h3>
               <div>
@@ -159,14 +161,16 @@ const Project = ({
               style={{ gridColumn: 'span 2 / -1' }}
             >
               <div className={stack({ gap: 'xs' })}>
-                <h3 className={text({ color: 2, size: 1, leading: 'tight' })}>
+                <h3
+                  className={text({ color: '2', size: '1', leading: 'tight' })}
+                >
                   Dates
                 </h3>
-                <p className={text({ leading: 'tight', size: 1 })}>
+                <p className={text({ leading: 'tight', size: '1' })}>
                   {date?.map((d, i) => {
                     return (
                       <span
-                        className={text({ leading: 'tight', size: 1 })}
+                        className={text({ leading: 'tight', size: '1' })}
                         key={i}
                       >
                         {i > 0 ? ' - ' : ''}
@@ -192,7 +196,7 @@ const Project = ({
           </div>
         </div>
         <div className={stack({ gap: 's' })}>
-          <h3 className={text({ color: 2, size: 1, leading: 'tight' })}>
+          <h3 className={text({ color: '2', size: '1', leading: 'tight' })}>
             Other Projects
           </h3>
           <ProjectLinks

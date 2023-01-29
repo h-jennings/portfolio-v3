@@ -62,7 +62,7 @@ const IntroductionSection = () => {
       <div className={stack({ gap: 'm' })}>
         <h2
           className={text({
-            size: 2,
+            size: '2',
             family: 'serif',
             leading: 'tight',
           })}
@@ -77,7 +77,7 @@ const IntroductionSection = () => {
       </div>
       <div className={stack({ gap: 'xs' })}>
         <h2
-          className={text({ color: 2, size: 1 })}
+          className={text({ color: '2', size: '1' })}
           aria-label="What I'm up to now"
         >
           Now
@@ -86,7 +86,7 @@ const IntroductionSection = () => {
           Currently working as a Senior Frontend Developer for the award-winning
           digital creative agency&mdash;
           <Link
-            className={link({ underline: 'whileHover', color: 3 })}
+            className={link({ underline: 'whileHover', color: '3' })}
             href={PATHS.seagulls}
           >
             Elegant Seagulls
@@ -136,12 +136,12 @@ const WritingsSection = ({ writings }: WritingsSectionProps) => {
                 <Link
                   href={`${PATHS.writing}/[slug]`}
                   as={`${PATHS.writing}/${slug}`}
-                  className={link({ size: 1 })}
+                  className={link({ size: '1' })}
                 >
                   {title}
                 </Link>
               </div>
-              <time className={text({ size: 1, family: 'serif' })}>
+              <time className={text({ size: '1', family: 'serif' })}>
                 {parseDateToLongDateString(date)}
               </time>
             </li>
@@ -161,8 +161,8 @@ const ArrowLink = ({
       <Link
         href={href}
         className={link({
-          color: 2,
-          size: 1,
+          color: '2',
+          size: '1',
           leading: 'tight',
         })}
         style={{ display: 'block' }}
@@ -219,7 +219,7 @@ const ConnectLinkListItem = ({
 }: React.PropsWithChildren<ConnectLinkListItemProps>) => {
   return (
     <li className={s.connectLinkListItem.root}>
-      <h3 className={text({ size: 1, leading: 'tight' })}>{label}</h3>
+      <h3 className={text({ size: '1', leading: 'tight' })}>{label}</h3>
       <div style={{ gridColumn: '2 / span 2' }}>
         <div>{children}</div>
       </div>
@@ -236,8 +236,8 @@ const ConnectListLink = ({
       className={clsx(
         sprinkles({ display: 'inline-block' }),
         link({
-          size: 1,
-          color: 2,
+          size: '1',
+          color: '2',
           leading: 'tight',
         }),
       )}

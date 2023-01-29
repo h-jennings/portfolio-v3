@@ -23,7 +23,7 @@ export const Navigation = (): JSX.Element => {
           style={{ display: 'inline-block', userSelect: 'none' }}
         >
           <span
-            className={text({ size: 1, leading: 'tight' })}
+            className={text({ size: '1', leading: 'tight' })}
             role='presentation'
           >
             H—J
@@ -41,7 +41,7 @@ export const Navigation = (): JSX.Element => {
           <Link
             key={asPath}
             href={PATHS.now}
-            className={clsx(s.now, link({ size: 1 }))}
+            className={clsx(s.now, link({ size: '1' }))}
           >
             Now
           </Link>

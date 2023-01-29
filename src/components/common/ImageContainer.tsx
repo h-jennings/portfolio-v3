@@ -36,7 +36,7 @@ export const ImageContainer = ({
         <p
           className={clsx(
             sprinkles({ paddingBottom: 'm' }),
-            text({ size: 1, color: 2 }),
+            text({ size: '1', color: '2' }),
           )}
         >
           {caption}

@@ -45,7 +45,9 @@ const Writings = ({
           </div>
           {hasFeaturedWritings ? (
             <div className={stack({ gap: 'm' })}>
-              <h2 className={text({ size: 2, leading: 'tight' })}>Featured</h2>
+              <h2 className={text({ size: '2', leading: 'tight' })}>
+                Featured
+              </h2>
               <ul className={stack({ gap: 's' })}>
                 {featuredWritings.map(({ slug, title, description }) => {
                   return (
@@ -63,7 +65,7 @@ const Writings = ({
                             as={`${PATHS.writing}/${slug}`}
                           >
                             <p
-                              className={text({ size: 1 })}
+                              className={text({ size: '1' })}
                               style={{ display: 'inline-block' }}
                             >
                               {title}
@@ -72,7 +74,7 @@ const Writings = ({
                           <p
                             className={clsx(
                               sprinkles({ paddingTop: '3xs' }),
-                              text({ size: 1, color: 2 }),
+                              text({ size: '1', color: '2' }),
                             )}
                           >
                             {description}
@@ -87,7 +89,7 @@ const Writings = ({
           ) : null}
           {hasWritings ? (
             <div className={stack({ gap: 'm' })}>
-              <h2 className={text({ size: 2, leading: 'tight' })}>
+              <h2 className={text({ size: '2', leading: 'tight' })}>
                 All Writing
               </h2>
               <ul className={stack({ gap: 'm' })}>
@@ -100,7 +102,7 @@ const Writings = ({
                     >
                       <h3
                         className={clsx(
-                          text({ size: 1, color: 2 }),
+                          text({ size: '1', color: '2' }),
                           s.yearTitle,
                         )}
                       >
@@ -123,9 +125,13 @@ const Writings = ({
                                     href={`${PATHS.writing}/[slug]`}
                                     as={`${PATHS.writing}/${slug}`}
                                   >
-                                    <p className={text({ size: 1 })}>{title}</p>
+                                    <p className={text({ size: '1' })}>
+                                      {title}
+                                    </p>
                                   </LinkBox.Target>
-                                  <p className={text({ size: 1, color: 2 })}>
+                                  <p
+                                    className={text({ size: '1', color: '2' })}
+                                  >
                                     {parseDateToString(date)}
                                   </p>
                                 </div>

@@ -67,14 +67,16 @@ const Writing = ({
             })}
           >
             <div className={stack({ gap: '3xs' })}>
-              <span className={text({ size: 1, color: 2 })}>Published</span>
-              <span className={text({ size: 1 })}>
+              <span className={text({ size: '1', color: '2' })}>Published</span>
+              <span className={text({ size: '1' })}>
                 {parseDateToString(date)}
               </span>
             </div>
             <div className={stack({ gap: '3xs' })}>
-              <span className={text({ size: 1, color: 2 })}>Reading Time</span>
-              <span className={text({ size: 1 })}>{readingTime}</span>
+              <span className={text({ size: '1', color: '2' })}>
+                Reading Time
+              </span>
+              <span className={text({ size: '1' })}>{readingTime}</span>
             </div>
           </div>
         </ProseLayoutHeader>

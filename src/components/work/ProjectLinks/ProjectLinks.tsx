@@ -100,7 +100,7 @@ const ProjectLink = ({
             className={link()}
           >
             <span
-              className={text({ leading: 'tight', size: 2 })}
+              className={text({ leading: 'tight', size: '2' })}
               style={{ color: 'inherit' }}
             >
               {name}

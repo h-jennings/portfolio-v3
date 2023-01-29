@@ -53,7 +53,7 @@ export const ProseLayoutHeader = ({
           {headline ? <h1 className={pageHeader}>{headline}</h1> : null}
           {description ? (
             <p
-              className={text({ size: 1, leading: 'body' })}
+              className={text({ size: '1', leading: 'body' })}
               style={{ maxWidth: '50ch' }}
             >
               {description}

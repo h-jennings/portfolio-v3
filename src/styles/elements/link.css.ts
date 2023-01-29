@@ -28,29 +28,29 @@ export const link = recipe({
   ],
   variants: {
     size: {
-      1: sprinkles({ fontSize: 1 }),
-      2: sprinkles({ fontSize: 2 }),
-      3: sprinkles({ fontSize: 3 }),
-      4: sprinkles({ fontSize: 4 }),
-      5: sprinkles({ fontSize: 5 }),
-      6: sprinkles({ fontSize: 6 }),
-      7: sprinkles({ fontSize: 7 }),
-      8: sprinkles({ fontSize: 8 }),
+      '1': sprinkles({ fontSize: '1' }),
+      '2': sprinkles({ fontSize: '2' }),
+      '3': sprinkles({ fontSize: '3' }),
+      '4': sprinkles({ fontSize: '4' }),
+      '5': sprinkles({ fontSize: '5' }),
+      '6': sprinkles({ fontSize: '6' }),
+      '7': sprinkles({ fontSize: '7' }),
+      '8': sprinkles({ fontSize: '8' }),
     },
     color: {
-      1: [
+      '1': [
         { vars: { [hoverColor]: ds.theme.colors.slate11 } },
         sprinkles({ color: 'text1' }),
       ],
-      2: [
+      '2': [
         { vars: { [hoverColor]: ds.theme.colors.slate9 } },
         sprinkles({ color: 'text2' }),
       ],
-      3: [
+      '3': [
         { vars: { [hoverColor]: ds.theme.colors.gold8 } },
         sprinkles({ color: 'text3' }),
       ],
-      4: [
+      '4': [
         { vars: { [hoverColor]: ds.theme.colors.slate2 } },
         sprinkles({ color: 'text4' }),
       ],
@@ -91,8 +91,8 @@ export const link = recipe({
     },
   },
   defaultVariants: {
-    color: 1,
+    color: '1',
     leading: 'tight',
-    size: 2,
+    size: '2',
   },
 });

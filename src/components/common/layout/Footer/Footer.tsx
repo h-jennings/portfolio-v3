@@ -42,7 +42,7 @@ export const Footer = (): JSX.Element => {
         >
           <Time />
           <span
-            className={text({ leading: 'tight', size: 1 })}
+            className={text({ leading: 'tight', size: '1' })}
             style={{ whiteSpace: 'nowrap' }}
           >
             Richmond, VA
@@ -53,7 +53,7 @@ export const Footer = (): JSX.Element => {
         </div>
         <span
           className={clsx(
-            text({ size: 1, leading: 'tight', color: 2 }),
+            text({ size: '1', leading: 'tight', color: '2' }),
             sprinkles({
               textAlign: { initial: 'center', bp1: 'right' },
             }),
@@ -85,7 +85,7 @@ const Time = (): JSX.Element => {
   }, []);
   return (
     <time
-      className={text({ leading: 'tight', size: 1 })}
+      className={text({ leading: 'tight', size: '1' })}
       dateTime={currentTime.twentyFour}
     >
       {currentTime.pretty}
@@ -123,7 +123,7 @@ const Weather = (): JSX.Element | null => {
         return (
           <>
             <WeatherIcon description={description} icon={icon} />
-            <span className={text({ leading: 'tight', size: 1 })}>
+            <span className={text({ leading: 'tight', size: '1' })}>
               {tempText(temp)}&deg;F
             </span>
           </>
@@ -132,7 +132,7 @@ const Weather = (): JSX.Element | null => {
       case 'error': {
         return (
           <span
-            className={text({ size: 1, leading: 'tight' })}
+            className={text({ size: '1', leading: 'tight' })}
             style={{ color: ds.theme.colors.tomato9 }}
           >
             weather data errored
@@ -141,7 +141,7 @@ const Weather = (): JSX.Element | null => {
       }
       case 'loading': {
         return (
-          <span className={text({ size: 1, leading: 'tight' })}>
+          <span className={text({ size: '1', leading: 'tight' })}>
             loading...
           </span>
         );

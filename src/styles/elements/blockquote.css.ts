@@ -16,7 +16,7 @@ export const blockquote = style([
 ]);
 
 globalStyle(`${blockquote} > p`, {
-  fontSize: ds.tokens.fontSizes[1],
+  fontSize: ds.tokens.fontSizes['1'],
   color: ds.theme.colors.text1,
 });
 

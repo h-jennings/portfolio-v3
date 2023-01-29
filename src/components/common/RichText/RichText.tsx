@@ -36,7 +36,7 @@ const DEFAULT_RENDERERS: NodeRendererType = {
   h1: ({ children }) => (
     <h3
       className={clsx(
-        text({ leading: 'body', size: 4, color: 1 }),
+        text({ leading: 'body', size: '4', color: '1' }),
         sprinkles({ marginBottom: 'l' }),
       )}
     >
@@ -46,7 +46,7 @@ const DEFAULT_RENDERERS: NodeRendererType = {
   h2: ({ children }) => (
     <h3
       className={clsx(
-        text({ leading: 'body', size: 3, color: 1 }),
+        text({ leading: 'body', size: '3', color: '1' }),
         sprinkles({ marginBottom: 'xs' }),
       )}
     >
@@ -56,7 +56,7 @@ const DEFAULT_RENDERERS: NodeRendererType = {
   h3: ({ children }) => (
     <h3
       className={clsx(
-        text({ leading: 'body', size: 3, color: 1 }),
+        text({ leading: 'body', size: '3', color: '1' }),
         sprinkles({ marginBottom: 'xs' }),
       )}
     >
@@ -66,7 +66,7 @@ const DEFAULT_RENDERERS: NodeRendererType = {
   h4: ({ children }) => (
     <h4
       className={clsx(
-        text({ leading: 'body', size: 2, color: 2 }),
+        text({ leading: 'body', size: '2', color: '2' }),
         sprinkles({ marginBottom: 'm' }),
       )}
     >
@@ -76,7 +76,7 @@ const DEFAULT_RENDERERS: NodeRendererType = {
   h5: ({ children }) => (
     <h5
       className={clsx(
-        text({ leading: 'body', size: 2, color: 1 }),
+        text({ leading: 'body', size: '2', color: '1' }),
         sprinkles({ marginBottom: 'm' }),
       )}
     >
@@ -86,7 +86,7 @@ const DEFAULT_RENDERERS: NodeRendererType = {
   h6: ({ children }) => (
     <h6
       className={clsx(
-        text({ leading: 'body', size: 2, color: 1 }),
+        text({ leading: 'body', size: '2', color: '1' }),
         sprinkles({ marginBottom: 'm' }),
       )}
     >
@@ -120,7 +120,7 @@ const DEFAULT_RENDERERS: NodeRendererType = {
     <Link
       {...rest}
       rel={openInNewTab ? 'noopener norefferer' : rel}
-      className={link({ color: 3 })}
+      className={link({ color: '3' })}
       style={{ fontSize: 'inherit', lineHeight: 'inherit' }}
       href={href ?? ''}
     >

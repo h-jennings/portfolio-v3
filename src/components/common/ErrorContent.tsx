@@ -15,9 +15,9 @@ export const ErrorContent = ({ statusCode }: ErrorProps): JSX.Element => {
           <Link
             href='/'
             className={clsx(
-              link({ color: 3 }),
+              link({ color: '3' }),
               sprinkles({
-                fontSize: { initial: 1, bp2: 2 },
+                fontSize: { initial: '1', bp2: '2' },
               }),
             )}
           >

@@ -50,14 +50,14 @@ export const ProjectCard = ({ project, sizes = '100vw' }: ProjectCardProps) => {
           >
             <h3
               className={clsx(
-                text({ leading: 'tight', size: 1 }),
+                text({ leading: 'tight', size: '1' }),
                 sprinkles({ paddingBottom: '3xs' }),
               )}
             >
               {name}
             </h3>
           </LinkBox.Target>
-          <p className={text({ color: 2, size: 1 })}>{tagsString}</p>
+          <p className={text({ color: '2', size: '1' })}>{tagsString}</p>
         </div>
       </div>
     </LinkBox.Root>

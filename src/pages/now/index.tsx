@@ -79,12 +79,15 @@ const Update = ({ update }: UpdateProps) => {
   return (
     <div className={s.update}>
       <MDXContent components={MDX_ELEMENTS} />
-      <Link href={`${PATHS.now}/${update.slug}`} className={link({ color: 2 })}>
+      <Link
+        href={`${PATHS.now}/${update.slug}`}
+        className={link({ color: '2' })}
+      >
         <time
           dateTime={date}
           className={clsx(
             sprinkles({ display: 'inline-flex', paddingBottom: 'xl' }),
-            text({ size: 1 }),
+            text({ size: '1' }),
           )}
           style={{ color: 'inherit' }}
         >

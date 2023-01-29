@@ -49,7 +49,7 @@ const Work = ({
         </div>
         {featuredProject ? (
           <div className={stack({ gap: 'm' })}>
-            <h2 className={text({ size: 2, leading: 'tight' })}>Featured</h2>
+            <h2 className={text({ size: '2', leading: 'tight' })}>Featured</h2>
             <LinkBox.Root>
               <div
                 className={sprinkles({
@@ -89,7 +89,7 @@ const Work = ({
                       as={`${PATHS.work}/${featuredProject.slug}`}
                     >
                       <p
-                        className={text({ size: 1 })}
+                        className={text({ size: '1' })}
                         style={{ display: 'inline-block' }}
                       >
                         {featuredProject.name}
@@ -101,7 +101,7 @@ const Work = ({
                           <p
                             className={clsx(
                               sprinkles({ paddingTop: '3xs' }),
-                              text({ size: 1, color: 2 }),
+                              text({ size: '1', color: '2' }),
                             )}
                           >
                             {children}
@@ -119,7 +119,7 @@ const Work = ({
           </div>
         ) : null}
         <div className={stack({ gap: 'm' })}>
-          <h2 className={text({ size: 2, leading: 'tight' })}>All Work</h2>
+          <h2 className={text({ size: '2', leading: 'tight' })}>All Work</h2>
           <ul
             className={grid({ gap: 's', gapY: 'm' })}
             style={{
