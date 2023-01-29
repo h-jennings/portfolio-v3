@@ -16,7 +16,7 @@ import { dehydrate, QueryClient } from '@tanstack/react-query';
 import { PATHS } from '@utils/common/constants/paths.constants';
 import {
   parseDateToLongDateString,
-  sortWritingsDataByDateDesc,
+  sortArrayByDateDesc,
 } from '@utils/common/helpers/date.helpers';
 import clsx from 'clsx';
 import { allWritings, Writing } from 'contentlayer/generated';
@@ -29,7 +29,7 @@ const Index = ({
   count,
   preview,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const featuredWritings = sortWritingsDataByDateDesc(
+  const featuredWritings = sortArrayByDateDesc(
     allWritings.filter((w) => w.featured),
   );
 

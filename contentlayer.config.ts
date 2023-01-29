@@ -1,29 +1,14 @@
 import { defineDocumentType, makeSource } from '@contentlayer/source-files';
 import readingTime from 'reading-time';
 
-const Now = defineDocumentType(() => ({
-  name: 'Now',
-  filePathPattern: 'now.mdx',
+const Update = defineDocumentType(() => ({
+  name: 'Update',
+  filePathPattern: 'updates/*.mdx',
   contentType: 'mdx',
   fields: {
-    title: {
-      type: 'string',
-      description: 'The title of the page',
-      required: true,
-    },
-    description: {
-      type: 'string',
-      description: 'The description of the page',
-      required: true,
-    },
     date: {
       type: 'date',
       description: 'The date the page was published',
-      required: true,
-    },
-    status: {
-      type: 'enum',
-      options: ['draft', 'published'],
       required: true,
     },
   },
@@ -87,5 +72,5 @@ export default makeSource({
   date: {
     timezone: 'America/New_York',
   },
-  documentTypes: [Now, Writing],
+  documentTypes: [Writing, Update],
 });
