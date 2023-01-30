@@ -7,6 +7,7 @@ import { Separator } from '@components/common/Separator/Separator';
 import clsx from 'clsx';
 import Link from 'next/link';
 
+// TODO: #121 consolidate with RichText component
 export const MDX_ELEMENTS = {
   h1: (props: any) => (
     <h1
@@ -64,7 +65,7 @@ export const MDX_ELEMENTS = {
   ),
   p: (props: any) => (
     <p
-      className={clsx(bodyText, sprinkles({ marginBottom: 'm' }), s.paragraph)}
+      className={clsx(bodyText, sprinkles({ marginBottom: 'm' }))}
       {...props}
     />
   ),

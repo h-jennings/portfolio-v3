@@ -100,7 +100,6 @@ const DEFAULT_RENDERERS: NodeRendererType = {
         sprinkles({
           marginBottom: 'm',
         }),
-        s.paragraph,
       )}
     >
       {children}
