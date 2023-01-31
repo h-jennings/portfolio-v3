@@ -7,9 +7,9 @@ import {
 } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useVisualViewportHeight } from '@utils/common/hooks/use-visual-viewport-height';
+import { Analytics } from '@vercel/analytics/react';
 import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
-import Script from 'next/script';
 import * as React from 'react';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
@@ -27,20 +27,6 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 
   return (
     <>
-      <Script
-        defer
-        data-domain='hunterjennings.dev'
-        src='https://plausible.io/js/plausible.outbound-links.js'
-      />
-      <Script
-        id='404-tracking'
-        dangerouslySetInnerHTML={{
-          __html: `
-          window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) } 
-          `,
-        }}
-      />
-
       <QueryClientProvider client={queryClient}>
         {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access  */}
         <Hydrate state={pageProps.dehydratedState}>
@@ -57,6 +43,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
           </ThemeProvider>
         </Hydrate>
       </QueryClientProvider>
+      <Analytics />
     </>
   );
 };
