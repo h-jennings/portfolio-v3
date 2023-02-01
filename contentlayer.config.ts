@@ -1,4 +1,4 @@
-import { defineDocumentType, makeSource } from '@contentlayer/source-files';
+import { defineDocumentType, makeSource } from 'contentlayer/source-files';
 import readingTime from 'reading-time';
 
 const Update = defineDocumentType(() => ({

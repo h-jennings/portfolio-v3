@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { verifyWebhookSignature } from '@graphcms/utils';
+import { verifyWebhookSignature } from '@hygraph/utils';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 const revalidate = async (req: NextApiRequest, res: NextApiResponse) => {
