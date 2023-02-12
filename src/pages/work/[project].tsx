@@ -77,11 +77,11 @@ const Project = ({
               )}
             >
               <h1 className={pageHeader}>{name}</h1>
-              {client?.name ? (
+              {client?.name != null && (
                 <h2 className={text({ color: '2', size: '1' })}>
                   {client.name}
                 </h2>
-              ) : null}
+              )}
             </div>
           </div>
           <ScrollAreaPrimitive.Root className={sc.scrollContainer.area}>
@@ -181,7 +181,7 @@ const Project = ({
                 </p>
               </div>
               <div>
-                {link ? (
+                {link != null && (
                   <Link
                     className={buttonLink}
                     title={`Visit ${link}`}
@@ -190,7 +190,7 @@ const Project = ({
                     <span>Visit Site</span>
                     <ArrowTopRightIcon />
                   </Link>
-                ) : null}
+                )}
               </div>
             </div>
           </div>

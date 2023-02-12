@@ -18,6 +18,7 @@
     "no-constant-binary-expression": "warn",
     "no-implicit-coercion": "warn",
     "no-unneeded-ternary": "warn",
+    "@typescript-eslint/strict-boolean-expressions": "error",
     "@typescript-eslint/no-unused-vars": [
       "error",
       {

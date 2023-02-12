@@ -87,7 +87,7 @@ export const getStaticProps: GetStaticProps<{ update: Update }> = ({
 }) => {
   const slug = params?.update;
 
-  if (!slug || Array.isArray(slug)) {
+  if (slug == null || Array.isArray(slug)) {
     return {
       notFound: true,
     };

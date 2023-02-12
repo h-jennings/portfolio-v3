@@ -50,15 +50,15 @@ export const ProseLayoutHeader = ({
           <BackToLink href={backTo.href}>{backTo.content}</BackToLink>
         ) : null}
         <div className={stack({ gap: 'm' })}>
-          {headline ? <h1 className={pageHeader}>{headline}</h1> : null}
-          {description ? (
+          {headline != null && <h1 className={pageHeader}>{headline}</h1>}
+          {description != null && (
             <p
               className={text({ size: '1', leading: 'body' })}
               style={{ maxWidth: '50ch' }}
             >
               {description}
             </p>
-          ) : null}
+          )}
           {children}
         </div>
       </div>

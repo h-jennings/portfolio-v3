@@ -118,7 +118,7 @@ const DEFAULT_RENDERERS: NodeRendererType = {
   a: ({ children, href, rel, openInNewTab, ...rest }) => (
     <Link
       {...rest}
-      rel={openInNewTab ? 'noopener norefferer' : rel}
+      rel={openInNewTab ?? false ? 'noopener norefferer' : rel}
       className={link({ color: '3' })}
       style={{ fontSize: 'inherit', lineHeight: 'inherit' }}
       href={href ?? ''}

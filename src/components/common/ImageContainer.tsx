@@ -32,7 +32,7 @@ export const ImageContainer = ({
       >
         {children}
       </div>
-      {caption ? (
+      {caption != null && (
         <p
           className={clsx(
             sprinkles({ paddingBottom: 'm' }),
@@ -41,7 +41,7 @@ export const ImageContainer = ({
         >
           {caption}
         </p>
-      ) : null}
+      )}
     </div>
   );
 };

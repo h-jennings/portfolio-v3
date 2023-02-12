@@ -163,7 +163,7 @@ const WeatherIcon = ({
   description,
   icon,
 }: Omit<WeatherData, 'temp'>): JSX.Element => {
-  return icon ? (
+  return icon != null ? (
     <Image
       src={`https://openweathermap.org/img/wn/${icon}.png`}
       width={25}

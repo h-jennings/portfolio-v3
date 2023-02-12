@@ -7,9 +7,15 @@ import { type NextApiRequest, type NextApiResponse } from 'next';
 const preview = (req: NextApiRequest, res: NextApiResponse) => {
   const { secret, slug } = req.query;
 
-  if (secret !== process.env.NEXT_PREVIEW_SECRET || !slug) {
+  if (
+    secret !== process.env.NEXT_PREVIEW_SECRET ||
+    slug == null ||
+    Array.isArray(slug)
+  ) {
     return sendUnauthorized(res, 'Invalid token or slug not provided');
   }
+
+  //
 
   /**
    * Calling setPreviewData sets a preview cookies that turn on the preview mode.
@@ -19,7 +25,7 @@ const preview = (req: NextApiRequest, res: NextApiResponse) => {
     maxAge: 60 * 60, // The preview mode cookies expire in 1 hour
   });
 
-  serverSideRedirect(res, slug as string, 307);
+  serverSideRedirect(res, slug, 307);
 
   res.end();
 };

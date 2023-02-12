@@ -13,7 +13,7 @@ const revalidate = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(401).json({ message: 'Signature does not exist' });
   }
 
-  if (!secret) {
+  if (secret == null) {
     return res.status(401).json({ message: 'Invalid secret' });
   }
 
