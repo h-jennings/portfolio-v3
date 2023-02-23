@@ -54,7 +54,7 @@ createGlobalTheme('html.dark-theme', themeVars, {
   colors: {
     ...colorsDark,
     uiBg: colorsDark.slate1,
-    surface1: colorsDark.slate1,
+    surface1: colorsDark.slate3,
     surface2: colorsDark.slate12,
     text1: 'white',
     text2: colorsDark.slate11,
@@ -67,7 +67,7 @@ createGlobalTheme('html.light-theme', themeVars, {
   colors: {
     ...colorsLight,
     uiBg: colorsLight.slate1,
-    surface1: colorsLight.slate1,
+    surface1: colorsLight.slate3,
     surface2: colorsLight.slate12,
     text1: 'black',
     text2: colorsLight.slate11,
@@ -120,6 +120,7 @@ const tokenVars = createGlobalTheme(':root', {
   fonts: {
     primary: '"Basier Circle", sans-serif',
     serif: '"Untitled Serif", Georgia, serif',
+    mono: '"Jetbrains Mono", monospace',
   },
   shadows: {
     focus: `0 0 0 3px ${themeVars.colors.gold6}`,

@@ -1,5 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { defineDocumentType, makeSource } from 'contentlayer/source-files';
 import readingTime from 'reading-time';
+import rehypePrettyCode, { Options } from 'rehype-pretty-code';
 
 const Update = defineDocumentType(() => ({
   name: 'Update',
@@ -67,10 +70,38 @@ const Writing = defineDocumentType(() => ({
   },
 }));
 
+const rehypePrettyCodeOptions: Partial<Options> = {
+  theme: {
+    dark: 'github-dark',
+    light: 'github-light',
+  },
+  tokensMap: {
+    fn: 'entity.name.function',
+    objKey: 'meta.object-literal.key',
+  },
+  onVisitLine(node) {
+    // Prevent lines from collapsing in `display: grid` mode, and
+    // allow empty lines to be copy/pasted
+    if (node.children.length === 0) {
+      node.children = [{ type: 'text', value: ' ' }];
+    }
+    node.properties.className.push('syntax-line');
+  },
+  onVisitHighlightedLine(node) {
+    node.properties.className.push('syntax-line--highlighted');
+  },
+  onVisitHighlightedWord(node) {
+    node.properties.className = ['syntax-word--highlighted'];
+  },
+};
+
 export default makeSource({
   contentDirPath: './src/data',
   date: {
     timezone: 'America/New_York',
   },
   documentTypes: [Writing, Update],
+  mdx: {
+    rehypePlugins: [[rehypePrettyCode, rehypePrettyCodeOptions]],
+  },
 });

@@ -59,6 +59,8 @@
     "react-media": "^1.10.0",
     "react-use-measure": "^2.1.1",
     "reading-time": "^1.5.0",
+    "rehype-pretty-code": "^0.9.4",
+    "shiki": "^0.14.1",
     "zod": "^3.20.2"
   },
   "devDependencies": {
