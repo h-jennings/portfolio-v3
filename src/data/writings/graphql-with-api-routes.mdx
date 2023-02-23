@@ -1,0 +1,167 @@
+---
+title: Client-side data fetching with GraphQL and Next.js API Routes.
+description:
+  Learn how to set up a GraphQL endpoint with Next.js API Routes and fetch third
+  party data client-side.
+date: 2023-02-23
+featured: true
+status: draft
+---
+
+In most cases, the page data you fetch in a typical Next.js app is going to be
+fetched server-side with `getStaticProps` or `getServerSideProps`. But what if
+you want to fetch data client-side? _Not every single piece of data needs to be
+server-side rendered (SSR) or statically generated (SSG)_ so this is a
+reasonable question to ask. Plus, if you use a GraphQL client like Apollo or
+Urql, data fetching hooks (like `useQuery(){:ts}`) will attempt to fetch data
+client-side by default whenever their cache for a query is empty or stale. Lets
+paint a realistic data fetching scenario:
+
+1. You have a Next.js app that uses a third-party GraphQL endpoint.
+2. You want to fetch this data client-side.
+3. You need to access this data using a private API key and don't want to expose
+   it to the client.
+
+## Step 1: Configure your GraphQL client
+
+I'll use GitHub's GraphQL api and `graphql-request` for this example but you
+could even use native `fetch` if you want.
+
+```ts
+// graphql/client.ts
+
+export const createGithubClient = () => {
+  return new GraphQLClient('https://api.github.com/graphql', {
+    headers: {
+      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+    },
+  });
+};
+```
+
+Here we're creating a graphql client that's preloaded with all of the necessary
+information to make our request to GitHub. We're also passing in an
+`Authorization` header which is referencing our `GITHUB_TOKEN` environment
+variable. Note: This variable will only be available on our server and not on
+the client. In most cases, it's a good idea to keep your API keys and secrets
+completely obscured from the client. Using environment variables are a good way
+to do this.
+
+## Step 2: Create our API route
+
+```ts
+// pages/api/github.ts
+
+import { createGithubClient } from '@/graphql/client';
+import { Variables } from 'graphql-request';
+import type { NextApiRequest, NextApiResponse } from 'next';
+
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+  // Verify that the request method is POST
+  if (req.method !== 'POST') {
+    res.status(405).end();
+    return;
+  }
+
+  // Extract the query and variables from the request body
+  const { query, variables } = req.body as {
+    query: string;
+    variables?: Variables;
+  };
+
+  try {
+    // Initialize our GraphQL client
+    const client = createGithubClient();
+
+    // Make the request to GitHub's GraphQL API using our client
+    const data = await client.request(query, variables);
+
+    // Send the response data back to the client
+    res.status(200).send(data);
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('error:', error);
+    res.status(200).send('Server Error');
+  }
+};
+
+export default handler;
+```
+
+Here we're creating a Next.js API route that will handle all of our requests to
+the GitHub GraphQL API from the client. Any requests to `/api/github` will be
+handled by this api route. Let's use this route to fetch some data on the
+client.
+
+## Step 3: Fetch data client-side
+
+I'll use [Urql](https://formidable.com/open-source/urql/) for this example but
+you could use Apollo or any other data fetching method.
+
+```tsx
+// pages/_app.tsx
+
+import { createClient, Provider } from 'urql';
+
+const client = createClient({
+  // The url of our API route
+  url: '/api/github',
+});
+
+const MyApp = ({ Component, pageProps }: AppProps) => {
+  return (
+    <Provider value={client}>
+      <Component {...pageProps} />
+    </Provider>
+  );
+};
+```
+
+Now we can use the `useQuery` hook to fetch data client-side.
+
+```tsx
+// pages/index.tsx
+
+import { useQuery } from 'urql';
+
+const query = `
+  query { 
+    user(login: "h-jennings") {
+      name
+      bio
+    }
+  }
+`;
+
+const Home = () => {
+  const [{ fetching, error, data }] = useQuery({ query });
+
+  if (fetching) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Oh no... {result.error.message}</div>;
+  }
+
+  const { user } = data;
+  const { name, bio } = user;
+
+  return (
+    <div>
+      <h1>{name}</h1>
+      <p>{bio}</p>
+    </div>
+  );
+};
+
+export default Home;
+```
+
+## Conclusion
+
+This is a very simple example of how you can fetch data client-side with Next.js
+using a third-party GraphQL endpoint and an api route. I hope this helps you get
+started with your own projects. If you have any questions or comments, feel free
+to reach out to me on Twitter
+[@jennings_hunter](https://twitter.com/jennings_hunter).

@@ -22,7 +22,7 @@ export const MDX_ELEMENTS = {
     <h2
       className={clsx(
         text({ leading: 'body', size: '3', color: '1' }),
-        sprinkles({ marginTop: 'l', marginBottom: 'xs' }),
+        sprinkles({ marginTop: 'l', marginBottom: 'm' }),
       )}
       {...props}
     />
@@ -96,6 +96,13 @@ export const MDX_ELEMENTS = {
   hr: (props: any) => <Separator {...props} />,
   blockquote: (props: any) => <blockquote className={blockquote} {...props} />,
   pre: (props: any) => (
-    <pre className={sprinkles({ marginBottom: 'm' })} {...props} />
+    <pre
+      className={sprinkles({
+        marginBottom: 'm',
+        width: 'full',
+        maxWidth: 'channel',
+      })}
+      {...props}
+    />
   ),
 } as const;

@@ -29,9 +29,7 @@ const Index = ({
   count,
   preview,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const featuredWritings = sortArrayByDateDesc(
-    allWritings.filter((w) => w.featured),
-  );
+  const writings = sortArrayByDateDesc(allWritings);
 
   return (
     <>
@@ -49,7 +47,7 @@ const Index = ({
         <WorkSection>
           <ProjectGrid preview={preview} count={count} />
         </WorkSection>
-        <WritingsSection writings={featuredWritings} />
+        <WritingsSection writings={writings} />
         <ConnectSection />
       </div>
     </>

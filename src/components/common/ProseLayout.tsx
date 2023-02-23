@@ -17,7 +17,7 @@ export const ProseLayoutContent = ({
 }: {
   children: React.ReactNode;
 }) => {
-  return <div>{children}</div>;
+  return <div style={{ overflow: 'hidden' }}>{children}</div>;
 };
 
 interface ProseLayoutHeaderProps {
