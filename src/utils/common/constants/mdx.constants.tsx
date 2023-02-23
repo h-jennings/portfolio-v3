@@ -95,4 +95,7 @@ export const MDX_ELEMENTS = {
   ),
   hr: (props: any) => <Separator {...props} />,
   blockquote: (props: any) => <blockquote className={blockquote} {...props} />,
+  pre: (props: any) => (
+    <pre className={sprinkles({ marginBottom: 'm' })} {...props} />
+  ),
 } as const;
