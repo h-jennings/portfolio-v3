@@ -25,6 +25,8 @@ globalStyle('button, input, select', {
 
 globalStyle('html', {
   boxSizing: 'border-box',
+  WebkitFontSmoothing: 'antialiased',
+  textRendering: 'optimizeLegibility',
 });
 
 globalStyle('*, *::before, *::after', {
