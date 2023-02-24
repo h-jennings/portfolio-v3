@@ -1,4 +1,5 @@
 import { globalStyle } from '@vanilla-extract/css';
+import { calc } from '@vanilla-extract/css-utils';
 import { ds } from './ds.css';
 
 globalStyle(
@@ -85,11 +86,6 @@ globalStyle(
   },
 );
 
-globalStyle('code', {
-  fontFamily: ds.tokens.fonts.mono,
-  fontSize: '0.9rem',
-});
-
 globalStyle('[data-rehype-pretty-code-title]', {
   padding: `${ds.tokens.space.s} ${ds.tokens.space.m}`,
   backgroundColor: ds.theme.colors.surface1,
@@ -97,19 +93,23 @@ globalStyle('[data-rehype-pretty-code-title]', {
   borderColor: ds.theme.colors.slate8,
   borderBottomLeftRadius: 0,
   borderBottomRightRadius: 0,
-  fontSize: ds.tokens.fontSizes[1],
 });
 
 globalStyle('pre[data-language]', {
   whiteSpace: 'pre',
   backgroundColor: ds.theme.colors.surface1,
+  fontSize: calc(ds.tokens.fontSizes[1]).multiply(0.95).toString(),
+  WebkitTextSizeAdjust: 'none',
+  fontFamily: ds.tokens.fonts.mono,
 });
 
 globalStyle(':not(pre)>code', {
   whiteSpace: 'pre',
   backgroundColor: ds.theme.colors.surface1,
   padding: '0.25rem',
-  fontSize: '0.95rem',
+  fontSize: calc(ds.tokens.fontSizes[1]).multiply(0.9).toString(),
+  WebkitTextSizeAdjust: 'none',
+  fontFamily: ds.tokens.fonts.mono,
 });
 
 globalStyle('[data-rehype-pretty-code-title] + pre[data-language]', {
