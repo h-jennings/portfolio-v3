@@ -14,7 +14,7 @@ export const unorderedList = style([
   },
   sprinkles({
     color: 'text1',
-    paddingLeft: 's',
+    paddingLeft: 'm',
     marginBottom: 'm',
   }),
 ]);
