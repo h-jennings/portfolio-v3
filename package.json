@@ -5,8 +5,7 @@
   "scripts": {
     "gen": "graphql-codegen --require dotenv/config --config codegen.ts dotenv_config_path=.env.local",
     "dev": "pnpm run gen && next dev",
-    "build": "pnpm run gen && next build",
-    "postbuild": "next-sitemap",
+    "build": "pnpm run gen && next build && next-sitemap",
     "analyze": "cross-env ANALYZE=true next build",
     "start": "next start",
     "lint": "next lint",
