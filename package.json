@@ -57,6 +57,7 @@
     "react-dom": "18.2.0",
     "react-media": "^1.10.0",
     "react-use-measure": "^2.1.1",
+    "react-wrap-balancer": "^0.4.0",
     "reading-time": "^1.5.0",
     "rehype-pretty-code": "^0.9.4",
     "sharp": "^0.31.3",
