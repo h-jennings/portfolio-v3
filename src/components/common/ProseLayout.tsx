@@ -4,6 +4,7 @@ import { pageHeader, text } from '@/styles/primitives/text.css';
 import { sprinkles } from '@/styles/sprinkles.css';
 import React from 'react';
 import { BackToLink } from './BackToLink';
+import Balancer from 'react-wrap-balancer';
 
 export const ProseLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -50,7 +51,11 @@ export const ProseLayoutHeader = ({
           <BackToLink href={backTo.href}>{backTo.content}</BackToLink>
         ) : null}
         <div className={stack({ gap: 'm' })}>
-          {headline != null && <h1 className={pageHeader}>{headline}</h1>}
+          {headline != null && (
+            <h1 className={pageHeader}>
+              <Balancer>{headline}</Balancer>
+            </h1>
+          )}
           {description != null && (
             <p
               className={text({ size: '1', leading: 'body' })}

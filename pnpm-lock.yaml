@@ -59,6 +59,7 @@ specifiers:
   react-dom: 18.2.0
   react-media: ^1.10.0
   react-use-measure: ^2.1.1
+  react-wrap-balancer: ^0.4.0
   reading-time: ^1.5.0
   rehype-pretty-code: ^0.9.4
   sharp: ^0.31.3
@@ -101,6 +102,7 @@ dependencies:
   react-dom: 18.2.0_react@18.2.0
   react-media: 1.10.0_react@18.2.0
   react-use-measure: 2.1.1_biqbaboplfbrettd7655fr4n2y
+  react-wrap-balancer: 0.4.0_react@18.2.0
   reading-time: 1.5.0
   rehype-pretty-code: 0.9.4_shiki@0.14.1
   sharp: 0.31.3
@@ -8019,6 +8021,14 @@ packages:
       debounce: 1.2.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /react-wrap-balancer/0.4.0_react@18.2.0:
+    resolution: {integrity: sha512-MUsROihHd7bFHCo9kCOifKDYBEZPgKTyGvfa8RcwRQKtT2cL7Um9Cc8A7GvuT8t3np7LAGsEkzdEyJdKrr5lVQ==}
+    peerDependencies:
+      react: ^18.0.0
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /react/18.2.0:

@@ -1,0 +1,200 @@
+---
+title: Configure Fluid Typography with Tailwind CSS and Vanilla Extract
+description:
+  Learn how to configure fluid typography with Tailwind CSS and Vanilla Extract.
+date: 2023-02-25
+featured: true
+status: published
+---
+
+Good typography is essential for a good web experience. If you get it right,
+you're in a league of your own. It almost feels like cheating at times. I don't
+care how good your iconography, color, or layout is, if your typography is off,
+it throws everything out of whack.
+
+To make matters more challenging we live in a world of near infinite screen
+sizes. Surely, your typography can't look good in all of those cases, right?
+
+Wrong, meet your new best friend: `createFluidValue`. Credit to my coworker
+[Brett Smith](https://twitter.com/_brettsmith) for writing the original function
+implementation.
+
+```ts
+// createFluidValue.ts
+
+/**
+  More info:
+  https://www.smashingmagazine.com/2022/01/modern-fluid-typography-css-clamp/
+ */
+const DEFAULT_MIN_SCREEN = 360;
+const DEFAULT_MAX_SCREEN = 1040;
+
+const HTML_FONT_SIZE = 16;
+
+/**
+ * It returns a CSS `clamp` function string that will fluidly
+ * transition between a `minSize` and `maxSize` based on the screen size provided
+ */
+export const createFluidValue = (
+  minSize: number,
+  maxSize: number,
+  minScreenSize: number = DEFAULT_MIN_SCREEN,
+  maxScreenSize: number = DEFAULT_MAX_SCREEN,
+) => {
+  return `clamp(${pxToRem(minSize)}, ${getPreferredValue(
+    minSize,
+    maxSize,
+    minScreenSize,
+    maxScreenSize,
+  )}, ${pxToRem(maxSize)})`;
+};
+
+/**
+ * Determines how fluid typography scales
+ */
+const getPreferredValue = (
+  minSize: number,
+  maxSize: number,
+  minScreenSize: number,
+  maxScreenSize: number,
+) => {
+  const vwCalc = cleanNumber(
+    (100 * (maxSize - minSize)) / (maxScreenSize - minScreenSize),
+  );
+  const remCalc = cleanNumber(
+    (minScreenSize * maxSize - maxScreenSize * minSize) /
+      (minScreenSize - maxScreenSize),
+  );
+
+  return `${vwCalc}vw + ${pxToRem(remCalc)}`;
+};
+
+const pxToRem = (px: number | string) =>
+  `${cleanNumber(Number(px) / HTML_FONT_SIZE)}rem`;
+
+/**
+ * It takes a number, adds a very small number to it, multiplies it by 100, rounds
+ * it, and then divides it by 100
+ * @param num - The number to be rounded.
+ */
+const cleanNumber = (num: number) =>
+  Math.round((num + Number.EPSILON) * 100) / 100;
+```
+
+## What's happening here?
+
+1. We're defining a default min and max screen size. This defines the range of
+   fluid typography will start and end. You can change these values to whatever
+   you want, but I recommend choosing a range that reflects where your design
+   starts to break down on desktop and where things start to stabilize on
+   mobile. Think, "where does my design start to look congested on desktop?" and
+   "where does my design "end" on mobile width-wise?"
+2. We're defining the default HTML font size. This is the font size that we're
+   going to use to calculate our fluid typography. You can change this value,
+   however, ensure that you're using whatever's defined in your `html` element
+   or `:root` selector. This makes sure that we're calculating the correct `rem`
+   value.
+3. We're defining a function that will calculate our fluid typography. _This is
+   where the magic happens._ This function takes in a `minSize`, `maxSize`,
+   `minScreenSize`, and `maxScreenSize`. The `minSize` and `maxSize` are the
+   minimum and maximum size the font (or any property, really) will transition
+   between. The `minScreenSize` and `maxScreenSize` upper and lower bounds of
+   _when_ that font size will reach its minimum and maximum size.
+
+---
+
+## Using this function in our Tailwind config
+
+```js
+// tailwind.config.js
+
+import { createFluidValue } from './createFluidValue';
+
+module.exports = {
+  // ... other config options
+  theme: {
+    extend: {
+      fontSize: {
+        // NOTE: These are just example names and values
+        'fluid-xs': createFluidValue(12, 14),
+        'fluid-sm': createFluidValue(14, 16),
+        'fluid-base': createFluidValue(16, 18),
+        'fluid-lg': createFluidValue(18, 20),
+        'fluid-xl': createFluidValue(20, 24),
+        'fluid-2xl': createFluidValue(24, 28),
+        'fluid-3xl': createFluidValue(28, 32),
+      },
+    },
+  },
+};
+```
+
+### Usage in our JSX
+
+```jsx
+<h1 className='text-fluid-2xl'>Hello, world!</h1>
+```
+
+---
+
+## Using this function in our Vanilla Extract [Sprinkles](https://vanilla-extract.style/documentation/packages/sprinkles/)
+
+```ts
+// ds.css.ts
+
+import { createFluidValue } from './createFluidValue';
+
+const tokenVars = createGlobalTheme(':root', {
+  // ... other tokens
+  fontSizes: {
+    // NOTE: These are just example names and values
+    'fluid-xs': createFluidValue(12, 14),
+    'fluid-sm': createFluidValue(14, 16),
+    'fluid-base': createFluidValue(16, 18),
+    'fluid-lg': createFluidValue(18, 20),
+    'fluid-xl': createFluidValue(20, 24),
+    'fluid-2xl': createFluidValue(24, 28),
+    'fluid-3xl': createFluidValue(28, 32),
+  },
+});
+
+export const BREAKPOINTS = {
+  bp1: '(width >= 520px)',
+  '<bp1': '(width < 519px)',
+  bp2: '(width >= 768px)',
+  '<bp2': '(width < 767px)',
+  bp3: '(width >= 1040px)',
+  '<bp3': '(width < 1039px)',
+  bp4: '(width >= 1800px)',
+  '<bp4': '(width < 1799px)',
+} as const;
+
+const responsiveProperties = defineProperties({
+  defaultCondition: 'initial',
+  conditions: {
+    initial: {},
+    bp1: { '@media': BREAKPOINTS.bp1 },
+    '<bp1': { '@media': BREAKPOINTS['<bp1'] },
+    bp2: { '@media': BREAKPOINTS.bp2 },
+    '<bp2': { '@media': BREAKPOINTS['<bp2'] },
+    bp3: { '@media': BREAKPOINTS.bp3 },
+    '<bp3': { '@media': BREAKPOINTS['<bp3'] },
+    bp4: { '@media': BREAKPOINTS.bp4 },
+    '<bp4': { '@media': BREAKPOINTS['<bp4'] },
+  },
+  properties: {
+    // ... other properties
+    fontSize: tokenVars.fontSizes,
+  },
+});
+
+export const sprinkles = createSprinkles(responsiveProperties);
+```
+
+### Usage in our JSX
+
+```tsx
+<h1 className={sprinkles({ fontSize: 'fluid-3xl' })}>Hello, world!</h1>
+```
+
+✌️ Happy coding!
