@@ -65,7 +65,7 @@ const Work = ({
                 }}
               >
                 <div className={stack({ gap: 'm' })}>
-                  {featuredProject.featureMediaWide.mediaType ? (
+                  {featuredProject.featureMediaWide.mediaType != null && (
                     <div
                       className={sprinkles({
                         borderRadius: 'card',
@@ -82,7 +82,7 @@ const Work = ({
                         sizes='(max-width) 100vw, 460px'
                       />
                     </div>
-                  ) : null}
+                  )}
                   <div>
                     <LinkBox.Target
                       href={`${PATHS.work}/[project]`}
