@@ -15,7 +15,7 @@ it throws everything out of whack.
 To make matters more challenging we live in a world of near infinite screen
 sizes. Surely, your typography can't look good in all of those cases, right?
 
-Wrong, meet your new best friend: `createFluidValue`. Credit to my coworker
+Wrong. Meet your new best friend: `createFluidValue`. Credit to my coworker
 [Brett Smith](https://twitter.com/_brettsmith) for writing the original function
 implementation.
 
@@ -196,5 +196,15 @@ export const sprinkles = createSprinkles(responsiveProperties);
 ```tsx
 <h1 className={sprinkles({ fontSize: 'fluid-3xl' })}>Hello, world!</h1>
 ```
+
+## What's next?
+
+Remember that `createFluidValue` can be used to make _any_ property fluid, not
+just typography. You can use it for spacing, width, height, and more. In fact, I
+used it to build the typography and spacing system for this website (check it
+out
+[here](https://github.com/h-jennings/portfolio-v3/blob/4079b379815bdd06addf4233e4480bf0a9efc1d4/src/styles/create-fluid-value.ts)),
+as well as on several large client projects. Our team now relies on it as a core
+part of our responsive design approach.
 
 ✌️ Happy coding!
