@@ -6,6 +6,9 @@ import {
   ProseLayoutContent,
   ProseLayoutHeader,
 } from '@components/common/ProseLayout';
+import { Separator } from '@components/common/Separator/Separator';
+import { Theme } from '@components/common/ThemeToggle/ThemeToggle';
+import Giscus from '@giscus/react';
 import { AspectRatio } from '@radix-ui/react-aspect-ratio';
 import { MDX_ELEMENTS } from '@utils/common/constants/mdx.constants';
 import { PATHS } from '@utils/common/constants/paths.constants';
@@ -18,12 +21,14 @@ import type {
 } from 'next';
 import { useMDXComponent } from 'next-contentlayer/hooks';
 import { NextSeo, NextSeoProps } from 'next-seo';
+import { useTheme } from 'next-themes';
 import Image from 'next/image';
 
 const Writing = ({
   writing,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { title, description, date, body, slug, readingTime } = writing;
+  const { theme } = useTheme();
 
   const url = `${PATHS.base}${PATHS.writing}/${slug}`;
   const SEO: NextSeoProps = {
@@ -82,6 +87,25 @@ const Writing = ({
         </ProseLayoutHeader>
         <ProseLayoutContent>
           <MDXContent components={{ ...MDX_ELEMENTS, ...MDX_COMPONENTS }} />
+          <div>
+            <Separator />
+            <div>
+              <Giscus
+                repo='h-jennings/portfolio-v3'
+                mapping='pathname'
+                repoId='MDEwOlJlcG9zaXRvcnk0MDgyNjE5NzM='
+                category='Comment'
+                categoryId='DIC_kwDOGFWVVc4CUphe'
+                strict='0'
+                reactionsEnabled='1'
+                emitMetadata='0'
+                inputPosition='top'
+                theme={THEME_LOOKUP[theme as Theme]}
+                loading='lazy'
+                lang='en'
+              />
+            </div>
+          </div>
         </ProseLayoutContent>
       </ProseLayout>
     </>
@@ -127,5 +151,11 @@ export const getStaticProps: GetStaticProps<{
     },
   };
 };
+
+const THEME_LOOKUP = {
+  light: 'light',
+  dark: 'dark',
+  system: 'preferred_color_scheme',
+} as const;
 
 export default Writing;
