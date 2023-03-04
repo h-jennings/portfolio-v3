@@ -6,7 +6,7 @@ import { SunIcon } from '../icons/SunIcon';
 import { SystemIcon } from '../icons/SystemIcon';
 import * as s from './ThemeToggle.css';
 
-type Theme = 'system' | 'light' | 'dark';
+export type Theme = 'system' | 'light' | 'dark';
 
 export const ThemeToggle = (): JSX.Element | null => {
   const { theme } = useTheme();
