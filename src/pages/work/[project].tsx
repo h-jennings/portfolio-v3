@@ -81,7 +81,7 @@ const Project = ({
   const { project: path } = query;
   const { data } = useQuery(
     getProjectQueryKey(slug),
-    cmsRequest(GET_PROJECT_QUERY, { slug }, preview),
+    cmsRequest({ preview, query: GET_PROJECT_QUERY, variables: { slug } }),
     {
       staleTime: Infinity,
     },
@@ -292,7 +292,11 @@ export const getStaticProps: GetStaticProps<{
 
   const initialData = await queryClient.fetchQuery({
     queryKey: getProjectQueryKey(slug as string),
-    queryFn: cmsRequest(GET_PROJECT_QUERY, { slug: slug as string }),
+    queryFn: cmsRequest({
+      preview,
+      query: GET_PROJECT_QUERY,
+      variables: { slug: slug as string },
+    }),
   });
 
   if (!initialData.project) {

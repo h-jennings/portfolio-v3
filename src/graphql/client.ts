@@ -31,11 +31,15 @@ export const cmsFetcher = <TData, TVariables extends Variables>(
   return () => createHygraphClient(preview).request<TData>(query, variables);
 };
 
-export const cmsRequest = <TQuery extends TypedDocumentNode<any, any>>(
-  query: TQuery,
-  variables?: VariablesOf<TQuery>,
+export const cmsRequest = <TQuery extends TypedDocumentNode<any, any>>({
   preview = false,
-) => {
+  query,
+  variables,
+}: {
+  preview?: boolean;
+  query: TQuery;
+  variables?: VariablesOf<TQuery>;
+}) => {
   return async () => {
     return request<ResultOf<TQuery>>(URL, query, variables, {
       authorization: getAuthHeader(preview),

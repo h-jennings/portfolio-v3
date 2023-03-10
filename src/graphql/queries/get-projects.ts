@@ -1,8 +1,4 @@
-import {
-  QueryClient,
-  useQuery,
-  type UseQueryOptions,
-} from '@tanstack/react-query';
+import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
 import { cmsFetcher } from '../client';
 import {
   GetProjects,
@@ -22,34 +18,6 @@ export const useGetProjectsQuery = <TData = GetProjectsQuery, TError = unknown>(
     projectsFetcher(preview, variables),
     options,
   );
-
-export const prefetchProjects = async (
-  preview: boolean,
-  variables?: GetProjectsQueryVariables,
-) => {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        staleTime: Infinity,
-      },
-    },
-  });
-
-  const queryKey =
-    variables === undefined ? [QUERY_KEY] : [QUERY_KEY, variables];
-
-  let projects = null;
-  try {
-    projects = await queryClient.fetchQuery({
-      queryKey,
-      queryFn: projectsFetcher(preview, variables),
-    });
-  } catch (error) {
-    projects = null;
-  }
-
-  return { queryClient, initialData: projects };
-};
 
 export const projectsFetcher = (
   preview: boolean,

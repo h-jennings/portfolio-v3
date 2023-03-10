@@ -1,7 +1,5 @@
-import {
-  prefetchProjects,
-  useGetProjectsQuery,
-} from '@/graphql/queries/get-projects';
+import { graphql } from '@/graphql/generated';
+import { cmsRequest } from '@/graphql/client';
 import { ds } from '@/styles/ds.css';
 import { grid } from '@/styles/primitives/grid.css';
 import { stack } from '@/styles/primitives/stack.css';
@@ -14,18 +12,48 @@ import { ProjectCard } from '@components/common/ProjectCard';
 import { Seo } from '@components/common/Seo';
 import { RichText } from '@graphcms/rich-text-react-renderer';
 import { RichTextContent } from '@graphcms/rich-text-types';
-import { dehydrate } from '@tanstack/react-query';
+import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
 import { PATHS } from '@utils/common/constants/paths.constants';
 import { calc } from '@vanilla-extract/css-utils';
 import clsx from 'clsx';
 import { GetStaticProps, InferGetServerSidePropsType } from 'next';
 
+const QUERY_KEY = 'GetProjects';
+
+const GET_PROJECTS_QUERY = graphql(`
+  query GetProjects($count: Int = 25) {
+    projects(orderBy: date_DESC, first: $count) {
+      id
+      name
+      featured
+      slug
+      category
+      description {
+        raw
+      }
+      featureMediaWide {
+        url
+        mediaType
+      }
+      featureMediaNarrow {
+        url
+        mediaType
+      }
+    }
+  }
+`);
+
 const Work = ({
   preview,
 }: InferGetServerSidePropsType<typeof getStaticProps>) => {
-  const { data } = useGetProjectsQuery(preview, undefined, {
-    staleTime: Infinity,
-  });
+  const { data } = useQuery(
+    [QUERY_KEY],
+    cmsRequest({ query: GET_PROJECTS_QUERY, preview }),
+    {
+      staleTime: Infinity,
+    },
+  );
+
   const { projects } = data ?? {};
 
   const featuredProject = projects
@@ -146,9 +174,23 @@ const Work = ({
 export const getStaticProps: GetStaticProps<{ preview: boolean }> = async ({
   preview = false,
 }) => {
-  const { queryClient, initialData } = await prefetchProjects(preview);
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: Infinity,
+      },
+    },
+  });
 
-  if (!initialData) {
+  const initialData = await queryClient.fetchQuery({
+    queryKey: [QUERY_KEY],
+    queryFn: cmsRequest({
+      preview,
+      query: GET_PROJECTS_QUERY,
+    }),
+  });
+
+  if (initialData.projects.length === 0) {
     return {
       notFound: true,
     };
