@@ -28,8 +28,8 @@ import { ProjectLinks } from '@components/work/ProjectLinks/ProjectLinks';
 
 const QUERY_KEY = 'GetProject';
 
-const GET_PROJECT_QUERY = graphql(`
-  query GetProject($slug: String!) {
+export const GetProjectQueryDocument = graphql(`
+  query GetProjectQuery($slug: String!) {
     project(where: { slug: $slug }) {
       seo {
         title
@@ -81,7 +81,11 @@ const Project = ({
   const { project: path } = query;
   const { data } = useQuery(
     getProjectQueryKey(slug),
-    cmsRequest({ preview, query: GET_PROJECT_QUERY, variables: { slug } }),
+    cmsRequest({
+      preview,
+      query: GetProjectQueryDocument,
+      variables: { slug },
+    }),
     {
       staleTime: Infinity,
     },
@@ -294,7 +298,7 @@ export const getStaticProps: GetStaticProps<{
     queryKey: getProjectQueryKey(slug as string),
     queryFn: cmsRequest({
       preview,
-      query: GET_PROJECT_QUERY,
+      query: GetProjectQueryDocument,
       variables: { slug: slug as string },
     }),
   });

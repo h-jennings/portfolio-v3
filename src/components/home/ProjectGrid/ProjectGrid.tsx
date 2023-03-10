@@ -1,7 +1,7 @@
-import { useGetProjectsQuery } from '@/graphql/queries/get-projects';
 import * as sc from '@/styles/elements/scrollContainer.css';
 import { ProjectCard } from '@components/common/ProjectCard';
 import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
+import { useGetProjectsQuery } from '@utils/common/hooks/use-get-projects';
 import clsx from 'clsx';
 import * as s from './ProjectGrid.css';
 
@@ -12,11 +12,7 @@ export const ProjectGrid = ({
   count: number;
   preview: boolean;
 }): JSX.Element => {
-  const { data } = useGetProjectsQuery(
-    preview,
-    { count },
-    { staleTime: Infinity },
-  );
+  const { data } = useGetProjectsQuery({ count, preview });
   const { projects } = data ?? {};
 
   return (
@@ -29,14 +25,16 @@ export const ProjectGrid = ({
       </ScrollAreaPrimitive.Scrollbar>
       <ScrollAreaPrimitive.Viewport className={sc.scrollContainer.viewPort}>
         <div className={clsx(s.cardContainer)}>
-          {projects?.map((project) => (
-            <div key={project.id} className={s.cardWrapper}>
-              <ProjectCard
-                project={project}
-                sizes='(max-width: 590px) 90vw, (max-width: 767px) 45vw, 220px'
-              />
-            </div>
-          ))}
+          {projects?.map((project) => {
+            return (
+              <div key={project.id} className={s.cardWrapper}>
+                <ProjectCard
+                  project={project}
+                  sizes='(max-width: 590px) 90vw, (max-width: 767px) 45vw, 220px'
+                />
+              </div>
+            );
+          })}
         </div>
       </ScrollAreaPrimitive.Viewport>
     </ScrollAreaPrimitive.Root>

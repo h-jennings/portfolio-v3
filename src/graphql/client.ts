@@ -6,11 +6,7 @@ import {
 import { CMS_URL } from '@utils/common/constants/cms.constants';
 import { getAuthHeader } from '@utils/common/helpers/get-auth-header.helpers';
 import { isSSR } from '@utils/common/helpers/is-ssr.helpers';
-import request, {
-  GraphQLClient,
-  RequestDocument,
-  Variables,
-} from 'graphql-request';
+import request, { GraphQLClient } from 'graphql-request';
 
 const URL = isSSR ? CMS_URL : '/api/graphql';
 
@@ -21,14 +17,6 @@ export const createHygraphClient = (preview = false, url?: string) => {
       preview: String(preview),
     },
   });
-};
-
-export const cmsFetcher = <TData, TVariables extends Variables>(
-  preview: boolean,
-  query: RequestDocument,
-  variables?: TVariables,
-) => {
-  return () => createHygraphClient(preview).request<TData>(query, variables);
 };
 
 export const cmsRequest = <TQuery extends TypedDocumentNode<any, any>>({

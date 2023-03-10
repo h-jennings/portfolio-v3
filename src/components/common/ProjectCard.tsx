@@ -1,20 +1,22 @@
-import { GetProjectsQuery } from '@/graphql/generated/types.generated';
+import { FragmentType, useFragment } from '@/graphql/generated';
 import { stack } from '@/styles/primitives/stack.css';
 import { text } from '@/styles/primitives/text.css';
 import { sprinkles } from '@/styles/sprinkles.css';
 import * as AspectRatio from '@radix-ui/react-aspect-ratio';
 import { PATHS } from '@utils/common/constants/paths.constants';
 import { parseTagsToString } from '@utils/common/helpers/string.helpers';
+import { ProjectFragment } from '@utils/common/hooks/use-get-projects';
 import clsx from 'clsx';
 import { HygraphImageWithLoader } from './HygraphImageWithLoader';
 import { LinkBox } from './LinkBox/LinkBox';
 
 interface ProjectCardProps {
-  project: GetProjectsQuery['projects'][0];
+  project: FragmentType<typeof ProjectFragment>;
   sizes?: string;
 }
 export const ProjectCard = ({ project, sizes = '100vw' }: ProjectCardProps) => {
-  const { featureMediaNarrow, slug, category, name } = project;
+  const projectData = useFragment(ProjectFragment, project);
+  const { featureMediaNarrow, slug, category, name } = projectData;
   const tagsString = parseTagsToString(category);
   const src = featureMediaNarrow.url;
 

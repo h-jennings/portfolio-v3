@@ -18,13 +18,14 @@ const isNull = (val: any) => {
   return val == null;
 };
 
+interface ProjectLinksProps {
+  projectIndex: number;
+  projectsMeta: ProjectsMeta | undefined;
+}
 export const ProjectLinks = ({
   projectIndex,
   projectsMeta,
-}: {
-  projectIndex: number;
-  projectsMeta: ProjectsMeta | undefined;
-}): JSX.Element => {
+}: ProjectLinksProps): JSX.Element => {
   const [previous, next] = prevNextProjectData(projectIndex, projectsMeta);
   const shouldCenter = isNull(previous) || isNull(next);
 

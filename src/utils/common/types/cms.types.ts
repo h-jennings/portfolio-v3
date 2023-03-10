@@ -1,3 +1,6 @@
-import { GetProjectQuery } from '@/graphql/generated/types.generated';
+import { DocumentType } from '@/graphql/generated';
+import { GetProjectQueryDocument } from '@/pages/work/[project]';
 
-export type ProjectsMeta = GetProjectQuery['projectsMeta'];
+export type ProjectsMeta = DocumentType<
+  typeof GetProjectQueryDocument
+>['projectsMeta'];
