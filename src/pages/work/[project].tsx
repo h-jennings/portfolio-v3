@@ -41,7 +41,6 @@ const Project = ({
     { staleTime: Infinity },
   );
   const { project, projectsMeta } = data ?? {};
-  const projectDataCMS = project?.[0];
   const {
     name,
     client,
@@ -51,7 +50,7 @@ const Project = ({
     date,
     link,
     descriptionLong,
-  } = projectDataCMS ?? {};
+  } = project ?? {};
 
   return (
     <>
@@ -240,7 +239,7 @@ export const getStaticProps: GetStaticProps<{
     slug: slug as string,
   });
 
-  if (!initialData?.project[0]) {
+  if (!initialData?.project) {
     return {
       notFound: true,
     };
