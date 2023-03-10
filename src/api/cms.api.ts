@@ -1,17 +1,20 @@
-import { cmsFetcher } from '@/graphql/client';
-import {
-  GetProjectQueryVariables,
-  GetProjectSlugs,
-  GetProjectSlugsQuery,
-} from '@/graphql/generated/types.generated';
+import { cmsRequest } from '@/graphql/client';
+import { DocumentType, graphql } from '@/graphql/generated';
 import * as fs from 'fs';
 import * as path from 'path';
 
+const GetProjectSlugsQueryDocument = graphql(`
+  query GetProjectSlugsQuery {
+    projects(first: 25) {
+      slug
+    }
+  }
+`);
+
+type GetProjectSlugsQuery = DocumentType<typeof GetProjectSlugsQueryDocument>;
+
 export const projectSlugs = {
-  fetch: cmsFetcher<GetProjectSlugsQuery, GetProjectQueryVariables>(
-    false,
-    GetProjectSlugs,
-  ),
+  fetch: cmsRequest({ query: GetProjectSlugsQueryDocument }),
   cache: {
     get: async (): Promise<GetProjectSlugsQuery | null> => {
       try {

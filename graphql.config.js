@@ -5,7 +5,7 @@ module.exports = {
   projects: {
     app: {
       schema: ['./schema.generated.graphql'],
-      documents: ['./src/graphql/**/*.graphql'],
+      documents: ['src/**/*.tsx', '!node_modules', '!src/graphql/**/*'],
       extensions: {
         endpoints: {
           default: {

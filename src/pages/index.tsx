@@ -1,7 +1,4 @@
-import {
-  projectsFetcher,
-  QUERY_KEY as PROJECTS_QUERY_KEY,
-} from '@/graphql/queries/get-projects';
+import { cmsRequest } from '@/graphql/client';
 import { ds } from '@/styles/ds.css';
 import { link } from '@/styles/elements/link.css';
 import * as s from '@/styles/pages/index.css';
@@ -18,6 +15,10 @@ import {
   parseDateToLongDateString,
   sortArrayByDateDesc,
 } from '@utils/common/helpers/date.helpers';
+import {
+  GetProjectsQueryDocument,
+  QUERY_KEY,
+} from '@utils/common/hooks/use-get-projects';
 import clsx from 'clsx';
 import { allWritings, Writing } from 'contentlayer/generated';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
@@ -246,12 +247,12 @@ const ConnectListLink = ({
   );
 };
 
+const PROJECT_COUNT = 3;
 export const getStaticProps: GetStaticProps<{
   count: number;
   preview: boolean;
 }> = async ({ preview = false }) => {
-  const PROJECT_COUNT = 3;
-  const qc = new QueryClient({
+  const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
         staleTime: Infinity,
@@ -259,17 +260,24 @@ export const getStaticProps: GetStaticProps<{
     },
   });
 
-  // Pre-populating cache
-  await Promise.allSettled([
-    qc.prefetchQuery({
-      queryKey: [PROJECTS_QUERY_KEY, { count: PROJECT_COUNT }],
-      queryFn: projectsFetcher(preview, { count: PROJECT_COUNT }),
+  const initialData = await queryClient.fetchQuery({
+    queryKey: [QUERY_KEY, { count: PROJECT_COUNT }],
+    queryFn: cmsRequest({
+      preview,
+      query: GetProjectsQueryDocument,
+      variables: { count: PROJECT_COUNT },
     }),
-  ]);
+  });
+
+  if (initialData.projects.length === 0) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: {
-      dehydratedState: dehydrate(qc),
+      dehydratedState: dehydrate(queryClient),
       count: PROJECT_COUNT,
       preview,
     },
