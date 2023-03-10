@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "gen": "graphql-codegen --require dotenv/config --config codegen.ts dotenv_config_path=.env.local",
-    "dev": "pnpm run gen && next dev",
+    "dev": "concurrently \"pnpm run gen\" \"next dev\"",
     "build": "pnpm run gen && next build && next-sitemap",
     "analyze": "cross-env ANALYZE=true next build",
     "start": "next start",
@@ -26,6 +26,7 @@
   "dependencies": {
     "@giscus/react": "^2.2.8",
     "@graphcms/rich-text-react-renderer": "^0.6.1",
+    "@graphql-typed-document-node/core": "^3.1.2",
     "@hygraph/utils": "^1.2.1",
     "@radix-ui/colors": "^0.1.8",
     "@radix-ui/react-aspect-ratio": "^1.0.1",
@@ -67,12 +68,9 @@
   },
   "devDependencies": {
     "@graphcms/rich-text-types": "^0.5.0",
-    "@graphql-codegen/add": "^4.0.1",
-    "@graphql-codegen/cli": "^3.2.1",
+    "@graphql-codegen/cli": "^3.2.2",
+    "@graphql-codegen/client-preset": "^2.1.1",
     "@graphql-codegen/schema-ast": "^3.0.1",
-    "@graphql-codegen/typescript": "^3.0.1",
-    "@graphql-codegen/typescript-document-nodes": "^3.0.1",
-    "@graphql-codegen/typescript-operations": "^3.0.1",
     "@next/bundle-analyzer": "^13.2.3",
     "@types/body-scroll-lock": "^3.1.0",
     "@types/node": "^18.14.6",
@@ -80,6 +78,7 @@
     "@typescript-eslint/eslint-plugin": "^5.54.0",
     "@typescript-eslint/parser": "^5.54.0",
     "@vanilla-extract/next-plugin": "^2.1.1",
+    "concurrently": "^7.6.0",
     "cross-env": "^7.0.3",
     "cypress": "^12.7.0",
     "dotenv": "^16.0.3",
@@ -92,6 +91,7 @@
     "prettier": "^2.8.4",
     "prettier-plugin-organize-imports": "^3.2.2",
     "start-server-and-test": "^2.0.0",
+    "ts-node": "^10.9.1",
     "typescript": "^4.9.4"
   }
 }

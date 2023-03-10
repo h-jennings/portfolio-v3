@@ -1,32 +1,76 @@
 import { projectSlugs } from '@/api/cms.api';
-import {
-  prefetchProject,
-  useGetProjectQuery,
-} from '@/graphql/queries/get-project';
-import { buttonLink } from '@/styles/elements/button.css';
-import * as sc from '@/styles/elements/scrollContainer.css';
-import * as s from '@/styles/pages/project.css';
+import { cmsRequest } from '@/graphql/client';
+import { graphql } from '@/graphql/generated';
 import { flex } from '@/styles/primitives/flex.css';
-import { grid } from '@/styles/primitives/grid.css';
 import { stack } from '@/styles/primitives/stack.css';
 import { pageHeader, text } from '@/styles/primitives/text.css';
 import { sprinkles } from '@/styles/sprinkles.css';
 import { BackToLink } from '@components/common/BackToLink';
-import { ArrowTopRightIcon } from '@components/common/icons/ArrowTopRightIcon';
-import { Media } from '@components/common/Media';
-import { RichText } from '@components/common/RichText/RichText';
 import { Seo } from '@components/common/Seo';
-import { ProjectLinks } from '@components/work/ProjectLinks/ProjectLinks';
-import { RichTextContent } from '@graphcms/rich-text-types';
-import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
-import { dehydrate } from '@tanstack/react-query';
+import { dehydrate, QueryClient, useQuery } from '@tanstack/react-query';
 import { PATHS } from '@utils/common/constants/paths.constants';
 import clsx from 'clsx';
-import { getYear } from 'date-fns';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import { PHASE_PRODUCTION_BUILD } from 'next/constants';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
+import * as ScrollAreaPrimitive from '@radix-ui/react-scroll-area';
+import * as sc from '@/styles/elements/scrollContainer.css';
+import * as s from '@/styles/pages/project.css';
+import { Media } from '@components/common/Media';
+import { RichText } from '@components/common/RichText/RichText';
+import { RichTextContent } from '@graphcms/rich-text-types';
+import { grid } from '@/styles/primitives/grid.css';
+import { getYear } from 'date-fns';
+import Link from 'next/link';
+import { buttonLink } from '@/styles/elements/button.css';
+import { ArrowTopRightIcon } from '@components/common/icons/ArrowTopRightIcon';
+import { ProjectLinks } from '@components/work/ProjectLinks/ProjectLinks';
+
+const QUERY_KEY = 'GetProject';
+
+const GET_PROJECT_QUERY = graphql(`
+  query GetProject($slug: String!) {
+    project(where: { slug: $slug }) {
+      seo {
+        title
+        image {
+          url
+        }
+        description
+        hideFromSearch
+      }
+      slug
+      name
+      client {
+        name
+      }
+      featured
+      media {
+        id
+        mediaType
+        url
+        width
+        height
+      }
+      description {
+        raw
+      }
+      descriptionLong {
+        raw
+      }
+      contribution
+      date
+      link
+    }
+    projectsMeta: projects(first: 25) {
+      id
+      name
+      slug
+    }
+  }
+`);
+
+const getProjectQueryKey = (slug: string) => [QUERY_KEY, { slug }];
 
 const Project = ({
   projectIndex,
@@ -35,11 +79,14 @@ const Project = ({
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { query } = useRouter();
   const { project: path } = query;
-  const { data } = useGetProjectQuery(
-    preview,
-    { slug },
-    { staleTime: Infinity },
+  const { data } = useQuery(
+    getProjectQueryKey(slug),
+    cmsRequest(GET_PROJECT_QUERY, { slug }, preview),
+    {
+      staleTime: Infinity,
+    },
   );
+
   const { project, projectsMeta } = data ?? {};
   const {
     name,
@@ -235,11 +282,20 @@ export const getStaticProps: GetStaticProps<{
 }> = async ({ params, preview = false }) => {
   const slug = params?.project;
 
-  const { queryClient, initialData } = await prefetchProject(preview, {
-    slug: slug as string,
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: Infinity,
+      },
+    },
   });
 
-  if (!initialData?.project) {
+  const initialData = await queryClient.fetchQuery({
+    queryKey: getProjectQueryKey(slug as string),
+    queryFn: cmsRequest(GET_PROJECT_QUERY, { slug: slug as string }),
+  });
+
+  if (!initialData.project) {
     return {
       notFound: true,
     };
