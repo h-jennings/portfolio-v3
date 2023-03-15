@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "gen": "graphql-codegen --require dotenv/config --config codegen.ts dotenv_config_path=.env.local",
-    "dev": "concurrently \"pnpm run gen\" \"next dev\"",
+    "dev": "concurrently \"pnpm run gen --watch\" \"next dev\"",
     "build": "pnpm run gen && next build && next-sitemap",
     "analyze": "cross-env ANALYZE=true next build",
     "start": "next start",

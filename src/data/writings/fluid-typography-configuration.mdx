@@ -108,7 +108,12 @@ const cleanNumber = (num: number) =>
 ```js
 // tailwind.config.js
 
-import { createFluidValue } from './createFluidValue';
+/* 
+  **NOTE**: 
+  This `createFluidValue` function needs to be a `.js` file extension
+  and exported using `module.exports`
+*/
+const { createFluidValue } = require('./createFluidValue');
 
 module.exports = {
   // ... other config options
