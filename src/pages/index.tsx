@@ -23,6 +23,7 @@ import clsx from 'clsx';
 import { allWritings, Writing } from 'contentlayer/generated';
 import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { NextSeo } from 'next-seo';
+import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import * as React from 'react';
 
@@ -56,6 +57,7 @@ const Index = ({
 };
 
 const IntroductionSection = () => {
+  const { resolvedTheme } = useTheme();
   return (
     <section className={stack({ gap: 'xl' })}>
       <div className={stack({ gap: 'm' })}>
@@ -70,8 +72,8 @@ const IntroductionSection = () => {
           Hunter Jennings
         </h2>
         <p className={bodyText} style={{ maxWidth: 600 }}>
-          Frontend ui engineer interested in design systems, component
-          architectures, and React.
+          User interface engineer interested in design systems, component
+          architectures, TypeScript, and React.
         </p>
       </div>
       <div className={stack({ gap: 'xs' })}>
@@ -82,7 +84,17 @@ const IntroductionSection = () => {
           Now
         </h2>
         <p className={bodyText}>
-          Currently working as a Senior Frontend Developer for the award-winning
+          <span
+            className={s.activeTextWrapper({
+              theme: resolvedTheme as 'dark' | 'light',
+            })}
+          >
+            Actively searching
+          </span>{' '}
+          for my next role and would love to hear from you.
+        </p>
+        <p className={bodyText}>
+          Previously worked as a Senior Frontend Developer for the award-winning
           digital creative agency&mdash;
           <Link
             className={link({ underline: 'whileHover', color: '3' })}
@@ -179,9 +191,8 @@ const ConnectSection = () => {
       <h2 className={text({ leading: 'tight' })}>Connect</h2>
       <div className={stack({ gap: 'xl' })}>
         <p className={bodyText}>
-          I&apos;m not currently looking for new opportunities, but feel free to
-          reach out if you&apos;d like. I&apos;m always happy to hear from folks
-          and talk shop.
+          I&apos;m on the lookout for new opportunities. If you think I&apos;d
+          be a good fit for your team my inbox is always open.
         </p>
         <ul className={stack({ gap: 's' })}>
           <ConnectLinkListItem label='Twitter'>
