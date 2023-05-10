@@ -71,7 +71,7 @@ const IntroductionSection = () => {
         >
           Hunter Jennings
         </h2>
-        <p className={bodyText} style={{ maxWidth: 600 }}>
+        <p className={bodyText}>
           User interface engineer interested in design systems, component
           architectures, TypeScript, and React.
         </p>
