@@ -3,6 +3,7 @@ export const PATHS = {
   twitter: 'https://twitter.com/jennings_hunter',
   cv: 'https://read.cv/hunterjennings',
   seagulls: 'https://www.elegantseagulls.com/',
+  breakline: 'https://breakline.org/',
   email: 'mailto:jenningsdhunter@gmail.com',
   base: process.env.NEXT_PUBLIC_URL,
   home: '/',
