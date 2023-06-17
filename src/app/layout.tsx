@@ -1,4 +1,4 @@
-import { basierCircle, untitledSerif, jetbrainsMono } from './fonts';
+import { basierCircle, untitledSerif, jetbrainsMono } from './_styles/fonts';
 
 interface RootLayoutProps {
   children: React.ReactNode;
