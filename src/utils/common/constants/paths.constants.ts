@@ -5,7 +5,7 @@ export const PATHS = {
   seagulls: 'https://www.elegantseagulls.com/',
   breakline: 'https://breakline.org/',
   email: 'mailto:jenningsdhunter@gmail.com',
-  base: process.env.NEXT_PUBLIC_URL,
+  base: process.env.NEXT_PUBLIC_URL ?? 'https://www.hunterjennings.dev',
   home: '/',
   about: '/about',
   writing: '/writing',

@@ -9,11 +9,11 @@ const SEO = {
   title,
   titleTemplate: '%s | Hunter Jennings',
   description,
-  canonical: process.env.NEXT_PUBLIC_URL,
+  canonical: PATHS.base,
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: process.env.NEXT_PUBLIC_URL,
+    url: PATHS.base,
     images: [
       {
         url: PATHS.og,
