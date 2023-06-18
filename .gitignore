@@ -49,3 +49,6 @@ schema.generated.graphql
 src/graphql/generated/
 
 .contentlayer
+
+# Panda
+ds

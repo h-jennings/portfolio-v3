@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "prepare": "husky install && panda codegen",
     "gen": "graphql-codegen --require dotenv/config --config codegen.ts dotenv_config_path=.env.local",
-    "dev": "pnpm run gen && next dev",
+    "dev": "rm -rf .next && pnpm run gen && next dev",
     "build": "pnpm run gen && contentlayer build && next build && next-sitemap",
     "analyze": "cross-env ANALYZE=true next build",
     "typecheck": "tsc --noEmit",
@@ -15,8 +16,7 @@
     "cypress": "cypress open",
     "cypress:headless": "cypress run",
     "e2e": "pnpm run build && start-server-and-test start http://localhost:3000 cypress",
-    "e2e:headless": "pnpm run build && start-server-and-test start http://localhost:3000 cypress:headless",
-    "prepare": "husky install"
+    "e2e:headless": "pnpm run build && start-server-and-test start http://localhost:3000 cypress:headless"
   },
   "lint-staged": {
     "./src/**/*.{js,jsx,ts,tsx}": [
@@ -73,6 +73,7 @@
     "@graphql-codegen/client-preset": "^2.1.1",
     "@graphql-codegen/schema-ast": "^3.0.1",
     "@next/bundle-analyzer": "^13.4.3",
+    "@pandacss/dev": "^0.3.1",
     "@types/body-scroll-lock": "^3.1.0",
     "@types/node": "^18.16.13",
     "@types/react": "18.0.28",

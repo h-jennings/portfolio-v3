@@ -1,3 +1,4 @@
+import './global.css';
 import { basierCircle, untitledSerif, jetbrainsMono } from './_styles/fonts';
 
 interface RootLayoutProps {
