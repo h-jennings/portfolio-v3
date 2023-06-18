@@ -1,20 +1,26 @@
+import { semanticTokens } from '@/app/_theme/semantic-tokens';
+import { tokens } from '@/app/_theme/tokens';
 import { defineConfig } from '@pandacss/dev';
 
 export default defineConfig({
-  // Whether to use css reset
   preflight: true,
-
-  // Where to look for your css declarations
   include: ['./src/app/**/*.{js,jsx,ts,tsx}'],
-
-  // Files to exclude
-  exclude: [],
-
-  // Useful for theme customization
   theme: {
-    extend: {},
+    tokens,
+    semanticTokens,
+    breakpoints: {
+      bp1: '520px',
+      bp2: '768px',
+      bp3: '1040px',
+      bp4: '1800px',
+    },
   },
-
-  // The output directory for your css system
   outdir: 'ds',
+  jsxFramework: 'react',
+  conditions: {
+    extend: {
+      dark: '.dark-theme &',
+      light: '.light-theme &',
+    },
+  },
 });

@@ -9,7 +9,13 @@ export default function SystemPage() {
           gap: '10',
         })}
       >
-        <h1 className={css({ fontSize: '4xl', color: 'gray.500' })}>
+        <h1
+          className={css({
+            fontSize: { base: '4', bp2: '6' },
+            color: 'slate12',
+            shadow: 'focus',
+          })}
+        >
           System Page
         </h1>
         <div>System Page</div>
