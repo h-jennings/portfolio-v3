@@ -6,7 +6,6 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { useVisualViewportHeight } from '@utils/common/hooks/use-visual-viewport-height';
 import { Analytics } from '@vercel/analytics/react';
 import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
@@ -23,7 +22,6 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         },
       }),
   );
-  useVisualViewportHeight();
 
   return (
     <>

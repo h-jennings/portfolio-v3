@@ -45,5 +45,11 @@ const colors = Object.keys(colorsDark).reduce((acc, key) => {
 export const semanticTokens = defineSemanticTokens({
   colors: {
     ...colors,
+    text1: {
+      value: {
+        base: 'black',
+        _dark: 'white',
+      },
+    },
   },
 });

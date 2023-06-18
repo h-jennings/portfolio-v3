@@ -11,10 +11,10 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 const nextConfig = {
   swcMinify: true,
   reactStrictMode: true,
+  outputFileTracing: true,
   env: {
     NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL,
   },
-  outputFileTracing: true,
   images: {
     domains: ['openweathermap.org', 'media.graphassets.com'],
     formats: ['image/webp'],

@@ -58,6 +58,7 @@
     "next-themes": "^0.2.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-error-boundary": "^4.0.10",
     "react-media": "^1.10.0",
     "react-use-measure": "^2.1.1",
     "react-wrap-balancer": "^0.4.1",

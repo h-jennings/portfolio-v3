@@ -5,6 +5,26 @@ const getConfigFluidValue = (minSize: number, maxSize: number) =>
   createFluidValue(minSize, maxSize, 360, 1024);
 
 export const tokens = defineTokens({
+  colors: {
+    uiBg: {
+      value: '{colors.slate1}',
+    },
+    surface1: {
+      value: '{colors.slate3}',
+    },
+    surface2: {
+      value: '{colors.slate12}',
+    },
+    text2: {
+      value: '{colors.slate11}',
+    },
+    text3: {
+      value: '{colors.gold9}',
+    },
+    text4: {
+      value: '{colors.slate1}',
+    },
+  },
   spacing: {
     none: { value: 0 },
     '3xs': { value: getConfigFluidValue(4, 5) },
@@ -63,5 +83,15 @@ export const tokens = defineTokens({
   },
   shadows: {
     focus: { value: '0 0 0 3px {colors.gold6}' },
+  },
+  durations: {
+    default: {
+      value: '225ms',
+    },
+  },
+  easings: {
+    default: {
+      value: 'cubic-bezier(0.4, 0, 0.2, 1)',
+    },
   },
 });
