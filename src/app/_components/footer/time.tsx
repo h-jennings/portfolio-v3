@@ -2,7 +2,7 @@
 import { css } from 'ds/css';
 import * as React from 'react';
 
-export const Time = () => {
+const Time = () => {
   const now = new Date().getTime();
 
   const [currentTime, setTime] = React.useState<{
@@ -50,3 +50,5 @@ const formatterTwentyFour = new Intl.DateTimeFormat('en', {
   timeStyle: 'short',
   hour12: false,
 });
+
+export default Time;

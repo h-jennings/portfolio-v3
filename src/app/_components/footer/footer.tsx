@@ -1,9 +1,25 @@
 import { css } from 'ds/css';
 import { flex, hstack, vstack } from 'ds/patterns';
-import { Time } from './time';
 import * as React from 'react';
 import { Weather, WeatherError, WeatherLoading } from './weather';
 import { ErrorBoundary } from 'react-error-boundary';
+import dynamic from 'next/dynamic';
+
+const Time = dynamic(() => import('./time'), {
+  ssr: false,
+  loading: () => (
+    <span
+      className={flex({
+        textStyle: 'base',
+        fontSize: '1',
+        lineHeight: 'tight',
+        color: 'slate7',
+      })}
+    >
+      00:00 XX
+    </span>
+  ),
+});
 
 export const Footer = () => {
   return (
