@@ -8,8 +8,6 @@ import { Analytics } from '@vercel/analytics/react';
 import { PATHS } from '@utils/common/constants/paths.constants';
 import { Navigation } from './_components/navigation/navigation';
 
-// TODO: wip working on migrating root layout to app dir
-
 const title = 'Portfolio | Hunter Jennings';
 const description =
   'Hunter Jennings is a Frontend Developer based in Richmond, VA';

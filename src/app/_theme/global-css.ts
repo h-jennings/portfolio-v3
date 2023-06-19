@@ -9,4 +9,14 @@ export const globalCss = defineGlobalStyles({
     backgroundColor: 'uiBg',
     color: 'text1',
   },
+  button: {
+    cursor: 'pointer',
+    transitionDuration: 'default',
+    transitionTimingFunction: 'default',
+    transitionProperty: 'box-shadow',
+    _focus: {
+      outline: 'none',
+      boxShadow: 'focus',
+    },
+  },
 });
