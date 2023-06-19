@@ -43,10 +43,7 @@ export const Navigation = () => {
         <div className={hstack({ gap: 's' })}>
           <Link
             href={PATHS.now}
-            className={cx(
-              link({ color: 'secondary' }),
-              css({ lineHeight: 'tight' }),
-            )}
+            className={cx(link({ color: 'secondary' }), now)}
           >
             Now
           </Link>
@@ -56,3 +53,14 @@ export const Navigation = () => {
     </nav>
   );
 };
+
+const now = css({
+  lineHeight: 'tight',
+  display: 'inline-block',
+  color: 'transparent',
+  background: 'linear-gradient(270deg,#8a8c93 50%,hsla(227,4%,56%,.6))',
+  backgroundClip: 'text',
+  _hover: {
+    color: 'hsla(227,4%,56%,1)',
+  },
+});
