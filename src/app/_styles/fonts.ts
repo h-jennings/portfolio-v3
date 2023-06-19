@@ -7,11 +7,11 @@ export const basierCircle = localFont({
   variable: '--font-sans',
   src: [
     {
-      path: '../../../public/fonts/basiercircle-regular-webfont.woff2',
+      path: '../_assets/fonts/basiercircle-regular-webfont.woff2',
       weight: '400',
     },
     {
-      path: '../../../public/fonts/basiercircle-bold-webfont.woff2',
+      path: '../_assets/fonts/basiercircle-bold-webfont.woff2',
       weight: '700',
     },
   ],
@@ -24,12 +24,12 @@ export const untitledSerif = localFont({
   variable: '--font-serif',
   src: [
     {
-      path: '../../../public/fonts/untitled-serif-regular-italic.woff2',
+      path: '../_assets/fonts/untitled-serif-regular-italic.woff2',
       weight: '400',
       style: 'italic',
     },
     {
-      path: '../../../public/fonts/untitled-serif-bold-italic.woff2',
+      path: '../_assets/fonts/untitled-serif-bold-italic.woff2',
       weight: '700',
       style: 'italic',
     },
@@ -43,7 +43,7 @@ export const jetbrainsMono = localFont({
   variable: '--font-mono',
   src: [
     {
-      path: '../../../public/fonts/jetbrainsmono-regular.woff2',
+      path: '../_assets/fonts/jetbrainsmono-regular.woff2',
       weight: '400',
     },
   ],
