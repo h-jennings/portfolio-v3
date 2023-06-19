@@ -1,8 +1,9 @@
 import { PATHS } from '@utils/common/constants/paths.constants';
 import { css, cx } from 'ds/css';
-import { flex } from 'ds/patterns';
+import { flex, hstack } from 'ds/patterns';
 import { link } from 'ds/recipes';
 import Link from 'next/link';
+import ThemeToggle from './theme-toggle';
 
 export const Navigation = () => {
   return (
@@ -39,6 +40,18 @@ export const Navigation = () => {
             H—J
           </span>
         </Link>
+        <div className={hstack({ gap: 's' })}>
+          <Link
+            href={PATHS.now}
+            className={cx(
+              link({ color: 'secondary' }),
+              css({ lineHeight: 'tight' }),
+            )}
+          >
+            Now
+          </Link>
+          <ThemeToggle />
+        </div>
       </div>
     </nav>
   );
