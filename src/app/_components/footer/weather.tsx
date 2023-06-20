@@ -24,9 +24,9 @@ export const Weather = async () => {
 };
 
 const getWeather = async () => {
-  // fetch weather data from open weather api, revalidate every 5min
+  // fetch weather data from open weather api, revalidate every 1min
   const response = await fetch(`${PATHS.base}/api/weather`, {
-    next: { revalidate: 300 },
+    next: { revalidate: 60 },
   });
   return (await response.json()) as WeatherData;
 };
