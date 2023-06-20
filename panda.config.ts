@@ -24,6 +24,7 @@ export default defineConfig({
       },
     },
   },
+  strictTokens: false,
   globalCss,
   outdir: 'ds',
   jsxFramework: 'react',

@@ -1,5 +1,5 @@
 import { css } from 'ds/css';
-import { vstack } from 'ds/patterns';
+import { stack } from 'ds/patterns';
 import * as React from 'react';
 import Balancer from 'react-wrap-balancer';
 import { BackToLink } from './back-to-link';
@@ -7,10 +7,10 @@ import { BackToLink } from './back-to-link';
 export const ProseLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <article
-      className={vstack({
+      className={stack({
         gap: 'xl',
         h: 'min-content',
-        alignItems: 'flex-start',
+        align: 'flex-start',
         w: 'full',
       })}
     >
@@ -60,7 +60,7 @@ export const ProseLayoutHeader = ({
         {backTo.hasLink ? (
           <BackToLink href={backTo.href}>{backTo.content}</BackToLink>
         ) : null}
-        <div className={vstack({ gap: 'm', alignItems: 'flex-start' })}>
+        <div className={stack({ gap: 'm', align: 'flex-start' })}>
           {headline != null && (
             <h1 className={css({ textStyle: 'heading' })}>
               <Balancer>{headline}</Balancer>

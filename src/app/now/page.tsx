@@ -75,7 +75,7 @@ const Update = ({ update }: UpdateProps) => {
         borderTop: '1px dashed',
         borderColor: 'slate6',
         _firstOfType: {
-          pt: 0,
+          pt: 'none',
           borderTop: 'none',
         },
       })}

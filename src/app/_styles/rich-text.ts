@@ -31,7 +31,7 @@ export const listItem = css({
   mb: 'xs',
   pl: 'none',
   _lastOfType: {
-    mb: 0,
+    mb: 'none',
   },
   '& > ul li:first-of-type, ol li:first-of-type': {
     pt: 'xs',

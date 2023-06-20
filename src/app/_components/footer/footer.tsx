@@ -1,5 +1,5 @@
 import { css } from 'ds/css';
-import { flex, hstack, vstack } from 'ds/patterns';
+import { flex, hstack, stack } from 'ds/patterns';
 import * as React from 'react';
 import { Weather, WeatherError, WeatherLoading } from './weather';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -37,10 +37,10 @@ export const Footer = () => {
       </div>
       <div className={footerWrapper}>
         <div
-          className={vstack({
+          className={stack({
+            align: 'flex-start',
             gap: '2xs',
             textAlign: 'left',
-            alignItems: 'flex-start',
           })}
         >
           <Time />

@@ -75,7 +75,7 @@ export default function Update({ params }: { params: { update: string } }) {
         <MDXContent components={MDX_ELEMENTS} />
         <time
           dateTime={date}
-          className={css({ textStyle: 'base', color: '2', fontSize: '1' })}
+          className={css({ textStyle: 'base', color: 'text2', fontSize: '1' })}
         >
           {fancyDate}
         </time>
