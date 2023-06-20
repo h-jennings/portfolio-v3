@@ -13,6 +13,6 @@ export const blockquote = css({
     color: 'text1',
   },
   '& > p:last-of-type': {
-    m: 0,
+    m: 'none',
   },
 });

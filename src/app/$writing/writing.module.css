@@ -1,0 +1,6 @@
+@media (width >= 924px) {
+  .yearTitle {
+    position: absolute;
+    transform: translateX(-100%);
+  }
+}

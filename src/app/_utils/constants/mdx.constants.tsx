@@ -54,7 +54,7 @@ export const MDX_ELEMENTS = {
         textStyle: 'base',
         lineHeight: 'body',
         fontSize: '1',
-        color: '1',
+        color: 'text1',
         mb: 'm',
       })}
       {...props}
@@ -66,7 +66,7 @@ export const MDX_ELEMENTS = {
         textStyle: 'base',
         lineHeight: 'body',
         fontSize: '2',
-        color: '1',
+        color: 'text1',
         mb: 'm',
       })}
       {...props}
@@ -78,7 +78,7 @@ export const MDX_ELEMENTS = {
         textStyle: 'base',
         lineHeight: 'body',
         fontSize: '2',
-        color: '1',
+        color: 'text1',
         mb: 'm',
       })}
       {...props}
