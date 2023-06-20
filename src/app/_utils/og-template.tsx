@@ -6,16 +6,24 @@ export const size = {
 };
 export const contentType = 'image/png';
 
-const serifFont = fetch(
-  new URL(
-    '../_assets/fonts/untitled-serif-regular-italic.otf',
-    import.meta.url,
-  ),
-).then((res) => res.arrayBuffer());
+const getSansSerifFont = async () => {
+  const res = await fetch(
+    new URL('../_assets/fonts/basiercircle-regular.otf', import.meta.url),
+  );
+  const data = await res.arrayBuffer();
+  return data;
+};
 
-const sansSerifFont = fetch(
-  new URL('../_assets/fonts/basiercircle-regular.otf', import.meta.url),
-).then((res) => res.arrayBuffer());
+const getSerifFont = async () => {
+  const res = await fetch(
+    new URL(
+      '../_assets/fonts/untitled-serif-regular-italic.otf',
+      import.meta.url,
+    ),
+  );
+  const data = await res.arrayBuffer();
+  return data;
+};
 
 const DEFAULT_TITLE = 'Hunter Jennings';
 const DEFAULT_SUB =
@@ -87,13 +95,13 @@ export const ogTemplate = async ({
       fonts: [
         {
           name: 'Untitled',
-          data: await serifFont,
+          data: await getSerifFont(),
           weight: 400,
           style: 'italic',
         },
         {
           name: 'Basier',
-          data: await sansSerifFont,
+          data: await getSansSerifFont(),
           weight: 400,
           style: 'normal',
         },
