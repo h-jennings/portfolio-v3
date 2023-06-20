@@ -26,12 +26,16 @@ export const generateMetadata = ({
 }): Metadata => {
   const update = allUpdates.find((update) => update.slug === params.update);
 
-  const { date } = update!;
+  if (!update) {
+    return {};
+  }
+
+  const { date } = update;
 
   const fancyDate = parseDateToLongDateString(date);
   const headline = `Now: ${parseDateToString(date)}`;
 
-  const url = new URL(`${PATHS.base}${PATHS.now}/${update!.slug}`);
+  const url = new URL(`${PATHS.base}${PATHS.now}/${update.slug}`);
   const title = headline;
   const description = `A snapshot of my life—${fancyDate}.`;
 
