@@ -1,4 +1,3 @@
-import { cms } from '@/graphql/cms';
 import { RichText } from '@graphcms/rich-text-react-renderer';
 import { PATHS } from '@utils/common/constants/paths.constants';
 import { grid, linkBox, linkOverlay, stack } from 'ds/patterns';
@@ -11,6 +10,7 @@ import { token } from 'ds/tokens';
 import { RichTextContent } from '@graphcms/rich-text-types';
 import { ProjectCard } from '../_components/project-card';
 import { Media } from '../_components/media';
+import { getProjects } from './_helpers/get-projects';
 
 const title = 'Work';
 const description = 'A curated collection of my work throughout the years.';
@@ -31,11 +31,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Work() {
-  const { projects } = await cms({
-    next: {
-      tags: ['GetProjectsQuery'],
-    },
-  }).GetProjectsQuery();
+  const { projects } = await getProjects();
 
   const featuredProject = projects.filter((project) =>
     Boolean(project.featured),
@@ -59,7 +55,7 @@ export default async function Work() {
           All Work
         </h2>
         <ul
-          className={grid({ gap: 's', rowGap: 'm' })}
+          className={grid({ columnGap: 's', rowGap: 'm' })}
           style={{
             gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
           }}

@@ -12,12 +12,7 @@ const config: CodegenConfig = {
         },
     },
   ],
-  documents: [
-    'src/**/*.tsx',
-    'src/**/*.ts',
-    '!node_modules',
-    '!src/graphql/**/*',
-  ],
+  documents: ['src/**/*.tsx', 'src/**/*.ts', '!node_modules'],
   hooks: {
     afterAllFileWrite: 'prettier --write',
   },
