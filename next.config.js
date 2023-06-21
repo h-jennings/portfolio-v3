@@ -16,7 +16,7 @@ const nextConfig = {
     NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL,
   },
   images: {
-    domains: ['openweathermap.org', 'media.graphassets.com'],
+    domains: ['media.graphassets.com'],
     formats: ['image/webp'],
   },
   async redirects() {

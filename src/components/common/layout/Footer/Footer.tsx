@@ -6,7 +6,6 @@ import { sprinkles } from '@/styles/sprinkles.css';
 import { useQuery } from '@tanstack/react-query';
 import { WeatherData } from '@utils/common/types/open-weather';
 import clsx from 'clsx';
-import Image from 'next/image';
 import * as React from 'react';
 import * as s from './Footer.css';
 
@@ -164,7 +163,9 @@ const WeatherIcon = ({
   icon,
 }: Omit<WeatherData, 'temp'>): JSX.Element => {
   return icon != null ? (
-    <Image
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      loading='lazy'
       src={`https://openweathermap.org/img/wn/${icon}.png`}
       width={25}
       aria-hidden

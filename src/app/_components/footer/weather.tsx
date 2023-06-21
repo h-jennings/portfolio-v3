@@ -2,7 +2,6 @@ import { PATHS } from '@utils/common/constants/paths.constants';
 import { WeatherData } from '@utils/common/types/open-weather';
 import { css } from 'ds/css';
 import { circle, grid } from 'ds/patterns';
-import Image from 'next/image';
 
 export const Weather = async () => {
   const { icon, description, temp } = await getWeather();
@@ -33,7 +32,9 @@ const getWeather = async () => {
 
 const WeatherIcon = ({ description, icon }: Omit<WeatherData, 'temp'>) => {
   return icon != null ? (
-    <Image
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      loading='lazy'
       src={`https://openweathermap.org/img/wn/${icon}.png`}
       width={25}
       aria-hidden
