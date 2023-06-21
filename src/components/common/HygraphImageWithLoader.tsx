@@ -1,3 +1,5 @@
+'use client';
+
 import Image, { ImageLoaderProps, ImageProps } from 'next/image';
 
 export const loader = ({ src, width }: ImageLoaderProps) => {
