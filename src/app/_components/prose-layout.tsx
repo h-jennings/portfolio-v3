@@ -1,5 +1,5 @@
 import { css } from 'ds/css';
-import { stack } from 'ds/patterns';
+import { stack, grid } from 'ds/patterns';
 import * as React from 'react';
 import Balancer from 'react-wrap-balancer';
 import { BackToLink } from './back-to-link';
@@ -7,11 +7,12 @@ import { BackToLink } from './back-to-link';
 export const ProseLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <article
-      className={stack({
+      className={grid({
         gap: 'xl',
         h: 'min-content',
-        align: 'flex-start',
+        alignItems: 'start',
         w: 'full',
+        columns: 1,
       })}
     >
       {children}
@@ -60,7 +61,7 @@ export const ProseLayoutHeader = ({
         {backTo.hasLink ? (
           <BackToLink href={backTo.href}>{backTo.content}</BackToLink>
         ) : null}
-        <div className={stack({ gap: 'm', align: 'flex-start' })}>
+        <div className={stack({ gap: 'm' })}>
           {headline != null && (
             <h1 className={css({ textStyle: 'heading' })}>
               <Balancer>{headline}</Balancer>

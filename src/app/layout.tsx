@@ -87,7 +87,6 @@ const wrapper = css({
 });
 
 const main = css({
-  display: 'flex',
   w: 'full',
   zIndex: 1,
   gridArea: 'main',

@@ -42,7 +42,7 @@ export const globalCss = defineGlobalStyles({
     borderBottomRightRadius: 0,
   },
   'pre[data-language], :not(pre)>code': {
-    whiteSpace: 'pre-wrap',
+    whiteSpace: 'pre',
     bgColor: 'surface1',
     fontSize: `calc(var(--font-sizes-1) * 0.95)`,
     webkitTextSizeAdjust: 'none',
