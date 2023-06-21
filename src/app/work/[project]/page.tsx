@@ -1,4 +1,3 @@
-import { cms } from '@/graphql/cms';
 import { PATHS } from '@utils/common/constants/paths.constants';
 import { flex, grid, stack } from 'ds/patterns';
 import { Metadata } from 'next';
@@ -17,13 +16,14 @@ import {
   ScrollAreaViewport,
 } from '@/app/_components/scroll-area';
 import { MoreProjects } from './_components/more-projects';
+import { getProject } from '../_helpers/projects';
 
 export const generateMetadata = async ({
   params,
 }: {
   params: { project: string };
 }): Promise<Metadata> => {
-  const data = await getProjectData(params.project);
+  const data = await getProject(params.project);
 
   const { project } = data;
 
@@ -57,7 +57,7 @@ export default async function Project({
 }: {
   params: { project: string };
 }) {
-  const data = await getProjectData(params.project);
+  const data = await getProject(params.project);
 
   const { project } = data;
 
@@ -309,16 +309,6 @@ export default async function Project({
     </div>
   );
 }
-
-const getProjectData = async (project: string) => {
-  return cms({
-    next: {
-      tags: ['GetProjectQuery', project],
-    },
-  }).GetProjectQuery({
-    slug: project,
-  });
-};
 
 const chip = cva({
   base: {
