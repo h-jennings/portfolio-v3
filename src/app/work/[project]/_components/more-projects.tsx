@@ -1,4 +1,4 @@
-import { getProjects } from '@/app/work/_helpers/get-projects';
+import { getProjects } from '@/app/work/_helpers/projects';
 import ArrowLeftIcon from '@components/common/icons/ArrowLeftIcon';
 import ArrowRightIcon from '@components/common/icons/ArrowRightIcon';
 import { PATHS } from '@utils/common/constants/paths.constants';

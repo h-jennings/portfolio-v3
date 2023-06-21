@@ -10,7 +10,7 @@ import { token } from 'ds/tokens';
 import { RichTextContent } from '@graphcms/rich-text-types';
 import { ProjectCard } from '../_components/project-card';
 import { Media } from '../_components/media';
-import { getProjects } from './_helpers/get-projects';
+import { getProjects } from './_helpers/projects';
 
 const title = 'Work';
 const description = 'A curated collection of my work throughout the years.';
