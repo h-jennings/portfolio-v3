@@ -5,7 +5,7 @@ export const PATHS = {
   seagulls: 'https://www.elegantseagulls.com/',
   breakline: 'https://breakline.org/',
   email: 'mailto:jenningsdhunter@gmail.com',
-  base: process.env.NEXT_PUBLIC_URL ?? 'https://www.hunterjennings.dev',
+  base: process.env.NEXT_PUBLIC_URL ?? 'https://www.hunterjennings.dev', // TODO: might want to make this VERCEL_URL
   home: '/',
   about: '/about',
   writing: '/writing',
