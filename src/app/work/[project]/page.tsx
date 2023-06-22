@@ -17,6 +17,7 @@ import {
 } from '@/app/_components/scroll-area';
 import { MoreProjects } from './_components/more-projects';
 import { getProject } from '../_helpers/projects';
+import { ProjectInfoFragment } from '@/graphql/generated/graphql';
 
 export const generateMetadata = async ({
   params,
@@ -74,175 +75,15 @@ export default async function Project({
   return (
     <div className={stack({ gap: '3xl' })}>
       <div className={stack({ gap: 'xl' })}>
-        <div>
-          <BackToLink href={PATHS.work}>Back to work</BackToLink>
-          <div
-            className={flex({
-              wrap: 'wrap',
-              gap: '3xs',
-              justify: 'space-between',
-              align: 'baseline',
-              direction: { base: 'column', bp2: 'row' },
-            })}
-          >
-            <h1 className={css({ textStyle: 'heading' })}>{name}</h1>
-            {client?.name != null && (
-              <h2
-                className={css({
-                  textStyle: 'base',
-                  color: 'text2',
-                  fontSize: '1',
-                })}
-              >
-                {client.name}
-              </h2>
-            )}
-          </div>
-        </div>
-        <ScrollAreaRoot
-          className={css({
-            h: 'full',
-            w: 'full',
-            overflow: 'hidden',
-          })}
-        >
-          <ScrollAreaScrollbar
-            className={flex({
-              bgColor: 'uiBg',
-              userSelect: 'none',
-              touchAction: 'none',
-              p: 2,
-              h: SCROLLBAR_SIZE,
-              transition: 'background-color 160ms ease-out',
-              '&[data-orientation="horizontal"]': {
-                flexDirection: 'column',
-              },
-              _hover: {
-                bgColor: 'slate4',
-              },
-            })}
-            orientation='horizontal'
-          >
-            <ScrollAreaThumb
-              className={css({
-                backgroundColor: 'surface2',
-                pos: 'relative',
-                flex: '1',
-                borderRadius: SCROLLBAR_SIZE,
-                _before: {
-                  content: '',
-                  pos: 'absolute',
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%)',
-                  w: '100%',
-                  h: '100%',
-                  minW: 44,
-                  minH: 44,
-                },
-              })}
-            />
-          </ScrollAreaScrollbar>
-          <ScrollAreaViewport
-            className={css({
-              h: 'full',
-              w: 'full',
-              borderRadius: 'inherit',
-            })}
-          >
-            <div
-              className={css({
-                mb: { bp1Down: 'l' },
-                display: 'grid',
-                gap: 's',
-                gridTemplateColumns: 'repeat(3, 40%)',
-                bp1: {
-                  gridTemplateColumns: 'repeat(3, 1fr)',
-                },
-              })}
-            >
-              {media?.map(({ mediaType, url }, idx) => {
-                if (mediaType == null) return null;
-                const isEven = (idx + 1) % 2 === 0;
-                const width = isEven ? 220 : 460;
-                const height = 275;
-
-                const item = (idx % 3) as 0 | 1 | 2;
-                const sizes = [
-                  '(max-width: 519px) 78vw, (max-width: 740px) 60vw, 460px',
-                  '(max-width: 519px) 38vw, (max-width: 740px) 30vw, 220px',
-                  '(max-width: 519px) 120vw, (max-width: 740px) 100vw, 418px',
-                ] as const;
-
-                return (
-                  <div className={mediaContainer({ item })} key={idx}>
-                    <Media
-                      type={mediaType}
-                      url={url}
-                      width={width}
-                      height={height}
-                      sizes={sizes[item]}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-          </ScrollAreaViewport>
-        </ScrollAreaRoot>
-        <div className={stack({ gap: 'xs' })}>
-          <h3
-            className={css({
-              textStyle: 'base',
-              color: 'text2',
-              fontSize: '1',
-              lineHeight: 'tight',
-            })}
-          >
-            Description
-          </h3>
-          {descriptionLong ? (
-            <RichText
-              renderers={{
-                p: ({ children }) => (
-                  <p
-                    className={css({
-                      textStyle: 'body',
-                      mb: 'm',
-                    })}
-                  >
-                    {children}
-                  </p>
-                ),
-              }}
-              content={descriptionLong.raw as RichTextContent}
-            />
-          ) : null}
-        </div>
+        <ProjectHeader name={name} client={client?.name} />
+        {media != null && <ProjectMedia media={media} />}
+        {descriptionLong != null && (
+          <ProjectDescription descriptionLong={descriptionLong} />
+        )}
         <div className={grid({ gap: 'm', columns: { base: 2, bp1: 3 } })}>
-          <div className={stack({ gap: 'xs' })}>
-            <h3
-              className={css({
-                textStyle: 'base',
-                color: 'text2',
-                fontSize: '1',
-                lineHeight: 'tight',
-              })}
-            >
-              Contributions
-            </h3>
-            <ul className={flex({ gap: '2xs', wrap: 'wrap' })}>
-              {contribution?.map((c, i) => (
-                <li
-                  className={chip({
-                    variant: i % 2 === 0 ? 'default' : 'darker',
-                  })}
-                  key={c}
-                >
-                  {c}
-                </li>
-              ))}
-            </ul>
-          </div>
+          {contribution != null && (
+            <ProjectContributions contribution={contribution} />
+          )}
           <div
             className={stack({
               gap: 'm',
@@ -250,53 +91,8 @@ export default async function Project({
               gridColumn: { bp1: 'span 2 / -1' },
             })}
           >
-            <div className={stack({ gap: 'xs' })}>
-              <h3
-                className={css({
-                  textStyle: 'base',
-                  color: 'text2',
-                  fontSize: '1',
-                  lineHeight: 'tight',
-                })}
-              >
-                Dates
-              </h3>
-              <p
-                className={css({
-                  textStyle: 'base',
-                  lineHeight: 'tight',
-                  fontSize: '1',
-                })}
-              >
-                {date?.map((d, i) => {
-                  return (
-                    <span
-                      className={css({
-                        textStyle: 'base',
-                        lineHeight: 'tight',
-                        fontSize: '1',
-                      })}
-                      key={i}
-                    >
-                      {i > 0 ? ' - ' : ''}
-                      {getYear(new Date(d as string))}
-                    </span>
-                  );
-                })}
-              </p>
-            </div>
-            <div>
-              {link != null && (
-                <Link
-                  className={buttonLink}
-                  title={`Visit ${link}`}
-                  href={link}
-                >
-                  <span>Visit Site</span>
-                  <ArrowTopRightIcon />
-                </Link>
-              )}
-            </div>
+            {date != null && <ProjectDates date={date} />}
+            {link != null && <ProjectLink link={link} />}
           </div>
         </div>
       </div>
@@ -316,6 +112,262 @@ export default async function Project({
     </div>
   );
 }
+
+interface ProjectHeaderProps {
+  name?: string;
+  client?: string;
+}
+const ProjectHeader = ({ name, client }: ProjectHeaderProps) => {
+  return (
+    <div>
+      <BackToLink href={PATHS.work}>Back to work</BackToLink>
+      <div
+        className={flex({
+          wrap: 'wrap',
+          gap: '3xs',
+          justify: 'space-between',
+          align: 'baseline',
+          direction: { base: 'column', bp2: 'row' },
+        })}
+      >
+        <h1 className={css({ textStyle: 'heading' })}>{name}</h1>
+        {client != null && (
+          <h2
+            className={css({
+              textStyle: 'base',
+              color: 'text2',
+              fontSize: '1',
+            })}
+          >
+            {client}
+          </h2>
+        )}
+      </div>
+    </div>
+  );
+};
+
+interface ProjectMediaProps {
+  media: ProjectInfoFragment['media'];
+}
+const ProjectMedia = ({ media }: ProjectMediaProps) => {
+  return (
+    <ScrollAreaRoot
+      className={css({
+        h: 'full',
+        w: 'full',
+        overflow: 'hidden',
+      })}
+    >
+      <ScrollAreaScrollbar
+        className={flex({
+          bgColor: 'uiBg',
+          userSelect: 'none',
+          touchAction: 'none',
+          p: 2,
+          h: SCROLLBAR_SIZE,
+          transition: 'background-color 160ms ease-out',
+          '&[data-orientation="horizontal"]': {
+            flexDirection: 'column',
+          },
+          _hover: {
+            bgColor: 'slate4',
+          },
+        })}
+        orientation='horizontal'
+      >
+        <ScrollAreaThumb
+          className={css({
+            backgroundColor: 'surface2',
+            pos: 'relative',
+            flex: '1',
+            borderRadius: SCROLLBAR_SIZE,
+            _before: {
+              content: '',
+              pos: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              w: '100%',
+              h: '100%',
+              minW: 44,
+              minH: 44,
+            },
+          })}
+        />
+      </ScrollAreaScrollbar>
+      <ScrollAreaViewport
+        className={css({
+          h: 'full',
+          w: 'full',
+          borderRadius: 'inherit',
+        })}
+      >
+        <div
+          className={css({
+            mb: { bp1Down: 'l' },
+            display: 'grid',
+            gap: 's',
+            gridTemplateColumns: 'repeat(3, 40%)',
+            bp1: {
+              gridTemplateColumns: 'repeat(3, 1fr)',
+            },
+          })}
+        >
+          {media.map(({ mediaType, url }, idx) => {
+            if (mediaType == null) return null;
+            const isEven = (idx + 1) % 2 === 0;
+            const width = isEven ? 220 : 460;
+            const height = 275;
+
+            const item = (idx % 3) as 0 | 1 | 2;
+            const sizes = [
+              '(max-width: 519px) 78vw, (max-width: 740px) 60vw, 460px',
+              '(max-width: 519px) 38vw, (max-width: 740px) 30vw, 220px',
+              '(max-width: 519px) 120vw, (max-width: 740px) 100vw, 418px',
+            ] as const;
+
+            return (
+              <div className={mediaContainer({ item })} key={idx}>
+                <Media
+                  type={mediaType}
+                  url={url}
+                  width={width}
+                  height={height}
+                  sizes={sizes[item]}
+                />
+              </div>
+            );
+          })}
+        </div>
+      </ScrollAreaViewport>
+    </ScrollAreaRoot>
+  );
+};
+
+interface ProjectDescriptionProps {
+  descriptionLong: ProjectInfoFragment['descriptionLong'];
+}
+const ProjectDescription = ({ descriptionLong }: ProjectDescriptionProps) => {
+  return (
+    <div className={stack({ gap: 'xs' })}>
+      <h3
+        className={css({
+          textStyle: 'base',
+          color: 'text2',
+          fontSize: '1',
+          lineHeight: 'tight',
+        })}
+      >
+        Description
+      </h3>
+      <RichText
+        renderers={{
+          p: ({ children }) => (
+            <p
+              className={css({
+                textStyle: 'body',
+                mb: 'm',
+              })}
+            >
+              {children}
+            </p>
+          ),
+        }}
+        content={descriptionLong.raw as RichTextContent}
+      />
+    </div>
+  );
+};
+
+interface ProjectContributionsProps {
+  contribution: string[];
+}
+const ProjectContributions = ({ contribution }: ProjectContributionsProps) => {
+  return (
+    <div className={stack({ gap: 'xs' })}>
+      <h3
+        className={css({
+          textStyle: 'base',
+          color: 'text2',
+          fontSize: '1',
+          lineHeight: 'tight',
+        })}
+      >
+        Contributions
+      </h3>
+      <ul className={flex({ gap: '2xs', wrap: 'wrap' })}>
+        {contribution.map((c, i) => (
+          <li
+            className={chip({
+              variant: i % 2 === 0 ? 'default' : 'darker',
+            })}
+            key={c}
+          >
+            {c}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+interface ProjectDatesProps {
+  date: string[];
+}
+const ProjectDates = ({ date }: ProjectDatesProps) => {
+  return (
+    <div className={stack({ gap: 'xs' })}>
+      <h3
+        className={css({
+          textStyle: 'base',
+          color: 'text2',
+          fontSize: '1',
+          lineHeight: 'tight',
+        })}
+      >
+        Dates
+      </h3>
+      <p
+        className={css({
+          textStyle: 'base',
+          lineHeight: 'tight',
+          fontSize: '1',
+        })}
+      >
+        {date.map((d, i) => {
+          return (
+            <span
+              className={css({
+                textStyle: 'base',
+                lineHeight: 'tight',
+                fontSize: '1',
+              })}
+              key={i}
+            >
+              {i > 0 ? ' - ' : ''}
+              {getYear(new Date(d))}
+            </span>
+          );
+        })}
+      </p>
+    </div>
+  );
+};
+
+interface ProjectLinkProps {
+  link: string;
+}
+const ProjectLink = ({ link }: ProjectLinkProps) => {
+  return (
+    <div>
+      <Link className={buttonLink} title={`Visit ${link}`} href={link}>
+        <span>Visit Site</span>
+        <ArrowTopRightIcon />
+      </Link>
+    </div>
+  );
+};
 
 const chip = cva({
   base: {
