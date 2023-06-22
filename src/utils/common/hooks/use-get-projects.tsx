@@ -34,6 +34,7 @@ export const ProjectFragment = graphql(`
   }
 `);
 
+// TODO: Remove after migration
 export const useGetProjectsQuery = ({
   count,
   preview,

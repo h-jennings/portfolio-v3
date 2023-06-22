@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { PATHS } from '@utils/common/constants/paths.constants';
 import { flex, grid, stack } from 'ds/patterns';
 import { Metadata } from 'next';
@@ -14,6 +15,10 @@ import {
   ScrollAreaScrollbar,
   ScrollAreaThumb,
   ScrollAreaViewport,
+  barStyles,
+  rootStyles,
+  thumbStyles,
+  viewportStyles,
 } from '@/app/_components/scroll-area';
 import { MoreProjects } from './_components/more-projects';
 import { getProject } from '../_helpers/projects';
@@ -106,8 +111,11 @@ export default async function Project({
         >
           Other Projects
         </h3>
-        {/* @ts-expect-error - Async Server Component */}
-        <MoreProjects current={params.project} />
+        <React.Suspense fallback={null}>
+          {/* TODO: add fallback */}
+          {/* @ts-expect-error - Async Server Component */}
+          <MoreProjects current={params.project} />
+        </React.Suspense>
       </div>
     </div>
   );
@@ -152,57 +160,11 @@ interface ProjectMediaProps {
 }
 const ProjectMedia = ({ media }: ProjectMediaProps) => {
   return (
-    <ScrollAreaRoot
-      className={css({
-        h: 'full',
-        w: 'full',
-        overflow: 'hidden',
-      })}
-    >
-      <ScrollAreaScrollbar
-        className={flex({
-          bgColor: 'uiBg',
-          userSelect: 'none',
-          touchAction: 'none',
-          p: 2,
-          h: SCROLLBAR_SIZE,
-          transition: 'background-color 160ms ease-out',
-          '&[data-orientation="horizontal"]': {
-            flexDirection: 'column',
-          },
-          _hover: {
-            bgColor: 'slate4',
-          },
-        })}
-        orientation='horizontal'
-      >
-        <ScrollAreaThumb
-          className={css({
-            backgroundColor: 'surface2',
-            pos: 'relative',
-            flex: '1',
-            borderRadius: SCROLLBAR_SIZE,
-            _before: {
-              content: '',
-              pos: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              w: '100%',
-              h: '100%',
-              minW: 44,
-              minH: 44,
-            },
-          })}
-        />
+    <ScrollAreaRoot className={rootStyles}>
+      <ScrollAreaScrollbar className={barStyles} orientation='horizontal'>
+        <ScrollAreaThumb className={thumbStyles} />
       </ScrollAreaScrollbar>
-      <ScrollAreaViewport
-        className={css({
-          h: 'full',
-          w: 'full',
-          borderRadius: 'inherit',
-        })}
-      >
+      <ScrollAreaViewport className={viewportStyles}>
         <div
           className={css({
             mb: { bp1Down: 'l' },
@@ -415,8 +377,6 @@ const buttonLink = css({
     bgColor: 'slate4',
   },
 });
-
-const SCROLLBAR_SIZE = 10;
 
 const mediaContainer = cva({
   base: {

@@ -125,11 +125,7 @@ const FeaturedProject = ({ project }: FeaturedProjectProps) => {
               </div>
             )}
             <div>
-              <Link
-                className={linkOverlay()}
-                href={`${PATHS.work}/[project]`}
-                as={`${PATHS.work}/${slug}`}
-              >
+              <Link className={linkOverlay()} href={`${PATHS.work}/${slug}`}>
                 <p
                   className={css({
                     textStyle: 'base',

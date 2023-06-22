@@ -2,10 +2,11 @@ import { ProjectFragmentFragment } from '@/graphql/generated/cms.generated';
 import { HygraphImageWithLoader } from '@components/common/HygraphImageWithLoader';
 import { PATHS } from '@utils/common/constants/paths.constants';
 import { parseTagsToString } from '@utils/common/helpers/string.helpers';
-import { css } from 'ds/css';
+import { css, cx } from 'ds/css';
 import { linkBox, linkOverlay, stack } from 'ds/patterns';
 import Link from 'next/link';
 import { AspectRatioRoot } from './aspect-ratio';
+import { skeleton } from '../_styles/skeleton';
 
 interface ProjectCardProps {
   project: ProjectFragmentFragment;
@@ -66,6 +67,49 @@ export const ProjectCard = ({ project, sizes = '100vw' }: ProjectCardProps) => {
             {tagsString}
           </p>
         </div>
+      </div>
+    </div>
+  );
+};
+
+export const ProjectCardLoadingUI = () => {
+  return (
+    <div className={stack({ gap: 's' })}>
+      <div className={cx(skeleton({ type: 'card' }), css({ w: 'full' }))}>
+        <AspectRatioRoot ratio={220 / 275} />
+      </div>
+      <div className={stack({ gap: '3xs' })}>
+        <span
+          aria-hidden
+          className={cx(
+            skeleton({ type: 'text' }),
+            css({
+              display: 'block',
+              textStyle: 'base',
+              lineHeight: 'tight',
+              fontSize: '1',
+              color: 'transparent',
+              w: '2/3',
+            }),
+          )}
+        >
+          H
+        </span>
+        <span
+          aria-hidden
+          className={cx(
+            skeleton({ type: 'text' }),
+            css({
+              w: '1/3',
+              display: 'block',
+              textStyle: 'base',
+              color: 'transparent',
+              fontSize: '1',
+            }),
+          )}
+        >
+          J
+        </span>
       </div>
     </div>
   );

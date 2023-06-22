@@ -45,8 +45,7 @@ export const ProjectCard = ({ project, sizes = '100vw' }: ProjectCardProps) => {
         </div>
         <div className={sprinkles({ paddingX: '3xs' })}>
           <LinkBox.Target
-            href={`${PATHS.work}/[project]`}
-            as={`${PATHS.work}/${slug}`}
+            href={`${PATHS.work}/${slug}`}
             data-testid={slug}
             style={{ display: 'inline-block' }}
           >

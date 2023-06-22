@@ -144,8 +144,7 @@ export default function Writing() {
                               >
                                 <Link
                                   className={linkOverlay()}
-                                  href={`${PATHS.writing}/[slug]`}
-                                  as={`${PATHS.writing}/${slug}`}
+                                  href={`${PATHS.writing}/${slug}`}
                                 >
                                   <p
                                     className={css({

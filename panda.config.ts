@@ -1,4 +1,4 @@
-import { linkRecipe } from '@/app/_styles/recipes/link';
+import { linkRecipe } from '@/app/_styles/recipes/link.recipe';
 import { globalCss } from '@/app/_theme/global-css';
 import { semanticTokens } from '@/app/_theme/semantic-tokens';
 import { textStyles } from '@/app/_theme/text-styles';
@@ -21,6 +21,16 @@ export default defineConfig({
     extend: {
       recipes: {
         link: linkRecipe,
+      },
+      keyframes: {
+        skeleton: {
+          '0%': {
+            backgroundPosition: '200% 0%',
+          },
+          '100%': {
+            backgroundPosition: '-200% 0%',
+          },
+        },
       },
     },
   },
