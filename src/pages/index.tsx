@@ -133,8 +133,7 @@ const WritingsSection = ({ writings }: WritingsSectionProps) => {
             >
               <div>
                 <Link
-                  href={`${PATHS.writing}/[slug]`}
-                  as={`${PATHS.writing}/${slug}`}
+                  href={`${PATHS.writing}/${slug}`}
                   className={link({ size: '1' })}
                 >
                   {title}

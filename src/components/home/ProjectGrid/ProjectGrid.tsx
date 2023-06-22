@@ -5,6 +5,7 @@ import { useGetProjectsQuery } from '@utils/common/hooks/use-get-projects';
 import clsx from 'clsx';
 import * as s from './ProjectGrid.css';
 
+// TODO: Refactor to use server component
 export const ProjectGrid = ({
   count,
   preview,

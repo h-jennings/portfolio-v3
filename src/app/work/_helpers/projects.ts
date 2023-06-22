@@ -1,6 +1,16 @@
 import { cms } from '@/graphql/cms';
 
-export const getProjects = async () => {
+export const getProjects = async (count?: number) => {
+  if (count != null) {
+    return cms({
+      next: {
+        tags: ['GetProjectsQuery', count.toString()],
+      },
+    }).GetProjectsQuery({
+      count,
+    });
+  }
+
   return cms({
     next: {
       tags: ['GetProjectsQuery'],

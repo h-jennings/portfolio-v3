@@ -94,4 +94,9 @@ export const tokens = defineTokens({
       value: 'cubic-bezier(0.4, 0, 0.2, 1)',
     },
   },
+  animations: {
+    skeleton: {
+      value: 'skeleton 8s ease-in-out infinite',
+    },
+  },
 });
