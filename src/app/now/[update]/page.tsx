@@ -42,7 +42,6 @@ export const generateMetadata = ({
   return {
     title,
     description,
-    metadataBase: url,
     openGraph: {
       url,
       type: 'article',

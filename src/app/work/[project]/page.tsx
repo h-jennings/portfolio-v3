@@ -40,7 +40,6 @@ export const generateMetadata = async ({
   return {
     title,
     description,
-    metadataBase: url,
     openGraph: {
       url,
       type: 'article',

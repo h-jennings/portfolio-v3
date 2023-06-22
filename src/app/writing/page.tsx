@@ -20,7 +20,6 @@ const url = new URL(`${PATHS.base}${PATHS.writing}`);
 export const metadata: Metadata = {
   title,
   description,
-  metadataBase: url,
   robots: 'follow, index',
   openGraph: {
     url,

@@ -24,7 +24,6 @@ const url = new URL(`${PATHS.base}${PATHS.now}`);
 export const metadata: Metadata = {
   title,
   description,
-  metadataBase: url,
   robots: 'follow, index',
   openGraph: {
     url,
