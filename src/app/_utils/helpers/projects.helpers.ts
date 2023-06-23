@@ -1,27 +1,24 @@
 import { cms } from '@/graphql/cms';
+import { TAGS } from '../constants/cache.constants';
 
 export const getProjects = async (count?: number) => {
-  if (count != null) {
-    return cms({
-      next: {
-        tags: ['GetProjectsQuery', count.toString()],
-      },
-    }).GetProjects({
-      count,
-    });
-  }
-
   return cms({
     next: {
-      tags: ['GetProjectsQuery'],
+      tags: [TAGS.projects],
     },
-  }).GetProjects();
+  }).GetProjects(
+    count != null
+      ? {
+          count,
+        }
+      : undefined,
+  );
 };
 
 export const getProject = async (project: string) => {
   return cms({
     next: {
-      tags: ['GetProjectQuery', project],
+      tags: [TAGS.project(project)],
     },
   }).GetProject({
     slug: project,
