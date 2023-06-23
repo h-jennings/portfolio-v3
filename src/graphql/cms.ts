@@ -2,7 +2,7 @@ import { GraphQLClient } from 'graphql-request';
 import { draftMode } from 'next/headers';
 import 'server-only';
 import { getSdk } from './generated/cms.generated';
-import { CMS_URL } from '@utils/common/constants/cms.constants';
+import { CMS_URL } from '@/app/_utils/constants/cms.constants';
 
 const getAuthHeader = () => {
   const { isEnabled } = draftMode();

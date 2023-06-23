@@ -1,15 +1,15 @@
-import { ProjectFragmentFragment } from '@/graphql/generated/cms.generated';
-import { HygraphImageWithLoader } from '@components/common/HygraphImageWithLoader';
-import { PATHS } from '@utils/common/constants/paths.constants';
-import { parseTagsToString } from '@utils/common/helpers/string.helpers';
+import { HygraphImageWithLoader } from '@/app/_components/hygraph-image-with-loader';
+import { PATHS } from '@/app/_utils/constants/paths.constants';
+import { parseTagsToString } from '@/app/_utils/helpers/string.helpers';
 import { css, cx } from 'ds/css';
 import { linkBox, linkOverlay, stack } from 'ds/patterns';
 import Link from 'next/link';
 import { AspectRatioRoot } from './aspect-ratio';
 import { skeleton } from '../_styles/skeleton';
+import { ProjectInfoFragment } from '@/graphql/generated/cms.generated';
 
 interface ProjectCardProps {
-  project: ProjectFragmentFragment;
+  project: ProjectInfoFragment;
   sizes?: string;
 }
 export const ProjectCard = ({ project, sizes = '100vw' }: ProjectCardProps) => {

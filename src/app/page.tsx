@@ -2,17 +2,17 @@ import * as React from 'react';
 import {
   parseDateToLongDateString,
   sortArrayByDateDesc,
-} from '@utils/common/helpers/date.helpers';
+} from '@/app/_utils/helpers/date.helpers';
 import { allWritings } from 'contentlayer/generated';
 import { VisuallyHiddenRoot } from './_components/visually-hidden';
 import { flex, grid, hstack, stack } from 'ds/patterns';
 import { css, cx } from 'ds/css';
 import Link from 'next/link';
 import { link } from 'ds/recipes';
-import { PATHS } from '@utils/common/constants/paths.constants';
+import { PATHS } from '@/app/_utils/constants/paths.constants';
 import { token } from 'ds/tokens';
-import ArrowRightIcon from '@components/common/icons/ArrowRightIcon';
-import { getProjects } from './work/_helpers/projects';
+import ArrowRightIcon from '@/app/_components/icons/ArrowRightIcon';
+import { getProjects } from './_utils/helpers/projects.helpers';
 import {
   ScrollAreaRoot,
   ScrollAreaScrollbar,

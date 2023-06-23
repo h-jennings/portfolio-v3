@@ -4,11 +4,11 @@ import {
   ProseLayoutHeader,
 } from '@/app/_components/prose-layout';
 import { MDX_ELEMENTS } from '@/app/_utils/constants/mdx.constants';
-import { PATHS } from '@utils/common/constants/paths.constants';
+import { PATHS } from '@/app/_utils/constants/paths.constants';
 import {
   parseDateToLongDateString,
   parseDateToString,
-} from '@utils/common/helpers/date.helpers';
+} from '@/app/_utils/helpers/date.helpers';
 import { allUpdates } from 'contentlayer/generated';
 import { css } from 'ds/css';
 import { Metadata } from 'next';
