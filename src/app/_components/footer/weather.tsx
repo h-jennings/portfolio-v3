@@ -1,5 +1,8 @@
-import { PATHS } from '@/app/_utils/constants/paths.constants';
-import { WeatherData } from '@/app/_utils/types/open-weather';
+import {
+  OpenWeatherResponse,
+  OpenWeatherResponseZod,
+  WeatherData,
+} from '@/app/_utils/types/open-weather';
 import { css } from 'ds/css';
 import { circle, grid } from 'ds/patterns';
 
@@ -22,12 +25,23 @@ export const Weather = async () => {
   );
 };
 
+const API_URL = `https://api.openweathermap.org/data/2.5/weather?id=4781708&units=imperial&appid=${process.env.WEATHER_API_KEY}`;
 const getWeather = async () => {
-  // fetch weather data from open weather api, revalidate every 1min
-  const response = await fetch(`${PATHS.base}/api/weather`, {
+  const response = await fetch(API_URL, {
     next: { revalidate: 60 },
   });
-  return (await response.json()) as WeatherData;
+  const data = (await response.json()) as OpenWeatherResponse;
+  const checked = OpenWeatherResponseZod.parse(data);
+  return mapResponseData(checked);
+};
+
+const mapResponseData = (data: OpenWeatherResponse): WeatherData => {
+  const weather = data.weather[0];
+  return {
+    temp: data.main.temp,
+    description: weather ? weather.description : undefined,
+    icon: weather ? weather.icon : undefined,
+  };
 };
 
 const WeatherIcon = ({ description, icon }: Omit<WeatherData, 'temp'>) => {
