@@ -1,5 +1,8 @@
 module.exports = {
   siteUrl: 'https://www.hunterjennings.dev',
   generateRobotsTxt: true,
-  exclude: ['/writing/element-test'],
+  exclude: ['/server-sitemap-index.xml', '/writing/element-test'],
+  additionalSitemaps: [
+    'https://www.hunterjennings.dev/server-sitemap-index.xml',
+  ],
 };
