@@ -5,7 +5,7 @@ import { Metadata } from 'next';
 import { css } from 'ds/css';
 import { Footer } from './_components/footer/footer';
 import { Analytics } from '@vercel/analytics/react';
-import { PATHS } from '@utils/common/constants/paths.constants';
+import { PATHS } from '@/app/_utils/constants/paths.constants';
 import { Navigation } from './_components/navigation/navigation';
 
 const title = 'Portfolio | Hunter Jennings';

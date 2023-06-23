@@ -1,4 +1,4 @@
-import { PATHS } from '@utils/common/constants/paths.constants';
+import { PATHS } from '@/app/_utils/constants/paths.constants';
 import { css, cx } from 'ds/css';
 import { flex, hstack } from 'ds/patterns';
 import { link } from 'ds/recipes';

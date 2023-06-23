@@ -1,5 +1,5 @@
-import { PATHS } from '@utils/common/constants/paths.constants';
-import { WeatherData } from '@utils/common/types/open-weather';
+import { PATHS } from '@/app/_utils/constants/paths.constants';
+import { WeatherData } from '@/app/_utils/types/open-weather';
 import { css } from 'ds/css';
 import { circle, grid } from 'ds/patterns';
 

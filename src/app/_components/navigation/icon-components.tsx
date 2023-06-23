@@ -1,6 +1,6 @@
-import { MoonIcon } from '@components/common/icons/MoonIcon';
-import { SunIcon } from '@components/common/icons/SunIcon';
-import { SystemIcon } from '@components/common/icons/SystemIcon';
+import { MoonIcon } from '@/app/_components/icons/MoonIcon';
+import { SunIcon } from '@/app/_components/icons/SunIcon';
+import { SystemIcon } from '@/app/_components/icons/SystemIcon';
 
 export type Theme = 'system' | 'light' | 'dark';
 

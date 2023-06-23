@@ -1,7 +1,7 @@
 import {
   sendUnauthorized,
   serverSideRedirect,
-} from '@utils/common/helpers/api-route.helpers';
+} from '@/app/_utils/helpers/api-route.helpers';
 import { type NextApiRequest, type NextApiResponse } from 'next';
 
 const preview = (req: NextApiRequest, res: NextApiResponse) => {

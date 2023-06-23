@@ -1,4 +1,4 @@
-import { createFluidValue } from '@/styles/create-fluid-value';
+import { createFluidValue } from '@/app/_styles/create-fluid-value';
 import { defineTokens } from '@pandacss/dev';
 
 const getConfigFluidValue = (minSize: number, maxSize: number) =>

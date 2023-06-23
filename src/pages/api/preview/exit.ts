@@ -1,4 +1,4 @@
-import { serverSideRedirect } from '@utils/common/helpers/api-route.helpers';
+import { serverSideRedirect } from '@/app/_utils/helpers/api-route.helpers';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 const exit = (req: NextApiRequest, res: NextApiResponse) => {

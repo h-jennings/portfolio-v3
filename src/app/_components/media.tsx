@@ -1,4 +1,4 @@
-import { HygraphImageWithLoader } from '@components/common/HygraphImageWithLoader';
+import { HygraphImageWithLoader } from '@/app/_components/hygraph-image-with-loader';
 import { AspectRatioRoot } from './aspect-ratio';
 
 interface MediaProps {

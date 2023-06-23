@@ -1,5 +1,5 @@
 import { ogTemplate } from '@/app/_utils/og-template';
-import { parseDateToLongDateString } from '@utils/common/helpers/date.helpers';
+import { parseDateToLongDateString } from '@/app/_utils/helpers/date.helpers';
 import { allUpdates } from 'contentlayer/generated';
 
 export const runtime = 'edge';

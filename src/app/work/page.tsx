@@ -1,16 +1,16 @@
 import { RichText } from '@graphcms/rich-text-react-renderer';
-import { PATHS } from '@utils/common/constants/paths.constants';
+import { PATHS } from '@/app/_utils/constants/paths.constants';
 import { grid, linkBox, linkOverlay, stack } from 'ds/patterns';
 import { Metadata } from 'next';
 import { BackToLink } from '../_components/back-to-link';
 import { css } from 'ds/css';
-import { ProjectFragmentFragment } from '@/graphql/generated/cms.generated';
 import Link from 'next/link';
 import { token } from 'ds/tokens';
 import { RichTextContent } from '@graphcms/rich-text-types';
 import { ProjectCard } from '../_components/project-card';
 import { Media } from '../_components/media';
-import { getProjects } from './_helpers/projects';
+import { getProjects } from '../_utils/helpers/projects.helpers';
+import { ProjectInfoFragment } from '@/graphql/generated/cms.generated';
 
 const title = 'Work';
 const description = 'A curated collection of my work throughout the years.';
@@ -76,7 +76,7 @@ export default async function Work() {
 }
 
 interface FeaturedProjectProps {
-  project: ProjectFragmentFragment;
+  project: ProjectInfoFragment;
 }
 const FeaturedProject = ({ project }: FeaturedProjectProps) => {
   const { featureMediaWide, slug, name, description } = project;

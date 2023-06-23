@@ -5,8 +5,8 @@ import {
   ProseLayoutHeader,
 } from '@/app/_components/prose-layout';
 import { Separator } from '@/app/_components/separator';
-import { PATHS } from '@utils/common/constants/paths.constants';
-import { parseDateToString } from '@utils/common/helpers/date.helpers';
+import { PATHS } from '@/app/_utils/constants/paths.constants';
+import { parseDateToString } from '@/app/_utils/helpers/date.helpers';
 import { allWritings } from 'contentlayer/generated';
 import { css } from 'ds/css';
 import { hstack, stack } from 'ds/patterns';

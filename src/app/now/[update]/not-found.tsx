@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { link } from 'ds/recipes';
 import { css, cx } from 'ds/css';
 import { NotFoundContent } from '@/app/_components/not-found-content';
-import { PATHS } from '@utils/common/constants/paths.constants';
+import { PATHS } from '@/app/_utils/constants/paths.constants';
 
 export default function NotFound() {
   return (

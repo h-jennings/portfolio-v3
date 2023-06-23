@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { PATHS } from '@utils/common/constants/paths.constants';
+import { PATHS } from '@/app/_utils/constants/paths.constants';
 import { flex, grid, stack } from 'ds/patterns';
 import { Metadata } from 'next';
 import { BackToLink } from '../../_components/back-to-link';
 import { css, cva } from 'ds/css';
 import { getYear } from 'date-fns';
 import Link from 'next/link';
-import { ArrowTopRightIcon } from '@components/common/icons/ArrowTopRightIcon';
+import { ArrowTopRightIcon } from '@/app/_components/icons/ArrowTopRightIcon';
 import { RichText } from '@graphcms/rich-text-react-renderer';
 import { RichTextContent } from '@graphcms/rich-text-types';
 import { Media } from '@/app/_components/media';
@@ -21,8 +21,8 @@ import {
   viewportStyles,
 } from '@/app/_components/scroll-area';
 import { MoreProjects } from './_components/more-projects';
-import { getProject } from '../_helpers/projects';
-import { ProjectInfoFragment } from '@/graphql/generated/graphql';
+import { getProject } from '../../_utils/helpers/projects.helpers';
+import { ProjectInfoFragment } from '@/graphql/generated/cms.generated';
 
 export const generateMetadata = async ({
   params,

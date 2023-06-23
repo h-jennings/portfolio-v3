@@ -1,8 +1,8 @@
-import { PATHS } from '@utils/common/constants/paths.constants';
+import { PATHS } from '@/app/_utils/constants/paths.constants';
 import {
   parseDateToString,
   sortArrayByDateDesc,
-} from '@utils/common/helpers/date.helpers';
+} from '@/app/_utils/helpers/date.helpers';
 import { Update, allUpdates } from 'contentlayer/generated';
 import { Metadata } from 'next';
 import {

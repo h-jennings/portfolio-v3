@@ -2,7 +2,7 @@ import {
   OpenWeatherResponse,
   OpenWeatherResponseZod,
   WeatherData,
-} from '@utils/common/types/open-weather';
+} from '@/app/_utils/types/open-weather';
 import { type NextApiRequest, type NextApiResponse } from 'next';
 
 const API_URL = `https://api.openweathermap.org/data/2.5/weather?id=4781708&units=imperial&appid=${process.env.WEATHER_API_KEY}`;

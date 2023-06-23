@@ -1,4 +1,4 @@
-import ArrowLeftIcon from '@components/common/icons/ArrowLeftIcon';
+import ArrowLeftIcon from '@/app/_components/icons/ArrowLeftIcon';
 import { css } from 'ds/css';
 import { hstack, linkBox, linkOverlay } from 'ds/patterns';
 import { token } from 'ds/tokens';

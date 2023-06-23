@@ -1,9 +1,9 @@
-import { PATHS } from '@utils/common/constants/paths.constants';
+import { PATHS } from '@/app/_utils/constants/paths.constants';
 import {
   addYearToWritings,
   groupDatesByYear,
   parseDateToString,
-} from '@utils/common/helpers/date.helpers';
+} from '@/app/_utils/helpers/date.helpers';
 import { allWritings } from 'contentlayer/generated';
 import { css, cx } from 'ds/css';
 import { flex, linkBox, linkOverlay, stack } from 'ds/patterns';

@@ -1,7 +1,7 @@
-import { getProjects } from '@/app/work/_helpers/projects';
-import ArrowLeftIcon from '@components/common/icons/ArrowLeftIcon';
-import ArrowRightIcon from '@components/common/icons/ArrowRightIcon';
-import { PATHS } from '@utils/common/constants/paths.constants';
+import { getProjects } from '@/app/_utils/helpers/projects.helpers';
+import ArrowLeftIcon from '@/app/_components/icons/ArrowLeftIcon';
+import ArrowRightIcon from '@/app/_components/icons/ArrowRightIcon';
+import { PATHS } from '@/app/_utils/constants/paths.constants';
 import { css, cx } from 'ds/css';
 import { flex, hstack, linkBox, linkOverlay } from 'ds/patterns';
 import { link } from 'ds/recipes';
