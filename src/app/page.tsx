@@ -4,7 +4,7 @@ import {
   sortArrayByDateDesc,
 } from '@utils/common/helpers/date.helpers';
 import { allWritings } from 'contentlayer/generated';
-import { VisuallyHiddenRoot } from '../_components/visually-hidden';
+import { VisuallyHiddenRoot } from './_components/visually-hidden';
 import { flex, grid, hstack, stack } from 'ds/patterns';
 import { css, cx } from 'ds/css';
 import Link from 'next/link';
@@ -12,7 +12,7 @@ import { link } from 'ds/recipes';
 import { PATHS } from '@utils/common/constants/paths.constants';
 import { token } from 'ds/tokens';
 import ArrowRightIcon from '@components/common/icons/ArrowRightIcon';
-import { getProjects } from '../work/_helpers/projects';
+import { getProjects } from './work/_helpers/projects';
 import {
   ScrollAreaRoot,
   ScrollAreaScrollbar,
@@ -22,8 +22,8 @@ import {
   rootStyles,
   thumbStyles,
   viewportStyles,
-} from '../_components/scroll-area';
-import { ProjectCard, ProjectCardLoadingUI } from '../_components/project-card';
+} from './_components/scroll-area';
+import { ProjectCard, ProjectCardLoadingUI } from './_components/project-card';
 
 export default function Home() {
   return (
