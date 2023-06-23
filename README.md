@@ -4,10 +4,8 @@
 
 - TypeScript
 - React
-- React Query
 - Next.js
-  - next-seo
   - next-sitemap
   - next-themes
-- Vanilla Extract and Radix
+- Panda CSS and Radix
 - Framer Motion
