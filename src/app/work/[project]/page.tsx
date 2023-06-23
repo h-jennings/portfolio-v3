@@ -23,6 +23,7 @@ import {
 import { MoreProjects } from './_components/more-projects';
 import { getProject } from '../../_utils/helpers/projects.helpers';
 import { ProjectInfoFragment } from '@/graphql/generated/cms.generated';
+import notFound from './not-found';
 
 export const generateMetadata = async ({
   params,
@@ -72,23 +73,23 @@ export default async function Project({
 }) {
   const data = await getProject(params.project);
 
+  if (!data.project) {
+    return notFound();
+  }
+
   const { project } = data;
 
   const { name, client, contribution, date, link, media, descriptionLong } =
-    project ?? {};
+    project;
 
   return (
     <div className={stack({ gap: '3xl' })}>
       <div className={stack({ gap: 'xl' })}>
         <ProjectHeader name={name} client={client?.name} />
-        {media != null && <ProjectMedia media={media} />}
-        {descriptionLong != null && (
-          <ProjectDescription descriptionLong={descriptionLong} />
-        )}
+        <ProjectMedia media={media} />
+        <ProjectDescription descriptionLong={descriptionLong} />
         <div className={grid({ gap: 'm', columns: { base: 2, bp1: 3 } })}>
-          {contribution != null && (
-            <ProjectContributions contribution={contribution} />
-          )}
+          <ProjectContributions contribution={contribution} />
           <div
             className={stack({
               gap: 'm',
@@ -96,7 +97,7 @@ export default async function Project({
               gridColumn: { bp1: 'span 2 / -1' },
             })}
           >
-            {date != null && <ProjectDates date={date} />}
+            <ProjectDates date={date} />
             {link != null && <ProjectLink link={link} />}
           </div>
         </div>
