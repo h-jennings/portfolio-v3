@@ -16,7 +16,8 @@ const client = ({ next }: { next?: NextFetchRequestConfig }) => {
     headers: {
       Authorization: getAuthHeader(),
     },
-    next,
+    fetch, // Need to pass fetch here because of Next.js cache
+    next, // Allows us to control the cache on a per-request basis
   });
 };
 
