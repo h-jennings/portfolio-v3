@@ -53,9 +53,7 @@ const IntroductionSection = () => {
       <div className={stack({ gap: 'm' })}>
         <h2
           className={css({
-            textStyle: 'base',
-            fontSize: '2',
-            fontFamily: 'serif',
+            textStyle: 'serif',
             lineHeight: 'tight',
           })}
           aria-label='Who is Hunter Jennings'
@@ -194,9 +192,8 @@ const WritingsSection = () => {
               </div>
               <time
                 className={css({
-                  textStyle: 'base',
+                  textStyle: 'serif',
                   fontSize: '1',
-                  fontFamily: 'serif',
                 })}
               >
                 {parseDateToLongDateString(date)}

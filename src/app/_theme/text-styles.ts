@@ -9,6 +9,15 @@ export const textStyles = defineTextStyles({
       fontFamily: 'primary',
     },
   },
+  serif: {
+    value: {
+      lineHeight: 'body',
+      fontSize: '2',
+      fontWeight: 'regular',
+      fontFamily: 'serif',
+      fontStyle: 'italic',
+    },
+  },
   heading: {
     value: {
       lineHeight: 'body',

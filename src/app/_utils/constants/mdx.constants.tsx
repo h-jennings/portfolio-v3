@@ -101,7 +101,10 @@ export const MDX_ELEMENTS = {
   ),
   em: (props: any) => (
     <em
-      className={cx(css({ fontFamily: 'serif' }), inlineElementReset)}
+      className={cx(
+        css({ fontFamily: 'serif', fontStyle: 'italic' }),
+        inlineElementReset,
+      )}
       {...props}
     />
   ),
