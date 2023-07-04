@@ -61,7 +61,7 @@ export const globalCss = defineGlobalStyles({
       overflowX: 'auto',
       py: 'm',
     },
-    '.syntax-line': {
+    '[data-line]': {
       borderLeft: '4px solid',
       borderLeftColor: 'transparent',
       px: 'm',
@@ -70,7 +70,7 @@ export const globalCss = defineGlobalStyles({
   },
   'code[data-line-numbers]': {
     counterReset: 'line',
-    '.syntax-line::before': {
+    '[data-line]::before': {
       counterIncrement: 'line',
       content: 'counter(line)',
       display: 'inline-block',

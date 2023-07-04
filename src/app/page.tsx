@@ -35,8 +35,6 @@ export default function Home() {
         <IntroductionSection />
         <WorkSection>
           <React.Suspense fallback={<ProjectGridLoadingUI />}>
-            {/* TODO: add fallback */}
-            {/* @ts-expect-error - Async Server Component */}
             <ProjectGrid />
           </React.Suspense>
         </WorkSection>

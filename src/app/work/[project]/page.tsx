@@ -114,7 +114,6 @@ export default async function Project({
         </h3>
         <React.Suspense fallback={null}>
           {/* TODO: add fallback */}
-          {/* @ts-expect-error - Async Server Component */}
           <MoreProjects current={params.project} />
         </React.Suspense>
       </div>

@@ -64,7 +64,6 @@ export const Footer = () => {
         >
           <ErrorBoundary fallback={<WeatherError />}>
             <React.Suspense fallback={<WeatherLoading />}>
-              {/* @ts-expect-error - Async Server Component  */}
               <Weather />
             </React.Suspense>
           </ErrorBoundary>
