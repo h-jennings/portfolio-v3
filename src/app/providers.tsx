@@ -1,6 +1,7 @@
 'use client';
 
 import { ThemeProvider } from 'next-themes';
+import { Provider as BalancerProvider } from 'react-wrap-balancer';
 
 interface ProvidersProps {
   children: React.ReactNode;
@@ -13,7 +14,7 @@ export const Providers = ({ children }: ProvidersProps) => {
       value={{ dark: 'dark-theme', light: 'light-theme' }}
       defaultTheme='system'
     >
-      {children}
+      <BalancerProvider>{children}</BalancerProvider>
     </ThemeProvider>
   );
 };
