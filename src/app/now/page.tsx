@@ -11,11 +11,10 @@ import {
   ProseLayoutHeader,
 } from '../_components/prose-layout';
 import { flex } from 'ds/patterns';
-import { getMDXComponent } from 'next-contentlayer/hooks';
 import Link from 'next/link';
 import { link } from 'ds/recipes';
 import { css } from 'ds/css';
-import { MDX_ELEMENTS } from '../_utils/constants/mdx.constants';
+import { UpdatePageMDX } from './[update]/update-page-mdx';
 
 const title = 'Now';
 const description = 'A snapshot of my life via short updates.';
@@ -64,7 +63,6 @@ interface UpdateProps {
 }
 const Update = ({ update }: UpdateProps) => {
   const { body, date } = update;
-  const MDXContent = getMDXComponent(body.code);
   const fancyDate = parseDateToString(date);
 
   return (
@@ -79,7 +77,7 @@ const Update = ({ update }: UpdateProps) => {
         },
       })}
     >
-      <MDXContent components={MDX_ELEMENTS} />
+      <UpdatePageMDX code={body.code} />
       <Link
         href={`${PATHS.now}/${update.slug}`}
         className={link({ color: 'secondary' })}

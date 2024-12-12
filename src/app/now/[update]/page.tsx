@@ -3,7 +3,6 @@ import {
   ProseLayoutContent,
   ProseLayoutHeader,
 } from '@/app/_components/prose-layout';
-import { MDX_ELEMENTS } from '@/app/_utils/constants/mdx.constants';
 import { PATHS } from '@/app/_utils/constants/paths.constants';
 import {
   parseDateToLongDateString,
@@ -12,8 +11,8 @@ import {
 import { allUpdates } from 'contentlayer/generated';
 import { css } from 'ds/css';
 import { Metadata } from 'next';
-import { getMDXComponent } from 'next-contentlayer/hooks';
 import { notFound } from 'next/navigation';
+import { UpdatePageMDX } from './update-page-mdx';
 
 export const generateStaticParams = () => {
   return allUpdates.map((update) => ({ update: update.slug }));
@@ -62,7 +61,6 @@ export default function Update({ params }: { params: { update: string } }) {
   }
 
   const { body, date } = update;
-  const MDXContent = getMDXComponent(body.code);
   const fancyDate = parseDateToString(date);
   return (
     <ProseLayout>
@@ -75,7 +73,7 @@ export default function Update({ params }: { params: { update: string } }) {
       />
 
       <ProseLayoutContent>
-        <MDXContent components={MDX_ELEMENTS} />
+        <UpdatePageMDX code={body.code} />
         <time
           dateTime={date}
           className={css({ textStyle: 'base', color: 'text2', fontSize: '1' })}
