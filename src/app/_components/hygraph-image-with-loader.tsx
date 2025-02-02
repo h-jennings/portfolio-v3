@@ -3,9 +3,9 @@
 import Image, { ImageLoaderProps, ImageProps } from 'next/image';
 
 export const loader = ({ src, width }: ImageLoaderProps) => {
-  const CDN_URL = 'https://media.graphassets.com/';
+  const CDN_URL = `https://us-east-1.graphassets.com/${process.env.NEXT_CMS_ASSET_ENV_ID}/`;
   const srcInfo = src.split(CDN_URL)[1];
-  const transform = `resize=width:${width}/output=format:webp/quality=value:90/`;
+  const transform = `resize=width:${width}/output=format:webp/`;
   return `${CDN_URL}${transform}${srcInfo}`;
 };
 
