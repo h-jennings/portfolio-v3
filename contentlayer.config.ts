@@ -88,6 +88,7 @@ export default makeSource({
   },
   documentTypes: [Writing, Update],
   mdx: {
+    // @ts-expect-error - `rehypePrettyCode` is not typed correctly
     rehypePlugins: [[rehypePrettyCode, rehypePrettyCodeOptions]],
   },
 });

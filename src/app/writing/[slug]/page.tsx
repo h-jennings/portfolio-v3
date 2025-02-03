@@ -10,7 +10,7 @@ import { parseDateToString } from '@/app/_utils/helpers/date.helpers';
 import { allWritings } from 'contentlayer/generated';
 import { css } from 'ds/css';
 import { hstack, stack } from 'ds/patterns';
-import { Metadata } from 'next';
+import { type Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { SlugPageMDX } from './slug-page-mdx';
 
@@ -18,12 +18,15 @@ export const generateStaticParams = () => {
   return allWritings.map((writing) => ({ slug: writing.slug }));
 };
 
-export const generateMetadata = ({
+interface WritingPageProps {
+  params: Promise<{ slug: string }>;
+}
+
+export const generateMetadata = async ({
   params,
-}: {
-  params: { slug: string };
-}): Metadata => {
-  const writing = allWritings.find((writing) => writing.slug === params.slug);
+}: WritingPageProps): Promise<Metadata> => {
+  const slugParam = (await params).slug;
+  const writing = allWritings.find((writing) => writing.slug === slugParam);
 
   if (!writing) {
     return {};
@@ -48,8 +51,9 @@ export const generateMetadata = ({
   };
 };
 
-export default function Writing({ params }: { params: { slug: string } }) {
-  const writing = allWritings.find((writing) => writing.slug === params.slug);
+export default async function Writing({ params }: WritingPageProps) {
+  const slugParam = (await params).slug;
+  const writing = allWritings.find((writing) => writing.slug === slugParam);
 
   if (!writing) {
     return notFound();

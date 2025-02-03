@@ -18,15 +18,21 @@ export const generateStaticParams = () => {
   return allUpdates.map((update) => ({ update: update.slug }));
 };
 
-export const generateMetadata = ({
+interface UpdatePageProps {
+  params: Promise<{ update: string }>;
+}
+
+export const generateMetadata = async ({
   params,
-}: {
-  params: { update: string };
-}): Metadata => {
-  const update = allUpdates.find((update) => update.slug === params.update);
+}: UpdatePageProps): Promise<Metadata> => {
+  const updateParam = (await params).update;
+  const update = allUpdates.find((update) => update.slug === updateParam);
 
   if (!update) {
-    return {};
+    return {
+      title: 'Not found',
+      description: 'Update not found.',
+    };
   }
 
   const { date } = update;
@@ -53,8 +59,9 @@ export const generateMetadata = ({
   };
 };
 
-export default function Update({ params }: { params: { update: string } }) {
-  const update = allUpdates.find((update) => update.slug === params.update);
+export default async function Update({ params }: UpdatePageProps) {
+  const updateParam = (await params).update;
+  const update = allUpdates.find((update) => update.slug === updateParam);
 
   if (!update) {
     return notFound();

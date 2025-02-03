@@ -4,9 +4,9 @@ import { LayoutGroup } from 'framer-motion';
 import { ICON_SVG_COMPONENTS, Theme } from './icon-components';
 import dynamic from 'next/dynamic';
 
-const IconButton = dynamic(() => import('./icon-button'), {
-  ssr: false,
+const IconButtonWithLoading = dynamic(() => import('./icon-button'), {
   loading: () => <div className={circle({ size: 20, bgColor: 'slate5' })} />,
+  ssr: false,
 });
 
 const ThemeToggle = () => {
@@ -25,7 +25,7 @@ const ThemeToggle = () => {
     >
       <LayoutGroup>
         {Object.keys(ICON_SVG_COMPONENTS).map((key) => (
-          <IconButton key={key} icon={key as Theme} />
+          <IconButtonWithLoading key={key} icon={key as Theme} />
         ))}
       </LayoutGroup>
     </div>

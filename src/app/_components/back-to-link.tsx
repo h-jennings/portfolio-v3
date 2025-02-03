@@ -1,6 +1,6 @@
 import ArrowLeftIcon from '@/app/_components/icons/ArrowLeftIcon';
 import { css } from 'ds/css';
-import { hstack, linkBox, linkOverlay } from 'ds/patterns';
+import { hstack, linkOverlay } from 'ds/patterns';
 import { token } from 'ds/tokens';
 import Link from 'next/link';
 import * as React from 'react';
@@ -12,9 +12,9 @@ interface BackToLinkProps {
 export const BackToLink = ({
   children,
   href,
-}: React.PropsWithChildren<BackToLinkProps>): JSX.Element => {
+}: React.PropsWithChildren<BackToLinkProps>) => {
   return (
-    <div className={linkBox()}>
+    <div className={css({ position: 'relative' })}>
       <div
         className={hstack({
           gap: 'xs',

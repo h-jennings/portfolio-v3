@@ -3,7 +3,7 @@ import ArrowLeftIcon from '@/app/_components/icons/ArrowLeftIcon';
 import ArrowRightIcon from '@/app/_components/icons/ArrowRightIcon';
 import { PATHS } from '@/app/_utils/constants/paths.constants';
 import { css, cx } from 'ds/css';
-import { flex, hstack, linkBox, linkOverlay } from 'ds/patterns';
+import { flex, hstack, linkOverlay } from 'ds/patterns';
 import { link } from 'ds/recipes';
 import { token } from 'ds/tokens';
 import Link from 'next/link';
@@ -54,12 +54,7 @@ interface LinkProps {
   alignment: 'left' | 'right' | 'center';
 }
 
-const ProjectLink = ({
-  slug,
-  name,
-  arrowDirection,
-  alignment,
-}: LinkProps): JSX.Element => {
+const ProjectLink = ({ slug, name, arrowDirection, alignment }: LinkProps) => {
   const justify = ALIGNMENT_LOOKUP[alignment];
   return (
     <div
@@ -73,7 +68,7 @@ const ProjectLink = ({
         justifyContent: justify,
       }}
     >
-      <div className={linkBox()}>
+      <div className={css({ position: 'relative' })}>
         <div
           className={hstack({
             gap: 's',

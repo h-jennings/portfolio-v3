@@ -2,7 +2,7 @@ import { HygraphImageWithLoader } from '@/app/_components/hygraph-image-with-loa
 import { PATHS } from '@/app/_utils/constants/paths.constants';
 import { parseTagsToString } from '@/app/_utils/helpers/string.helpers';
 import { css, cx } from 'ds/css';
-import { linkBox, linkOverlay, stack } from 'ds/patterns';
+import { linkOverlay, stack } from 'ds/patterns';
 import Link from 'next/link';
 import { AspectRatioRoot } from './aspect-ratio';
 import { skeleton } from '../_styles/skeleton';
@@ -18,7 +18,7 @@ export const ProjectCard = ({ project, sizes = '100vw' }: ProjectCardProps) => {
   const src = featureMediaNarrow.url;
 
   return (
-    <div className={linkBox()}>
+    <div className={css({ position: 'relative' })}>
       <div className={stack({ gap: 's' })}>
         <div
           className={css({

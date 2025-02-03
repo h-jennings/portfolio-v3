@@ -3,23 +3,7 @@ import { flex, hstack, stack } from 'ds/patterns';
 import * as React from 'react';
 import { Weather, WeatherError, WeatherLoading } from './weather';
 import { ErrorBoundary } from 'react-error-boundary';
-import dynamic from 'next/dynamic';
-
-const Time = dynamic(() => import('./time'), {
-  ssr: false,
-  loading: () => (
-    <span
-      className={flex({
-        textStyle: 'base',
-        fontSize: '1',
-        lineHeight: 'tight',
-        color: 'slate7',
-      })}
-    >
-      00:00 XX
-    </span>
-  ),
-});
+import { TimeWithLoading } from '@/app/_components/footer/time-with-loading';
 
 export const Footer = () => {
   return (
@@ -43,7 +27,7 @@ export const Footer = () => {
             textAlign: 'left',
           })}
         >
-          <Time />
+          <TimeWithLoading />
           <span
             className={css({
               textStyle: 'base',

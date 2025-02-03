@@ -16,7 +16,7 @@ const Time = () => {
   });
 
   React.useEffect(() => {
-    const tick = setInterval(() => {
+    const tick = window.setInterval(() => {
       const now = new Date().getTime();
       setTime({ pretty: formatPretty(now), twentyFour: formatTwentyFour(now) });
     }, 1000);

@@ -12,7 +12,6 @@ interface UpdatePageMDXProps {
 export const UpdatePageMDX = ({ code }: UpdatePageMDXProps) => {
   const MDXContent = getMDXComponent(code);
 
-  // @ts-expect-error - Library types are incorrect
   return <MDXContent components={{ ...MDX_ELEMENTS, ...MDX_COMPONENTS }} />;
 };
 

@@ -25,22 +25,28 @@ import { getProject } from '../../_utils/helpers/projects.helpers';
 import { ProjectInfoFragment } from '@/graphql/generated/cms.generated';
 import notFound from './not-found';
 
+interface ProjectPageProps {
+  params: Promise<{ project: string }>;
+}
+
 export const generateMetadata = async ({
   params,
-}: {
-  params: { project: string };
-}): Promise<Metadata> => {
-  const data = await getProject(params.project);
+}: ProjectPageProps): Promise<Metadata> => {
+  const projectParams = (await params).project;
+  const data = await getProject(projectParams);
 
   const { project } = data;
 
   if (!project) {
-    return {};
+    return {
+      title: 'Not found',
+      description: 'Project not found.',
+    };
   }
 
   const { seo } = project;
 
-  const url = new URL(`${PATHS.base}${PATHS.work}/${params.project}`);
+  const url = new URL(`${PATHS.base}${PATHS.work}/${projectParams}`);
   const title = seo.title;
   const description = seo.description ?? undefined;
 
@@ -66,12 +72,9 @@ export const generateMetadata = async ({
   };
 };
 
-export default async function Project({
-  params,
-}: {
-  params: { project: string };
-}) {
-  const data = await getProject(params.project);
+export default async function Project({ params }: ProjectPageProps) {
+  const projectParams = (await params).project;
+  const data = await getProject(projectParams);
 
   if (!data.project) {
     return notFound();
@@ -114,7 +117,7 @@ export default async function Project({
         </h3>
         <React.Suspense fallback={null}>
           {/* TODO: add fallback */}
-          <MoreProjects current={params.project} />
+          <MoreProjects current={projectParams} />
         </React.Suspense>
       </div>
     </div>

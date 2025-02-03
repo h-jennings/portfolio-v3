@@ -1,6 +1,6 @@
 import { RichText } from '@graphcms/rich-text-react-renderer';
 import { PATHS } from '@/app/_utils/constants/paths.constants';
-import { grid, linkBox, linkOverlay, stack } from 'ds/patterns';
+import { grid, linkOverlay, stack } from 'ds/patterns';
 import { Metadata } from 'next';
 import { BackToLink } from '../_components/back-to-link';
 import { css } from 'ds/css';
@@ -91,7 +91,7 @@ const FeaturedProject = ({ project }: FeaturedProjectProps) => {
       >
         Featured
       </h2>
-      <div className={linkBox()}>
+      <div className={css({ position: 'relative' })}>
         <div
           className={css({
             px: 's',

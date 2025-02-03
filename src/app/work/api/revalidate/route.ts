@@ -9,7 +9,8 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
-  const signature = headers().get('gcms-signature');
+  const requestHeaders = await headers();
+  const signature = requestHeaders.get('gcms-signature');
   const secret = process.env.CMS_WEBHOOK_SECRET;
 
   if (signature == null) {

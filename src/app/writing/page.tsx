@@ -6,7 +6,7 @@ import {
 } from '@/app/_utils/helpers/date.helpers';
 import { allWritings } from 'contentlayer/generated';
 import { css, cx } from 'ds/css';
-import { flex, linkBox, linkOverlay, stack } from 'ds/patterns';
+import { flex, linkOverlay, stack } from 'ds/patterns';
 import { Metadata } from 'next';
 import { BackToLink } from '../_components/back-to-link';
 import s from './writing.module.css';
@@ -61,7 +61,8 @@ export default function Writing() {
                 return (
                   <li key={slug}>
                     <div
-                      className={linkBox({
+                      className={css({
+                        position: 'relative',
                         p: 's',
                         rounded: 'card',
                         bgColor: 'slate3',
@@ -133,7 +134,7 @@ export default function Writing() {
                       {writings.map(({ slug, title, date }) => {
                         return (
                           <li key={slug}>
-                            <div className={linkBox()}>
+                            <div className={css({ position: 'relative' })}>
                               <div
                                 className={flex({
                                   direction: 'row',

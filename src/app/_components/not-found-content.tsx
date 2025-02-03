@@ -8,7 +8,7 @@ interface NotFoundContentProps {
 export const NotFoundContent = ({
   children,
   title = 'Page Not Found',
-}: NotFoundContentProps): JSX.Element => {
+}: NotFoundContentProps) => {
   return (
     <div className={css({ w: 'full' })}>
       <div className={stack({ gap: 'm' })}>

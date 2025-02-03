@@ -6,7 +6,7 @@ export type Theme = 'system' | 'light' | 'dark';
 
 export const ICON_SVG_COMPONENTS: Record<
   Theme,
-  { label: string; icon: () => JSX.Element }
+  { label: string; icon: () => React.ReactNode }
 > = {
   dark: {
     label: 'dark theme',

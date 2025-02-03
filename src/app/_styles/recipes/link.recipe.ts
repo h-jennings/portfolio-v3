@@ -1,7 +1,9 @@
 import { defineRecipe } from '@pandacss/dev';
 
 export const linkRecipe = defineRecipe({
-  name: 'link',
+  className: 'link',
+  description:
+    'A link that can be styled with different colors and underlines.',
   base: {
     '--activeColor': 'inherit',
     cursor: 'pointer',

@@ -2,11 +2,13 @@ import { cms } from '@/graphql/cms';
 import { TAGS } from '../constants/cache.constants';
 
 export const getProjects = async (count?: number) => {
-  return cms({
+  const cmsClient = await cms({
     next: {
       tags: [TAGS.projects],
     },
-  }).GetProjects(
+  });
+
+  return cmsClient.GetProjects(
     count != null
       ? {
           count,
@@ -16,11 +18,13 @@ export const getProjects = async (count?: number) => {
 };
 
 export const getProject = async (project: string) => {
-  return cms({
+  const cmsClient = await cms({
     next: {
       tags: [TAGS.project(project)],
     },
-  }).GetProject({
+  });
+
+  return cmsClient.GetProject({
     slug: project,
   });
 };

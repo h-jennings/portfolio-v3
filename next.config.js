@@ -6,9 +6,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  swcMinify: true,
   reactStrictMode: true,
-  outputFileTracing: true,
   env: {
     NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL,
     NEXT_CMS_ASSET_ENV_ID: process.env.NEXT_CMS_ASSET_ENV_ID,
@@ -20,7 +18,6 @@ const nextConfig = {
         hostname: '**.graphassets.com',
       },
     ],
-    domains: ['media.graphassets.com'],
     formats: ['image/webp'],
   },
   async redirects() {

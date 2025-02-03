@@ -4,22 +4,25 @@ import 'server-only';
 import { getSdk } from './generated/cms.generated';
 import { CMS_URL } from '@/app/_utils/constants/cms.constants';
 
-const getAuthHeader = () => {
-  const { isEnabled } = draftMode();
+const getAuthHeader = async () => {
+  const { isEnabled } = await draftMode();
   return `Bearer ${
     !isEnabled ? process.env.CMS_PROD_TOKEN! : process.env.CMS_PREVIEW_TOKEN!
   }`;
 };
 
-const client = ({ next }: { next?: NextFetchRequestConfig }) => {
+const client = async ({ next }: { next?: NextFetchRequestConfig }) => {
+  const authHeader = await getAuthHeader();
   return new GraphQLClient(CMS_URL, {
     headers: {
-      Authorization: getAuthHeader(),
+      Authorization: authHeader,
     },
     fetch, // Need to pass fetch here because of Next.js cache
     next, // Allows us to control the cache on a per-request basis
   });
 };
 
-export const cms = ({ next }: { next?: NextFetchRequestConfig } = {}) =>
-  getSdk(client({ next }));
+export const cms = async ({ next }: { next?: NextFetchRequestConfig } = {}) => {
+  const c = await client({ next });
+  return getSdk(c);
+};
