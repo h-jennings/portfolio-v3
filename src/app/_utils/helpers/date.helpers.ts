@@ -1,4 +1,4 @@
-import { Writing } from 'contentlayer/generated';
+import { type Writing } from '@/app/_utils/content';
 import { compareDesc, format, parseISO } from 'date-fns';
 
 export const getYearFromDate = (date: string): string => {
@@ -24,15 +24,18 @@ export function sortArrayByDateDesc<TArray extends { date: string }[]>(
 type Writings = (Writing & { year: string })[];
 export const groupDatesByYear = (writings: Writings) => {
   return Object.entries(
-    writings.reduce((result, value) => {
-      if (result[value.year] === undefined) {
-        result[value.year] = [];
-      }
+    writings.reduce(
+      (result, value) => {
+        if (result[value.year] === undefined) {
+          result[value.year] = [];
+        }
 
-      result[value.year]?.push(value);
+        result[value.year]?.push(value);
 
-      return result;
-    }, {} as Record<string, Writings>),
+        return result;
+      },
+      {} as Record<string, Writings>,
+    ),
   )
     .map(([key, value]) => ({
       year: key,

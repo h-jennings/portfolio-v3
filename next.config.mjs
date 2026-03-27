@@ -1,11 +1,34 @@
-const { withContentlayer } = require('next-contentlayer');
+import BundleAnalyzer from '@next/bundle-analyzer';
+import createMDX from '@next/mdx';
+import rehypePrettyCode from 'rehype-pretty-code';
+import remarkFrontmatter from 'remark-frontmatter';
 
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
+const withBundleAnalyzer = BundleAnalyzer({
   enabled: process.env.ANALYZE === 'true',
+});
+
+/** @type {import('rehype-pretty-code').Options} */
+const rehypePrettyCodeOptions = {
+  theme: {
+    dark: 'github-dark',
+    light: 'github-light',
+  },
+  tokensMap: {
+    fn: 'entity.name.function',
+    objKey: 'meta.object-literal.key',
+  },
+};
+
+const withMDX = createMDX({
+  options: {
+    remarkPlugins: [remarkFrontmatter],
+    rehypePlugins: [[rehypePrettyCode, rehypePrettyCodeOptions]],
+  },
 });
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
   swcMinify: true,
   reactStrictMode: true,
   outputFileTracing: true,
@@ -48,4 +71,5 @@ const nextConfig = {
     ];
   },
 };
-module.exports = withBundleAnalyzer(withContentlayer(nextConfig));
+
+export default withBundleAnalyzer(withMDX(nextConfig));

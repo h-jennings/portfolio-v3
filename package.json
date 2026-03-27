@@ -14,7 +14,9 @@
     "lint:staged": "lint-staged"
   },
   "pnpm": {
-    "onlyBuiltDependencies": ["sharp"]
+    "onlyBuiltDependencies": [
+      "sharp"
+    ]
   },
   "lint-staged": {
     "./src/**/*.{js,jsx,ts,tsx}": [
@@ -27,21 +29,24 @@
     "@graphcms/rich-text-react-renderer": "^0.6.1",
     "@graphql-typed-document-node/core": "^3.2.0",
     "@hygraph/utils": "^1.2.1",
+    "@mdx-js/loader": "^3.1.1",
+    "@mdx-js/react": "^3.1.1",
+    "@next/mdx": "^16.2.1",
     "@radix-ui/colors": "^1.0.0",
     "@radix-ui/react-aspect-ratio": "^1.1.0",
     "@radix-ui/react-scroll-area": "^1.2.0",
     "@radix-ui/react-separator": "^1.1.0",
     "@radix-ui/react-visually-hidden": "^1.1.0",
+    "@types/mdx": "^2.0.13",
     "@vercel/analytics": "^1.4.0",
     "clsx": "^2.0.0",
-    "contentlayer": "^0.3.4",
     "date-fns": "^3.0.0",
     "framer-motion": "^10.12.18",
     "graphql": "^16.7.1",
     "graphql-request": "^6.1.0",
     "graphql-tag": "^2.12.6",
+    "gray-matter": "^4.0.3",
     "next": "^13.4.8",
-    "next-contentlayer": "^0.3.4",
     "next-sitemap": "^4.1.8",
     "next-themes": "^0.3.0",
     "react": "18.2.0",
@@ -49,6 +54,7 @@
     "react-error-boundary": "^5.0.0",
     "reading-time": "^1.5.0",
     "rehype-pretty-code": "^0.10.0",
+    "remark-frontmatter": "^5.0.0",
     "sharp": "^0.33.0",
     "zod": "^3.23.0"
   },

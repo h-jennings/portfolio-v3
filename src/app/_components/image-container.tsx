@@ -6,10 +6,10 @@ import * as React from 'react';
 interface ImageContainerProps {
   caption?: string;
 }
-export const ImageContainer = ({
+export default function ImageContainer({
   caption,
   children,
-}: React.PropsWithChildren<ImageContainerProps>) => {
+}: React.PropsWithChildren<ImageContainerProps>) {
   return (
     <div className={stack({ gap: 'xs', py: 'xs' })}>
       <div
@@ -28,4 +28,4 @@ export const ImageContainer = ({
       )}
     </div>
   );
-};
+}

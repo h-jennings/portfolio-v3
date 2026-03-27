@@ -4,18 +4,17 @@ import {
   ProseLayoutHeader,
 } from '@/app/_components/prose-layout';
 import { PATHS } from '@/app/_utils/constants/paths.constants';
+import { getAllUpdates } from '@/app/_utils/content';
 import {
   parseDateToLongDateString,
   parseDateToString,
 } from '@/app/_utils/helpers/date.helpers';
-import { allUpdates } from 'contentlayer/generated';
 import { css } from 'ds/css';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { UpdatePageMDX } from './update-page-mdx';
 
 export const generateStaticParams = () => {
-  return allUpdates.map((update) => ({ update: update.slug }));
+  return getAllUpdates().map((update) => ({ update: update.slug }));
 };
 
 export const generateMetadata = ({
@@ -23,7 +22,7 @@ export const generateMetadata = ({
 }: {
   params: { update: string };
 }): Metadata => {
-  const update = allUpdates.find((update) => update.slug === params.update);
+  const update = getAllUpdates().find((u) => u.slug === params.update);
 
   if (!update) {
     return {};
@@ -53,15 +52,23 @@ export const generateMetadata = ({
   };
 };
 
-export default function Update({ params }: { params: { update: string } }) {
-  const update = allUpdates.find((update) => update.slug === params.update);
+export default async function Update({
+  params,
+}: {
+  params: { update: string };
+}) {
+  const update = getAllUpdates().find((u) => u.slug === params.update);
 
   if (!update) {
     return notFound();
   }
 
-  const { body, date } = update;
+  const { date } = update;
   const fancyDate = parseDateToString(date);
+  const { default: Content } = (await import(
+    `@/data/updates/${params.update}.mdx`
+  )) as { default: () => JSX.Element };
+
   return (
     <ProseLayout>
       <ProseLayoutHeader
@@ -73,7 +80,7 @@ export default function Update({ params }: { params: { update: string } }) {
       />
 
       <ProseLayoutContent>
-        <UpdatePageMDX code={body.code} />
+        <Content />
         <time
           dateTime={date}
           className={css({ textStyle: 'base', color: 'text2', fontSize: '1' })}

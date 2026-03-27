@@ -1,20 +1,19 @@
 import { PATHS } from '@/app/_utils/constants/paths.constants';
+import { getAllUpdates, type Update } from '@/app/_utils/content';
 import {
   parseDateToString,
   sortArrayByDateDesc,
 } from '@/app/_utils/helpers/date.helpers';
-import { type Update, allUpdates } from 'contentlayer/generated';
+import { css } from 'ds/css';
+import { flex } from 'ds/patterns';
+import { link } from 'ds/recipes';
 import { Metadata } from 'next';
+import Link from 'next/link';
 import {
   ProseLayout,
   ProseLayoutContent,
   ProseLayoutHeader,
 } from '../_components/prose-layout';
-import { flex } from 'ds/patterns';
-import Link from 'next/link';
-import { link } from 'ds/recipes';
-import { css } from 'ds/css';
-import { UpdatePageMDX } from './[update]/update-page-mdx';
 
 const title = 'Now';
 const description = 'A snapshot of my life via short updates.';
@@ -34,7 +33,7 @@ export const metadata: Metadata = {
 };
 
 export default function Now() {
-  const updates = sortArrayByDateDesc(allUpdates);
+  const updates = sortArrayByDateDesc(getAllUpdates());
 
   return (
     <ProseLayout>
@@ -50,7 +49,7 @@ export default function Now() {
       <ProseLayoutContent>
         <div className={flex({ direction: 'column' })}>
           {updates.map((update) => {
-            return <Update key={update._id} update={update} />;
+            return <UpdateItem key={update.slug} update={update} />;
           })}
         </div>
       </ProseLayoutContent>
@@ -58,12 +57,16 @@ export default function Now() {
   );
 }
 
-interface UpdateProps {
+interface UpdateItemProps {
   update: Update;
 }
-const Update = ({ update }: UpdateProps) => {
-  const { body, date } = update;
+
+async function UpdateItem({ update }: UpdateItemProps) {
+  const { slug, date } = update;
   const fancyDate = parseDateToString(date);
+  const { default: Content } = (await import(`@/data/updates/${slug}.mdx`)) as {
+    default: () => JSX.Element;
+  };
 
   return (
     <div
@@ -77,9 +80,9 @@ const Update = ({ update }: UpdateProps) => {
         },
       })}
     >
-      <UpdatePageMDX code={body.code} />
+      <Content />
       <Link
-        href={`${PATHS.now}/${update.slug}`}
+        href={`${PATHS.now}/${slug}`}
         className={link({ color: 'secondary' })}
       >
         <time
@@ -96,4 +99,4 @@ const Update = ({ update }: UpdateProps) => {
       </Link>
     </div>
   );
-};
+}

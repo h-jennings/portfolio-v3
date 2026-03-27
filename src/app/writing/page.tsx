@@ -1,16 +1,16 @@
 import { PATHS } from '@/app/_utils/constants/paths.constants';
+import { getAllWritings } from '@/app/_utils/content';
 import {
   addYearToWritings,
   groupDatesByYear,
   parseDateToString,
 } from '@/app/_utils/helpers/date.helpers';
-import { allWritings } from 'contentlayer/generated';
 import { css, cx } from 'ds/css';
 import { flex, linkBox, linkOverlay, stack } from 'ds/patterns';
 import { Metadata } from 'next';
+import Link from 'next/link';
 import { BackToLink } from '../_components/back-to-link';
 import s from './writing.module.css';
-import Link from 'next/link';
 
 const title = 'Writing';
 const description =
@@ -31,6 +31,7 @@ export const metadata: Metadata = {
 };
 
 export default function Writing() {
+  const allWritings = getAllWritings();
   const featuredWritings = allWritings.filter(({ featured }) => {
     return featured;
   });
