@@ -3,7 +3,7 @@ import {
   parseDateToString,
   sortArrayByDateDesc,
 } from '@/app/_utils/helpers/date.helpers';
-import { Update, allUpdates } from 'contentlayer/generated';
+import { type Update, allUpdates } from 'contentlayer/generated';
 import { Metadata } from 'next';
 import {
   ProseLayout,
