@@ -1,18 +1,17 @@
-import * as React from 'react';
+import ArrowRightIcon from '@/app/_components/icons/ArrowRightIcon';
+import { PATHS } from '@/app/_utils/constants/paths.constants';
+import { getAllWritings } from '@/app/_utils/content';
 import {
   parseDateToLongDateString,
   sortArrayByDateDesc,
 } from '@/app/_utils/helpers/date.helpers';
-import { allWritings } from 'contentlayer/generated';
-import { VisuallyHiddenRoot } from './_components/visually-hidden';
-import { flex, grid, hstack, stack } from 'ds/patterns';
 import { css, cx } from 'ds/css';
-import Link from 'next/link';
+import { flex, grid, hstack, stack } from 'ds/patterns';
 import { link } from 'ds/recipes';
-import { PATHS } from '@/app/_utils/constants/paths.constants';
 import { token } from 'ds/tokens';
-import ArrowRightIcon from '@/app/_components/icons/ArrowRightIcon';
-import { getProjects } from './_utils/helpers/projects.helpers';
+import Link from 'next/link';
+import * as React from 'react';
+import { ProjectCard, ProjectCardLoadingUI } from './_components/project-card';
 import {
   ScrollAreaRoot,
   ScrollAreaScrollbar,
@@ -23,7 +22,8 @@ import {
   thumbStyles,
   viewportStyles,
 } from './_components/scroll-area';
-import { ProjectCard, ProjectCardLoadingUI } from './_components/project-card';
+import { VisuallyHiddenRoot } from './_components/visually-hidden';
+import { getProjects } from './_utils/helpers/projects.helpers';
 
 export default function Home() {
   return (
@@ -160,7 +160,7 @@ const cardWrapper = css({
 });
 
 const WritingsSection = () => {
-  const writings = sortArrayByDateDesc(allWritings);
+  const writings = sortArrayByDateDesc(getAllWritings());
   const hasWritings = writings.length > 0;
 
   if (!hasWritings) return null;
@@ -174,11 +174,11 @@ const WritingsSection = () => {
         <ArrowLink href={PATHS.writing}>view all</ArrowLink>
       </div>
       <ul className={stack({ gap: 'm' })}>
-        {writings.map(({ _id, slug, title, date }) => {
+        {writings.map(({ slug, title, date }) => {
           return (
             <li
               className={cx(stack({ gap: '3xs' }), writingsListItem)}
-              key={_id}
+              key={slug}
             >
               <div>
                 <Link

@@ -6,16 +6,15 @@ import {
 } from '@/app/_components/prose-layout';
 import { Separator } from '@/app/_components/separator';
 import { PATHS } from '@/app/_utils/constants/paths.constants';
+import { getAllWritings } from '@/app/_utils/content';
 import { parseDateToString } from '@/app/_utils/helpers/date.helpers';
-import { allWritings } from 'contentlayer/generated';
 import { css } from 'ds/css';
 import { hstack, stack } from 'ds/patterns';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { SlugPageMDX } from './slug-page-mdx';
 
 export const generateStaticParams = () => {
-  return allWritings.map((writing) => ({ slug: writing.slug }));
+  return getAllWritings().map((writing) => ({ slug: writing.slug }));
 };
 
 export const generateMetadata = ({
@@ -23,7 +22,7 @@ export const generateMetadata = ({
 }: {
   params: { slug: string };
 }): Metadata => {
-  const writing = allWritings.find((writing) => writing.slug === params.slug);
+  const writing = getAllWritings().find((w) => w.slug === params.slug);
 
   if (!writing) {
     return {};
@@ -48,14 +47,21 @@ export const generateMetadata = ({
   };
 };
 
-export default function Writing({ params }: { params: { slug: string } }) {
-  const writing = allWritings.find((writing) => writing.slug === params.slug);
+export default async function Writing({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const writing = getAllWritings().find((w) => w.slug === params.slug);
 
   if (!writing) {
     return notFound();
   }
 
-  const { title, description, date, body, readingTime } = writing;
+  const { title, description, date, readingTime } = writing;
+  const { default: Content } = (await import(
+    `@/data/writings/${params.slug}.mdx`
+  )) as { default: () => JSX.Element };
 
   return (
     <ProseLayout>
@@ -90,7 +96,7 @@ export default function Writing({ params }: { params: { slug: string } }) {
         </div>
       </ProseLayoutHeader>
       <ProseLayoutContent>
-        <SlugPageMDX code={body.code} />
+        <Content />
         <div>
           <Separator />
           <div>
