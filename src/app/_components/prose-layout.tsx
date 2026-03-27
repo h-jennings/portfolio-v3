@@ -1,7 +1,6 @@
 import { css } from 'ds/css';
 import { stack, grid } from 'ds/patterns';
 import * as React from 'react';
-import Balancer from 'react-wrap-balancer';
 import { BackToLink } from './back-to-link';
 
 export const ProseLayout = ({ children }: { children: React.ReactNode }) => {
@@ -63,8 +62,11 @@ export const ProseLayoutHeader = ({
         ) : null}
         <div className={stack({ gap: 'm' })}>
           {headline != null && (
-            <h1 className={css({ textStyle: 'heading' })}>
-              <Balancer>{headline}</Balancer>
+            <h1
+              className={css({ textStyle: 'heading' })}
+              style={{ textWrap: 'balance' } as React.CSSProperties}
+            >
+              {headline}
             </h1>
           )}
           {description != null && (
