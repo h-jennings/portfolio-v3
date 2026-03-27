@@ -52,3 +52,4 @@ src/graphql/generated/
 
 # Panda
 ds
+.env*.local
