@@ -1,13 +1,15 @@
+import { CMS_URL } from '@/app/_utils/constants/cms.constants';
 import { GraphQLClient } from 'graphql-request';
 import { draftMode } from 'next/headers';
 import 'server-only';
 import { getSdk } from './generated/cms.generated';
-import { CMS_URL } from '@/app/_utils/constants/cms.constants';
 
 const getAuthHeader = () => {
   const { isEnabled } = draftMode();
   return `Bearer ${
-    !isEnabled ? process.env.CMS_PROD_TOKEN! : process.env.CMS_PREVIEW_TOKEN!
+    !isEnabled
+      ? (process.env.CMS_PROD_TOKEN ?? '')
+      : (process.env.CMS_PREVIEW_TOKEN ?? '')
   }`;
 };
 

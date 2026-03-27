@@ -1,7 +1,7 @@
-import { getProjects } from '@/app/_utils/helpers/projects.helpers';
 import ArrowLeftIcon from '@/app/_components/icons/ArrowLeftIcon';
 import ArrowRightIcon from '@/app/_components/icons/ArrowRightIcon';
 import { PATHS } from '@/app/_utils/constants/paths.constants';
+import { getProjects } from '@/app/_utils/helpers/projects.helpers';
 import { css, cx } from 'ds/css';
 import { flex, hstack, linkBox, linkOverlay } from 'ds/patterns';
 import { link } from 'ds/recipes';
@@ -123,7 +123,7 @@ function prevNextProjectData<T extends unknown[]>(
   return [previousProject, nextProject];
 }
 
-const isFalsy = (val: any) => {
+const isFalsy = (val: unknown) => {
   return val == null;
 };
 
