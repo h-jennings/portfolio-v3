@@ -9,5 +9,6 @@
   "proseWrap": "always",
   "arrowParens": "always",
   "quoteProps": "as-needed",
-  "bracketSameLine": false
+  "bracketSameLine": false,
+  "plugins": ["prettier-plugin-organize-imports"]
 }

@@ -8,7 +8,7 @@ export const alt =
 export default async function Image({ params }: { params: { slug: string } }) {
   const writing = allWritings.find((writing) => writing.slug === params.slug);
 
-  const { title, description } = writing!;
+  const { title, description } = writing ?? { title: '', description: '' };
   return await ogTemplate({
     title: title,
     sub: description,

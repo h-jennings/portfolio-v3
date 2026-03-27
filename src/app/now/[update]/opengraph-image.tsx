@@ -1,5 +1,5 @@
-import { ogTemplate } from '@/app/_utils/og-template';
 import { parseDateToLongDateString } from '@/app/_utils/helpers/date.helpers';
+import { ogTemplate } from '@/app/_utils/og-template';
 import { allUpdates } from 'contentlayer/generated';
 
 export const runtime = 'edge';
@@ -11,7 +11,7 @@ export default async function Image({
   params: { update: string };
 }) {
   const update = allUpdates.find((update) => update.slug === params.update);
-  const fancyDate = parseDateToLongDateString(update!.date);
+  const fancyDate = parseDateToLongDateString(update?.date ?? '');
 
   return await ogTemplate({
     title: 'Now',

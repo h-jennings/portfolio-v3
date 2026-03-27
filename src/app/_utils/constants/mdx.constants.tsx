@@ -11,7 +11,7 @@ import { link } from 'ds/recipes';
 import Link from 'next/link';
 
 export const MDX_ELEMENTS = {
-  h1: (props: any) => (
+  h1: (props: React.ComponentPropsWithoutRef<'h1'>) => (
     <h1
       className={css({
         textStyle: 'base',
@@ -23,7 +23,7 @@ export const MDX_ELEMENTS = {
       {...props}
     />
   ),
-  h2: (props: any) => (
+  h2: (props: React.ComponentPropsWithoutRef<'h2'>) => (
     <h2
       className={css({
         textStyle: 'base',
@@ -36,7 +36,7 @@ export const MDX_ELEMENTS = {
       {...props}
     />
   ),
-  h3: (props: any) => (
+  h3: (props: React.ComponentPropsWithoutRef<'h3'>) => (
     <h3
       className={css({
         textStyle: 'base',
@@ -48,7 +48,7 @@ export const MDX_ELEMENTS = {
       {...props}
     />
   ),
-  h4: (props: any) => (
+  h4: (props: React.ComponentPropsWithoutRef<'h4'>) => (
     <h4
       className={css({
         textStyle: 'base',
@@ -60,7 +60,7 @@ export const MDX_ELEMENTS = {
       {...props}
     />
   ),
-  h5: (props: any) => (
+  h5: (props: React.ComponentPropsWithoutRef<'h5'>) => (
     <h5
       className={css({
         textStyle: 'base',
@@ -72,7 +72,7 @@ export const MDX_ELEMENTS = {
       {...props}
     />
   ),
-  h6: (props: any) => (
+  h6: (props: React.ComponentPropsWithoutRef<'h6'>) => (
     <h6
       className={css({
         textStyle: 'base',
@@ -84,7 +84,7 @@ export const MDX_ELEMENTS = {
       {...props}
     />
   ),
-  p: (props: any) => (
+  p: (props: React.ComponentPropsWithoutRef<'p'>) => (
     <p
       className={css({
         textStyle: 'body',
@@ -93,13 +93,13 @@ export const MDX_ELEMENTS = {
       {...props}
     />
   ),
-  strong: (props: any) => (
+  strong: (props: React.ComponentPropsWithoutRef<'strong'>) => (
     <strong
       className={cx(css({ fontWeight: 'bold' }), inlineElementReset)}
       {...props}
     />
   ),
-  em: (props: any) => (
+  em: (props: React.ComponentPropsWithoutRef<'em'>) => (
     <em
       className={cx(
         css({ fontFamily: 'serif', fontStyle: 'italic' }),
@@ -108,26 +108,33 @@ export const MDX_ELEMENTS = {
       {...props}
     />
   ),
-  a: (props: any) => (
+  a: (props: React.ComponentPropsWithoutRef<'a'>) => (
     <Link
       {...props}
+      href={props.href ?? '#'}
       className={cx(
         link({ color: 'accent' }),
         css({ fontSize: 'inherit', lineHeight: 'inherit' }),
       )}
     />
   ),
-  ul: (props: any) => <ul className={unorderedList} {...props} />,
-  ol: (props: any) => <ol className={orderedList} {...props} />,
-  li: (props: any) => (
+  ul: (props: React.ComponentPropsWithoutRef<'ul'>) => (
+    <ul className={unorderedList} {...props} />
+  ),
+  ol: (props: React.ComponentPropsWithoutRef<'ol'>) => (
+    <ol className={orderedList} {...props} />
+  ),
+  li: (props: React.ComponentPropsWithoutRef<'li'>) => (
     <li
       className={cx(css({ textStyle: 'base', lineHeight: 'body' }), listItem)}
       {...props}
     />
   ),
-  hr: (props: any) => <Separator {...props} />,
-  blockquote: (props: any) => <blockquote className={blockquote} {...props} />,
-  pre: (props: any) => (
+  hr: (props: React.ComponentPropsWithoutRef<'hr'>) => <Separator {...props} />,
+  blockquote: (props: React.ComponentPropsWithoutRef<'blockquote'>) => (
+    <blockquote className={blockquote} {...props} />
+  ),
+  pre: (props: React.ComponentPropsWithoutRef<'pre'>) => (
     <pre
       className={css({
         mb: 'm',
