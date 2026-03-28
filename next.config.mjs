@@ -29,9 +29,7 @@ const withMDX = createMDX({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
-  swcMinify: true,
   reactStrictMode: true,
-  outputFileTracing: true,
   outputFileTracingIncludes: {
     '/writing/[slug]': ['./src/data/writings/**/*.mdx'],
     '/now/[update]': ['./src/data/updates/**/*.mdx'],
@@ -47,7 +45,7 @@ const nextConfig = {
         hostname: '**.graphassets.com',
       },
     ],
-    domains: ['media.graphassets.com'],
+    qualities: [75, 100],
     formats: ['image/webp'],
   },
   async redirects() {

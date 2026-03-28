@@ -6,7 +6,7 @@ const config: CodegenConfig = {
       [`https://api-us-east-1.hygraph.com/v2/${process.env.CMS_SPACE}/${process.env.CMS_ENV}`]:
         {
           headers: {
-            Authorization: `Bearer ${process.env.CMS_PROD_TOKEN!}`,
+            Authorization: `Bearer ${process.env.CMS_PROD_TOKEN ?? ''}`,
           },
         },
     },

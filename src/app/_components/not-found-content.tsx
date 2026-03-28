@@ -1,6 +1,8 @@
 import { css } from 'ds/css';
 import { stack } from 'ds/patterns';
 
+import type { JSX } from 'react';
+
 interface NotFoundContentProps {
   title?: string;
   children?: React.ReactNode;
