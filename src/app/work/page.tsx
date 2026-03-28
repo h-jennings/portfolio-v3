@@ -1,16 +1,16 @@
-import { RichText } from '@graphcms/rich-text-react-renderer';
 import { PATHS } from '@/app/_utils/constants/paths.constants';
-import { grid, linkBox, linkOverlay, stack } from 'ds/patterns';
-import { Metadata } from 'next';
-import { BackToLink } from '../_components/back-to-link';
-import { css } from 'ds/css';
-import Link from 'next/link';
-import { token } from 'ds/tokens';
-import { RichTextContent } from '@graphcms/rich-text-types';
-import { ProjectCard } from '../_components/project-card';
-import { Media } from '../_components/media';
-import { getProjects } from '../_utils/helpers/projects.helpers';
 import { ProjectInfoFragment } from '@/graphql/generated/cms.generated';
+import { RichText } from '@graphcms/rich-text-react-renderer';
+import { RichTextContent } from '@graphcms/rich-text-types';
+import { css } from 'ds/css';
+import { grid, linkBox, linkOverlay, stack } from 'ds/patterns';
+import { token } from 'ds/tokens';
+import { Metadata } from 'next';
+import Link from 'next/link';
+import { BackToLink } from '../_components/back-to-link';
+import { Media } from '../_components/media';
+import { ProjectCard } from '../_components/project-card';
+import { getProjects } from '../_utils/helpers/projects.helpers';
 
 const title = 'Work';
 const description = 'A curated collection of my work throughout the years.';

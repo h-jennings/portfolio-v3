@@ -1,7 +1,7 @@
 import { defineRecipe } from '@pandacss/dev';
 
 export const linkRecipe = defineRecipe({
-  name: 'link',
+  className: 'link',
   base: {
     '--activeColor': 'inherit',
     cursor: 'pointer',
