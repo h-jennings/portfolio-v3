@@ -13,8 +13,6 @@ import { css } from 'ds/css';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import type { JSX } from 'react';
-
 export const generateStaticParams = () => {
   return getAllUpdates().map((update) => ({ update: update.slug }));
 };
@@ -67,7 +65,7 @@ export default async function Update(props: {
   const fancyDate = parseDateToString(date);
   const { default: Content } = (await import(
     `@/data/updates/${params.update}.mdx`
-  )) as { default: () => JSX.Element };
+  )) as { default: () => React.ReactNode };
 
   return (
     <ProseLayout>

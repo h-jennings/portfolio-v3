@@ -13,8 +13,6 @@ import { hstack, stack } from 'ds/patterns';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import type { JSX } from 'react';
-
 export const generateStaticParams = () => {
   return getAllWritings().map((writing) => ({ slug: writing.slug }));
 };
@@ -61,7 +59,7 @@ export default async function Writing(props: {
   const { title, description, date, readingTime } = writing;
   const { default: Content } = (await import(
     `@/data/writings/${params.slug}.mdx`
-  )) as { default: () => JSX.Element };
+  )) as { default: () => React.ReactNode };
 
   return (
     <ProseLayout>
