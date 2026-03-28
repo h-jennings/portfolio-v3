@@ -32,6 +32,10 @@ const nextConfig = {
   swcMinify: true,
   reactStrictMode: true,
   outputFileTracing: true,
+  outputFileTracingIncludes: {
+    '/writing/[slug]': ['./src/data/writings/**/*.mdx'],
+    '/now/[update]': ['./src/data/updates/**/*.mdx'],
+  },
   env: {
     NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL,
     NEXT_CMS_ASSET_ENV_ID: process.env.NEXT_CMS_ASSET_ENV_ID,
