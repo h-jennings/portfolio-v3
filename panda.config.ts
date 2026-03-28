@@ -34,6 +34,15 @@ export default defineConfig({
       },
     },
   },
+  patterns: {
+    extend: {
+      linkBox: {
+        transform(props) {
+          return { pos: 'relative', ...props };
+        },
+      },
+    },
+  },
   strictTokens: false,
   globalCss,
   outdir: 'ds',

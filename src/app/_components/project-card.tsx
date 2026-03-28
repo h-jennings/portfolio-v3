@@ -1,12 +1,12 @@
 import { HygraphImageWithLoader } from '@/app/_components/hygraph-image-with-loader';
 import { PATHS } from '@/app/_utils/constants/paths.constants';
 import { parseTagsToString } from '@/app/_utils/helpers/string.helpers';
+import { ProjectInfoFragment } from '@/graphql/generated/cms.generated';
 import { css, cx } from 'ds/css';
 import { linkBox, linkOverlay, stack } from 'ds/patterns';
 import Link from 'next/link';
-import { AspectRatioRoot } from './aspect-ratio';
 import { skeleton } from '../_styles/skeleton';
-import { ProjectInfoFragment } from '@/graphql/generated/cms.generated';
+import { AspectRatioRoot } from './aspect-ratio';
 
 interface ProjectCardProps {
   project: ProjectInfoFragment;
