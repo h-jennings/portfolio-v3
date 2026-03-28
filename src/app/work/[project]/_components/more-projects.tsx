@@ -8,8 +8,6 @@ import { link } from 'ds/recipes';
 import { token } from 'ds/tokens';
 import Link from 'next/link';
 
-import type { JSX } from 'react';
-
 export const MoreProjects = async ({ current }: { current: string }) => {
   const { projects } = await getProjects();
   const currentProjectIndex = projects.findIndex((p) => p.slug === current);
@@ -56,12 +54,7 @@ interface LinkProps {
   alignment: 'left' | 'right' | 'center';
 }
 
-const ProjectLink = ({
-  slug,
-  name,
-  arrowDirection,
-  alignment,
-}: LinkProps): JSX.Element => {
+const ProjectLink = ({ slug, name, arrowDirection, alignment }: LinkProps) => {
   const justify = ALIGNMENT_LOOKUP[alignment];
   return (
     <div

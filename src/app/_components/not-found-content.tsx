@@ -1,8 +1,6 @@
 import { css } from 'ds/css';
 import { stack } from 'ds/patterns';
 
-import type { JSX } from 'react';
-
 interface NotFoundContentProps {
   title?: string;
   children?: React.ReactNode;
@@ -10,7 +8,7 @@ interface NotFoundContentProps {
 export const NotFoundContent = ({
   children,
   title = 'Page Not Found',
-}: NotFoundContentProps): JSX.Element => {
+}: NotFoundContentProps) => {
   return (
     <div className={css({ w: 'full' })}>
       <div className={stack({ gap: 'm' })}>

@@ -5,8 +5,6 @@ import { token } from 'ds/tokens';
 import Link from 'next/link';
 import * as React from 'react';
 
-import type { JSX } from 'react';
-
 interface BackToLinkProps {
   href: string;
 }
@@ -14,7 +12,7 @@ interface BackToLinkProps {
 export const BackToLink = ({
   children,
   href,
-}: React.PropsWithChildren<BackToLinkProps>): JSX.Element => {
+}: React.PropsWithChildren<BackToLinkProps>) => {
   return (
     <div className={linkBox()}>
       <div

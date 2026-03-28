@@ -1,9 +1,7 @@
 import { css } from 'ds/css';
 import { circle, hstack } from 'ds/patterns';
 
-import type { JSX } from 'react';
-
-export const Separator = (): JSX.Element => {
+export const Separator = () => {
   return (
     <div
       className={css({

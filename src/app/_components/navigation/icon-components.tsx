@@ -2,14 +2,9 @@ import { MoonIcon } from '@/app/_components/icons/MoonIcon';
 import { SunIcon } from '@/app/_components/icons/SunIcon';
 import { SystemIcon } from '@/app/_components/icons/SystemIcon';
 
-import type { JSX } from 'react';
-
 export type Theme = 'system' | 'light' | 'dark';
 
-export const ICON_SVG_COMPONENTS: Record<
-  Theme,
-  { label: string; icon: () => JSX.Element }
-> = {
+export const ICON_SVG_COMPONENTS = {
   dark: {
     label: 'dark theme',
     icon: () => <MoonIcon />,
