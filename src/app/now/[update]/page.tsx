@@ -13,15 +13,16 @@ import { css } from 'ds/css';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+import type { JSX } from 'react';
+
 export const generateStaticParams = () => {
   return getAllUpdates().map((update) => ({ update: update.slug }));
 };
 
-export const generateMetadata = ({
-  params,
-}: {
-  params: { update: string };
-}): Metadata => {
+export const generateMetadata = async (props: {
+  params: Promise<{ update: string }>;
+}): Promise<Metadata> => {
+  const params = await props.params;
   const update = getAllUpdates().find((u) => u.slug === params.update);
 
   if (!update) {
@@ -52,11 +53,10 @@ export const generateMetadata = ({
   };
 };
 
-export default async function Update({
-  params,
-}: {
-  params: { update: string };
+export default async function Update(props: {
+  params: Promise<{ update: string }>;
 }) {
+  const params = await props.params;
   const update = getAllUpdates().find((u) => u.slug === params.update);
 
   if (!update) {

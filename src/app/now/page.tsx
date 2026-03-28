@@ -15,6 +15,8 @@ import {
   ProseLayoutHeader,
 } from '../_components/prose-layout';
 
+import type { JSX } from 'react';
+
 const title = 'Now';
 const description = 'A snapshot of my life via short updates.';
 const url = new URL(`${PATHS.base}${PATHS.now}`);

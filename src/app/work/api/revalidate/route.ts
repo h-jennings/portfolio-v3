@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
+
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { TAGS } from '@/app/_utils/constants/cache.constants';
 import { verifyWebhookSignature } from '@hygraph/utils';
@@ -9,7 +9,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
-  const signature = headers().get('gcms-signature');
+  const signature = (await headers()).get('gcms-signature');
   const secret = process.env.CMS_WEBHOOK_SECRET;
 
   if (signature == null) {
@@ -36,12 +36,12 @@ export async function POST(request: NextRequest) {
 
   try {
     console.log(`[Next.js] Revalidating ${TAGS.projects}`);
-    revalidateTag(TAGS.projects);
+    revalidateTag(TAGS.projects, 'max');
 
     const slug = body?.data?.slug;
 
     console.log(`[Next.js] Revalidating ${TAGS.project(slug as string)}`);
-    revalidateTag(TAGS.project(slug as string));
+    revalidateTag(TAGS.project(slug as string), 'max');
 
     return NextResponse.json({
       status: 200,

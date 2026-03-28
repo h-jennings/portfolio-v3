@@ -1,14 +1,4 @@
-import * as React from 'react';
-import { PATHS } from '@/app/_utils/constants/paths.constants';
-import { flex, grid, stack } from 'ds/patterns';
-import { Metadata } from 'next';
-import { BackToLink } from '../../_components/back-to-link';
-import { css, cva } from 'ds/css';
-import { getYear } from 'date-fns';
-import Link from 'next/link';
 import { ArrowTopRightIcon } from '@/app/_components/icons/ArrowTopRightIcon';
-import { RichText } from '@graphcms/rich-text-react-renderer';
-import { RichTextContent } from '@graphcms/rich-text-types';
 import { Media } from '@/app/_components/media';
 import {
   ScrollAreaRoot,
@@ -20,16 +10,25 @@ import {
   thumbStyles,
   viewportStyles,
 } from '@/app/_components/scroll-area';
-import { MoreProjects } from './_components/more-projects';
-import { getProject } from '../../_utils/helpers/projects.helpers';
+import { PATHS } from '@/app/_utils/constants/paths.constants';
 import { ProjectInfoFragment } from '@/graphql/generated/cms.generated';
+import { RichText } from '@graphcms/rich-text-react-renderer';
+import { RichTextContent } from '@graphcms/rich-text-types';
+import { getYear } from 'date-fns';
+import { css, cva } from 'ds/css';
+import { flex, grid, stack } from 'ds/patterns';
+import { Metadata } from 'next';
+import Link from 'next/link';
+import * as React from 'react';
+import { BackToLink } from '../../_components/back-to-link';
+import { getProject } from '../../_utils/helpers/projects.helpers';
+import { MoreProjects } from './_components/more-projects';
 import notFound from './not-found';
 
-export const generateMetadata = async ({
-  params,
-}: {
-  params: { project: string };
+export const generateMetadata = async (props: {
+  params: Promise<{ project: string }>;
 }): Promise<Metadata> => {
+  const params = await props.params;
   const data = await getProject(params.project);
 
   const { project } = data;
@@ -66,11 +65,10 @@ export const generateMetadata = async ({
   };
 };
 
-export default async function Project({
-  params,
-}: {
-  params: { project: string };
+export default async function Project(props: {
+  params: Promise<{ project: string }>;
 }) {
+  const params = await props.params;
   const data = await getProject(params.project);
 
   if (!data.project) {
