@@ -37,15 +37,8 @@ const nextConfig = {
   },
   env: {
     NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL,
-    NEXT_CMS_ASSET_ENV_ID: process.env.NEXT_CMS_ASSET_ENV_ID,
   },
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: '**.graphassets.com',
-      },
-    ],
     qualities: [75, 100],
     formats: ['image/webp'],
   },
