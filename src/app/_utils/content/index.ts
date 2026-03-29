@@ -76,6 +76,7 @@ const projectFrontmatterSchema = z.object({
   name: z.string(),
   client: z.string().nullable().default(null),
   category: z.array(z.string()),
+  contribution: z.array(z.string()),
   featured: z.boolean(),
   date: z.array(z.unknown()).transform((dates) => dates.map(toDateString)),
   link: z.string().nullable().default(null),
