@@ -10,6 +10,7 @@ import { flex, grid, hstack, stack } from 'ds/patterns';
 import { link } from 'ds/recipes';
 import { token } from 'ds/tokens';
 import Link from 'next/link';
+
 import { ProjectCard } from './_components/project-card';
 import {
   ScrollAreaRoot,
@@ -31,6 +32,7 @@ export default function Home() {
       </VisuallyHiddenRoot>
       <div className={stack({ gap: '3xl' })}>
         <IntroductionSection />
+        <ExperienceSection />
         <WorkSection>
           <ProjectGrid />
         </WorkSection>
@@ -43,41 +45,35 @@ export default function Home() {
 
 const IntroductionSection = () => {
   return (
-    <section className={stack({ gap: 'xl' })}>
-      <div className={stack({ gap: 'm' })}>
-        <h2
-          className={css({
-            textStyle: 'serif',
-            lineHeight: 'tight',
-          })}
-          aria-label='Who is Hunter Jennings'
-        >
-          Hunter Jennings
-        </h2>
-        <p className={css({ textStyle: 'base' })}>
-          User interface engineer interested in design systems, component
-          architectures, TypeScript, and React.
-        </p>
-      </div>
-      <div className={stack({ gap: 'xs' })}>
-        <h2
-          className={css({ textStyle: 'base', color: 'text2', fontSize: '1' })}
-          aria-label="What I'm up to now"
-        >
-          Now
-        </h2>
-        <p className={css({ textStyle: 'base' })}>
-          Currently working as a Senior Frontend Developer for a social venture
-          education start-up&mdash;
-          <Link
-            className={link({ underline: true, color: 'accent' })}
-            href={PATHS.breakline}
-          >
-            Breakline
-          </Link>
-          .
-        </p>
-      </div>
+    <section className={stack({ gap: 'm' })}>
+      <h2
+        className={css({
+          textStyle: 'serif',
+          lineHeight: 'tight',
+        })}
+        aria-label='Who is Hunter Jennings'
+      >
+        Hunter Jennings
+      </h2>
+      <p className={css({ textStyle: 'base' })}>
+        UI engineer comfortable working across the stack, with a passion for
+        crafting polished interfaces and scalable design systems.
+      </p>
+    </section>
+  );
+};
+
+const ExperienceSection = () => {
+  return (
+    <section className={stack({ gap: 'm' })}>
+      <h2 className={css({ textStyle: 'base', lineHeight: 'tight' })}>
+        Experience
+      </h2>
+      <p className={css({ textStyle: 'body' })}>
+        My experience spans a variety of team sizes, industries, and technical
+        challenges, giving me a broad perspective on what it takes to build and
+        ship great products.
+      </p>
     </section>
   );
 };
@@ -224,9 +220,8 @@ const ConnectSection = () => {
       </h2>
       <div className={stack({ gap: 'xl' })}>
         <p className={css({ textStyle: 'body' })}>
-          I&apos;m not currently looking for new opportunities, but feel free to
-          reach out if you&apos;d like. I&apos;m always happy to hear from folks
-          and talk shop.
+          I&apos;m currently exploring new opportunities. If you&apos;re working
+          on something interesting, let&apos;s talk.
         </p>
         <ul className={stack({ gap: 's' })}>
           <ConnectLinkListItem label='Twitter'>
