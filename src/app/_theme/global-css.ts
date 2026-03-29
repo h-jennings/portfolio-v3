@@ -29,10 +29,12 @@ export const globalCss = defineGlobalStyles({
       boxShadow: 'focus',
     },
   },
-  'html.dark-theme div[data-theme="light"], html.dark-theme pre[data-theme="light"], html.dark-theme code[data-theme="light"], html.light-theme div[data-theme="dark"], html.light-theme pre[data-theme="dark"], html.light-theme code[data-theme="dark"]':
-    {
-      display: 'none',
-    },
+  'html.dark-theme [data-theme] span': {
+    color: 'var(--shiki-dark)',
+  },
+  'html.light-theme [data-theme] span': {
+    color: 'var(--shiki-light)',
+  },
   '[data-rehype-pretty-code-title]': {
     py: 's',
     px: 'm',
@@ -53,7 +55,7 @@ export const globalCss = defineGlobalStyles({
     borderTopRightRadius: 0,
     borderTop: 0,
   },
-  'div[data-rehype-pretty-code-fragment]': {
+  'figure[data-rehype-pretty-code-figure]': {
     code: {
       display: 'grid',
     },
