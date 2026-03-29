@@ -1,6 +1,6 @@
 import ArrowRightIcon from '@/app/_components/icons/ArrowRightIcon';
 import { PATHS } from '@/app/_utils/constants/paths.constants';
-import { getAllWritings } from '@/app/_utils/content';
+import { getAllProjects, getAllWritings } from '@/app/_utils/content';
 import {
   parseDateToLongDateString,
   sortArrayByDateDesc,
@@ -10,8 +10,7 @@ import { flex, grid, hstack, stack } from 'ds/patterns';
 import { link } from 'ds/recipes';
 import { token } from 'ds/tokens';
 import Link from 'next/link';
-import * as React from 'react';
-import { ProjectCard, ProjectCardLoadingUI } from './_components/project-card';
+import { ProjectCard } from './_components/project-card';
 import {
   ScrollAreaRoot,
   ScrollAreaScrollbar,
@@ -23,7 +22,6 @@ import {
   viewportStyles,
 } from './_components/scroll-area';
 import { VisuallyHiddenRoot } from './_components/visually-hidden';
-import { getProjects } from './_utils/helpers/projects.helpers';
 
 export default function Home() {
   return (
@@ -34,9 +32,7 @@ export default function Home() {
       <div className={stack({ gap: '3xl' })}>
         <IntroductionSection />
         <WorkSection>
-          <React.Suspense fallback={<ProjectGridLoadingUI />}>
-            <ProjectGrid />
-          </React.Suspense>
+          <ProjectGrid />
         </WorkSection>
         <WritingsSection />
         <ConnectSection />
@@ -100,8 +96,8 @@ const WorkSection = ({ children }: { children?: React.ReactNode }) => {
   );
 };
 
-const ProjectGrid = async () => {
-  const { projects } = await getProjects(3);
+const ProjectGrid = () => {
+  const projects = getAllProjects(3);
 
   return (
     <ScrollAreaRoot className={rootStyles}>
@@ -118,7 +114,7 @@ const ProjectGrid = async () => {
         >
           {projects.map((project) => {
             return (
-              <div key={project.id} className={cardWrapper}>
+              <div key={project.slug} className={cardWrapper}>
                 <ProjectCard
                   project={project}
                   sizes='(max-width: 590px) 90vw, (max-width: 767px) 45vw, 220px'
@@ -129,27 +125,6 @@ const ProjectGrid = async () => {
         </div>
       </ScrollAreaViewport>
     </ScrollAreaRoot>
-  );
-};
-
-const ProjectGridLoadingUI = () => {
-  return (
-    <div
-      className={flex({
-        mb: 'l',
-        wrap: 'nowrap',
-        direction: 'row',
-        overflow: 'hidden',
-      })}
-    >
-      {Array.from({ length: 3 }, (_, i) => {
-        return (
-          <div key={i} className={cardWrapper}>
-            <ProjectCardLoadingUI />
-          </div>
-        );
-      })}
-    </div>
   );
 };
 

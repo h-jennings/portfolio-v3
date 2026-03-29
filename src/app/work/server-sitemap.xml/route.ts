@@ -1,9 +1,8 @@
-import { getProjects } from '@/app/_utils/helpers/projects.helpers';
+import { getAllProjects } from '@/app/_utils/content';
 import { getServerSideSitemap } from 'next-sitemap';
 
 export async function GET() {
-  // Method to source urls from cms
-  const { projects } = await getProjects();
+  const projects = getAllProjects();
   return getServerSideSitemap(
     projects.map((project) => ({
       loc: `https://www.hunterjennings.dev/work/${project.slug}`,

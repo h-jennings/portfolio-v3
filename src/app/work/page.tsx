@@ -1,16 +1,14 @@
+import { ProjectImage } from '@/app/_components/project-image';
 import { PATHS } from '@/app/_utils/constants/paths.constants';
-import { ProjectInfoFragment } from '@/graphql/generated/cms.generated';
-import { RichText } from '@graphcms/rich-text-react-renderer';
-import { RichTextContent } from '@graphcms/rich-text-types';
+import { getAllProjects, type Project } from '@/app/_utils/content';
 import { css } from 'ds/css';
 import { grid, linkBox, linkOverlay, stack } from 'ds/patterns';
 import { token } from 'ds/tokens';
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { AspectRatioRoot } from '../_components/aspect-ratio';
 import { BackToLink } from '../_components/back-to-link';
-import { Media } from '../_components/media';
 import { ProjectCard } from '../_components/project-card';
-import { getProjects } from '../_utils/helpers/projects.helpers';
 
 const title = 'Work';
 const description = 'A curated collection of my work throughout the years.';
@@ -29,12 +27,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Work() {
-  const { projects } = await getProjects();
+export default function Work() {
+  const projects = getAllProjects();
 
-  const featuredProject = projects.filter((project) =>
-    Boolean(project.featured),
-  )[0];
+  const featuredProject = projects.find((project) => project.featured);
 
   return (
     <div className={stack({ gap: 'xl' })}>
@@ -61,7 +57,7 @@ export default async function Work() {
         >
           {projects.map((project) => {
             return (
-              <li key={project.id}>
+              <li key={project.slug}>
                 <ProjectCard
                   project={project}
                   sizes='(max-width: 449px) 100vw, (max-width: 767px) 50vw, 220px'
@@ -76,10 +72,10 @@ export default async function Work() {
 }
 
 interface FeaturedProjectProps {
-  project: ProjectInfoFragment;
+  project: Project;
 }
 const FeaturedProject = ({ project }: FeaturedProjectProps) => {
-  const { featureMediaWide, slug, name, description } = project;
+  const { featuredMediaWide, slug, name, description } = project;
   return (
     <div className={stack({ gap: 'm' })}>
       <h2
@@ -106,7 +102,7 @@ const FeaturedProject = ({ project }: FeaturedProjectProps) => {
           }}
         >
           <div className={stack({ gap: 'm' })}>
-            {featureMediaWide.mediaType != null && (
+            {featuredMediaWide.mediaType === 'IMAGE' ? (
               <div
                 className={css({
                   rounded: 'card',
@@ -115,13 +111,37 @@ const FeaturedProject = ({ project }: FeaturedProjectProps) => {
                 })}
                 style={{ overflow: 'hidden', isolation: 'isolate' }}
               >
-                <Media
-                  type={featureMediaWide.mediaType}
-                  url={featureMediaWide.url}
-                  width={460}
-                  height={275}
-                  sizes='(max-width) 100vw, 460px'
-                />
+                <AspectRatioRoot ratio={460 / 275}>
+                  <ProjectImage
+                    src={featuredMediaWide.url}
+                    alt={featuredMediaWide.alt}
+                    fill
+                    style={{ objectFit: 'cover' }}
+                    quality={100}
+                    sizes='(max-width) 100vw, 460px'
+                  />
+                </AspectRatioRoot>
+              </div>
+            ) : (
+              <div
+                className={css({
+                  rounded: 'card',
+                  h: 'full',
+                  bgColor: 'slate8',
+                })}
+                style={{ overflow: 'hidden', isolation: 'isolate' }}
+              >
+                <AspectRatioRoot ratio={460 / 275}>
+                  <video
+                    src={featuredMediaWide.url}
+                    style={{ objectFit: 'cover', height: '100%' }}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    controls={false}
+                  />
+                </AspectRatioRoot>
               </div>
             )}
             <div>
@@ -136,22 +156,15 @@ const FeaturedProject = ({ project }: FeaturedProjectProps) => {
                   {name}
                 </p>
               </Link>
-              <RichText
-                renderers={{
-                  p: ({ children }) => (
-                    <p
-                      className={css({
-                        fontSize: '1',
-                        color: 'text2',
-                        pt: '3xs',
-                      })}
-                    >
-                      {children}
-                    </p>
-                  ),
-                }}
-                content={description.raw as RichTextContent}
-              />
+              <p
+                className={css({
+                  fontSize: '1',
+                  color: 'text2',
+                  pt: '3xs',
+                })}
+              >
+                {description}
+              </p>
             </div>
           </div>
         </div>

@@ -1,21 +1,20 @@
-import { HygraphImageWithLoader } from '@/app/_components/hygraph-image-with-loader';
 import { PATHS } from '@/app/_utils/constants/paths.constants';
+import { type Project } from '@/app/_utils/content';
 import { parseTagsToString } from '@/app/_utils/helpers/string.helpers';
-import { ProjectInfoFragment } from '@/graphql/generated/cms.generated';
 import { css, cx } from 'ds/css';
 import { linkBox, linkOverlay, stack } from 'ds/patterns';
 import Link from 'next/link';
 import { skeleton } from '../_styles/skeleton';
 import { AspectRatioRoot } from './aspect-ratio';
+import { ProjectImage } from './project-image';
 
 interface ProjectCardProps {
-  project: ProjectInfoFragment;
+  project: Project;
   sizes?: string;
 }
 export const ProjectCard = ({ project, sizes = '100vw' }: ProjectCardProps) => {
-  const { featureMediaNarrow, slug, category, name } = project;
+  const { featuredMediaNarrow, slug, category, name } = project;
   const tagsString = parseTagsToString(category);
-  const src = featureMediaNarrow.url;
 
   return (
     <div className={linkBox()}>
@@ -29,10 +28,10 @@ export const ProjectCard = ({ project, sizes = '100vw' }: ProjectCardProps) => {
           })}
         >
           <AspectRatioRoot ratio={220 / 275} style={{ position: 'relative' }}>
-            <HygraphImageWithLoader
-              src={src}
+            <ProjectImage
+              src={featuredMediaNarrow.url}
               priority
-              alt=''
+              alt={featuredMediaNarrow.alt}
               fill
               style={{ objectFit: 'cover' }}
               quality={100}

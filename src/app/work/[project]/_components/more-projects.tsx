@@ -1,15 +1,15 @@
 import ArrowLeftIcon from '@/app/_components/icons/ArrowLeftIcon';
 import ArrowRightIcon from '@/app/_components/icons/ArrowRightIcon';
 import { PATHS } from '@/app/_utils/constants/paths.constants';
-import { getProjects } from '@/app/_utils/helpers/projects.helpers';
+import { getAllProjects } from '@/app/_utils/content';
 import { css, cx } from 'ds/css';
 import { flex, hstack, linkBox, linkOverlay } from 'ds/patterns';
 import { link } from 'ds/recipes';
 import { token } from 'ds/tokens';
 import Link from 'next/link';
 
-export const MoreProjects = async ({ current }: { current: string }) => {
-  const { projects } = await getProjects();
+export const MoreProjects = ({ current }: { current: string }) => {
+  const projects = getAllProjects();
   const currentProjectIndex = projects.findIndex((p) => p.slug === current);
 
   const [previous, next] = prevNextProjectData(currentProjectIndex, projects);
@@ -27,7 +27,7 @@ export const MoreProjects = async ({ current }: { current: string }) => {
     >
       {previous ? (
         <ProjectLink
-          key={previous.id}
+          key={previous.slug}
           arrowDirection='left'
           alignment={shouldCenter ? 'center' : 'left'}
           slug={previous.slug}
@@ -36,7 +36,7 @@ export const MoreProjects = async ({ current }: { current: string }) => {
       ) : null}
       {next ? (
         <ProjectLink
-          key={next.id}
+          key={next.slug}
           arrowDirection='right'
           alignment={shouldCenter ? 'center' : 'right'}
           slug={next.slug}

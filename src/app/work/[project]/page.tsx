@@ -1,37 +1,25 @@
 import { ArrowTopRightIcon } from '@/app/_components/icons/ArrowTopRightIcon';
-import { Media } from '@/app/_components/media';
-import {
-  ScrollAreaRoot,
-  ScrollAreaScrollbar,
-  ScrollAreaThumb,
-  ScrollAreaViewport,
-  barStyles,
-  rootStyles,
-  thumbStyles,
-  viewportStyles,
-} from '@/app/_components/scroll-area';
 import { PATHS } from '@/app/_utils/constants/paths.constants';
-import { ProjectInfoFragment } from '@/graphql/generated/cms.generated';
-import { RichText } from '@graphcms/rich-text-react-renderer';
-import { RichTextContent } from '@graphcms/rich-text-types';
+import { getAllProjects, getProjectBySlug } from '@/app/_utils/content';
 import { getYear } from 'date-fns';
 import { css, cva } from 'ds/css';
 import { flex, grid, stack } from 'ds/patterns';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import * as React from 'react';
+import { notFound } from 'next/navigation';
 import { BackToLink } from '../../_components/back-to-link';
-import { getProject } from '../../_utils/helpers/projects.helpers';
 import { MoreProjects } from './_components/more-projects';
-import notFound from './not-found';
+import { ProjectGallery } from './_components/project-gallery';
+
+export const generateStaticParams = () => {
+  return getAllProjects().map((p) => ({ project: p.slug }));
+};
 
 export const generateMetadata = async (props: {
   params: Promise<{ project: string }>;
 }): Promise<Metadata> => {
   const params = await props.params;
-  const data = await getProject(params.project);
-
-  const { project } = data;
+  const project = getProjectBySlug(params.project);
 
   if (!project) {
     return {};
@@ -52,10 +40,10 @@ export const generateMetadata = async (props: {
       authors: ['https://twitter.com/jennings_hunter'],
       locale: 'en_US',
       images:
-        seo.image?.url != null
+        seo.image != null
           ? [
               {
-                url: seo.image.url,
+                url: seo.image,
               },
             ]
           : undefined,
@@ -69,23 +57,36 @@ export default async function Project(props: {
   params: Promise<{ project: string }>;
 }) {
   const params = await props.params;
-  const data = await getProject(params.project);
+  const project = getProjectBySlug(params.project);
 
-  if (!data.project) {
+  if (!project) {
     return notFound();
   }
 
-  const { project } = data;
+  const { name, client, contribution, date, link, media } = project;
 
-  const { name, client, contribution, date, link, media, descriptionLong } =
-    project;
+  const { default: Content } = (await import(
+    `@/data/projects/${params.project}.mdx`
+  )) as { default: () => React.ReactNode };
 
   return (
     <div className={stack({ gap: '3xl' })}>
       <div className={stack({ gap: 'xl' })}>
-        <ProjectHeader name={name} client={client?.name} />
-        <ProjectMedia media={media} />
-        <ProjectDescription descriptionLong={descriptionLong} />
+        <ProjectHeader name={name} client={client} />
+        <ProjectGallery media={media} />
+        <div className={stack({ gap: 'xs' })}>
+          <h3
+            className={css({
+              textStyle: 'base',
+              color: 'text2',
+              fontSize: '1',
+              lineHeight: 'tight',
+            })}
+          >
+            Description
+          </h3>
+          <Content />
+        </div>
         <div className={grid({ gap: 'm', columns: { base: 2, bp1: 3 } })}>
           <ProjectContributions contribution={contribution} />
           <div
@@ -110,18 +111,15 @@ export default async function Project(props: {
         >
           Other Projects
         </h3>
-        <React.Suspense fallback={null}>
-          {/* TODO: add fallback */}
-          <MoreProjects current={params.project} />
-        </React.Suspense>
+        <MoreProjects current={params.project} />
       </div>
     </div>
   );
 }
 
 interface ProjectHeaderProps {
-  name?: string;
-  client?: string;
+  name: string;
+  client: string | null;
 }
 const ProjectHeader = ({ name, client }: ProjectHeaderProps) => {
   return (
@@ -149,93 +147,6 @@ const ProjectHeader = ({ name, client }: ProjectHeaderProps) => {
           </h2>
         )}
       </div>
-    </div>
-  );
-};
-
-interface ProjectMediaProps {
-  media: ProjectInfoFragment['media'];
-}
-const ProjectMedia = ({ media }: ProjectMediaProps) => {
-  return (
-    <ScrollAreaRoot className={rootStyles}>
-      <ScrollAreaScrollbar className={barStyles} orientation='horizontal'>
-        <ScrollAreaThumb className={thumbStyles} />
-      </ScrollAreaScrollbar>
-      <ScrollAreaViewport className={viewportStyles}>
-        <div
-          className={css({
-            mb: { bp1Down: 'l' },
-            display: 'grid',
-            gap: 's',
-            gridTemplateColumns: 'repeat(3, 40%)',
-            bp1: {
-              gridTemplateColumns: 'repeat(3, 1fr)',
-            },
-          })}
-        >
-          {media.map(({ mediaType, url }, idx) => {
-            if (mediaType == null) return null;
-            const isEven = (idx + 1) % 2 === 0;
-            const width = isEven ? 220 : 460;
-            const height = 275;
-
-            const item = (idx % 3) as 0 | 1 | 2;
-            const sizes = [
-              '(max-width: 519px) 78vw, (max-width: 740px) 60vw, 460px',
-              '(max-width: 519px) 38vw, (max-width: 740px) 30vw, 220px',
-              '(max-width: 519px) 120vw, (max-width: 740px) 100vw, 418px',
-            ] as const;
-
-            return (
-              <div className={mediaContainer({ item })} key={idx}>
-                <Media
-                  type={mediaType}
-                  url={url}
-                  width={width}
-                  height={height}
-                  sizes={sizes[item]}
-                />
-              </div>
-            );
-          })}
-        </div>
-      </ScrollAreaViewport>
-    </ScrollAreaRoot>
-  );
-};
-
-interface ProjectDescriptionProps {
-  descriptionLong: ProjectInfoFragment['descriptionLong'];
-}
-const ProjectDescription = ({ descriptionLong }: ProjectDescriptionProps) => {
-  return (
-    <div className={stack({ gap: 'xs' })}>
-      <h3
-        className={css({
-          textStyle: 'base',
-          color: 'text2',
-          fontSize: '1',
-          lineHeight: 'tight',
-        })}
-      >
-        Description
-      </h3>
-      <RichText
-        renderers={{
-          p: ({ children }) => (
-            <p
-              className={css({
-                textStyle: 'body',
-                mb: 'm',
-              })}
-            >
-              {children}
-            </p>
-          ),
-        }}
-        content={descriptionLong.raw as RichTextContent}
-      />
     </div>
   );
 };
@@ -373,28 +284,5 @@ const buttonLink = css({
   transitionProperty: 'backgroundColor, opacity',
   _hover: {
     bgColor: 'slate4',
-  },
-});
-
-const mediaContainer = cva({
-  base: {
-    isolation: 'isolate',
-    overflow: 'hidden',
-    rounded: 'card',
-    h: 'full',
-    bgColor: 'slate8',
-  },
-  variants: {
-    item: {
-      0: {
-        gridColumn: '1 / span 2',
-      },
-      1: {
-        gridColumn: '3 / -1',
-      },
-      2: {
-        gridColumn: '1 / -1',
-      },
-    },
   },
 });
