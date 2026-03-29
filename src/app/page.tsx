@@ -242,11 +242,6 @@ const ConnectSection = () => {
           <ConnectLinkListItem label='Github'>
             <ConnectListLink href={PATHS.github}>h-jennings</ConnectListLink>
           </ConnectLinkListItem>
-          <ConnectLinkListItem label='Resume'>
-            <ConnectListLink href={PATHS.cv}>
-              read.cv/hunterjennings
-            </ConnectListLink>
-          </ConnectLinkListItem>
         </ul>
       </div>
     </section>
