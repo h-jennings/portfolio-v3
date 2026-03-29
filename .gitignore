@@ -53,3 +53,6 @@ src/graphql/generated/
 # Panda
 ds
 .env*.local
+
+# Next.js
+next-env.d.ts
