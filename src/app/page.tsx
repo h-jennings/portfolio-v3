@@ -57,7 +57,7 @@ const IntroductionSection = () => {
       </h2>
       <p className={css({ textStyle: 'base' })}>
         UI engineer comfortable working across the stack, with a passion for
-        crafting polished interfaces and scalable design systems.
+        crafting polished interfaces and scalable design.
       </p>
     </section>
   );
