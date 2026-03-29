@@ -33,6 +33,7 @@ const nextConfig = {
   outputFileTracingIncludes: {
     '/writing/[slug]': ['./src/data/writings/**/*.mdx'],
     '/now/[update]': ['./src/data/updates/**/*.mdx'],
+    '/work/[project]': ['./src/data/projects/**/*.mdx'],
   },
   env: {
     NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL,
