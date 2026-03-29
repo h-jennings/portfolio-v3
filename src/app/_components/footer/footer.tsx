@@ -62,7 +62,7 @@ export const Footer = () => {
             gridArea: 'c',
           })}
         >
-          Always pushing.
+          Building, always.
         </span>
       </div>
     </footer>

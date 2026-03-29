@@ -1,16 +1,15 @@
-import './_styles/global.css';
-import { basierCircle, untitledSerif, jetbrainsMono } from './_styles/fonts';
-import { Providers } from './providers';
-import { Metadata } from 'next';
-import { css } from 'ds/css';
-import { Footer } from './_components/footer/footer';
-import { Analytics } from '@vercel/analytics/react';
 import { PATHS } from '@/app/_utils/constants/paths.constants';
+import { Analytics } from '@vercel/analytics/react';
+import { css } from 'ds/css';
+import { Metadata } from 'next';
+import { Footer } from './_components/footer/footer';
 import { Navigation } from './_components/navigation/navigation';
+import { basierCircle, jetbrainsMono, untitledSerif } from './_styles/fonts';
+import './_styles/global.css';
+import { Providers } from './providers';
 
 const title = 'Portfolio | Hunter Jennings';
-const description =
-  'Hunter Jennings is a Frontend Developer based in Richmond, VA';
+const description = 'Hunter Jennings is a UI engineer based in Richmond, VA';
 
 export const metadata: Metadata = {
   metadataBase: new URL(PATHS.base),

@@ -8,16 +8,11 @@ featured: true
 status: published
 ---
 
-In a typical Next.js app, you'll likely fetch page data server-side using either
-`getStaticProps` or `getServerSideProps`. However, what if you need to fetch
-data client-side? You might not need every piece of data to be server-side
-rendered or statically generated, so this is a reasonable question to ask.
-Moreover, if you use a GraphQL client like Apollo or Urql, data fetching hooks
-such as `useQuery(){:ts}` will attempt to fetch data client-side by default
-whenever their cache for a query is empty or stale. In this post, we'll walk
-through a realistic data fetching scenario using a third-party GraphQL endpoint
-in a Next.js app and how to fetch data client-side while keeping private API
-keys hidden from the client.
+In a typical Next.js app, you'll likely fetch page data server-side using `getStaticProps` or `getServerSideProps`. But not everything needs to be server-rendered or statically generated — sometimes you just need to fetch data on the client.
+
+This gets interesting when you're using a GraphQL client like Apollo or Urql, where hooks like `useQuery(){:ts}` will attempt to fetch client-side by default whenever their cache is empty or stale. The question becomes: how do you do this without exposing private API keys to the browser?
+
+In this post, we'll walk through a realistic scenario using a third-party GraphQL endpoint in a Next.js app.
 
 1. You have a Next.js app that uses a third-party GraphQL endpoint.
 2. You want to fetch this data client-side.

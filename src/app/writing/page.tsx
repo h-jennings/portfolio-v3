@@ -14,7 +14,7 @@ import s from './writing.module.css';
 
 const title = 'Writing';
 const description =
-  'Thoughts on software, books, life, and any opinions I have at a moment in time.';
+  'Thoughts on software, design, and whatever else is on my mind.';
 const url = new URL(`${PATHS.base}${PATHS.writing}`);
 
 export const metadata: Metadata = {
