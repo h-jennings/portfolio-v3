@@ -84,7 +84,7 @@
     "eslint-config-next": "16.2.1",
     "eslint-config-prettier": "^10.0.0",
     "husky": "^9.0.0",
-    "lint-staged": "^15.0.0",
+    "lint-staged": "^16.0.0",
     "postcss": "^8.4.24",
     "postcss-easing-gradients": "^3.0.1",
     "postcss-flexbugs-fixes": "^5.0.2",
