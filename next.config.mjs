@@ -39,7 +39,7 @@ const nextConfig = {
     NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL,
   },
   images: {
-    qualities: [75, 100],
+    qualities: [75, 95, 100],
     formats: ['image/webp'],
   },
   async redirects() {
