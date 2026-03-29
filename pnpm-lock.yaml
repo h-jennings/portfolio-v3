@@ -57,8 +57,8 @@ importers:
         specifier: ^2.0.0
         version: 2.1.1
       date-fns:
-        specifier: ^3.0.0
-        version: 3.6.0
+        specifier: ^4.0.0
+        version: 4.1.0
       framer-motion:
         specifier: ^12.0.0
         version: 12.38.0(@emotion/is-prop-valid@0.8.8)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -2577,8 +2577,8 @@ packages:
   dataloader@2.2.3:
     resolution: {integrity: sha512-y2krtASINtPFS1rSDjacrFgn1dcUuoREVabwlOGOe4SdxenREqwjwjElAdwvbGM7kgZz9a3KVicWR7vcz8rnzA==}
 
-  date-fns@3.6.0:
-    resolution: {integrity: sha512-fRHTG8g/Gif+kSh50gaGEdToemgfj74aRX3swtiouboip5JDLAyDE9F11nHMIcvOaXeOC6D7SpNhi7uFyB7Uww==}
+  date-fns@4.1.0:
+    resolution: {integrity: sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==}
 
   debounce@1.2.1:
     resolution: {integrity: sha512-XRRe6Glud4rd/ZGQfiV1ruXSfbvfJedlV9Y6zOlP+2K04vBYiJEte6stfFkCP03aMnY5tsipamumUjL14fofug==}
@@ -7801,7 +7801,7 @@ snapshots:
 
   dataloader@2.2.3: {}
 
-  date-fns@3.6.0: {}
+  date-fns@4.1.0: {}
 
   debounce@1.2.1: {}
 
