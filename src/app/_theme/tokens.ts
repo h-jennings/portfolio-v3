@@ -61,6 +61,7 @@ export const tokens = defineTokens({
     regular: { value: '400' },
   },
   fontSizes: {
+    '0': { value: getConfigFluidValue(10, 12) },
     '1': { value: getConfigFluidValue(13, 16) },
     '2': { value: getConfigFluidValue(16, 20) },
     '3': { value: getConfigFluidValue(20, 25) },
