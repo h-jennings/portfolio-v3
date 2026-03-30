@@ -46,15 +46,22 @@ export default function Home() {
 const IntroductionSection = () => {
   return (
     <section className={stack({ gap: 'm' })}>
-      <h2
-        className={css({
-          textStyle: 'serif',
-          lineHeight: 'tight',
-        })}
-        aria-label='Who is Hunter Jennings'
-      >
-        Hunter Jennings
-      </h2>
+      <div className={stack({ gap: 'xl' })}>
+        <span className={statusBadge}>
+          <span className={statusDot} aria-hidden />
+          Open to work
+        </span>
+        <h2
+          className={css({
+            textStyle: 'serif',
+            lineHeight: 'tight',
+          })}
+          aria-label='Who is Hunter Jennings'
+        >
+          Hunter Jennings{' '}
+        </h2>
+      </div>
+
       <p className={css({ textStyle: 'body', textWrap: 'pretty' })}>
         UI engineer comfortable working across the stack, with a passion for
         crafting polished interfaces and designs that scale.
@@ -62,6 +69,30 @@ const IntroductionSection = () => {
     </section>
   );
 };
+
+const statusBadge = css({
+  display: 'inline-flex',
+  alignItems: 'center',
+  gap: '3xs',
+  px: '2xs',
+  py: '4px',
+  borderRadius: 'pill',
+  border: '1px solid',
+  borderColor: 'green7',
+  bg: 'green3',
+  fontSize: '0',
+  lineHeight: 'tight',
+  color: 'green11',
+  w: 'fit-content',
+});
+
+const statusDot = css({
+  w: '4px',
+  h: '4px',
+  borderRadius: 'round',
+  bg: 'green9',
+  flexShrink: 0,
+});
 
 const ExperienceSection = () => {
   return (
