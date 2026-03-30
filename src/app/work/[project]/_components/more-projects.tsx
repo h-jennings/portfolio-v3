@@ -20,9 +20,10 @@ export const MoreProjects = ({ current }: { current: string }) => {
     <div
       className={flex({
         py: 'm',
+        borderTopColor: 'slate8',
+        borderBottomColor: 'slate8',
         borderTop: '1px dashed',
         borderBottom: '1px dashed',
-        borderColor: 'slate8',
       })}
     >
       {previous ? (

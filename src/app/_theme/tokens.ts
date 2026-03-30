@@ -19,7 +19,7 @@ export const tokens = defineTokens({
       value: '{colors.slate11}',
     },
     text3: {
-      value: '{colors.gold9}',
+      value: '{colors.gold11}',
     },
     text4: {
       value: '{colors.slate1}',
