@@ -253,11 +253,11 @@ const chip = cva({
     variant: {
       darker: {
         backgroundColor: 'gold5',
-        color: 'gold10',
+        color: 'gold12',
       },
       default: {
         backgroundColor: 'gold7',
-        color: 'gold10',
+        color: 'gold12',
       },
     },
   },

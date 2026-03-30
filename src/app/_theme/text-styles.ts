@@ -4,7 +4,7 @@ export const textStyles = defineTextStyles({
   base: {
     value: {
       lineHeight: 'body',
-      fontSize: '2',
+      fontSize: '1',
       fontWeight: 'regular',
       fontFamily: 'primary',
     },
@@ -12,7 +12,7 @@ export const textStyles = defineTextStyles({
   serif: {
     value: {
       lineHeight: 'body',
-      fontSize: '2',
+      fontSize: '1',
       fontWeight: 'regular',
       fontFamily: 'serif',
       fontStyle: 'italic',
@@ -29,7 +29,7 @@ export const textStyles = defineTextStyles({
   body: {
     value: {
       lineHeight: 'body',
-      fontSize: '2',
+      fontSize: '1',
       fontWeight: 'regular',
       fontFamily: 'primary',
     },

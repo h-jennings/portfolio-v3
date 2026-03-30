@@ -55,7 +55,7 @@ const IntroductionSection = () => {
       >
         Hunter Jennings
       </h2>
-      <p className={css({ textStyle: 'base' })}>
+      <p className={css({ textStyle: 'body', textWrap: 'pretty' })}>
         UI engineer comfortable working across the stack, with a passion for
         crafting polished interfaces and designs that scale.
       </p>
@@ -69,7 +69,7 @@ const ExperienceSection = () => {
       <h2 className={css({ textStyle: 'base', lineHeight: 'tight' })}>
         Experience
       </h2>
-      <p className={css({ textStyle: 'body' })}>
+      <p className={css({ textStyle: 'body', textWrap: 'pretty' })}>
         My experience spans a variety of team sizes, industries, and technical
         challenges, giving me a broad perspective on what it takes to build and
         ship great products.
@@ -219,7 +219,7 @@ const ConnectSection = () => {
         Connect
       </h2>
       <div className={stack({ gap: 'xl' })}>
-        <p className={css({ textStyle: 'body' })}>
+        <p className={css({ textStyle: 'body', textWrap: 'pretty' })}>
           I&apos;m currently exploring new opportunities. If you&apos;re working
           on something interesting, let&apos;s talk.
         </p>

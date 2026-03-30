@@ -68,6 +68,7 @@ export const globalCss = defineGlobalStyles({
       borderLeftColor: 'transparent',
       px: 'm',
       fontFamily: 'mono',
+      fontSize: `calc(var(--font-sizes-1) * 0.8)`,
     },
   },
   'code[data-line-numbers]': {
