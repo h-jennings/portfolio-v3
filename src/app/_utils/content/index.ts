@@ -75,6 +75,7 @@ const projectMediaSchema = z.object({
 const projectFrontmatterSchema = z.object({
   name: z.string(),
   client: z.string().nullable().default(null),
+  published: z.boolean().default(true),
   category: z.array(z.string()),
   contribution: z.array(z.string()),
   featured: z.boolean(),
@@ -109,6 +110,7 @@ export function getAllProjects(limit?: number): Array<Project> {
       const parsed = projectFrontmatterSchema.parse(data);
       return { slug, ...parsed };
     })
+    .filter((p) => p.published)
     .sort((a, b) => (b.date[0] ?? '').localeCompare(a.date[0] ?? ''));
 
   return limit != null ? projects.slice(0, limit) : projects;
