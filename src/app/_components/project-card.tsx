@@ -30,7 +30,7 @@ export const ProjectCard = ({ project, sizes = '100vw' }: ProjectCardProps) => {
           <AspectRatioRoot ratio={220 / 275} style={{ position: 'relative' }}>
             <ProjectImage
               src={featuredMediaNarrow.url}
-              priority
+              preload={true}
               alt={featuredMediaNarrow.alt}
               fill
               style={{ objectFit: 'cover' }}
@@ -48,6 +48,7 @@ export const ProjectCard = ({ project, sizes = '100vw' }: ProjectCardProps) => {
             <h3
               className={css({
                 textStyle: 'base',
+                textWrap: 'balance',
                 lineHeight: 'tight',
                 fontSize: '1',
                 pb: '3xs',

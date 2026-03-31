@@ -1,0 +1,58 @@
+---
+name: BreakLine Extension
+client: BreakLine
+published: false
+category:
+  - Development
+contribution:
+  - Development
+  - Architecture
+featured: false
+date:
+  - 2025-10-01
+  - 2026-01-03
+link: null
+description:
+  A Chrome sidepanel extension that detects LinkedIn profiles and surfaces
+  BreakLine participant data in real time for the sourcing team.
+seo:
+  title: BreakLine Extension
+  description:
+    A Chrome sidepanel extension that detects LinkedIn profiles and surfaces
+    BreakLine participant data in real time for the sourcing team.
+  image: null
+featuredMediaNarrow:
+  url: /images/projects/breakline-browser-extension/placeholder-narrow.png
+  width: 440
+  height: 550
+  alt: BreakLine Browser Extension preview
+  mediaType: IMAGE
+featuredMediaWide:
+  url: /images/projects/breakline-browser-extension/placeholder-wide.png
+  width: 920
+  height: 550
+  alt: BreakLine Browser Extension wide preview
+  mediaType: IMAGE
+media:
+  - url: /images/projects/breakline-browser-extension/placeholder-wide.png
+    width: 920
+    height: 550
+    alt: BreakLine Browser Extension screenshot
+    mediaType: IMAGE
+  - url: /images/projects/breakline-browser-extension/placeholder-narrow.png
+    width: 440
+    height: 550
+    alt: BreakLine Browser Extension screenshot
+    mediaType: IMAGE
+---
+
+BreakLine's sourcing team needed participant data accessible while browsing
+LinkedIn. The extension runs as a Chrome sidepanel, detecting profiles
+automatically and surfacing matches in real time.
+
+Matching works in two passes: first by LinkedIn URL, then by name and metadata,
+with keyboard-navigable search as a fallback. Built with WXT, React, and
+TanStack Query on a custom AWS Amplify/Cognito auth layer. I owned it end-to-end
+— architecture, CI/CD, and automated Chrome Web Store publishing.
+
+Credit to [Kyle Kochanek](https://www.kocheck.dev/) for the product design.
