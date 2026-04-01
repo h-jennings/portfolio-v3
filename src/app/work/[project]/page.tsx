@@ -39,14 +39,7 @@ export const generateMetadata = async (props: {
       type: 'article',
       authors: ['https://twitter.com/jennings_hunter'],
       locale: 'en_US',
-      images:
-        seo.image != null
-          ? [
-              {
-                url: seo.image,
-              },
-            ]
-          : undefined,
+      ...(seo.image != null && { images: [{ url: seo.image }] }),
       title,
       description,
     },
