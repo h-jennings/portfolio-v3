@@ -4,15 +4,14 @@ import { ogTemplate } from '@/app/_utils/og-template';
 
 export const alt = 'Now - An update from my life';
 
-export default async function Image({
-  params,
-}: {
-  params: { update: string };
+export default async function Image(props: {
+  params: Promise<{ update: string }>;
 }) {
+  const params = await props.params;
   const update = getAllUpdates().find((u) => u.slug === params.update);
   const fancyDate = parseDateToLongDateString(update?.date ?? '');
 
-  return await ogTemplate({
+  return ogTemplate({
     title: 'Now',
     sub: `A snapshot of my life—${fancyDate}.`,
   });
