@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og';
-import { readFile } from 'node:fs/promises';
-import { fileURLToPath } from 'node:url';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 
 export const size = {
   width: 1200,
@@ -8,25 +8,31 @@ export const size = {
 };
 export const contentType = 'image/png';
 
-const loadFont = async (path: string): Promise<ArrayBuffer> => {
-  const buffer = await readFile(fileURLToPath(new URL(path, import.meta.url)));
+const fontsDir = join(process.cwd(), 'src/app/_assets/fonts');
+
+const getSansSerifFont = (): ArrayBuffer => {
+  const buffer = readFileSync(join(fontsDir, 'basiercircle-regular.otf'));
   return buffer.buffer.slice(
     buffer.byteOffset,
     buffer.byteOffset + buffer.byteLength,
   );
 };
 
-const getSansSerifFont = () =>
-  loadFont('../_assets/fonts/basiercircle-regular.otf');
-
-const getSerifFont = () =>
-  loadFont('../_assets/fonts/untitled-serif-regular-italic.otf');
+const getSerifFont = (): ArrayBuffer => {
+  const buffer = readFileSync(
+    join(fontsDir, 'untitled-serif-regular-italic.otf'),
+  );
+  return buffer.buffer.slice(
+    buffer.byteOffset,
+    buffer.byteOffset + buffer.byteLength,
+  );
+};
 
 const DEFAULT_TITLE = 'Hunter Jennings';
 const DEFAULT_SUB =
   'Frontend ui engineer interested in design systems, component architectures, and React.';
 
-export const ogTemplate = async ({
+export const ogTemplate = ({
   title,
   sub,
 }: {
@@ -90,13 +96,13 @@ export const ogTemplate = async ({
       fonts: [
         {
           name: 'Untitled',
-          data: await getSerifFont(),
+          data: getSerifFont(),
           weight: 400,
           style: 'italic',
         },
         {
           name: 'Basier',
-          data: await getSansSerifFont(),
+          data: getSansSerifFont(),
           weight: 400,
           style: 'normal',
         },
