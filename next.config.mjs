@@ -32,7 +32,8 @@ const nextConfig = {
   reactStrictMode: true,
   outputFileTracingIncludes: {
     '/writing/[slug]': ['./src/data/writings/**/*.mdx'],
-    '/now/[update]': ['./src/data/updates/**/*.mdx'],
+    '/notes/[note]': ['./src/data/notes/**/*.mdx'],
+    '/components/[slug]': ['./src/data/components/**/*.mdx'],
     '/work/[project]': ['./src/data/projects/**/*.mdx'],
   },
   env: {
@@ -62,6 +63,16 @@ const nextConfig = {
       {
         source: '/caffeinator',
         destination: 'https://v2.hunterjennings.dev/caffeinator',
+        permanent: true,
+      },
+      {
+        source: '/now',
+        destination: '/notes',
+        permanent: true,
+      },
+      {
+        source: '/now/:path*',
+        destination: '/notes/:path*',
         permanent: true,
       },
     ];

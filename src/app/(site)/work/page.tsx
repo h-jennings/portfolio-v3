@@ -1,3 +1,6 @@
+import { AspectRatioRoot } from '@/app/_components/aspect-ratio';
+import { BackToLink } from '@/app/_components/back-to-link';
+import { ProjectCard } from '@/app/_components/project-card';
 import { ProjectImage } from '@/app/_components/project-image';
 import { PATHS } from '@/app/_utils/constants/paths.constants';
 import { getAllProjects, type Project } from '@/app/_utils/content';
@@ -6,9 +9,6 @@ import { grid, linkBox, linkOverlay, stack } from 'ds/patterns';
 import { token } from 'ds/tokens';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { AspectRatioRoot } from '../_components/aspect-ratio';
-import { BackToLink } from '../_components/back-to-link';
-import { ProjectCard } from '../_components/project-card';
 
 const title = 'Work';
 const description = 'A curated collection of my work throughout the years.';

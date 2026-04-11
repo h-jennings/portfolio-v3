@@ -8,11 +8,18 @@ featured: true
 status: published
 ---
 
-In a typical Next.js app, you'll likely fetch page data server-side using `getStaticProps` or `getServerSideProps`. But not everything needs to be server-rendered or statically generated — sometimes you just need to fetch data on the client.
+In a typical Next.js app, you'll likely fetch page data server-side using
+`getStaticProps` or `getServerSideProps`. But not everything needs to be
+server-rendered or statically generated — sometimes you just need to fetch data
+on the client.
 
-This gets interesting when you're using a GraphQL client like Apollo or Urql, where hooks like `useQuery(){:ts}` will attempt to fetch client-side by default whenever their cache is empty or stale. The question becomes: how do you do this without exposing private API keys to the browser?
+This gets interesting when you're using a GraphQL client like Apollo or Urql,
+where hooks like `useQuery(){:ts}` will attempt to fetch client-side by default
+whenever their cache is empty or stale. The question becomes: how do you do this
+without exposing private API keys to the browser?
 
-In this post, we'll walk through a realistic scenario using a third-party GraphQL endpoint in a Next.js app.
+In this post, we'll walk through a realistic scenario using a third-party
+GraphQL endpoint in a Next.js app.
 
 1. You have a Next.js app that uses a third-party GraphQL endpoint.
 2. You want to fetch this data client-side.
@@ -25,7 +32,7 @@ For this example, we'll use GitHub's GraphQL API and graphql-request, but you
 could use any method you prefer. Here's how we create a GraphQL client with the
 necessary information to make our request to GitHub:
 
-```ts
+```ts showLineNumbers
 // graphql/client.ts
 
 export const createGithubClient = () => {
@@ -47,7 +54,7 @@ environment variables are an effective way to do so.
 Next, we create a Next.js API route to handle all requests to the GitHub GraphQL
 API from the client. Here's the code:
 
-```ts
+```ts showLineNumbers
 // pages/api/github.ts
 
 import { createGithubClient } from '@/graphql/client';
@@ -94,7 +101,7 @@ We'll use [Urql](https://formidable.com/open-source/urql/) for this example but
 you could use Apollo or any other data fetching method. Here's how we set up the
 client in our `_app.tsx` file:
 
-```tsx
+```tsx showLineNumbers
 // pages/_app.tsx
 
 import { createClient, Provider } from 'urql';
@@ -116,7 +123,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 Now we can use the `useQuery` hook to fetch data client-side. Here's an example
 of in our `index.tsx` file:
 
-```tsx
+```tsx showLineNumbers
 // pages/index.tsx
 
 import { useQuery } from 'urql';

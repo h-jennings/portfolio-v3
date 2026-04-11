@@ -5,6 +5,11 @@ import path from 'node:path';
 import readingTime from 'reading-time';
 import { z } from 'zod';
 
+function toDateString(val: unknown): string {
+  if (val instanceof Date) return format(val, 'yyyy-MM-dd');
+  return String(val);
+}
+
 export interface Writing {
   slug: string;
   title: string;
@@ -16,11 +21,6 @@ export interface Writing {
 }
 
 const writingsDir = path.join(process.cwd(), 'src/data/writings');
-
-function toDateString(val: unknown): string {
-  if (val instanceof Date) return format(val, 'yyyy-MM-dd');
-  return String(val);
-}
 
 export function getAllWritings(): Writing[] {
   return fs
@@ -42,26 +42,86 @@ export function getAllWritings(): Writing[] {
     });
 }
 
-export interface Update {
+export interface Note {
   slug: string;
   date: string;
 }
 
-const updatesDir = path.join(process.cwd(), 'src/data/updates');
+const notesDir = path.join(process.cwd(), 'src/data/notes');
 
-export function getAllUpdates(): Update[] {
+export function getAllNotes(): Note[] {
   return fs
-    .readdirSync(updatesDir)
+    .readdirSync(notesDir)
     .filter((f) => f.endsWith('.mdx'))
     .map((filename) => {
       const slug = filename.replace(/\.mdx$/, '');
-      const raw = fs.readFileSync(path.join(updatesDir, filename), 'utf-8');
+      const raw = fs.readFileSync(path.join(notesDir, filename), 'utf-8');
       const { data } = matter(raw);
       return {
         slug,
         date: toDateString(data.date),
       };
     });
+}
+
+export interface ComponentPreview {
+  video?: string;
+  image?: string;
+}
+
+export interface Component {
+  slug: string;
+  title: string;
+  description: string;
+  date: string;
+  preview?: ComponentPreview;
+  featured?: boolean;
+  status?: 'draft' | 'published';
+}
+
+const componentsDir = path.join(process.cwd(), 'src/data/components');
+
+export function getAllComponents(limit?: number): Component[] {
+  const components = fs
+    .readdirSync(componentsDir)
+    .filter((f) => f.endsWith('.mdx'))
+    .map((filename) => {
+      const slug = filename.replace(/\.mdx$/, '');
+      const raw = fs.readFileSync(path.join(componentsDir, filename), 'utf-8');
+      const { data } = matter(raw);
+      const preview =
+        data.preview != null
+          ? {
+              ...((data.preview as Record<string, unknown>).video != null && {
+                video: (data.preview as Record<string, unknown>)
+                  .video as string,
+              }),
+              ...((data.preview as Record<string, unknown>).image != null && {
+                image: (data.preview as Record<string, unknown>)
+                  .image as string,
+              }),
+            }
+          : undefined;
+      return {
+        slug,
+        title: data.title as string,
+        description: data.description as string,
+        date: toDateString(data.date),
+        ...(preview != null && { preview }),
+        ...(data.featured != null && { featured: data.featured as boolean }),
+        ...(data.status != null && {
+          status: data.status as 'draft' | 'published',
+        }),
+      };
+    })
+    .filter((c) => c.status === 'published')
+    .sort((a, b) => b.date.localeCompare(a.date));
+
+  return limit != null ? components.slice(0, limit) : components;
+}
+
+export function getComponentBySlug(slug: string): Component | undefined {
+  return getAllComponents().find((c) => c.slug === slug);
 }
 
 const projectMediaSchema = z.object({

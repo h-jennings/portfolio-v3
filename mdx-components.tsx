@@ -1,3 +1,4 @@
+import { Sandbox } from '@/app/_components/demos/sandbox';
 import { Separator } from '@/app/_components/separator';
 import { blockquote } from '@/app/_styles/blockquote';
 import {
@@ -148,6 +149,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         {...props}
       />
     ),
+    Sandbox,
     ...components,
   };
 }

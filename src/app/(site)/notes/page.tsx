@@ -1,5 +1,10 @@
+import {
+  ProseLayout,
+  ProseLayoutContent,
+  ProseLayoutHeader,
+} from '@/app/_components/prose-layout';
 import { PATHS } from '@/app/_utils/constants/paths.constants';
-import { getAllUpdates, type Update } from '@/app/_utils/content';
+import { getAllNotes, type Note } from '@/app/_utils/content';
 import {
   parseDateToString,
   sortArrayByDateDesc,
@@ -9,15 +14,10 @@ import { flex } from 'ds/patterns';
 import { link } from 'ds/recipes';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import {
-  ProseLayout,
-  ProseLayoutContent,
-  ProseLayoutHeader,
-} from '../_components/prose-layout';
 
-const title = 'Now';
+const title = 'Notes';
 const description = 'A snapshot of my life via short updates.';
-const url = new URL(`${PATHS.base}${PATHS.now}`);
+const url = new URL(`${PATHS.base}${PATHS.notes}`);
 
 export const metadata: Metadata = {
   title,
@@ -32,8 +32,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Now() {
-  const updates = sortArrayByDateDesc(getAllUpdates());
+export default function Notes() {
+  const notes = sortArrayByDateDesc(getAllNotes());
 
   return (
     <ProseLayout>
@@ -48,8 +48,8 @@ export default function Now() {
       />
       <ProseLayoutContent>
         <div className={flex({ direction: 'column' })}>
-          {updates.map((update) => {
-            return <UpdateItem key={update.slug} update={update} />;
+          {notes.map((note) => {
+            return <NoteItem key={note.slug} note={note} />;
           })}
         </div>
       </ProseLayoutContent>
@@ -57,46 +57,48 @@ export default function Now() {
   );
 }
 
-interface UpdateItemProps {
-  update: Update;
+interface NoteItemProps {
+  note: Note;
 }
 
-async function UpdateItem({ update }: UpdateItemProps) {
-  const { slug, date } = update;
+async function NoteItem({ note }: NoteItemProps) {
+  const { slug, date } = note;
   const fancyDate = parseDateToString(date);
-  const { default: Content } = (await import(`@/data/updates/${slug}.mdx`)) as {
+  const { default: Content } = (await import(`@/data/notes/${slug}.mdx`)) as {
     default: () => React.ReactNode;
   };
 
   return (
     <div
       className={css({
-        pt: 'm',
+        pt: 'xl',
+        pb: 'm',
         borderTop: '1px dashed',
-        borderColor: 'slate6',
+        borderTopColor: 'slate6',
         _firstOfType: {
           pt: 'none',
           borderTop: 'none',
         },
       })}
     >
-      <Content />
       <Link
-        href={`${PATHS.now}/${slug}`}
+        href={`${PATHS.notes}/${slug}`}
         className={link({ color: 'secondary' })}
       >
         <time
           dateTime={date}
           className={css({
             display: 'inline-flex',
-            pb: 'xl',
-            fontSize: '1',
+            pb: 's',
+            fontSize: '0',
             color: 'inherit',
+            fontFamily: 'mono',
           })}
         >
           {fancyDate}
         </time>
       </Link>
+      <Content />
     </div>
   );
 }
