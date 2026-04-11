@@ -42,10 +42,10 @@ export const Navigation = () => {
         </Link>
         <div className={hstack({ gap: 's' })}>
           <Link
-            href={PATHS.now}
-            className={cx(link({ color: 'secondary' }), now)}
+            href={PATHS.notes}
+            className={cx(link({ color: 'secondary' }), notes)}
           >
-            Now
+            Notes
           </Link>
           <ThemeToggle />
         </div>
@@ -54,13 +54,9 @@ export const Navigation = () => {
   );
 };
 
-const now = css({
+const notes = css({
   lineHeight: 'tight',
   display: 'inline-block',
-  color: 'transparent',
-  background: 'linear-gradient(270deg,#8a8c93 50%,hsla(227,4%,56%,.6))',
-  backgroundClip: 'text',
-  _hover: {
-    color: 'hsla(227,4%,56%,1)',
-  },
+  fontSize: '1',
+  color: 'text2',
 });

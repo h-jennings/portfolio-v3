@@ -1,0 +1,18 @@
+---
+date: 2023-02-23
+---
+
+Added syntax highlighting to code blocks using
+[rehype-pretty-code](https://rehype-pretty-code.netlify.app/). One of those
+small touches that makes a big difference in how writing about code actually
+reads.
+
+It supports inline code `const test = () => console.log('hello world');{:ts}`
+
+And code blocks:
+
+```tsx showLineNumbers
+const test = () => {
+  console.log('hello world');
+};
+```

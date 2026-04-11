@@ -1,5 +1,5 @@
 import { css } from 'ds/css';
-import { stack, grid } from 'ds/patterns';
+import { grid, stack } from 'ds/patterns';
 import * as React from 'react';
 import { BackToLink } from './back-to-link';
 
@@ -75,7 +75,8 @@ export const ProseLayoutHeader = ({
                 textStyle: 'base',
                 fontSize: '1',
                 lineHeight: 'body',
-                maxWidth: '50ch',
+                textWrap: 'balance',
+                color: 'text2',
               })}
             >
               {description}

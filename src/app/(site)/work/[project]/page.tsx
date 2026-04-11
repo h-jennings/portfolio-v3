@@ -1,3 +1,4 @@
+import { BackToLink } from '@/app/_components/back-to-link';
 import { ArrowTopRightIcon } from '@/app/_components/icons/ArrowTopRightIcon';
 import { PATHS } from '@/app/_utils/constants/paths.constants';
 import { getAllProjects, getProjectBySlug } from '@/app/_utils/content';
@@ -7,7 +8,6 @@ import { flex, grid, stack } from 'ds/patterns';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { BackToLink } from '../../_components/back-to-link';
 import { MoreProjects } from './_components/more-projects';
 import { ProjectGallery } from './_components/project-gallery';
 

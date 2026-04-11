@@ -7,13 +7,19 @@ featured: true
 status: published
 ---
 
-Good typography is essential for a good web experience. Get it right and you're in a league of your own. It almost feels like cheating. I don't care how good your iconography, color, or layout is. If the typography is off, it throws everything out of whack.
+Good typography is essential for a good web experience. Get it right and you're
+in a league of your own. It almost feels like cheating. I don't care how good
+your iconography, color, or layout is. If the typography is off, it throws
+everything out of whack.
 
-To make matters more challenging, we live in a world of near-infinite screen sizes. Surely your typography can't look good in all of those cases, right?
+To make matters more challenging, we live in a world of near-infinite screen
+sizes. Surely your typography can't look good in all of those cases, right?
 
-Wrong. Meet your new best friend: `createFluidValue`. Credit to [Brett Smith](https://twitter.com/_brettsmith) for writing the original function implementation.
+Wrong. Meet your new best friend: `createFluidValue`. Credit to
+[Brett Smith](https://twitter.com/_brettsmith) for writing the original function
+implementation.
 
-```ts
+```ts showLineNumbers
 // createFluidValue.ts
 
 /**
@@ -99,7 +105,7 @@ const cleanNumber = (num: number) =>
 
 ## Using this function in our Tailwind config
 
-```js
+```js showLineNumbers
 // tailwind.config.js
 
 /* 
@@ -130,7 +136,7 @@ module.exports = {
 
 ### Usage in our JSX
 
-```jsx
+```jsx showLineNumbers
 <h1 className='text-fluid-2xl'>Hello, world!</h1>
 ```
 
@@ -138,7 +144,7 @@ module.exports = {
 
 ## Using this function in our Vanilla Extract [Sprinkles](https://vanilla-extract.style/documentation/packages/sprinkles/)
 
-```ts
+```ts showLineNumbers
 // ds.css.ts
 
 import { createFluidValue } from './createFluidValue';
@@ -192,7 +198,7 @@ export const sprinkles = createSprinkles(responsiveProperties);
 
 ### Usage in our JSX
 
-```tsx
+```tsx showLineNumbers
 <h1 className={sprinkles({ fontSize: 'fluid-3xl' })}>Hello, world!</h1>
 ```
 

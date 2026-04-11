@@ -6,6 +6,7 @@ export const PATHS = {
   base: process.env.NEXT_PUBLIC_URL ?? 'https://www.hunterjennings.dev', // TODO: might want to make this VERCEL_URL
   home: '/',
   writing: '/writing',
-  now: '/now',
+  notes: '/notes',
   work: '/work',
+  components: '/components',
 } as const;

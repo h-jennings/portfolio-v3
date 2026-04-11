@@ -1,4 +1,4 @@
-import { ogTemplate } from '../_utils/og-template';
+import { ogTemplate } from '@/app/_utils/og-template';
 
 export const alt =
   'Work - A curated collection of my work throughout the years.';

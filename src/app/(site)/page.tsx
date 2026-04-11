@@ -1,6 +1,11 @@
+import { ComponentPreview } from '@/app/_components/component-preview';
 import ArrowRightIcon from '@/app/_components/icons/ArrowRightIcon';
 import { PATHS } from '@/app/_utils/constants/paths.constants';
-import { getAllProjects, getAllWritings } from '@/app/_utils/content';
+import {
+  getAllComponents,
+  getAllProjects,
+  getAllWritings,
+} from '@/app/_utils/content';
 import {
   parseDateToLongDateString,
   sortArrayByDateDesc,
@@ -11,7 +16,7 @@ import { link } from 'ds/recipes';
 import { token } from 'ds/tokens';
 import Link from 'next/link';
 
-import { ProjectCard } from './_components/project-card';
+import { ProjectCard } from '@/app/_components/project-card';
 import {
   ScrollAreaRoot,
   ScrollAreaScrollbar,
@@ -21,8 +26,8 @@ import {
   rootStyles,
   thumbStyles,
   viewportStyles,
-} from './_components/scroll-area';
-import { VisuallyHiddenRoot } from './_components/visually-hidden';
+} from '@/app/_components/scroll-area';
+import { VisuallyHiddenRoot } from '@/app/_components/visually-hidden';
 
 export default function Home() {
   return (
@@ -36,6 +41,7 @@ export default function Home() {
         <WorkSection>
           <ProjectGrid />
         </WorkSection>
+        <ComponentsSection />
         <WritingsSection />
         <ConnectSection />
       </div>
@@ -159,6 +165,69 @@ const cardWrapper = css({
   minW: { base: '90%', bp1: '45%', bp2: '220px' },
   ml: 's',
   _firstOfType: { ml: 'none' },
+});
+
+const ComponentsSection = () => {
+  const components = getAllComponents(3);
+
+  if (components.length === 0) return null;
+
+  return (
+    <section className={stack({ gap: 's' })}>
+      <div className={flex({ justify: 'space-between', align: 'center' })}>
+        <h2 className={css({ textStyle: 'base', lineHeight: 'tight' })}>
+          Components
+        </h2>
+        <ArrowLink href={PATHS.components}>view all</ArrowLink>
+      </div>
+      <ScrollAreaRoot className={rootStyles}>
+        <ScrollAreaScrollbar className={barStyles} orientation='horizontal'>
+          <ScrollAreaThumb className={thumbStyles} />
+        </ScrollAreaScrollbar>
+        <ScrollAreaViewport className={viewportStyles}>
+          <div
+            className={flex({
+              mb: 'l',
+              wrap: 'nowrap',
+              direction: 'row',
+            })}
+          >
+            {components.map((component) => (
+              <div key={component.slug} className={cardWrapper}>
+                <Link
+                  href={`${PATHS.components}/${component.slug}`}
+                  className={componentCardLink}
+                >
+                  <ComponentPreview
+                    preview={component.preview}
+                    alt={component.title}
+                    sizes='(max-width: 590px) 90vw, (max-width: 767px) 45vw, 220px'
+                  />
+                  <span
+                    className={css({
+                      display: 'block',
+                      mt: '2xs',
+                      textStyle: 'base',
+                      fontSize: '1',
+                      lineHeight: 'tight',
+                    })}
+                  >
+                    {component.title}
+                  </span>
+                </Link>
+              </div>
+            ))}
+          </div>
+        </ScrollAreaViewport>
+      </ScrollAreaRoot>
+    </section>
+  );
+};
+
+const componentCardLink = css({
+  display: 'block',
+  color: 'inherit',
+  textDecoration: 'none',
 });
 
 const WritingsSection = () => {

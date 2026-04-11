@@ -4,7 +4,7 @@ import {
   ProseLayoutHeader,
 } from '@/app/_components/prose-layout';
 import { PATHS } from '@/app/_utils/constants/paths.constants';
-import { getAllUpdates } from '@/app/_utils/content';
+import { getAllNotes } from '@/app/_utils/content';
 import {
   parseDateToLongDateString,
   parseDateToString,
@@ -14,25 +14,25 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 export const generateStaticParams = () => {
-  return getAllUpdates().map((update) => ({ update: update.slug }));
+  return getAllNotes().map((note) => ({ note: note.slug }));
 };
 
 export const generateMetadata = async (props: {
-  params: Promise<{ update: string }>;
+  params: Promise<{ note: string }>;
 }): Promise<Metadata> => {
   const params = await props.params;
-  const update = getAllUpdates().find((u) => u.slug === params.update);
+  const note = getAllNotes().find((n) => n.slug === params.note);
 
-  if (!update) {
+  if (!note) {
     return {};
   }
 
-  const { date } = update;
+  const { date } = note;
 
   const fancyDate = parseDateToLongDateString(date);
-  const headline = `Now: ${parseDateToString(date)}`;
+  const headline = `Notes: ${parseDateToString(date)}`;
 
-  const url = new URL(`${PATHS.base}${PATHS.now}/${update.slug}`);
+  const url = new URL(`${PATHS.base}${PATHS.notes}/${note.slug}`);
   const title = headline;
   const description = `A snapshot of my life—${fancyDate}.`;
 
@@ -51,20 +51,20 @@ export const generateMetadata = async (props: {
   };
 };
 
-export default async function Update(props: {
-  params: Promise<{ update: string }>;
+export default async function Note(props: {
+  params: Promise<{ note: string }>;
 }) {
   const params = await props.params;
-  const update = getAllUpdates().find((u) => u.slug === params.update);
+  const note = getAllNotes().find((n) => n.slug === params.note);
 
-  if (!update) {
+  if (!note) {
     return notFound();
   }
 
-  const { date } = update;
+  const { date } = note;
   const fancyDate = parseDateToString(date);
   const { default: Content } = (await import(
-    `@/data/updates/${params.update}.mdx`
+    `@/data/notes/${params.note}.mdx`
   )) as { default: () => React.ReactNode };
 
   return (
@@ -72,8 +72,8 @@ export default async function Update(props: {
       <ProseLayoutHeader
         backTo={{
           hasLink: true,
-          content: 'Back to now',
-          href: PATHS.now,
+          content: 'Back to notes',
+          href: PATHS.notes,
         }}
       />
 
