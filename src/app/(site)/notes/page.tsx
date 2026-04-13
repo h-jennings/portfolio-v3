@@ -16,7 +16,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 
 const title = 'Notes';
-const description = 'A snapshot of my life via short updates.';
+const description = 'Brief dispatches on craft and code.';
 const url = new URL(`${PATHS.base}${PATHS.notes}`);
 
 export const metadata: Metadata = {

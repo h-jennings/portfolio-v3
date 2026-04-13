@@ -34,7 +34,7 @@ export const generateMetadata = async (props: {
 
   const url = new URL(`${PATHS.base}${PATHS.notes}/${note.slug}`);
   const title = headline;
-  const description = `A snapshot of my life—${fancyDate}.`;
+  const description = `A brief dispatch on craft and code—${fancyDate}.`;
 
   return {
     title,
