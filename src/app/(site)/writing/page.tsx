@@ -1,3 +1,4 @@
+import { BackToLink } from '@/app/_components/back-to-link';
 import { PATHS } from '@/app/_utils/constants/paths.constants';
 import { getAllWritings } from '@/app/_utils/content';
 import {
@@ -9,7 +10,6 @@ import { css, cx } from 'ds/css';
 import { flex, linkBox, linkOverlay, stack } from 'ds/patterns';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { BackToLink } from '@/app/_components/back-to-link';
 import s from './writing.module.css';
 
 const title = 'Writing';

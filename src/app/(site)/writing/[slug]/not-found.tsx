@@ -1,8 +1,8 @@
-import Link from 'next/link';
-import { link } from 'ds/recipes';
-import { css, cx } from 'ds/css';
 import { NotFoundContent } from '@/app/_components/not-found-content';
 import { PATHS } from '@/app/_utils/constants/paths.constants';
+import { css, cx } from 'ds/css';
+import { link } from 'ds/recipes';
+import Link from 'next/link';
 
 export default function NotFound() {
   return (
