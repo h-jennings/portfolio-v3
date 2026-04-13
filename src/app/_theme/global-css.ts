@@ -69,11 +69,10 @@ export const globalCss = defineGlobalStyles({
       overflowX: 'auto',
       py: 's',
       px: '0',
-      border: '1px solid',
-      borderColor: 'slate4',
       backgroundColor: 'slate2',
       borderRadius: '6px',
       backgroundClip: 'padding-box',
+      boxShadow: 'elevation1',
     },
     '[data-line]': {
       borderLeft: '4px solid',
