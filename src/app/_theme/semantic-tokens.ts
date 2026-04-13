@@ -1,15 +1,15 @@
 import { defineSemanticTokens } from '@pandacss/dev';
 import {
-  goldDark,
-  greenDark,
-  slateDark,
-  yellowDark,
-  tomatoDark,
   gold,
+  goldDark,
   green,
+  greenDark,
   slate,
+  slateDark,
   tomato,
+  tomatoDark,
   yellow,
+  yellowDark,
 } from '@radix-ui/colors';
 
 const colorsDark = {
@@ -32,15 +32,18 @@ export const colorsLight = {
 
 type ColorKey = keyof typeof colorsDark;
 
-const colors = Object.keys(colorsDark).reduce((acc, key) => {
-  acc[key as ColorKey] = {
-    value: {
-      base: colorsLight[key as ColorKey],
-      _dark: colorsDark[key as ColorKey],
-    },
-  };
-  return acc;
-}, {} as Record<ColorKey, { value: { base: string; _dark: string } }>);
+const colors = Object.keys(colorsDark).reduce(
+  (acc, key) => {
+    acc[key as ColorKey] = {
+      value: {
+        base: colorsLight[key as ColorKey],
+        _dark: colorsDark[key as ColorKey],
+      },
+    };
+    return acc;
+  },
+  {} as Record<ColorKey, { value: { base: string; _dark: string } }>,
+);
 
 export const semanticTokens = defineSemanticTokens({
   colors: {

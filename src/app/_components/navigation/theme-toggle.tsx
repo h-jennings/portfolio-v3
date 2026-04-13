@@ -1,8 +1,8 @@
 'use client';
 import { circle, grid } from 'ds/patterns';
 import { LayoutGroup } from 'framer-motion';
-import { ICON_SVG_COMPONENTS, Theme } from './icon-components';
 import dynamic from 'next/dynamic';
+import { ICON_SVG_COMPONENTS, Theme } from './icon-components';
 
 const IconButton = dynamic(() => import('./icon-button'), {
   ssr: false,
