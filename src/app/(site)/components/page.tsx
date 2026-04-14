@@ -77,7 +77,7 @@ export default function ComponentsIndex() {
                   </span>
                   <time
                     className={css({
-                      textStyle: 'serif',
+                      textStyle: 'base',
                       fontSize: '0',
                       color: 'text2',
                       flexShrink: 0,

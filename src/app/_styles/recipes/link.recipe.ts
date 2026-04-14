@@ -10,6 +10,8 @@ export const linkRecipe = defineRecipe({
     transitionProperty: 'box-shadow, color',
     _focus: {
       outline: 'none',
+    },
+    _focusVisible: {
       boxShadow: 'focus',
     },
   },
@@ -21,7 +23,7 @@ export const linkRecipe = defineRecipe({
         _hover: {
           color: 'var(--activeColor)',
         },
-        _focus: {
+        _focusVisible: {
           color: 'var(--activeColor)',
         },
       },
@@ -31,7 +33,7 @@ export const linkRecipe = defineRecipe({
         _hover: {
           color: 'var(--activeColor)',
         },
-        _focus: {
+        _focusVisible: {
           color: 'var(--activeColor)',
         },
       },
@@ -41,7 +43,7 @@ export const linkRecipe = defineRecipe({
         _hover: {
           color: 'var(--activeColor)',
         },
-        _focus: {
+        _focusVisible: {
           color: 'var(--activeColor)',
         },
       },
