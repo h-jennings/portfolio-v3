@@ -17,6 +17,8 @@ export const globalCss = defineGlobalStyles({
     transitionProperty: 'box-shadow',
     _focus: {
       outline: 'none',
+    },
+    _focusVisible: {
       boxShadow: 'focus',
     },
   },
@@ -26,6 +28,8 @@ export const globalCss = defineGlobalStyles({
     transitionProperty: 'box-shadow',
     _focus: {
       outline: 'none',
+    },
+    _focusVisible: {
       boxShadow: 'focus',
     },
   },

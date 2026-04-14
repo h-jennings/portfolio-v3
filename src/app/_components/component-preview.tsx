@@ -67,6 +67,7 @@ const placeholder = css({
   bg: 'surface1',
   backgroundImage:
     'radial-gradient(circle, {colors.slate5} 1px, transparent 1px)',
+  backgroundRepeat: 'round',
   backgroundSize: '20px 20px',
 });
 
