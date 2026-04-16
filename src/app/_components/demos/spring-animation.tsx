@@ -1,7 +1,7 @@
 'use client';
 
 import { css } from 'ds/css';
-import { motion, useSpring } from 'framer-motion';
+import { motion, useSpring } from 'motion/react';
 import { useState } from 'react';
 
 interface SliderProps {
