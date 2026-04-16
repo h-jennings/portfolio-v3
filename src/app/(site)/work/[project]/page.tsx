@@ -1,5 +1,10 @@
 import { BackToLink } from '@/app/_components/back-to-link';
 import { ArrowTopRightIcon } from '@/app/_components/icons/ArrowTopRightIcon';
+import {
+  LightboxItems,
+  LightboxProvider,
+  LightboxRoot,
+} from '@/app/_components/lightbox/lightbox';
 import { PATHS } from '@/app/_utils/constants/paths.constants';
 import { getAllProjects, getProjectBySlug } from '@/app/_utils/content';
 import { getYear } from 'date-fns';
@@ -63,50 +68,55 @@ export default async function Project(props: {
   )) as { default: () => React.ReactNode };
 
   return (
-    <div className={stack({ gap: '3xl' })}>
-      <div className={stack({ gap: 'xl' })}>
-        <ProjectHeader name={name} client={client} />
-        <ProjectGallery media={media} />
-        <div className={stack({ gap: 'xs' })}>
+    <LightboxProvider items={media}>
+      <div className={stack({ gap: '3xl' })}>
+        <div className={stack({ gap: 'xl' })}>
+          <ProjectHeader name={name} client={client} />
+          <LightboxRoot>
+            <LightboxItems />
+          </LightboxRoot>
+          <ProjectGallery media={media} />
+          <div className={stack({ gap: 'xs' })}>
+            <h3
+              className={css({
+                textStyle: 'base',
+                color: 'text2',
+                fontSize: '1',
+                lineHeight: 'tight',
+              })}
+            >
+              Description
+            </h3>
+            <Content />
+          </div>
+          <div className={grid({ gap: 'm', columns: { base: 2, bp1: 3 } })}>
+            <ProjectContributions contribution={contribution} />
+            <div
+              className={stack({
+                gap: 'm',
+                justify: 'left',
+                gridColumn: { bp1: 'span 2 / -1' },
+              })}
+            >
+              <ProjectDates date={date} />
+              {link != null && <ProjectLink link={link} />}
+            </div>
+          </div>
+        </div>
+        <div className={stack({ gap: 's' })}>
           <h3
             className={css({
-              textStyle: 'base',
               color: 'text2',
               fontSize: '1',
               lineHeight: 'tight',
             })}
           >
-            Description
+            Other Projects
           </h3>
-          <Content />
-        </div>
-        <div className={grid({ gap: 'm', columns: { base: 2, bp1: 3 } })}>
-          <ProjectContributions contribution={contribution} />
-          <div
-            className={stack({
-              gap: 'm',
-              justify: 'left',
-              gridColumn: { bp1: 'span 2 / -1' },
-            })}
-          >
-            <ProjectDates date={date} />
-            {link != null && <ProjectLink link={link} />}
-          </div>
+          <MoreProjects current={params.project} />
         </div>
       </div>
-      <div className={stack({ gap: 's' })}>
-        <h3
-          className={css({
-            color: 'text2',
-            fontSize: '1',
-            lineHeight: 'tight',
-          })}
-        >
-          Other Projects
-        </h3>
-        <MoreProjects current={params.project} />
-      </div>
-    </div>
+    </LightboxProvider>
   );
 }
 

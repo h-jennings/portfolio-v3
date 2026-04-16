@@ -1,7 +1,7 @@
 'use client';
 import { cva, cx } from 'ds/css';
 import { circle, grid } from 'ds/patterns';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { useTheme } from 'next-themes';
 import { ICON_SVG_COMPONENTS, Theme } from './icon-components';
 

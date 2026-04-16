@@ -1,4 +1,6 @@
-import { AspectRatioRoot } from '@/app/_components/aspect-ratio';
+'use client';
+
+import { useLightbox } from '@/app/_components/lightbox/lightbox';
 import { ProjectImage } from '@/app/_components/project-image';
 import {
   ScrollAreaRoot,
@@ -18,6 +20,8 @@ interface ProjectGalleryProps {
 }
 
 export const ProjectGallery = ({ media }: ProjectGalleryProps) => {
+  const { open } = useLightbox();
+
   return (
     <ScrollAreaRoot className={rootStyles}>
       <ScrollAreaScrollbar className={barStyles} orientation='horizontal'>
@@ -49,32 +53,39 @@ export const ProjectGallery = ({ media }: ProjectGalleryProps) => {
             ] as const;
 
             return (
-              <div className={mediaContainer({ item: position })} key={idx}>
+              <button
+                onClick={() => open(idx)}
+                className={mediaContainer({ item: position })}
+                style={{ aspectRatio: `${width} / ${height}` }}
+                key={idx}
+              >
                 {item.mediaType === 'IMAGE' ? (
-                  <AspectRatioRoot ratio={width / height}>
-                    <ProjectImage
-                      src={item.url}
-                      alt={item.alt}
-                      fill
-                      style={{ objectFit: 'cover' }}
-                      quality={100}
-                      sizes={sizes[position]}
-                    />
-                  </AspectRatioRoot>
+                  <ProjectImage
+                    src={item.url}
+                    alt={item.alt}
+                    fill
+                    style={{ objectFit: 'cover' }}
+                    quality={100}
+                    sizes={sizes[position]}
+                  />
                 ) : (
-                  <AspectRatioRoot ratio={width / height}>
-                    <video
-                      src={item.url}
-                      style={{ objectFit: 'cover', height: '100%' }}
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      controls={false}
-                    />
-                  </AspectRatioRoot>
+                  <video
+                    src={item.url}
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                    }}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    controls={false}
+                  />
                 )}
-              </div>
+              </button>
             );
           })}
         </div>
@@ -85,23 +96,23 @@ export const ProjectGallery = ({ media }: ProjectGalleryProps) => {
 
 const mediaContainer = cva({
   base: {
-    isolation: 'isolate',
+    position: 'relative',
+    width: '100%',
     overflow: 'hidden',
-    rounded: 'card',
-    h: 'full',
+    borderRadius: '15px',
     bgColor: 'slate8',
+    cursor: 'pointer',
+    minWidth: 0,
+    minHeight: 0,
+    appearance: 'none',
+    border: 'none',
+    padding: 0,
   },
   variants: {
     item: {
-      0: {
-        gridColumn: '1 / span 2',
-      },
-      1: {
-        gridColumn: '3 / -1',
-      },
-      2: {
-        gridColumn: '1 / -1',
-      },
+      0: { gridColumn: '1 / span 2' },
+      1: { gridColumn: '3 / -1' },
+      2: { gridColumn: '1 / -1' },
     },
   },
 });
