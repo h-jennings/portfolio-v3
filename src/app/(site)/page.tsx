@@ -133,11 +133,13 @@ const ProjectGrid = () => {
   const projects = getAllProjects(3);
 
   return (
-    <ScrollAreaRoot className={rootStyles}>
+    <ScrollAreaRoot className={cx(rootStyles, scrollRootBleedStyles)}>
       <ScrollAreaScrollbar className={barStyles} orientation='horizontal'>
         <ScrollAreaThumb className={thumbStyles} />
       </ScrollAreaScrollbar>
-      <ScrollAreaViewport className={viewportStyles}>
+      <ScrollAreaViewport
+        className={cx(viewportStyles, cardScrollViewportStyles)}
+      >
         <div
           className={flex({
             mb: 'l',
@@ -167,6 +169,16 @@ const cardWrapper = css({
   _firstOfType: { ml: 'none' },
 });
 
+const scrollRootBleedStyles = css({
+  marginInline: '-3xs',
+  w: 'calc(100% + var(--spacing-3xs) * 2)',
+});
+
+const cardScrollViewportStyles = css({
+  px: '3xs',
+  py: '2xs',
+});
+
 const ComponentsSection = () => {
   const components = getAllComponents(3);
 
@@ -180,11 +192,13 @@ const ComponentsSection = () => {
         </h2>
         <ArrowLink href={PATHS.components}>view all</ArrowLink>
       </div>
-      <ScrollAreaRoot className={rootStyles}>
+      <ScrollAreaRoot className={cx(rootStyles, scrollRootBleedStyles)}>
         <ScrollAreaScrollbar className={barStyles} orientation='horizontal'>
           <ScrollAreaThumb className={thumbStyles} />
         </ScrollAreaScrollbar>
-        <ScrollAreaViewport className={viewportStyles}>
+        <ScrollAreaViewport
+          className={cx(viewportStyles, cardScrollViewportStyles)}
+        >
           <div
             className={flex({
               mb: 'l',

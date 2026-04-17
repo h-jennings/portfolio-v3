@@ -101,7 +101,19 @@ const FeaturedProject = ({ project }: FeaturedProjectProps) => {
             )})`,
           }}
         >
-          <div className={stack({ gap: 'm' })}>
+          <div
+            className={stack({
+              gap: 'm',
+              '&:has([data-slot="project-card-link"]:hover) [data-slot="project-media"]':
+                {
+                  transform: 'scale(1.02)',
+                },
+              '&:has([data-slot="project-card-link"]:active) [data-slot="project-media"]':
+                {
+                  transform: 'scale(1)',
+                },
+            })}
+          >
             {featuredMediaWide.mediaType === 'IMAGE' ? (
               <div
                 className={css({
@@ -119,6 +131,13 @@ const FeaturedProject = ({ project }: FeaturedProjectProps) => {
                     style={{ objectFit: 'cover' }}
                     quality={100}
                     sizes='(max-width) 100vw, 460px'
+                    className={css({
+                      transition: 'transform 150ms ease',
+                      transform: 'scale(1)',
+                      transformOrigin: 'center',
+                      willChange: 'transform',
+                    })}
+                    data-slot='project-media'
                   />
                 </AspectRatioRoot>
               </div>
@@ -140,12 +159,23 @@ const FeaturedProject = ({ project }: FeaturedProjectProps) => {
                     loop
                     playsInline
                     controls={false}
+                    className={css({
+                      transition: 'transform 150ms ease',
+                      transform: 'scale(1)',
+                      transformOrigin: 'center',
+                      willChange: 'transform',
+                    })}
+                    data-slot='project-media'
                   />
                 </AspectRatioRoot>
               </div>
             )}
             <div>
-              <Link className={linkOverlay()} href={`${PATHS.work}/${slug}`}>
+              <Link
+                className={linkOverlay()}
+                href={`${PATHS.work}/${slug}`}
+                data-slot='project-card-link'
+              >
                 <p
                   className={css({
                     textStyle: 'base',

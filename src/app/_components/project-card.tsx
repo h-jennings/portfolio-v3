@@ -18,32 +18,56 @@ export const ProjectCard = ({ project, sizes = '100vw' }: ProjectCardProps) => {
 
   return (
     <div className={linkBox()}>
-      <div className={stack({ gap: 's' })}>
+      <div
+        className={stack({
+          gap: 's',
+          '&:has([data-slot="project-card-link"]:hover) [data-slot="project-card-media"]':
+            {
+              transform: 'scale(1.02)',
+            },
+          '&:has([data-slot="project-card-link"]:active) [data-slot="project-card-media"]':
+            {
+              transform: 'scale(0.98)',
+            },
+        })}
+      >
         <div
           className={css({
+            transition: 'transform 150ms ease',
+            transform: 'scale(1)',
+            transformOrigin: 'center',
             rounded: 'card',
-            bgColor: 'slate8',
-            pos: 'relative',
-            overflow: 'hidden',
+            overflow: 'clip',
           })}
+          data-slot='project-card-media'
         >
-          <AspectRatioRoot ratio={220 / 275} style={{ position: 'relative' }}>
-            <ProjectImage
-              src={featuredMediaNarrow.url}
-              preload={true}
-              alt={featuredMediaNarrow.alt}
-              fill
-              style={{ objectFit: 'cover' }}
-              quality={100}
-              sizes={sizes}
-            />
-          </AspectRatioRoot>
+          <div
+            className={css({
+              rounded: 'card',
+              bgColor: 'slate8',
+              pos: 'relative',
+              overflow: 'hidden',
+            })}
+          >
+            <AspectRatioRoot ratio={220 / 275} style={{ position: 'relative' }}>
+              <ProjectImage
+                src={featuredMediaNarrow.url}
+                preload={true}
+                alt={featuredMediaNarrow.alt}
+                fill
+                style={{ objectFit: 'cover' }}
+                quality={100}
+                sizes={sizes}
+              />
+            </AspectRatioRoot>
+          </div>
         </div>
         <div className={css({ px: '3xs' })}>
           <Link
             className={linkOverlay({ display: 'inline-block' })}
             href={`${PATHS.work}/${slug}`}
             data-testid={slug}
+            data-slot='project-card-link'
           >
             <h3
               className={css({

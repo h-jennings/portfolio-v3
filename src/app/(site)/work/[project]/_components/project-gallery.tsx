@@ -12,7 +12,7 @@ import {
   thumbStyles,
   viewportStyles,
 } from '@/app/_components/scroll-area';
-import { css, cva } from 'ds/css';
+import { css, cva, cx } from 'ds/css';
 import * as React from 'react';
 
 export const ProjectGallery = () => {
@@ -20,11 +20,13 @@ export const ProjectGallery = () => {
 
   return (
     <React.Fragment>
-      <ScrollAreaRoot className={rootStyles}>
+      <ScrollAreaRoot className={cx(rootStyles, scrollRootBleedStyles)}>
         <ScrollAreaScrollbar className={barStyles} orientation='horizontal'>
           <ScrollAreaThumb className={thumbStyles} />
         </ScrollAreaScrollbar>
-        <ScrollAreaViewport className={viewportStyles}>
+        <ScrollAreaViewport
+          className={cx(viewportStyles, cardScrollViewportStyles)}
+        >
           <div
             className={css({
               mb: { bp1Down: 'l' },
@@ -107,6 +109,15 @@ const mediaContainer = cva({
     appearance: 'none',
     border: 'none',
     padding: 0,
+    transition: 'transform 150ms ease',
+    transform: 'scale(1)',
+    transformOrigin: 'center',
+    _hover: {
+      transform: 'scale(1.02)',
+    },
+    _active: {
+      transform: 'scale(0.98)',
+    },
   },
   variants: {
     item: {
@@ -115,4 +126,14 @@ const mediaContainer = cva({
       2: { gridColumn: '1 / -1' },
     },
   },
+});
+
+const scrollRootBleedStyles = css({
+  marginInline: '-2xs',
+  w: 'calc(100% + var(--spacing-2xs) * 2)',
+});
+
+const cardScrollViewportStyles = css({
+  px: '2xs',
+  py: '2xs',
 });
