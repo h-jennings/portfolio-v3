@@ -1,4 +1,5 @@
 'use client';
+
 import { ProjectMedia } from '@/app/_utils/content';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { css, cx } from 'ds/css';
@@ -15,15 +16,13 @@ import { ZoomableMedia } from './zoomable-media';
 interface LightboxContextStore {
   isOpen: boolean;
   activeIndex: number;
-  canPrev: boolean;
-  canNext: boolean;
   open: (index: number) => void;
   close: () => void;
   next: () => void;
   prev: () => void;
-  goTo: (index: number) => void;
   carouselRef: UseEmblaCarouselType[0] | null;
   items: Array<ProjectMedia>;
+  isZoomedRef: React.RefObject<boolean>;
 }
 
 const LightboxContext = React.createContext<LightboxContextStore | null>(null);
@@ -37,11 +36,13 @@ export function LightboxProvider({
 }) {
   const [isOpen, setIsOpen] = React.useState(false);
   const [activeIndex, setActiveIndex] = React.useState(0);
-  const [canPrev, setCanPrev] = React.useState(false);
-  const [canNext, setCanNext] = React.useState(false);
   const pendingIndexRef = React.useRef<number | null>(null);
+  const isZoomedRef = React.useRef(false);
 
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: true,
+    watchDrag: () => !isZoomedRef.current,
+  });
 
   const open = React.useCallback((index: number) => {
     pendingIndexRef.current = index;
@@ -56,8 +57,6 @@ export function LightboxProvider({
   const onSelect = useCallback((emblaApi: UseEmblaCarouselType[1]) => {
     if (!emblaApi) return;
     setActiveIndex(emblaApi.selectedScrollSnap());
-    setCanPrev(emblaApi.canScrollPrev());
-    setCanNext(emblaApi.canScrollNext());
   }, []);
 
   const next = useCallback(() => {
@@ -67,13 +66,6 @@ export function LightboxProvider({
   const prev = useCallback(() => {
     emblaApi?.scrollPrev();
   }, [emblaApi]);
-
-  const goTo = useCallback(
-    (index: number) => {
-      emblaApi?.scrollTo(index);
-    },
-    [emblaApi],
-  );
 
   React.useEffect(() => {
     if (!emblaApi || !isOpen || pendingIndexRef.current == null) return;
@@ -99,24 +91,10 @@ export function LightboxProvider({
       close,
       next,
       prev,
-      goTo,
-      canPrev,
-      canNext,
       items,
+      isZoomedRef,
     }),
-    [
-      isOpen,
-      activeIndex,
-      emblaRef,
-      open,
-      close,
-      next,
-      prev,
-      goTo,
-      canPrev,
-      canNext,
-      items,
-    ],
+    [isOpen, activeIndex, emblaRef, open, close, next, prev, items],
   );
 
   return <LightboxContext value={value}>{children}</LightboxContext>;
@@ -140,23 +118,21 @@ const EXIT_SPRING = {
   duration: 0.35,
   bounce: 0,
 };
-// Chrome (close button, nav) fades in after the image has settled,
-// fades out fast on dismiss — Twitter iOS pattern.
-const CHROME_ENTER = { duration: 0.2, delay: 0.18, ease: 'easeOut' as const };
-const CHROME_EXIT = { duration: 0.12, ease: 'easeOut' as const };
+const CONTROLS_ENTER = { duration: 0.2, delay: 0.18, ease: 'easeOut' as const };
+const CONTROLS_EXIT = { duration: 0.12, ease: 'easeOut' as const };
 
-export function LightboxRoot({ children }: { children: React.ReactNode }) {
+export function Lightbox() {
   const { isOpen, close } = useLightbox();
 
   const backdropExit = { opacity: 0, transition: EXIT_SPRING };
-  const chromeInitial = { opacity: 0 };
-  const chromeAnimate = {
+  const controlsInitial = { opacity: 0 };
+  const controlsAnimate = {
     opacity: 1,
-    transition: CHROME_ENTER,
+    transition: CONTROLS_ENTER,
   };
-  const chromeExit = {
+  const controlsExit = {
     opacity: 0,
-    transition: CHROME_EXIT,
+    transition: CONTROLS_EXIT,
   };
 
   return (
@@ -197,8 +173,6 @@ export function LightboxRoot({ children }: { children: React.ReactNode }) {
                   position: 'fixed',
                   inset: 0,
                   zIndex: 51,
-                  h: 'screenH',
-                  w: 'screenW',
                   padding: 'm',
                   display: 'grid',
                   gridTemplateColumns: 'minmax(0, 1fr)',
@@ -213,17 +187,26 @@ export function LightboxRoot({ children }: { children: React.ReactNode }) {
                   Media gallery viewer
                 </DialogPrimitive.Description>
                 <motion.div
-                  initial={chromeInitial}
-                  animate={chromeAnimate}
-                  exit={chromeExit}
+                  initial={controlsInitial}
+                  animate={controlsAnimate}
+                  exit={controlsExit}
                   className={css({
                     display: 'flex',
                     justifyContent: 'flex-end',
                   })}
                 >
-                  <DialogPrimitive.Close>close</DialogPrimitive.Close>
+                  <DialogPrimitive.Close
+                    className={css({
+                      fontSize: '1',
+                      lineHeight: 'tight',
+                      color: 'text1',
+                      _hover: { color: 'text2' },
+                    })}
+                  >
+                    close
+                  </DialogPrimitive.Close>
                 </motion.div>
-                {children}
+                <LightboxItems />
               </motion.div>
             </DialogPrimitive.Content>
           )}
@@ -233,7 +216,7 @@ export function LightboxRoot({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function LightboxItems() {
+function LightboxItems() {
   const { carouselRef, next, prev, items, activeIndex } = useLightbox();
 
   React.useEffect(() => {
@@ -248,23 +231,23 @@ export function LightboxItems() {
     };
 
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
   }, [next, prev]);
 
   const stageInitial = { opacity: 0, scale: 0.9, y: 60 };
   const stageAnimate = { opacity: 1, scale: 1, y: 0 };
   const stageExit = { opacity: 0, transition: EXIT_SPRING };
 
-  const chromeAnimate = {
+  const controlsAnimate = {
     opacity: 1,
-    transition: CHROME_ENTER,
+    transition: CONTROLS_ENTER,
   };
-  const chromeExit = {
+  const controlsExit = {
     opacity: 0,
-    transition: CHROME_EXIT,
+    transition: CONTROLS_EXIT,
   };
-
-  const activeItem = items[activeIndex];
 
   return (
     <div
@@ -319,7 +302,7 @@ export function LightboxItems() {
                         alt={item.alt}
                         fill
                         sizes='100vw'
-                        priority={isActive}
+                        preload={isActive}
                         style={{
                           objectFit: 'contain',
                           pointerEvents: 'none',
@@ -354,9 +337,9 @@ export function LightboxItems() {
           onClick={prev}
           aria-label='Previous'
           initial={{ opacity: 0 }}
-          animate={chromeAnimate}
-          exit={chromeExit}
-          className={cx(circle({ size: 40 }), arrowButton)}
+          animate={controlsAnimate}
+          exit={controlsExit}
+          className={cx(circle({ size: 40, left: 'xs' }), arrowButton)}
           style={{ left: 12 }}
         >
           <ArrowLeftIcon />
@@ -365,27 +348,12 @@ export function LightboxItems() {
           onClick={next}
           aria-label='Next'
           initial={{ opacity: 0 }}
-          animate={chromeAnimate}
-          exit={chromeExit}
-          className={cx(circle({ size: 40 }), arrowButton)}
-          style={{ right: 12 }}
+          animate={controlsAnimate}
+          exit={controlsExit}
+          className={cx(circle({ size: 40, right: 'xs' }), arrowButton)}
         >
           <ArrowRightIcon />
         </motion.button>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={chromeAnimate}
-        exit={chromeExit}
-        className={css({
-          textAlign: 'center',
-          textStyle: 'body',
-          color: 'text2',
-          minHeight: '1.25em',
-        })}
-      >
-        {activeItem?.alt}
       </motion.div>
     </div>
   );
