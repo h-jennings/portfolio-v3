@@ -19,6 +19,7 @@ export function ZoomableMedia({ isActive, children }: ZoomableMediaProps) {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const [isZoomed, setIsZoomed] = React.useState(false);
+  const didPanRef = React.useRef(false);
 
   const resetZoom = React.useCallback(() => {
     animate(scale, 1, SNAP_SPRING);
@@ -59,6 +60,10 @@ export function ZoomableMedia({ isActive, children }: ZoomableMediaProps) {
     <motion.div
       ref={containerRef}
       onClick={() => {
+        if (didPanRef.current) {
+          didPanRef.current = false;
+          return;
+        }
         if (scale.get() > 1) {
           resetZoom();
         } else {
@@ -67,6 +72,7 @@ export function ZoomableMedia({ isActive, children }: ZoomableMediaProps) {
       }}
       onPan={(_, info) => {
         if (scale.get() <= 1) return;
+        didPanRef.current = true;
         const { maxX, maxY } = panBounds();
         const cx = clamp(x.get() + info.delta.x, -maxX, maxX);
         const cy = clamp(y.get() + info.delta.y, -maxY, maxY);
