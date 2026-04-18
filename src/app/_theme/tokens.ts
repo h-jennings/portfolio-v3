@@ -57,7 +57,8 @@ export const tokens = defineTokens({
     mono: { value: 'var(--font-mono)' },
   },
   fontWeights: {
-    bold: { value: '700' },
+    semibold: { value: '600' },
+    medium: { value: '500' },
     regular: { value: '400' },
   },
   fontSizes: {

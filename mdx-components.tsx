@@ -98,7 +98,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     ),
     strong: (props: React.ComponentPropsWithoutRef<'strong'>) => (
       <strong
-        className={cx(css({ fontWeight: 'bold' }), inlineElementReset)}
+        className={cx(css({ fontWeight: 'medium' }), inlineElementReset)}
         {...props}
       />
     ),

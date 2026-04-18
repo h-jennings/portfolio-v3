@@ -36,6 +36,5 @@ const content = css({
   border: '1px solid',
   borderColor: 'slate4',
   rounded: 'calc(token(radii.card) - token(spacing.3xs))',
-  p: 's',
   bg: 'slate2',
 });
