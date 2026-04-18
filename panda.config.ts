@@ -7,7 +7,7 @@ import { defineConfig } from '@pandacss/dev';
 
 export default defineConfig({
   preflight: true,
-  include: ['./src/app/**/*.{js,jsx,ts,tsx}'],
+  include: ['./src/app/**/*.{js,jsx,ts,tsx}', './mdx-components.tsx'],
   theme: {
     tokens,
     semanticTokens,

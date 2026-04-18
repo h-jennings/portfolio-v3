@@ -11,6 +11,14 @@ export const basierCircle = localFont({
       weight: '400',
     },
     {
+      path: '../_assets/fonts/basiercircle-medium-webfont.woff2',
+      weight: '500',
+    },
+    {
+      path: '../_assets/fonts/basiercircle-semibold-webfont.woff2',
+      weight: '600',
+    },
+    {
       path: '../_assets/fonts/basiercircle-bold-webfont.woff2',
       weight: '700',
     },
