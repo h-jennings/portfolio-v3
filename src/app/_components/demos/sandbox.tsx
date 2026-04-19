@@ -1,13 +1,14 @@
 import { css } from 'ds/css';
 
 interface SandboxProps {
+  label: string;
   aspectRatio?: string;
   children: React.ReactNode;
 }
 
-export function Sandbox({ aspectRatio, children }: SandboxProps) {
+export function Sandbox({ label, aspectRatio, children }: SandboxProps) {
   return (
-    <div className={wrapper}>
+    <div className={wrapper} role='group' aria-label={label}>
       <div
         className={content}
         style={aspectRatio != null ? { aspectRatio } : undefined}

@@ -211,11 +211,10 @@ const ComponentsSection = () => {
                 <Link
                   href={`${PATHS.components}/${component.slug}`}
                   className={componentCardLink}
-                  aria-label={`View details for ${component.title} component`}
+                  aria-label={component.title}
                 >
                   <ComponentPreview
                     preview={component.preview}
-                    alt={component.title}
                     sizes='(max-width: 590px) 90vw, (max-width: 767px) 45vw, 220px'
                   />
                 </Link>
