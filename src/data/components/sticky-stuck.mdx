@@ -1,0 +1,27 @@
+---
+title: Sticky Stuck Detection
+description:
+  Detect when a position-sticky element has hit its offset, then restyle it
+date: 2026-04-17
+status: published
+---
+
+import { StickyStuck } from '@/app/_components/demos/sticky-stuck';
+
+CSS's `position: sticky` docks an element at an offset, but leaves you without a
+hook for when that docking actually happens. A sentinel fills the gap: a `1px`
+element sits in normal flow just above the target, with a matching `-1px` margin
+so it doesn't shift layout. An `IntersectionObserver` watches it against the
+scroll container, and the moment the sentinel leaves view, the target has
+docked.
+
+That boolean becomes a styling hook. Here, the bar reads `isStuck` and compacts
+the search input into a pill. Motion's `layout` prop drives this behavior, with
+shared `layoutId`s carrying the icon and label through the transition. This
+makes it render as one element morphing itself.
+
+<SourceLink slug='sticky-stuck' />
+
+<Sandbox label='Sticky stuck detection' aspectRatio='4/3'>
+  <StickyStuck />
+</Sandbox>

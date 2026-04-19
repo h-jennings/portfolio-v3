@@ -1,4 +1,5 @@
 import { Sandbox } from '@/app/_components/demos/sandbox';
+import { SourceLink } from '@/app/_components/demos/source-link';
 import { Separator } from '@/app/_components/separator';
 import { blockquote } from '@/app/_styles/blockquote';
 import {
@@ -91,6 +92,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       <p
         className={css({
           textStyle: 'body',
+          lineHeight: '1.7',
           mb: 'm',
         })}
         {...props}
@@ -139,6 +141,23 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     blockquote: (props: React.ComponentPropsWithoutRef<'blockquote'>) => (
       <blockquote className={blockquote} {...props} />
     ),
+    code: (props: React.ComponentPropsWithoutRef<'code'>) => (
+      <code
+        className={css({
+          fontFamily: 'mono',
+          fontSize: '0.875em',
+          bg: 'surface1',
+          borderWidth: '1px',
+          borderStyle: 'solid',
+          borderColor: 'slate5',
+          borderRadius: '6px',
+          lineHeight: '1.4',
+          px: '3xs',
+          py: '1px',
+        })}
+        {...props}
+      />
+    ),
     pre: (props: React.ComponentPropsWithoutRef<'pre'>) => (
       <pre
         className={css({
@@ -150,6 +169,7 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       />
     ),
     Sandbox,
+    SourceLink,
     ...components,
   };
 }
