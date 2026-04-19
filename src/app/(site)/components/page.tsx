@@ -3,7 +3,7 @@ import { PATHS } from '@/app/_utils/constants/paths.constants';
 import { getAllComponents } from '@/app/_utils/content';
 import { parseDateToLongDateString } from '@/app/_utils/helpers/date.helpers';
 import { css } from 'ds/css';
-import { flex, grid, stack } from 'ds/patterns';
+import { flex, grid, linkBox, linkOverlay, stack } from 'ds/patterns';
 import { Metadata } from 'next';
 import Link from 'next/link';
 
@@ -48,45 +48,48 @@ export default function ComponentsIndex() {
           })}
         >
           {components.map((component) => (
-            <li key={component.slug}>
-              <Link
-                href={`${PATHS.components}/${component.slug}`}
-                className={cardLink}
-              >
-                <ComponentPreview
-                  preview={component.preview}
-                  alt={component.title}
-                  sizes='(max-width: 590px) 90vw, 45vw'
-                />
+            <li key={component.slug} className={linkBox()}>
+              <div className={cardInner}>
+                <div className={mediaSlot} data-slot='component-card-media'>
+                  <ComponentPreview
+                    preview={component.preview}
+                    alt={component.title}
+                    sizes='(max-width: 590px) 90vw, 45vw'
+                  />
+                </div>
                 <div
                   className={flex({
                     justify: 'space-between',
                     align: 'baseline',
                     gap: 's',
-                    mt: 's',
                   })}
                 >
-                  <span
-                    className={css({
+                  <Link
+                    href={`${PATHS.components}/${component.slug}`}
+                    className={linkOverlay({
                       textStyle: 'base',
                       fontSize: '1',
                       lineHeight: 'tight',
+                      color: 'inherit',
+                      textDecoration: 'none',
                     })}
+                    data-slot='component-card-link'
                   >
                     {component.title}
-                  </span>
+                  </Link>
                   <time
                     className={css({
                       textStyle: 'base',
                       fontSize: '0',
                       color: 'text2',
                       flexShrink: 0,
+                      transition: 'color 150ms ease',
                     })}
                   >
                     {parseDateToLongDateString(component.date)}
                   </time>
                 </div>
-              </Link>
+              </div>
             </li>
           ))}
         </ul>
@@ -95,11 +98,23 @@ export default function ComponentsIndex() {
   );
 }
 
-const cardLink = css({
-  display: 'block',
-  color: 'inherit',
-  textDecoration: 'none',
-  _hover: {
-    '& time': { color: 'text1' },
+const cardInner = stack({
+  gap: 's',
+  '&:has([data-slot="component-card-link"]:hover) [data-slot="component-card-media"]':
+    {
+      transform: 'scale(1.02)',
+    },
+  '&:has([data-slot="component-card-link"]:active) [data-slot="component-card-media"]':
+    {
+      transform: 'scale(0.98)',
+    },
+  '&:has([data-slot="component-card-link"]:hover) time': {
+    color: 'text1',
   },
+});
+
+const mediaSlot = css({
+  transition: 'transform 150ms ease',
+  transform: 'scale(1)',
+  transformOrigin: 'center',
 });

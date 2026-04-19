@@ -232,6 +232,16 @@ const componentCardLink = css({
   display: 'block',
   color: 'inherit',
   textDecoration: 'none',
+  transform: 'scale(1)',
+  transformOrigin: 'center',
+  willChange: 'transform',
+  transition: 'transform 150ms ease',
+  _hover: {
+    transform: 'scale(1.02)',
+  },
+  _active: {
+    transform: 'scale(0.98)',
+  },
 });
 
 const WritingsSection = () => {
