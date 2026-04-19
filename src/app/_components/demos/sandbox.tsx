@@ -24,7 +24,7 @@ const wrapper = css({
   rounded: 'card',
   overflow: 'hidden',
   p: '3xs',
-  bg: 'surface0',
+  bg: 'uiBg',
   shadow: 'elevation3',
 });
 

@@ -52,8 +52,7 @@ const surface = css({
   aspectRatio: '16 / 9',
   rounded: 'card',
   overflow: 'hidden',
-  border: '1px solid',
-  borderColor: 'slate6',
+  shadow: 'elevation1',
   bg: 'surface1',
 });
 
