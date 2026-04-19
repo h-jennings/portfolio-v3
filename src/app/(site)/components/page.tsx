@@ -53,7 +53,6 @@ export default function ComponentsIndex() {
                 <div className={mediaSlot} data-slot='component-card-media'>
                   <ComponentPreview
                     preview={component.preview}
-                    alt={component.title}
                     sizes='(max-width: 590px) 90vw, 45vw'
                   />
                 </div>
@@ -78,6 +77,7 @@ export default function ComponentsIndex() {
                     {component.title}
                   </Link>
                   <time
+                    dateTime={component.date}
                     className={css({
                       textStyle: 'base',
                       fontSize: '0',

@@ -4,18 +4,13 @@ import Image from 'next/image';
 
 interface ComponentPreviewProps {
   preview?: PreviewData;
-  alt: string;
   sizes?: string;
 }
 
-export function ComponentPreview({
-  preview,
-  alt,
-  sizes,
-}: ComponentPreviewProps) {
+export function ComponentPreview({ preview, sizes }: ComponentPreviewProps) {
   if (preview?.video != null) {
     return (
-      <div className={surface}>
+      <div className={surface} aria-hidden>
         <video
           className={media}
           src={preview.video}
@@ -23,7 +18,7 @@ export function ComponentPreview({
           loop
           muted
           playsInline
-          aria-label={alt}
+          preload='metadata'
         />
       </div>
     );
@@ -31,10 +26,10 @@ export function ComponentPreview({
 
   if (preview?.image != null) {
     return (
-      <div className={surface}>
+      <div className={surface} aria-hidden>
         <Image
           src={preview.image}
-          alt={alt}
+          alt=''
           fill
           sizes={sizes ?? '(max-width: 590px) 90vw, 45vw'}
           className={media}

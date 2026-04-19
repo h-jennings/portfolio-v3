@@ -82,7 +82,13 @@ export function StickyStuck() {
   );
 
   return (
-    <div ref={scrollRef} className={scroll}>
+    <div
+      ref={scrollRef}
+      className={scroll}
+      tabIndex={0}
+      role='region'
+      aria-label='Scrollable demo area'
+    >
       <p className={hint}>Scroll to dock the search bar</p>
 
       <div ref={sentinelRef} className={sentinel} aria-hidden />
