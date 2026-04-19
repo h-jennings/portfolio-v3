@@ -92,7 +92,10 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       <p
         className={css({
           textStyle: 'body',
-          lineHeight: '1.7',
+          lineHeight: {
+            base: '1.8',
+            bp1: '1.6',
+          },
           mb: 'm',
         })}
         {...props}
@@ -145,15 +148,14 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
       <code
         className={css({
           fontFamily: 'mono',
-          fontSize: '0.875em',
+          fontSize: '0.8em',
           bg: 'surface1',
           borderWidth: '1px',
           borderStyle: 'solid',
           borderColor: 'slate5',
           borderRadius: '6px',
-          lineHeight: '1.4',
-          px: '3xs',
-          py: '1px',
+          display: 'inline',
+          p: '0.1rem 0.25rem',
         })}
         {...props}
       />
