@@ -81,6 +81,7 @@ export function GalleryLightbox() {
   const [activeIndex, setActiveIndex] = React.useState(0);
   const pendingIndexRef = React.useRef<number | null>(null);
   const isZoomedRef = React.useRef(false);
+  const thumbRefs = React.useRef<Array<HTMLButtonElement | null>>([]);
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
@@ -150,6 +151,9 @@ export function GalleryLightbox() {
         {SLIDES.map((s, index) => (
           <button
             key={s.id}
+            ref={(el) => {
+              thumbRefs.current[index] = el;
+            }}
             type='button'
             className={thumb}
             onClick={() => {
@@ -193,7 +197,14 @@ export function GalleryLightbox() {
 
           <AnimatePresence>
             {isOpen && (
-              <DialogPrimitive.Content asChild forceMount>
+              <DialogPrimitive.Content
+                onCloseAutoFocus={(e) => {
+                  e.preventDefault();
+                  thumbRefs.current[activeIndex]?.focus();
+                }}
+                asChild
+                forceMount
+              >
                 <motion.div key='content' initial={false} className={content}>
                   <DialogPrimitive.Title className={srOnly}>
                     Gallery lightbox
