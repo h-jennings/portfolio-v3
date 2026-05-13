@@ -16,7 +16,8 @@ import { css, cva, cx } from 'ds/css';
 import * as React from 'react';
 
 export const ProjectGallery = () => {
-  const { items, open } = useLightbox();
+  const { items, open, activeIndex } = useLightbox();
+  const thumbnailRefs = React.useRef<Array<HTMLButtonElement | null>>([]);
 
   return (
     <React.Fragment>
@@ -53,6 +54,9 @@ export const ProjectGallery = () => {
 
               return (
                 <button
+                  ref={(node) => {
+                    thumbnailRefs.current[idx] = node;
+                  }}
                   onClick={() => open(idx)}
                   className={mediaContainer({ item: position })}
                   style={{ aspectRatio: `${width} / ${height}` }}
@@ -91,7 +95,12 @@ export const ProjectGallery = () => {
           </div>
         </ScrollAreaViewport>
       </ScrollAreaRoot>
-      <Lightbox />
+      <Lightbox
+        onLightboxCloseAction={() => {
+          const thumbnail = thumbnailRefs.current[activeIndex];
+          thumbnail?.focus();
+        }}
+      />
     </React.Fragment>
   );
 };
