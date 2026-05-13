@@ -10,20 +10,46 @@ import {
   useMotionValue,
   useReducedMotion,
 } from 'motion/react';
+import Image from 'next/image';
 import * as React from 'react';
 
 interface Slide {
   id: number;
-  label: string;
-  tint: 'slate' | 'gold';
+  src: string;
+  alt: string;
 }
 
 const SLIDES: Array<Slide> = [
-  { id: 0, label: '01', tint: 'slate' },
-  { id: 1, label: '02', tint: 'gold' },
-  { id: 2, label: '03', tint: 'slate' },
-  { id: 3, label: '04', tint: 'gold' },
-  { id: 4, label: '05', tint: 'slate' },
+  {
+    id: 0,
+    src: '/images/components/gallery-lightbox/01.jpeg',
+    alt: 'Slide one',
+  },
+  {
+    id: 1,
+    src: '/images/components/gallery-lightbox/02.jpeg',
+    alt: 'Slide two',
+  },
+  {
+    id: 2,
+    src: '/images/components/gallery-lightbox/03.jpeg',
+    alt: 'Slide three',
+  },
+  {
+    id: 3,
+    src: '/images/components/gallery-lightbox/04.jpeg',
+    alt: 'Slide four',
+  },
+  {
+    id: 4,
+    src: '/images/components/gallery-lightbox/05.jpeg',
+    alt: 'Slide five',
+  },
+  {
+    id: 5,
+    src: '/images/components/gallery-lightbox/06.jpeg',
+    alt: 'Slide six',
+  },
 ];
 
 const ENTER_SPRING = {
@@ -125,13 +151,19 @@ export function GalleryLightbox() {
           <button
             key={s.id}
             type='button'
-            className={cx(thumb, thumbTint[s.tint])}
+            className={thumb}
             onClick={() => {
               open(index);
             }}
-            aria-label={`Open slide ${s.label}`}
+            aria-label={`Open ${s.alt}`}
           >
-            <span className={thumbLabel}>{s.label}</span>
+            <Image
+              src={s.src}
+              alt={s.alt}
+              fill
+              sizes='(max-width: 740px) 33vw, 220px'
+              style={{ objectFit: 'cover' }}
+            />
           </button>
         ))}
       </div>
@@ -196,8 +228,20 @@ export function GalleryLightbox() {
                               isActive={i === activeIndex}
                               isZoomedRef={isZoomedRef}
                             >
-                              <div className={cx(card, cardTint[s.tint])}>
-                                <span className={cardLabel}>{s.label}</span>
+                              <div className={card}>
+                                <Image
+                                  src={s.src}
+                                  alt={s.alt}
+                                  fill
+                                  sizes='100vw'
+                                  priority={i === activeIndex}
+                                  style={{
+                                    objectFit: 'contain',
+                                    userSelect: 'none',
+                                    pointerEvents: 'none',
+                                  }}
+                                  draggable={false}
+                                />
                               </div>
                             </ZoomableSlide>
                           </div>
@@ -381,15 +425,18 @@ function ChevronIcon({ dir }: { dir: 'left' | 'right' }) {
 
 const grid = css({
   display: 'grid',
-  gridTemplateColumns: 'repeat(3, 1fr)',
+  gridTemplateColumns: 'repeat(2, 1fr)',
   gap: '2xs',
   w: 'full',
   p: 'm',
+  '@media (min-width: 768px)': {
+    gridTemplateColumns: 'repeat(3, 1fr)',
+  },
 });
 
 const thumb = css({
   position: 'relative',
-  aspectRatio: '4 / 3',
+  aspectRatio: '1 / 1',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -408,18 +455,6 @@ const thumb = css({
     borderColor: 'gold8',
     boxShadow: 'focus',
   },
-});
-
-const thumbTint = {
-  slate: css({ bgColor: 'slate3' }),
-  gold: css({ bgColor: 'gold4' }),
-};
-
-const thumbLabel = css({
-  fontSize: '1',
-  fontWeight: 'medium',
-  color: 'text2',
-  letterSpacing: '-0.01em',
 });
 
 const backdrop = css({
@@ -495,24 +530,8 @@ const zoomable = css({
 const card = css({
   position: 'absolute',
   inset: 0,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
   rounded: 'card',
-  userSelect: 'none',
-  pointerEvents: 'none',
-});
-
-const cardTint = {
-  slate: css({ bgColor: 'slate3' }),
-  gold: css({ bgColor: 'gold4' }),
-};
-
-const cardLabel = css({
-  fontSize: '8',
-  fontWeight: 'medium',
-  color: 'text2',
-  letterSpacing: '-0.02em',
+  overflow: 'hidden',
 });
 
 const arrowBtn = css({
