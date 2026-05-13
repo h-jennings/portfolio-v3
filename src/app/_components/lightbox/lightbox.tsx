@@ -121,7 +121,11 @@ const EXIT_SPRING = {
 const CONTROLS_ENTER = { duration: 0.2, delay: 0.18, ease: 'easeOut' as const };
 const CONTROLS_EXIT = { duration: 0.12, ease: 'easeOut' as const };
 
-export function Lightbox() {
+export function Lightbox({
+  onLightboxCloseAction,
+}: {
+  onLightboxCloseAction?: () => void;
+}) {
   const { isOpen, close } = useLightbox();
 
   const backdropExit = { opacity: 0, transition: EXIT_SPRING };
@@ -165,7 +169,14 @@ export function Lightbox() {
 
         <AnimatePresence>
           {isOpen && (
-            <DialogPrimitive.Content asChild forceMount>
+            <DialogPrimitive.Content
+              onCloseAutoFocus={(e) => {
+                e.preventDefault();
+                onLightboxCloseAction?.();
+              }}
+              asChild
+              forceMount
+            >
               <motion.div
                 key='lightbox-content'
                 initial={false}
