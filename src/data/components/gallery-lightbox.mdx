@@ -1,0 +1,30 @@
+---
+title: Gallery → Lightbox
+description:
+  Compose Radix Dialog, Embla, and Motion into one gallery → lightbox interaction
+date: 2026-05-12
+status: published
+preview:
+  video: /images/components/gallery-lightbox/gallery-lightbox.mp4
+---
+
+import { GalleryLightbox } from '@/app/_components/demos/gallery-lightbox';
+
+A lightbox sits at the intersection of three concerns that rarely live in the
+same library: an accessible modal shell, a draggable carousel, and a per-slide
+zoom gesture. Reaching for one batteries-included widget collapses all three
+into a single opinion. Reaching for three primitives keeps each concern in the
+library that handles it best — Radix Dialog for focus trap and Escape, Embla for
+drag/snap/loop, Motion for the zoom-and-pan inside a slide.
+
+The trick that makes the composition work is the handoff. Embla wants to claim
+the horizontal drag, and Motion wants to pan a zoomed slide along the same axis.
+Embla's `watchDrag` option takes a predicate, so a shared `isZoomedRef` lets
+Embla yield the gesture the moment the active slide crosses past `scale: 1`.
+Tap to zoom, drag to pan; release the zoom, and Embla picks the drag back up.
+
+<SourceLink slug='gallery-lightbox' />
+
+<Sandbox label='Gallery to lightbox demo' aspectRatio='4/3'>
+  <GalleryLightbox />
+</Sandbox>
