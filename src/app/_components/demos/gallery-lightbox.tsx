@@ -18,7 +18,7 @@ interface Slide {
   tint: 'slate' | 'gold';
 }
 
-const SLIDES: Slide[] = [
+const SLIDES: Array<Slide> = [
   { id: 0, label: '01', tint: 'slate' },
   { id: 1, label: '02', tint: 'gold' },
   { id: 2, label: '03', tint: 'slate' },
@@ -58,73 +58,89 @@ export function GalleryLightbox() {
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
+    // Disable dragging while zoomed to prevent clashes between lightbox zoom panning
     watchDrag: () => !isZoomedRef.current,
   });
 
-  const open = (index: number) => {
+  function open(index: number) {
     pendingIndexRef.current = index;
     setActiveIndex(index);
     setIsOpen(true);
-  };
-
-  const close = () => setIsOpen(false);
-  const next = () => emblaApi?.scrollNext();
-  const prev = () => emblaApi?.scrollPrev();
-
-  React.useEffect(() => {
-    if (!emblaApi || !isOpen || pendingIndexRef.current == null) return;
-    emblaApi.scrollTo(pendingIndexRef.current, true);
-    pendingIndexRef.current = null;
-  }, [emblaApi, isOpen]);
-
-  React.useEffect(() => {
-    if (!emblaApi) return;
-    const onSelect = (api: UseEmblaCarouselType[1]) => {
-      if (!api) return;
-      setActiveIndex(api.selectedScrollSnap());
-    };
-    onSelect(emblaApi);
-    emblaApi.on('reInit', onSelect).on('select', onSelect);
-    return () => {
-      emblaApi.off('reInit', onSelect).off('select', onSelect);
-    };
+  }
+  const next = React.useCallback(() => {
+    emblaApi?.scrollNext();
   }, [emblaApi]);
 
-  React.useEffect(() => {
-    if (!isOpen) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight') {
-        e.preventDefault();
-        next();
-      } else if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        prev();
-      }
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  });
+  const prev = React.useCallback(() => {
+    emblaApi?.scrollPrev();
+  }, [emblaApi]);
+
+  React.useEffect(
+    function handleScrollToPending() {
+      if (!emblaApi || !isOpen || pendingIndexRef.current == null) return;
+      emblaApi.scrollTo(pendingIndexRef.current, true);
+      pendingIndexRef.current = null;
+    },
+    [emblaApi, isOpen],
+  );
+
+  React.useEffect(
+    function handleEmblaSelect() {
+      if (!emblaApi) return;
+      const onSelect = (api: UseEmblaCarouselType[1]) => {
+        if (!api) return;
+        setActiveIndex(api.selectedScrollSnap());
+      };
+      onSelect(emblaApi);
+      emblaApi.on('reInit', onSelect).on('select', onSelect);
+      return () => {
+        emblaApi.off('reInit', onSelect).off('select', onSelect);
+      };
+    },
+    [emblaApi],
+  );
+
+  React.useEffect(
+    function handleKeydown() {
+      if (!isOpen) return;
+      const onKey = (e: KeyboardEvent) => {
+        if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          next();
+        } else if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          prev();
+        }
+      };
+      window.addEventListener('keydown', onKey);
+      return () => window.removeEventListener('keydown', onKey);
+    },
+    [isOpen, next, prev],
+  );
 
   return (
     <>
       <div className={grid}>
-        {SLIDES.map((s, i) => (
+        {SLIDES.map((s, index) => (
           <button
             key={s.id}
             type='button'
             className={cx(thumb, thumbTint[s.tint])}
-            onClick={() => open(i)}
+            onClick={() => {
+              open(index);
+            }}
             aria-label={`Open slide ${s.label}`}
           >
             <span className={thumbLabel}>{s.label}</span>
           </button>
         ))}
       </div>
-
       <DialogPrimitive.Root
         open={isOpen}
-        onOpenChange={(o) => {
-          if (!o) close();
+        onOpenChange={(open) => {
+          if (!open) {
+            setIsOpen(false);
+          }
         }}
       >
         <DialogPrimitive.Portal forceMount>
@@ -251,33 +267,49 @@ function ZoomableSlide({
     animate(y, 0, spring);
   }, [scale, x, y, spring]);
 
-  React.useEffect(() => {
-    if (!isActive) reset();
-  }, [isActive, reset]);
+  React.useEffect(
+    function handleActiveChange() {
+      if (!isActive) {
+        reset();
+      }
+    },
+    [isActive, reset],
+  );
 
   React.useEffect(
-    () =>
-      scale.on('change', (v) => {
+    function handleScaleChange() {
+      return scale.on('change', (v) => {
         const zoomed = v > 1.01;
         setIsZoomed(zoomed);
-        if (isActive) isZoomedRef.current = zoomed;
-      }),
+        if (isActive) {
+          isZoomedRef.current = zoomed;
+        }
+      });
+    },
     [scale, isActive, isZoomedRef],
   );
 
-  React.useEffect(() => {
-    if (isActive) isZoomedRef.current = scale.get() > 1.01;
-  }, [isActive, scale, isZoomedRef]);
+  React.useEffect(
+    function handleInitialZoom() {
+      if (isActive) {
+        isZoomedRef.current = scale.get() > 1.01;
+      }
+    },
+    [isActive, scale, isZoomedRef],
+  );
 
-  const clamp = (v: number, min: number, max: number) =>
-    Math.max(min, Math.min(max, v));
+  function clamp(v: number, min: number, max: number) {
+    return Math.max(min, Math.min(max, v));
+  }
 
-  const panBounds = () => {
+  function panBounds() {
     const rect = ref.current?.getBoundingClientRect();
-    if (!rect) return { maxX: 0, maxY: 0 };
+    if (!rect) {
+      return { maxX: 0, maxY: 0 };
+    }
     const overflow = (scale.get() - 1) / 2;
     return { maxX: rect.width * overflow, maxY: rect.height * overflow };
-  };
+  }
 
   return (
     <motion.div
@@ -297,6 +329,7 @@ function ZoomableSlide({
         if (scale.get() <= 1) return;
         didPanRef.current = true;
         const { maxX, maxY } = panBounds();
+        // Clamp panning within bounds of the zoomed image
         x.set(clamp(x.get() + info.delta.x, -maxX, maxX));
         y.set(clamp(y.get() + info.delta.y, -maxY, maxY));
       }}
@@ -304,8 +337,14 @@ function ZoomableSlide({
         const { maxX, maxY } = panBounds();
         const nx = clamp(x.get(), -maxX, maxX);
         const ny = clamp(y.get(), -maxY, maxY);
-        if (nx !== x.get()) animate(x, nx, spring);
-        if (ny !== y.get()) animate(y, ny, spring);
+
+        // If the user has panned beyond the bounds of the zoomed image, animate back to the edge
+        if (nx !== x.get()) {
+          animate(x, nx, spring);
+        }
+        if (ny !== y.get()) {
+          animate(y, ny, spring);
+        }
       }}
       style={{
         scale,
