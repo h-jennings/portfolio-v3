@@ -1,0 +1,76 @@
+---
+name: Katy & Hunter
+client: Personal
+published: true
+category:
+  - Development
+  - Design
+contribution:
+  - Development
+  - Architecture
+  - Design
+  - Animation
+  - Next.js
+featured: false
+date:
+  - 2025-07-16
+  - 2026-05-16
+link: https://www.katyandhunter.com/
+description:
+  Our wedding website — a full-stack invitation with a choreographed hero
+  reveal, a multi-day event timeline, and a guest-gated RSVP flow backed by
+  server actions and email confirmations.
+seo:
+  title: Katy & Hunter
+  description:
+    Our wedding website — a full-stack invitation with a choreographed hero
+    reveal, a multi-day event timeline, and a guest-gated RSVP flow backed by
+    server actions and email confirmations.
+  image: /images/projects/katy-and-hunter/katy-and-hunter-home-wide.webp
+featuredMediaNarrow:
+  url: /images/projects/katy-and-hunter/katy-and-hunter-mobile-narrow.webp
+  width: 440
+  height: 550
+  alt: Katy & Hunter wedding site mobile view
+  mediaType: IMAGE
+featuredMediaWide:
+  url: /images/projects/katy-and-hunter/katy-and-hunter-site.mp4
+  width: null
+  height: null
+  alt: Katy & Hunter wedding site overview video
+  mediaType: VIDEO
+media:
+  - url: /images/projects/katy-and-hunter/katy-and-hunter-home-wide.webp
+    width: 920
+    height: 550
+    alt: Katy & Hunter wedding site home page
+    mediaType: IMAGE
+  - url: /images/projects/katy-and-hunter/katy-and-hunter-mobile-narrow.webp
+    width: 440
+    height: 550
+    alt: Katy & Hunter wedding site mobile view
+    mediaType: IMAGE
+  - url: /images/projects/katy-and-hunter/katy-and-hunter-site.mp4
+    width: null
+    height: null
+    alt: Katy & Hunter wedding site overview video
+    mediaType: VIDEO
+---
+
+Building our own wedding site was an excuse to design every detail myself, from
+the script-and-sans type pairing to the warm off-white palette and the
+choreographed hero reveal that introduces the day. It runs on Next.js 16 and
+React 19 with Tailwind v4, with motion handled through Motion and smooth anchor
+scrolling via Lenis.
+
+The home page reads as a single scroll: an animated hero, our story, a multi-day
+event timeline, travel and stay recommendations, FAQs, and an embedded registry
+framed in custom artwork. Fluid `clamp()` typography and a small set of
+composable style utilities keep the whole thing cohesive across breakpoints, and
+the interface respects `prefers-reduced-motion` throughout.
+
+Behind the invitation is a real backend. Guests look themselves up by name and
+phone against a rate-limited endpoint, then receive a signed JWT that gates the
+RSVP page. The form is a React 19 server action that records responses per
+event, branches into a transportation question when needed, and fires a
+confirmation email through Resend.
