@@ -26,13 +26,25 @@ export const Weather = async () => {
 };
 
 const API_URL = `https://api.openweathermap.org/data/2.5/weather?id=4781708&units=imperial&appid=${process.env.WEATHER_API_KEY}`;
-const getWeather = async () => {
-  const response = await fetch(API_URL, {
-    next: { revalidate: 60 },
-  });
-  const data = (await response.json()) as OpenWeatherResponse;
-  const checked = OpenWeatherResponseZod.parse(data);
-  return mapResponseData(checked);
+const EMPTY_WEATHER: WeatherData = {
+  temp: undefined,
+  icon: undefined,
+  description: undefined,
+};
+const getWeather = async (): Promise<WeatherData> => {
+  try {
+    const response = await fetch(API_URL, {
+      next: { revalidate: 60 },
+    });
+    const data = (await response.json()) as OpenWeatherResponse;
+    const checked = OpenWeatherResponseZod.safeParse(data);
+    if (!checked.success) {
+      return EMPTY_WEATHER;
+    }
+    return mapResponseData(checked.data);
+  } catch {
+    return EMPTY_WEATHER;
+  }
 };
 
 const mapResponseData = (data: OpenWeatherResponse): WeatherData => {
