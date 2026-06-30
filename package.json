@@ -12,14 +12,6 @@
     "lint": "eslint .",
     "lint:staged": "lint-staged"
   },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "sharp"
-    ],
-    "overrides": {
-      "@types/react": "19.2.14"
-    }
-  },
   "lint-staged": {
     "./src/**/*.{js,jsx,ts,tsx}": [
       "eslint --fix",
