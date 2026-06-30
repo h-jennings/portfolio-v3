@@ -52,53 +52,31 @@ export default function Home() {
 const IntroductionSection = () => {
   return (
     <section className={stack({ gap: 'm' })}>
-      <div className={stack({ gap: 'xl' })}>
-        <span className={statusBadge}>
-          <span className={statusDot} aria-hidden />
-          Open to work
-        </span>
-        <h2
-          className={css({
-            textStyle: 'serif',
-            lineHeight: 'tight',
-          })}
-          aria-label='Who is Hunter Jennings'
-        >
-          Hunter Jennings{' '}
-        </h2>
-      </div>
+      <h2
+        className={css({
+          textStyle: 'serif',
+          lineHeight: 'tight',
+        })}
+        aria-label='Who is Hunter Jennings'
+      >
+        Hunter Jennings{' '}
+      </h2>
 
       <p className={css({ textStyle: 'body', textWrap: 'pretty' })}>
         UI engineer comfortable working across the stack, with a passion for
-        crafting polished interfaces and designs that scale.
+        crafting polished interfaces and designs that scale. Currently working
+        as a Senior Frontend Developer at{' '}
+        <Link
+          className={link({ underline: true, color: 'accent' })}
+          href={PATHS.hyper}
+        >
+          Hyper Solutions
+        </Link>
+        .
       </p>
     </section>
   );
 };
-
-const statusBadge = css({
-  display: 'inline-flex',
-  alignItems: 'center',
-  gap: '3xs',
-  px: '2xs',
-  py: '4px',
-  borderRadius: 'pill',
-  border: '1px solid',
-  borderColor: 'green7',
-  bg: 'green3',
-  fontSize: '0',
-  lineHeight: 'tight',
-  color: 'green11',
-  w: 'fit-content',
-});
-
-const statusDot = css({
-  w: '4px',
-  h: '4px',
-  borderRadius: 'round',
-  bg: 'green9',
-  flexShrink: 0,
-});
 
 const ExperienceSection = () => {
   return (
@@ -333,8 +311,9 @@ const ConnectSection = () => {
       </h2>
       <div className={stack({ gap: 'xl' })}>
         <p className={css({ textStyle: 'body', textWrap: 'pretty' })}>
-          I&apos;m currently exploring new opportunities. If you&apos;re working
-          on something interesting, let&apos;s talk.
+          I&apos;m not currently looking for new opportunities, but feel free to
+          reach out if you&apos;d like&mdash;I&apos;m always happy to hear from
+          folks.
         </p>
         <ul className={stack({ gap: 's' })}>
           <ConnectLinkListItem label='Twitter'>
