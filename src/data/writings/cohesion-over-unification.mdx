@@ -1,0 +1,52 @@
+---
+title: Cohesion Over Unification
+description:
+  Unifying design systems across apps used to be a massive multiplier. Now I
+  think the real multiplier is a cohesion layer that lets each app build for its
+  platform.
+date: 2026-09-30
+featured: false
+status: published
+---
+
+so i had a thought this morning about where our apps are heading around
+[design systems](/work/breakline-platform) and centralized style repositories
+and whatnot, and whether unifying everything is still the right move.
+
+a coworker said something like, we have these two applications at work, and
+there's stuff shared between them, really just utilities, but the styling is
+different. the colors are similar, but component-tree-wise it's like you took a
+combination of compact elements versus looser elements, paired that with
+different layout patterns, and branded those as two separate intra-app brands.
+and he kind of asked, why should they be separate?
+
+his brain is focused on the past, where you had companies like
+[seek](https://seek-oss.github.io/braid-design-system/) out of australia, or
+other apps, where the separation wasn't worth it. centralizing style consistency
+was a really big productivity increase, a massive multiplier for teams. and that
+was true.
+
+but look at building native, or building for multi-platform with separate
+codebases and separate languages. having two or even three separate
+implementations just isn't really a problem anymore. and the same thing is
+probably going to be even more true on the design system front. should we be
+optimizing for consistency in styling and patterns? that was true three years
+ago, but it's less true now, just like with the native question.
+
+the real multiplier is some type of cohesion layer. you want it to look like it
+was designed by the same company and the same designers, but not a carbon copy
+of every implementation detail, right? a good example is the
+[github ios app](https://github.com/mobile) versus the
+[web app](https://github.com), or vercel on ios versus
+[vercel on the web](https://vercel.com). the controls, the smaller lower-level
+primitives, are more adaptive to the platform. the buttons look like
+[ios buttons](https://developer.apple.com/design/human-interface-guidelines/buttons),
+and that's a good thing.
+
+so we should follow that path of building for the platform. each app should look
+distinctly like itself. there's still some shared layer, some shared
+productivity, that's really worth doing. it just doesn't look like it used to,
+where it's unification across the stacks.
+
+multi-app, multi-platform, multi-whatever, man. it's all about keeping the vibes
+right.

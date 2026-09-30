@@ -34,6 +34,9 @@ export const generateMetadata = async (props: {
   return {
     title,
     description,
+    alternates: {
+      canonical: url,
+    },
     openGraph: {
       url,
       type: 'article',
@@ -61,8 +64,31 @@ export default async function Writing(props: {
     `@/data/writings/${params.slug}.mdx`
   )) as { default: () => React.ReactNode };
 
+  const url = `${PATHS.base}${PATHS.writing}/${writing.slug}`;
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: title,
+    description,
+    datePublished: date,
+    url,
+    mainEntityOfPage: url,
+    author: {
+      '@type': 'Person',
+      name: 'Hunter Jennings',
+      url: PATHS.base,
+      sameAs: [PATHS.github, PATHS.twitter, PATHS.linkedin],
+    },
+  };
+
   return (
     <ProseLayout>
+      <script
+        type='application/ld+json'
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c'),
+        }}
+      />
       <ProseLayoutHeader
         backTo={{
           hasLink: true,
