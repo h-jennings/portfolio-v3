@@ -1,11 +1,18 @@
 'use client';
 
 import { ProjectMedia } from '@/app/_utils/content';
-import * as DialogPrimitive from '@radix-ui/react-dialog';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from '@ui-sdk/react/dialog';
 import { css, cx } from 'ds/css';
 import { circle } from 'ds/patterns';
 import useEmblaCarousel, { UseEmblaCarouselType } from 'embla-carousel-react';
-import { AnimatePresence, motion } from 'motion/react';
+import { motion } from 'motion/react';
 import * as React from 'react';
 import { useCallback } from 'react';
 import { ArrowLeftIcon } from '../icons/ArrowLeftIcon';
@@ -15,6 +22,8 @@ import { ZoomableMedia } from './zoomable-media';
 
 interface LightboxContextStore {
   isOpen: boolean;
+  isPresent: boolean;
+  finishClosing: () => void;
   activeIndex: number;
   open: (index: number) => void;
   close: () => void;
@@ -35,6 +44,9 @@ export function LightboxProvider({
   children: React.ReactNode;
 }) {
   const [isOpen, setIsOpen] = React.useState(false);
+  // Stays true through the exit animation, so the dialog stays modal until the
+  // springs finish.
+  const [isPresent, setIsPresent] = React.useState(false);
   const [activeIndex, setActiveIndex] = React.useState(0);
   const pendingIndexRef = React.useRef<number | null>(null);
   const isZoomedRef = React.useRef(false);
@@ -48,10 +60,15 @@ export function LightboxProvider({
     pendingIndexRef.current = index;
     setActiveIndex(index);
     setIsOpen(true);
+    setIsPresent(true);
   }, []);
 
   const close = React.useCallback(() => {
     setIsOpen(false);
+  }, []);
+
+  const finishClosing = React.useCallback(() => {
+    setIsPresent(false);
   }, []);
 
   const onSelect = useCallback((emblaApi: UseEmblaCarouselType[1]) => {
@@ -87,6 +104,8 @@ export function LightboxProvider({
   const value = React.useMemo(
     () => ({
       isOpen,
+      isPresent,
+      finishClosing,
       activeIndex,
       carouselRef: emblaRef,
       open,
@@ -96,7 +115,18 @@ export function LightboxProvider({
       items,
       isZoomedRef,
     }),
-    [isOpen, activeIndex, emblaRef, open, close, next, prev, items],
+    [
+      isOpen,
+      isPresent,
+      finishClosing,
+      activeIndex,
+      emblaRef,
+      open,
+      close,
+      next,
+      prev,
+      items,
+    ],
   );
 
   return <LightboxContext value={value}>{children}</LightboxContext>;
@@ -124,113 +154,101 @@ const CONTROLS_ENTER = { duration: 0.2, delay: 0.18, ease: 'easeOut' as const };
 const CONTROLS_EXIT = { duration: 0.12, ease: 'easeOut' as const };
 
 export function Lightbox({
-  onLightboxCloseAction,
+  finalFocus,
 }: {
-  onLightboxCloseAction?: () => void;
+  finalFocus?: () => HTMLElement | null | undefined;
 }) {
-  const { isOpen, close } = useLightbox();
+  const { isOpen, isPresent, close } = useLightbox();
 
-  const backdropExit = { opacity: 0, transition: EXIT_SPRING };
-  const controlsInitial = { opacity: 0 };
-  const controlsAnimate = {
-    opacity: 1,
-    transition: CONTROLS_ENTER,
-  };
-  const controlsExit = {
-    opacity: 0,
-    transition: CONTROLS_EXIT,
-  };
+  const controlsAnimate = isOpen
+    ? { opacity: 1, transition: CONTROLS_ENTER }
+    : { opacity: 0, transition: CONTROLS_EXIT };
 
   return (
-    <DialogPrimitive.Root
-      open={isOpen}
+    <Dialog
+      open={isPresent}
       onOpenChange={(open) => {
         if (!open) close();
       }}
     >
-      <DialogPrimitive.Portal forceMount>
-        <AnimatePresence>
-          {isOpen && (
-            <DialogPrimitive.Overlay asChild forceMount>
-              <motion.div
-                key='lightbox-backdrop'
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={backdropExit}
-                transition={ENTER_SPRING}
-                className={css({
-                  position: 'fixed',
-                  inset: 0,
-                  backgroundColor: 'uiBg',
-                  zIndex: 50,
-                })}
-              />
-            </DialogPrimitive.Overlay>
-          )}
-        </AnimatePresence>
-
-        <AnimatePresence>
-          {isOpen && (
-            <DialogPrimitive.Content
-              onCloseAutoFocus={(e) => {
-                e.preventDefault();
-                onLightboxCloseAction?.();
-              }}
-              asChild
-              forceMount
-            >
-              <motion.div
-                key='lightbox-content'
-                initial={false}
-                className={css({
-                  position: 'fixed',
-                  inset: 0,
-                  zIndex: 51,
-                  padding: 'm',
-                  display: 'grid',
-                  gridTemplateColumns: 'minmax(0, 1fr)',
-                  gridTemplateRows: 'auto minmax(0, 1fr)',
-                  rowGap: 'm',
-                })}
-              >
-                <DialogPrimitive.Title className={css({ srOnly: true })}>
-                  Lightbox
-                </DialogPrimitive.Title>
-                <DialogPrimitive.Description className={css({ srOnly: true })}>
-                  Media gallery viewer
-                </DialogPrimitive.Description>
-                <motion.div
-                  initial={controlsInitial}
-                  animate={controlsAnimate}
-                  exit={controlsExit}
-                  className={css({
-                    display: 'flex',
-                    justifyContent: 'flex-end',
-                  })}
-                >
-                  <DialogPrimitive.Close
-                    className={css({
-                      fontSize: '1',
-                      lineHeight: 'tight',
-                      color: 'text1',
-                      _hover: { color: 'text2' },
-                    })}
-                  >
-                    close
-                  </DialogPrimitive.Close>
-                </motion.div>
-                <LightboxItems />
-              </motion.div>
-            </DialogPrimitive.Content>
-          )}
-        </AnimatePresence>
-      </DialogPrimitive.Portal>
-    </DialogPrimitive.Root>
+      <DialogBackdrop
+        className={backdrop}
+        render={
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: isOpen ? 1 : 0 }}
+            transition={isOpen ? ENTER_SPRING : EXIT_SPRING}
+          />
+        }
+      />
+      <DialogContent className={content} finalFocus={finalFocus}>
+        <DialogTitle className={css({ srOnly: true })}>Lightbox</DialogTitle>
+        <DialogDescription className={css({ srOnly: true })}>
+          Media gallery viewer
+        </DialogDescription>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={controlsAnimate}
+          className={css({
+            display: 'flex',
+            justifyContent: 'flex-end',
+          })}
+        >
+          <DialogClose
+            className={css({
+              fontSize: '1',
+              lineHeight: 'tight',
+              color: 'text1',
+              _hover: { color: 'text2' },
+            })}
+          >
+            close
+          </DialogClose>
+        </motion.div>
+        <LightboxItems />
+      </DialogContent>
+    </Dialog>
   );
 }
 
+const backdrop = css({
+  position: 'fixed',
+  inset: 0,
+  backgroundColor: 'uiBg',
+  zIndex: 50,
+});
+
+// Resets web.css's centered card so the lightbox fills the screen.
+const content = css({
+  position: 'fixed',
+  inset: 0,
+  zIndex: 51,
+  w: 'full',
+  h: 'full',
+  maxW: 'none',
+  maxH: 'none',
+  m: 0,
+  padding: 'm',
+  display: 'grid',
+  gridTemplateColumns: 'minmax(0, 1fr)',
+  gridTemplateRows: 'auto minmax(0, 1fr)',
+  rowGap: 'm',
+  overflow: 'hidden',
+  border: 'none',
+  rounded: 'none',
+  bg: 'transparent',
+  boxShadow: 'none',
+  color: 'inherit',
+  fontSize: 'inherit',
+  lineHeight: 'inherit',
+  _backdrop: {
+    bg: 'transparent',
+  },
+});
+
 function LightboxItems() {
-  const { carouselRef, next, prev, items, activeIndex } = useLightbox();
+  const { carouselRef, next, prev, items, activeIndex, isOpen, finishClosing } =
+    useLightbox();
 
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -250,17 +268,13 @@ function LightboxItems() {
   }, [next, prev]);
 
   const stageInitial = { opacity: 0, scale: 0.9, y: 60 };
-  const stageAnimate = { opacity: 1, scale: 1, y: 0 };
-  const stageExit = { opacity: 0, transition: EXIT_SPRING };
+  const stageAnimate = isOpen
+    ? { opacity: 1, scale: 1, y: 0, transition: ENTER_SPRING }
+    : { opacity: 0, transition: EXIT_SPRING };
 
-  const controlsAnimate = {
-    opacity: 1,
-    transition: CONTROLS_ENTER,
-  };
-  const controlsExit = {
-    opacity: 0,
-    transition: CONTROLS_EXIT,
-  };
+  const controlsAnimate = isOpen
+    ? { opacity: 1, transition: CONTROLS_ENTER }
+    : { opacity: 0, transition: CONTROLS_EXIT };
 
   return (
     <div
@@ -276,8 +290,9 @@ function LightboxItems() {
       <motion.div
         initial={stageInitial}
         animate={stageAnimate}
-        exit={stageExit}
-        transition={ENTER_SPRING}
+        onAnimationComplete={() => {
+          if (!isOpen) finishClosing();
+        }}
         className={css({
           flex: '1 1 0',
           minHeight: 0,
@@ -351,7 +366,6 @@ function LightboxItems() {
           aria-label='Previous'
           initial={{ opacity: 0 }}
           animate={controlsAnimate}
-          exit={controlsExit}
           className={cx(circle({ size: 40, left: 'xs' }), arrowButton)}
           style={{ left: 12 }}
         >
@@ -362,7 +376,6 @@ function LightboxItems() {
           aria-label='Next'
           initial={{ opacity: 0 }}
           animate={controlsAnimate}
-          exit={controlsExit}
           className={cx(circle({ size: 40, right: 'xs' }), arrowButton)}
         >
           <ArrowRightIcon />

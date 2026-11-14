@@ -82,12 +82,7 @@ export const ProjectGallery = () => {
           })}
         </div>
       </HorizontalScrollArea>
-      <Lightbox
-        onLightboxCloseAction={() => {
-          const thumbnail = thumbnailRefs.current[activeIndex];
-          thumbnail?.focus();
-        }}
-      />
+      <Lightbox finalFocus={() => thumbnailRefs.current[activeIndex]} />
     </React.Fragment>
   );
 };
