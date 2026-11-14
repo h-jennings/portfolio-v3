@@ -1,4 +1,6 @@
 'use client';
+import { colorScheme } from '@/app/_theme/color-scheme';
+import { usePreference } from '@ui-sdk/react/preferences';
 import {
   SegmentedControl,
   SegmentedControlItem,
@@ -6,7 +8,6 @@ import {
 import { css } from 'ds/css';
 import { circle, grid } from 'ds/patterns';
 import { motion, useReducedMotion } from 'motion/react';
-import { useTheme } from 'next-themes';
 import { useSyncExternalStore } from 'react';
 import { ICON_SVG_COMPONENTS, Theme } from './icon-components';
 
@@ -16,17 +17,30 @@ const THEMES = Object.keys(ICON_SVG_COMPONENTS) as Array<Theme>;
 // read as part of the same change rather than trailing behind it.
 const INDICATOR_SPRING = { type: 'spring', duration: 0.25, bounce: 0 } as const;
 
+const isTheme = (value: string): value is Theme => value in ICON_SVG_COMPONENTS;
+
+// Without this, every color transition on the page would run as the theme
+// swaps, each on its own timing.
+const withoutTransitions = (update: () => void) => {
+  const style = document.createElement('style');
+  style.textContent = '*,*::before,*::after{transition:none!important}';
+  document.head.append(style);
+  update();
+  void window.getComputedStyle(document.body).color;
+  requestAnimationFrame(() => style.remove());
+};
+
 const subscribe = () => () => {};
 
 const ThemeToggle = () => {
-  const { theme, setTheme } = useTheme();
-  // next-themes reads the theme from storage, so the server can't know it.
+  const { value: theme } = usePreference(colorScheme);
+  // The choice lives in localStorage, so the server can't know it.
   const isMounted = useSyncExternalStore(
     subscribe,
     () => true,
     () => false,
   );
-  const value = isMounted ? (theme ?? null) : null;
+  const value = isMounted ? theme : null;
   const reduceMotion = useReducedMotion();
 
   return (
@@ -34,7 +48,9 @@ const ThemeToggle = () => {
       aria-label='Theme'
       value={value}
       onValueChange={(next) => {
-        if (next != null) setTheme(next);
+        if (next != null && isTheme(next)) {
+          withoutTransitions(() => colorScheme.set(next));
+        }
       }}
       className={root}
     >

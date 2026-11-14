@@ -1,11 +1,11 @@
 'use client';
 
+import { colorScheme } from '@/app/_theme/color-scheme';
 import Giscus from '@giscus/react';
-import { useTheme } from 'next-themes';
-import { Theme } from './navigation/icon-components';
+import { usePreference } from '@ui-sdk/react/preferences';
 
 export const GiscusComments = () => {
-  const { theme } = useTheme();
+  const { value } = usePreference(colorScheme);
   return (
     <Giscus
       repo='h-jennings/portfolio-v3'
@@ -17,7 +17,7 @@ export const GiscusComments = () => {
       reactionsEnabled='1'
       emitMetadata='0'
       inputPosition='top'
-      theme={THEME_LOOKUP[theme as Theme]}
+      theme={THEME_LOOKUP[value]}
       loading='lazy'
       lang='en'
     />
