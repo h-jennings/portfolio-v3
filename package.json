@@ -15,7 +15,7 @@
   "lint-staged": {
     "./src/**/*.{js,jsx,ts,tsx}": [
       "oxlint --fix",
-      "prettier --write"
+      "oxfmt"
     ]
   },
   "dependencies": {
@@ -58,13 +58,12 @@
     "cross-env": "^10.1.0",
     "husky": "^9.1.7",
     "lint-staged": "^17.6.0",
+    "oxfmt": "^0.78.0",
     "oxlint": "^1.93.0",
     "oxlint-tsgolint": "^7.0.2007",
     "postcss": "^8.5.33",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-preset-env": "^11.6.2",
-    "prettier": "^3.10.1",
-    "prettier-plugin-organize-imports": "^4.3.0",
     "typescript": "^7.0.2"
   },
   "pnpm": {
