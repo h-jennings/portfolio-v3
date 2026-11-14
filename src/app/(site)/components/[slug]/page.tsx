@@ -65,7 +65,7 @@ export default async function ComponentPage(props: {
             {title != null && (
               <h1
                 className={css({ textStyle: 'heading' })}
-                style={{ textWrap: 'balance' } as React.CSSProperties}
+                style={{ textWrap: 'balance' }}
               >
                 {title}
               </h1>
