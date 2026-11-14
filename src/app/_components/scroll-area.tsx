@@ -43,7 +43,7 @@ export const thumbStyles = css({
   flex: '1',
   borderRadius: SCROLLBAR_SIZE,
   _before: {
-    content: '',
+    content: '""',
     pos: 'absolute',
     top: '50%',
     left: '50%',
