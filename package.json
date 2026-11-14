@@ -45,7 +45,7 @@
     "reading-time": "^1.5.0",
     "rehype-pretty-code": "^0.14.6",
     "remark-frontmatter": "^5.0.0",
-    "sharp": "^0.34.5",
+    "sharp": "^0.35.5",
     "shiki": "^4.6.0",
     "zod": "^4.6.7"
   },
