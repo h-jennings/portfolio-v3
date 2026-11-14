@@ -18,14 +18,11 @@ import Link from 'next/link';
 
 import { ProjectCard } from '@/app/_components/project-card';
 import { HorizontalScrollArea } from '@/app/_components/scroll-area';
-import { VisuallyHiddenRoot } from '@/app/_components/visually-hidden';
 
 export default function Home() {
   return (
     <div>
-      <VisuallyHiddenRoot>
-        <h1>Home</h1>
-      </VisuallyHiddenRoot>
+      <h1 className={css({ srOnly: true })}>Home</h1>
       <div className={stack({ gap: '3xl' })}>
         <IntroductionSection />
         <ExperienceSection />
