@@ -5,9 +5,11 @@ import * as React from 'react';
 
 interface ImageContainerProps {
   caption?: string;
+  ratio?: number;
 }
 export default function ImageContainer({
   caption,
+  ratio,
   children,
 }: React.PropsWithChildren<ImageContainerProps>) {
   return (
@@ -19,7 +21,13 @@ export default function ImageContainer({
           overflow: 'hidden',
         })}
       >
-        {children}
+        {ratio == null ? (
+          children
+        ) : (
+          <div style={{ position: 'relative', aspectRatio: ratio }}>
+            {children}
+          </div>
+        )}
       </div>
       {caption != null && (
         <p className={css({ fontSize: '1', color: 'text2', pb: 'm' })}>

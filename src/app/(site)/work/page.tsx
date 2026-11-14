@@ -1,4 +1,3 @@
-import { AspectRatioRoot } from '@/app/_components/aspect-ratio';
 import { BackToLink } from '@/app/_components/back-to-link';
 import { ProjectCard } from '@/app/_components/project-card';
 import { ProjectImage } from '@/app/_components/project-image';
@@ -123,7 +122,7 @@ const FeaturedProject = ({ project }: FeaturedProjectProps) => {
                 })}
                 style={{ overflow: 'hidden', isolation: 'isolate' }}
               >
-                <AspectRatioRoot ratio={460 / 275}>
+                <div className={wideMediaFrame}>
                   <ProjectImage
                     src={featuredMediaWide.url}
                     alt={featuredMediaWide.alt}
@@ -139,7 +138,7 @@ const FeaturedProject = ({ project }: FeaturedProjectProps) => {
                     })}
                     data-slot='project-media'
                   />
-                </AspectRatioRoot>
+                </div>
               </div>
             ) : (
               <div
@@ -150,7 +149,7 @@ const FeaturedProject = ({ project }: FeaturedProjectProps) => {
                 })}
                 style={{ overflow: 'hidden', isolation: 'isolate' }}
               >
-                <AspectRatioRoot ratio={460 / 275}>
+                <div className={wideMediaFrame}>
                   <video
                     src={featuredMediaWide.url}
                     style={{ objectFit: 'cover', height: '100%' }}
@@ -167,7 +166,7 @@ const FeaturedProject = ({ project }: FeaturedProjectProps) => {
                     })}
                     data-slot='project-media'
                   />
-                </AspectRatioRoot>
+                </div>
               </div>
             )}
             <div>
@@ -202,3 +201,9 @@ const FeaturedProject = ({ project }: FeaturedProjectProps) => {
     </div>
   );
 };
+
+const wideMediaFrame = css({
+  pos: 'relative',
+  w: 'full',
+  aspectRatio: '460 / 275',
+});
