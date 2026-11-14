@@ -58,7 +58,7 @@ const mapResponseData = (data: OpenWeatherResponse): WeatherData => {
 
 const WeatherIcon = ({ description, icon }: Omit<WeatherData, 'temp'>) => {
   return icon != null ? (
-    // eslint-disable-next-line @next/next/no-img-element
+    // oxlint-disable-next-line nextjs/no-img-element
     <img
       loading='lazy'
       src={`https://openweathermap.org/img/wn/${icon}.png`}
