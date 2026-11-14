@@ -1,28 +1,26 @@
+import { Separator as SeparatorPrimitive } from '@ui-sdk/react/separator';
 import { css } from 'ds/css';
-import { circle, hstack } from 'ds/patterns';
+import { circle } from 'ds/patterns';
 
 export const Separator = () => {
   return (
-    <div
-      className={css({
-        w: 'full',
-        pt: 'm',
-        pb: 'm',
-      })}
-    >
-      <div
-        className={hstack({
-          justify: 'center',
-          gap: '3xs',
-        })}
-      >
-        <div className={dot} />
-        <div className={dot} />
-        <div className={dot} />
-      </div>
-    </div>
+    <SeparatorPrimitive className={root}>
+      <span className={dot} />
+      <span className={dot} />
+      <span className={dot} />
+    </SeparatorPrimitive>
   );
 };
+
+const root = css({
+  display: 'flex',
+  justifyContent: 'center',
+  gap: '3xs',
+  w: 'full',
+  h: 'auto',
+  py: 'm',
+  bg: 'transparent',
+});
 
 const dot = circle({
   size: 2,
