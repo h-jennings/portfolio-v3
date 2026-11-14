@@ -6,6 +6,7 @@ import { tokens } from '@/app/_theme/tokens';
 import { defineConfig } from '@pandacss/dev';
 
 export default defineConfig({
+  presets: ['@pandacss/preset-base'],
   preflight: true,
   include: ['./src/app/**/*.{js,jsx,ts,tsx}', './mdx-components.tsx'],
   theme: {
