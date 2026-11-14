@@ -17,16 +17,7 @@ import { token } from 'ds/tokens';
 import Link from 'next/link';
 
 import { ProjectCard } from '@/app/_components/project-card';
-import {
-  ScrollAreaRoot,
-  ScrollAreaScrollbar,
-  ScrollAreaThumb,
-  ScrollAreaViewport,
-  barStyles,
-  rootStyles,
-  thumbStyles,
-  viewportStyles,
-} from '@/app/_components/scroll-area';
+import { HorizontalScrollArea } from '@/app/_components/scroll-area';
 import { VisuallyHiddenRoot } from '@/app/_components/visually-hidden';
 
 export default function Home() {
@@ -111,39 +102,37 @@ const ProjectGrid = () => {
   const projects = getAllProjects(3);
 
   return (
-    <ScrollAreaRoot className={cx(rootStyles, scrollRootBleedStyles)}>
-      <ScrollAreaScrollbar className={barStyles} orientation='horizontal'>
-        <ScrollAreaThumb className={thumbStyles} />
-      </ScrollAreaScrollbar>
-      <ScrollAreaViewport
-        className={cx(viewportStyles, cardScrollViewportStyles)}
+    <HorizontalScrollArea
+      className={scrollRootBleedStyles}
+      contentClassName={cardScrollContentStyles}
+    >
+      <div
+        className={flex({
+          mb: 'l',
+          wrap: 'nowrap',
+          direction: 'row',
+        })}
       >
-        <div
-          className={flex({
-            mb: 'l',
-            wrap: 'nowrap',
-            direction: 'row',
-          })}
-        >
-          {projects.map((project) => {
-            return (
-              <div key={project.slug} className={cardWrapper}>
-                <ProjectCard
-                  project={project}
-                  sizes='(max-width: 590px) 90vw, (max-width: 767px) 45vw, 220px'
-                />
-              </div>
-            );
-          })}
-        </div>
-      </ScrollAreaViewport>
-    </ScrollAreaRoot>
+        {projects.map((project) => {
+          return (
+            <div key={project.slug} className={cardWrapper}>
+              <ProjectCard
+                project={project}
+                sizes='(max-width: 590px) 90vw, (max-width: 767px) 45vw, 220px'
+              />
+            </div>
+          );
+        })}
+      </div>
+    </HorizontalScrollArea>
   );
 };
 
 const cardWrapper = css({
   minW: { base: '90%', bp1: '45%', bp2: '220px' },
   ml: 's',
+  scrollSnapAlign: 'start',
+  scrollMarginInlineStart: '3xs',
   _firstOfType: { ml: 'none' },
 });
 
@@ -152,7 +141,7 @@ const scrollRootBleedStyles = css({
   w: 'calc(100% + var(--spacing-3xs) * 2)',
 });
 
-const cardScrollViewportStyles = css({
+const cardScrollContentStyles = css({
   px: '3xs',
   py: '2xs',
 });
@@ -170,37 +159,33 @@ const ComponentsSection = () => {
         </h2>
         <ArrowLink href={PATHS.components}>view all</ArrowLink>
       </div>
-      <ScrollAreaRoot className={cx(rootStyles, scrollRootBleedStyles)}>
-        <ScrollAreaScrollbar className={barStyles} orientation='horizontal'>
-          <ScrollAreaThumb className={thumbStyles} />
-        </ScrollAreaScrollbar>
-        <ScrollAreaViewport
-          className={cx(viewportStyles, cardScrollViewportStyles)}
+      <HorizontalScrollArea
+        className={scrollRootBleedStyles}
+        contentClassName={cardScrollContentStyles}
+      >
+        <div
+          className={flex({
+            mb: 'l',
+            wrap: 'nowrap',
+            direction: 'row',
+          })}
         >
-          <div
-            className={flex({
-              mb: 'l',
-              wrap: 'nowrap',
-              direction: 'row',
-            })}
-          >
-            {components.map((component) => (
-              <div key={component.slug} className={cardWrapper}>
-                <Link
-                  href={`${PATHS.components}/${component.slug}`}
-                  className={componentCardLink}
-                  aria-label={component.title}
-                >
-                  <ComponentPreview
-                    preview={component.preview}
-                    sizes='(max-width: 590px) 90vw, (max-width: 767px) 45vw, 220px'
-                  />
-                </Link>
-              </div>
-            ))}
-          </div>
-        </ScrollAreaViewport>
-      </ScrollAreaRoot>
+          {components.map((component) => (
+            <div key={component.slug} className={cardWrapper}>
+              <Link
+                href={`${PATHS.components}/${component.slug}`}
+                className={componentCardLink}
+                aria-label={component.title}
+              >
+                <ComponentPreview
+                  preview={component.preview}
+                  sizes='(max-width: 590px) 90vw, (max-width: 767px) 45vw, 220px'
+                />
+              </Link>
+            </div>
+          ))}
+        </div>
+      </HorizontalScrollArea>
     </section>
   );
 };
