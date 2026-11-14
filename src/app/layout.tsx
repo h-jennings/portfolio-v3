@@ -2,6 +2,7 @@ import { PATHS } from '@/app/_utils/constants/paths.constants';
 import { Analytics } from '@vercel/analytics/react';
 import { Metadata } from 'next';
 import { basierCircle, jetbrainsMono, untitledSerif } from './_styles/fonts';
+import '@ui-sdk/core/web.css';
 import './_styles/global.css';
 import { Providers } from './providers';
 
