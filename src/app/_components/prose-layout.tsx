@@ -42,7 +42,7 @@ interface ProseLayoutHeaderProps {
 }
 
 export const ProseLayoutHeader = ({
-  backTo = { hasLink: false },
+  backTo,
   headline,
   description,
   children,
