@@ -196,6 +196,7 @@ export function Lightbox({
         >
           <DialogClose
             className={css({
+              h: 'auto',
               fontSize: '1',
               lineHeight: 'tight',
               color: 'text1',
@@ -287,79 +288,75 @@ function LightboxItems() {
         gap: 'm',
       })}
     >
-      <motion.div
-        initial={stageInitial}
-        animate={stageAnimate}
-        onAnimationComplete={() => {
-          if (!isOpen) finishClosing();
-        }}
-        className={css({
-          flex: '1 1 0',
-          minHeight: 0,
-          minWidth: 0,
-          display: 'flex',
-          position: 'relative',
-        })}
-      >
-        <div
-          className={css({
-            overflow: 'hidden',
-            flex: '1 1 0',
-            minHeight: 0,
-            minWidth: 0,
-          })}
-          ref={carouselRef}
+      <div className={stageFrame}>
+        <motion.div
+          initial={stageInitial}
+          animate={stageAnimate}
+          onAnimationComplete={() => {
+            if (!isOpen) finishClosing();
+          }}
+          className={stage}
         >
           <div
             className={css({
-              display: 'flex',
-              height: '100%',
-              touchAction: 'pan-y pinch-zoom',
+              overflow: 'hidden',
+              flex: '1 1 0',
+              minHeight: 0,
+              minWidth: 0,
             })}
+            ref={carouselRef}
           >
-            {items.map((item, idx) => {
-              if (item.mediaType == null) return null;
-              const isActive = idx === activeIndex;
+            <div
+              className={css({
+                display: 'flex',
+                height: '100%',
+                touchAction: 'pan-y pinch-zoom',
+              })}
+            >
+              {items.map((item, idx) => {
+                if (item.mediaType == null) return null;
+                const isActive = idx === activeIndex;
 
-              return (
-                <div key={idx} className={slide}>
-                  <ZoomableMedia isActive={isActive}>
-                    {item.mediaType === 'IMAGE' && (
-                      <ProjectImage
-                        src={item.url}
-                        alt={item.alt}
-                        fill
-                        sizes='100vw'
-                        preload={isActive}
-                        style={{
-                          objectFit: 'contain',
-                          pointerEvents: 'none',
-                          userSelect: 'none',
-                        }}
-                        draggable={false}
-                      />
-                    )}
-                    {item.mediaType === 'VIDEO' && (
-                      <video
-                        src={item.url}
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          objectFit: 'contain',
-                          pointerEvents: 'none',
-                        }}
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                      />
-                    )}
-                  </ZoomableMedia>
-                </div>
-              );
-            })}
+                return (
+                  <div key={idx} className={slide}>
+                    <ZoomableMedia isActive={isActive}>
+                      {item.mediaType === 'IMAGE' && (
+                        <ProjectImage
+                          src={item.url}
+                          alt={item.alt}
+                          fill
+                          sizes='100vw'
+                          preload={isActive}
+                          style={{
+                            objectFit: 'contain',
+                            pointerEvents: 'none',
+                            userSelect: 'none',
+                          }}
+                          draggable={false}
+                        />
+                      )}
+                      {item.mediaType === 'VIDEO' && (
+                        <video
+                          src={item.url}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'contain',
+                            pointerEvents: 'none',
+                          }}
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                        />
+                      )}
+                    </ZoomableMedia>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        </div>
+        </motion.div>
 
         <motion.button
           onClick={prev}
@@ -380,10 +377,27 @@ function LightboxItems() {
         >
           <ArrowRightIcon />
         </motion.button>
-      </motion.div>
+      </div>
     </div>
   );
 }
+
+// The arrows sit in this still frame rather than in the animated stage, so
+// they fade in where they rest instead of riding in with the image.
+const stageFrame = css({
+  flex: '1 1 0',
+  minHeight: 0,
+  minWidth: 0,
+  display: 'flex',
+  position: 'relative',
+});
+
+const stage = css({
+  flex: '1 1 0',
+  minHeight: 0,
+  minWidth: 0,
+  display: 'flex',
+});
 
 const slide = css({
   position: 'relative',
