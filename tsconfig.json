@@ -18,8 +18,10 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
-    "baseUrl": ".",
     "paths": {
+      "ds/*": [
+        "./ds/*"
+      ],
       "@common/*": [
         "./src/modules/common/*"
       ],

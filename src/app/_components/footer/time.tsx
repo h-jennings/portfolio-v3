@@ -3,12 +3,11 @@ import { css } from 'ds/css';
 import * as React from 'react';
 
 const Time = () => {
-  const now = new Date().getTime();
-
   const [currentTime, setTime] = React.useState<{
     pretty: string;
     twentyFour: string;
   }>(() => {
+    const now = new Date().getTime();
     return {
       pretty: formatPretty(now),
       twentyFour: formatTwentyFour(now),
