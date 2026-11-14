@@ -1,10 +1,16 @@
 'use client';
 
-import * as DialogPrimitive from '@radix-ui/react-dialog';
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from '@ui-sdk/react/dialog';
 import { css, cx } from 'ds/css';
 import useEmblaCarousel, { UseEmblaCarouselType } from 'embla-carousel-react';
 import {
-  AnimatePresence,
   animate,
   motion,
   useMotionValue,
@@ -78,6 +84,9 @@ const TAP_SCALE = 2;
 
 export function GalleryLightbox() {
   const [isOpen, setIsOpen] = React.useState(false);
+  // Holds the dialog open until the exit springs settle, so it stays modal
+  // while it animates out.
+  const [isPresent, setIsPresent] = React.useState(false);
   const [activeIndex, setActiveIndex] = React.useState(0);
   const pendingIndexRef = React.useRef<number | null>(null);
   const isZoomedRef = React.useRef(false);
@@ -93,6 +102,7 @@ export function GalleryLightbox() {
     pendingIndexRef.current = index;
     setActiveIndex(index);
     setIsOpen(true);
+    setIsPresent(true);
   }
   const next = React.useCallback(() => {
     emblaApi?.scrollNext();
@@ -145,6 +155,10 @@ export function GalleryLightbox() {
     [isOpen, next, prev],
   );
 
+  const controlsAnimate = isOpen
+    ? { opacity: 1, transition: CONTROLS_ENTER }
+    : { opacity: 0, transition: CONTROLS_EXIT };
+
   return (
     <>
       <div className={grid}>
@@ -171,124 +185,109 @@ export function GalleryLightbox() {
           </button>
         ))}
       </div>
-      <DialogPrimitive.Root
-        open={isOpen}
+      <Dialog
+        open={isPresent}
         onOpenChange={(open) => {
           if (!open) {
             setIsOpen(false);
           }
         }}
       >
-        <DialogPrimitive.Portal forceMount>
-          <AnimatePresence>
-            {isOpen && (
-              <DialogPrimitive.Overlay asChild forceMount>
-                <motion.div
-                  key='backdrop'
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0, transition: EXIT_SPRING }}
-                  transition={ENTER_SPRING}
-                  className={backdrop}
-                />
-              </DialogPrimitive.Overlay>
-            )}
-          </AnimatePresence>
+        <DialogBackdrop
+          className={backdrop}
+          render={
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: isOpen ? 1 : 0 }}
+              transition={isOpen ? ENTER_SPRING : EXIT_SPRING}
+            />
+          }
+        />
+        <DialogContent
+          className={content}
+          finalFocus={() => thumbRefs.current[activeIndex]}
+        >
+          <DialogTitle className={srOnly}>Gallery lightbox</DialogTitle>
+          <DialogDescription className={srOnly}>
+            Demo lightbox composing ui-sdk Dialog, Embla, and Motion
+          </DialogDescription>
 
-          <AnimatePresence>
-            {isOpen && (
-              <DialogPrimitive.Content
-                onCloseAutoFocus={(e) => {
-                  e.preventDefault();
-                  thumbRefs.current[activeIndex]?.focus();
-                }}
-                asChild
-                forceMount
-              >
-                <motion.div key='content' initial={false} className={content}>
-                  <DialogPrimitive.Title className={srOnly}>
-                    Gallery lightbox
-                  </DialogPrimitive.Title>
-                  <DialogPrimitive.Description className={srOnly}>
-                    Demo lightbox composing Radix Dialog, Embla, and Motion
-                  </DialogPrimitive.Description>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={controlsAnimate}
+            className={topBar}
+          >
+            <DialogClose className={closeBtn}>close</DialogClose>
+          </motion.div>
 
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1, transition: CONTROLS_ENTER }}
-                    exit={{ opacity: 0, transition: CONTROLS_EXIT }}
-                    className={topBar}
-                  >
-                    <DialogPrimitive.Close className={closeBtn}>
-                      close
-                    </DialogPrimitive.Close>
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.9, y: 60 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, transition: EXIT_SPRING }}
-                    transition={ENTER_SPRING}
-                    className={stage}
-                  >
-                    <div className={viewport} ref={emblaRef}>
-                      <div className={track}>
-                        {SLIDES.map((s, i) => (
-                          <div key={s.id} className={slide}>
-                            <ZoomableSlide
-                              isActive={i === activeIndex}
-                              isZoomedRef={isZoomedRef}
-                            >
-                              <div className={card}>
-                                <Image
-                                  src={s.src}
-                                  alt={s.alt}
-                                  fill
-                                  sizes='100vw'
-                                  priority={i === activeIndex}
-                                  style={{
-                                    objectFit: 'contain',
-                                    userSelect: 'none',
-                                    pointerEvents: 'none',
-                                  }}
-                                  draggable={false}
-                                />
-                              </div>
-                            </ZoomableSlide>
-                          </div>
-                        ))}
-                      </div>
+          {/* The arrows sit beside the animated stage, not in it, so they
+              fade in where they rest instead of riding in with the image. */}
+          <div className={stageFrame}>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 60 }}
+              animate={
+                isOpen
+                  ? { opacity: 1, scale: 1, y: 0, transition: ENTER_SPRING }
+                  : { opacity: 0, transition: EXIT_SPRING }
+              }
+              onAnimationComplete={() => {
+                if (!isOpen) setIsPresent(false);
+              }}
+              className={stage}
+            >
+              <div className={viewport} ref={emblaRef}>
+                <div className={track}>
+                  {SLIDES.map((s, i) => (
+                    <div key={s.id} className={slide}>
+                      <ZoomableSlide
+                        isActive={i === activeIndex}
+                        isZoomedRef={isZoomedRef}
+                      >
+                        <div className={card}>
+                          <Image
+                            src={s.src}
+                            alt={s.alt}
+                            fill
+                            sizes='100vw'
+                            priority={i === activeIndex}
+                            style={{
+                              objectFit: 'contain',
+                              userSelect: 'none',
+                              pointerEvents: 'none',
+                            }}
+                            draggable={false}
+                          />
+                        </div>
+                      </ZoomableSlide>
                     </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
 
-                    <motion.button
-                      type='button'
-                      onClick={prev}
-                      aria-label='Previous'
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1, transition: CONTROLS_ENTER }}
-                      exit={{ opacity: 0, transition: CONTROLS_EXIT }}
-                      className={cx(arrowBtn, arrowLeft)}
-                    >
-                      <ChevronIcon dir='left' />
-                    </motion.button>
-                    <motion.button
-                      type='button'
-                      onClick={next}
-                      aria-label='Next'
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1, transition: CONTROLS_ENTER }}
-                      exit={{ opacity: 0, transition: CONTROLS_EXIT }}
-                      className={cx(arrowBtn, arrowRight)}
-                    >
-                      <ChevronIcon dir='right' />
-                    </motion.button>
-                  </motion.div>
-                </motion.div>
-              </DialogPrimitive.Content>
-            )}
-          </AnimatePresence>
-        </DialogPrimitive.Portal>
-      </DialogPrimitive.Root>
+            <motion.button
+              type='button'
+              onClick={prev}
+              aria-label='Previous'
+              initial={{ opacity: 0 }}
+              animate={controlsAnimate}
+              className={cx(arrowBtn, arrowLeft)}
+            >
+              <ChevronIcon dir='left' />
+            </motion.button>
+            <motion.button
+              type='button'
+              onClick={next}
+              aria-label='Next'
+              initial={{ opacity: 0 }}
+              animate={controlsAnimate}
+              className={cx(arrowBtn, arrowRight)}
+            >
+              <ChevronIcon dir='right' />
+            </motion.button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }
@@ -475,15 +474,30 @@ const backdrop = css({
   zIndex: 50,
 });
 
+// Resets web.css's centered dialog card so the lightbox fills the screen.
 const content = css({
   position: 'fixed',
   inset: 0,
   zIndex: 51,
+  w: 'full',
+  h: 'full',
+  maxW: 'none',
+  maxH: 'none',
+  m: 0,
   padding: 'm',
   display: 'grid',
   gridTemplateColumns: 'minmax(0, 1fr)',
   gridTemplateRows: 'auto minmax(0, 1fr)',
   rowGap: 'm',
+  overflow: 'hidden',
+  border: 'none',
+  rounded: 'none',
+  bg: 'transparent',
+  boxShadow: 'none',
+  color: 'inherit',
+  fontSize: 'inherit',
+  lineHeight: 'inherit',
+  _backdrop: { bg: 'transparent' },
 });
 
 const srOnly = css({ srOnly: true });
@@ -494,6 +508,7 @@ const topBar = css({
 });
 
 const closeBtn = css({
+  h: 'auto',
   fontSize: '1',
   lineHeight: 'tight',
   color: 'text1',
@@ -504,12 +519,19 @@ const closeBtn = css({
   _hover: { color: 'text2' },
 });
 
-const stage = css({
+const stageFrame = css({
   flex: '1 1 0',
   minHeight: 0,
   minWidth: 0,
   display: 'flex',
   position: 'relative',
+});
+
+const stage = css({
+  flex: '1 1 0',
+  minHeight: 0,
+  minWidth: 0,
+  display: 'flex',
 });
 
 const viewport = css({
