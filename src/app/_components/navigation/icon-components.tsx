@@ -6,15 +6,15 @@ export type Theme = 'system' | 'light' | 'dark';
 
 export const ICON_SVG_COMPONENTS = {
   dark: {
-    label: 'dark theme',
-    icon: () => <MoonIcon />,
+    label: 'Dark',
+    icon: MoonIcon,
   },
   system: {
-    label: 'system theme',
-    icon: () => <SystemIcon />,
+    label: 'System',
+    icon: SystemIcon,
   },
   light: {
-    label: 'light theme',
-    icon: () => <SunIcon />,
+    label: 'Light',
+    icon: SunIcon,
   },
 };
