@@ -5,7 +5,6 @@ import { css, cx } from 'ds/css';
 import { linkBox, linkOverlay, stack } from 'ds/patterns';
 import Link from 'next/link';
 import { skeleton } from '../_styles/skeleton';
-import { AspectRatioRoot } from './aspect-ratio';
 import { ProjectImage } from './project-image';
 
 interface ProjectCardProps {
@@ -49,7 +48,7 @@ export const ProjectCard = ({ project, sizes = '100vw' }: ProjectCardProps) => {
               overflow: 'hidden',
             })}
           >
-            <AspectRatioRoot ratio={220 / 275} style={{ position: 'relative' }}>
+            <div className={narrowMediaFrame}>
               <ProjectImage
                 src={featuredMediaNarrow.url}
                 preload={true}
@@ -59,7 +58,7 @@ export const ProjectCard = ({ project, sizes = '100vw' }: ProjectCardProps) => {
                 quality={100}
                 sizes={sizes}
               />
-            </AspectRatioRoot>
+            </div>
           </div>
         </div>
         <div className={css({ px: '3xs' })}>
@@ -100,7 +99,7 @@ export const ProjectCardLoadingUI = () => {
   return (
     <div className={stack({ gap: 's' })}>
       <div className={cx(skeleton({ type: 'card' }), css({ w: 'full' }))}>
-        <AspectRatioRoot ratio={220 / 275} />
+        <div className={narrowMediaFrame} />
       </div>
       <div className={stack({ gap: '3xs' })}>
         <span
@@ -138,3 +137,9 @@ export const ProjectCardLoadingUI = () => {
     </div>
   );
 };
+
+const narrowMediaFrame = css({
+  pos: 'relative',
+  w: 'full',
+  aspectRatio: '220 / 275',
+});
