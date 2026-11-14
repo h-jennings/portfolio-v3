@@ -1,7 +1,7 @@
 ---
 title: Gallery → Lightbox
 description:
-  Compose Radix Dialog, Embla, and Motion into one gallery → lightbox interaction
+  Compose ui-sdk Dialog, Embla, and Motion into one gallery → lightbox interaction
 date: 2026-05-12
 status: published
 preview:
@@ -15,8 +15,8 @@ Embla evaluates the predicate before each drag, and a shared ref flips it off
 the moment the active slide zooms past `scale: 1` — Motion's `onPan` claims the
 gesture instead.
 
-Tap to zoom, drag to pan; release the zoom and Embla takes the drag back. Radix
-Dialog handles the shell.
+Tap to zoom, drag to pan; release the zoom and Embla takes the drag back.
+ui-sdk's Dialog handles the shell, held open until Motion's exit springs settle.
 
 <SourceLink slug='gallery-lightbox' />
 
