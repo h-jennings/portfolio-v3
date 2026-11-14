@@ -1,19 +1,11 @@
 'use client';
 
-import { ThemeProvider } from 'next-themes';
+import { colorScheme } from '@/app/_theme/color-scheme';
+import { Preferences } from '@ui-sdk/react/preferences';
 
 interface ProvidersProps {
   children: React.ReactNode;
 }
 export const Providers = ({ children }: ProvidersProps) => {
-  return (
-    <ThemeProvider
-      disableTransitionOnChange
-      attribute='class'
-      value={{ dark: 'dark-theme', light: 'light-theme' }}
-      defaultTheme='system'
-    >
-      {children}
-    </ThemeProvider>
-  );
+  return <Preferences preferences={[colorScheme]}>{children}</Preferences>;
 };

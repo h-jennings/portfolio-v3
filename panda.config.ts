@@ -50,8 +50,18 @@ export default defineConfig({
   jsxFramework: 'react',
   conditions: {
     extend: {
-      dark: '.dark-theme &',
-      light: '.light-theme &',
+      dark: {
+        '[data-color-scheme=dark] &': '@slot',
+        '@media (prefers-color-scheme: dark)': {
+          '[data-color-scheme=system] &': '@slot',
+        },
+      },
+      light: {
+        '[data-color-scheme=light] &': '@slot',
+        '@media (prefers-color-scheme: light)': {
+          '[data-color-scheme=system] &': '@slot',
+        },
+      },
     },
   },
 });

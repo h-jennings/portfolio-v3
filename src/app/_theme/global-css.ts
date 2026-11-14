@@ -10,6 +10,15 @@ export const globalCss = defineGlobalStyles({
     backgroundColor: 'uiBg',
     color: 'text1',
   },
+  '[data-color-scheme=system]': {
+    colorScheme: 'light dark',
+  },
+  '[data-color-scheme=light]': {
+    colorScheme: 'light',
+  },
+  '[data-color-scheme=dark]': {
+    colorScheme: 'dark',
+  },
   button: {
     cursor: 'pointer',
     transitionDuration: 'default',
@@ -33,11 +42,11 @@ export const globalCss = defineGlobalStyles({
       boxShadow: 'focus',
     },
   },
-  'html.dark-theme [data-theme] span': {
-    color: 'var(--shiki-dark)',
-  },
-  'html.light-theme [data-theme] span': {
+  '[data-theme] span': {
     color: 'var(--shiki-light)',
+    _dark: {
+      color: 'var(--shiki-dark)',
+    },
   },
   '[data-rehype-pretty-code-title]': {
     py: 's',
