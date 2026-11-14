@@ -64,7 +64,7 @@ export const ProseLayoutHeader = ({
           {headline != null && (
             <h1
               className={css({ textStyle: 'heading' })}
-              style={{ textWrap: 'balance' } as React.CSSProperties}
+              style={{ textWrap: 'balance' }}
             >
               {headline}
             </h1>

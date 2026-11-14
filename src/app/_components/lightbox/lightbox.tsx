@@ -75,6 +75,8 @@ export function LightboxProvider({
 
   React.useEffect(() => {
     if (!emblaApi) return;
+    // Sync with Embla's external state once its API is ready.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     onSelect(emblaApi);
     emblaApi.on('reInit', onSelect).on('select', onSelect);
     return () => {
